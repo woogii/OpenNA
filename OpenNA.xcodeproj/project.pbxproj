@@ -1,0 +1,505 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D2964B801C7344D700D5FF5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */; };
+		D2964B821C7344D700D5FF5C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B811C7344D700D5FF5C /* ViewController.swift */; };
+		D2964B851C7344D700D5FF5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2964B831C7344D700D5FF5C /* Main.storyboard */; };
+		D2964B871C7344D700D5FF5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2964B861C7344D700D5FF5C /* Assets.xcassets */; };
+		D2964B8A1C7344D700D5FF5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2964B881C7344D700D5FF5C /* LaunchScreen.storyboard */; };
+		D2964B951C7344D700D5FF5C /* OpenNATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B941C7344D700D5FF5C /* OpenNATests.swift */; };
+		D2964BA01C7344D700D5FF5C /* OpenNAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B9F1C7344D700D5FF5C /* OpenNAUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D2964B911C7344D700D5FF5C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2964B741C7344D700D5FF5C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D2964B7B1C7344D700D5FF5C;
+			remoteInfo = OpenNA;
+		};
+		D2964B9C1C7344D700D5FF5C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2964B741C7344D700D5FF5C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D2964B7B1C7344D700D5FF5C;
+			remoteInfo = OpenNA;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D2964B7C1C7344D700D5FF5C /* OpenNA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenNA.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D2964B811C7344D700D5FF5C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D2964B841C7344D700D5FF5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D2964B861C7344D700D5FF5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D2964B891C7344D700D5FF5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D2964B8B1C7344D700D5FF5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2964B901C7344D700D5FF5C /* OpenNATests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenNATests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2964B941C7344D700D5FF5C /* OpenNATests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenNATests.swift; sourceTree = "<group>"; };
+		D2964B961C7344D700D5FF5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2964B9B1C7344D700D5FF5C /* OpenNAUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenNAUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2964B9F1C7344D700D5FF5C /* OpenNAUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenNAUITests.swift; sourceTree = "<group>"; };
+		D2964BA11C7344D700D5FF5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D2964B791C7344D700D5FF5C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2964B8D1C7344D700D5FF5C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2964B981C7344D700D5FF5C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D2964B731C7344D700D5FF5C = {
+			isa = PBXGroup;
+			children = (
+				D2964B7E1C7344D700D5FF5C /* OpenNA */,
+				D2964B931C7344D700D5FF5C /* OpenNATests */,
+				D2964B9E1C7344D700D5FF5C /* OpenNAUITests */,
+				D2964B7D1C7344D700D5FF5C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D2964B7D1C7344D700D5FF5C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2964B7C1C7344D700D5FF5C /* OpenNA.app */,
+				D2964B901C7344D700D5FF5C /* OpenNATests.xctest */,
+				D2964B9B1C7344D700D5FF5C /* OpenNAUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D2964B7E1C7344D700D5FF5C /* OpenNA */ = {
+			isa = PBXGroup;
+			children = (
+				D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */,
+				D2964B811C7344D700D5FF5C /* ViewController.swift */,
+				D2964B831C7344D700D5FF5C /* Main.storyboard */,
+				D2964B861C7344D700D5FF5C /* Assets.xcassets */,
+				D2964B881C7344D700D5FF5C /* LaunchScreen.storyboard */,
+				D2964B8B1C7344D700D5FF5C /* Info.plist */,
+			);
+			path = OpenNA;
+			sourceTree = "<group>";
+		};
+		D2964B931C7344D700D5FF5C /* OpenNATests */ = {
+			isa = PBXGroup;
+			children = (
+				D2964B941C7344D700D5FF5C /* OpenNATests.swift */,
+				D2964B961C7344D700D5FF5C /* Info.plist */,
+			);
+			path = OpenNATests;
+			sourceTree = "<group>";
+		};
+		D2964B9E1C7344D700D5FF5C /* OpenNAUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D2964B9F1C7344D700D5FF5C /* OpenNAUITests.swift */,
+				D2964BA11C7344D700D5FF5C /* Info.plist */,
+			);
+			path = OpenNAUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D2964B7B1C7344D700D5FF5C /* OpenNA */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D2964BA41C7344D700D5FF5C /* Build configuration list for PBXNativeTarget "OpenNA" */;
+			buildPhases = (
+				D2964B781C7344D700D5FF5C /* Sources */,
+				D2964B791C7344D700D5FF5C /* Frameworks */,
+				D2964B7A1C7344D700D5FF5C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OpenNA;
+			productName = OpenNA;
+			productReference = D2964B7C1C7344D700D5FF5C /* OpenNA.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D2964B8F1C7344D700D5FF5C /* OpenNATests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D2964BA71C7344D700D5FF5C /* Build configuration list for PBXNativeTarget "OpenNATests" */;
+			buildPhases = (
+				D2964B8C1C7344D700D5FF5C /* Sources */,
+				D2964B8D1C7344D700D5FF5C /* Frameworks */,
+				D2964B8E1C7344D700D5FF5C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D2964B921C7344D700D5FF5C /* PBXTargetDependency */,
+			);
+			name = OpenNATests;
+			productName = OpenNATests;
+			productReference = D2964B901C7344D700D5FF5C /* OpenNATests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D2964B9A1C7344D700D5FF5C /* OpenNAUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D2964BAA1C7344D700D5FF5C /* Build configuration list for PBXNativeTarget "OpenNAUITests" */;
+			buildPhases = (
+				D2964B971C7344D700D5FF5C /* Sources */,
+				D2964B981C7344D700D5FF5C /* Frameworks */,
+				D2964B991C7344D700D5FF5C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D2964B9D1C7344D700D5FF5C /* PBXTargetDependency */,
+			);
+			name = OpenNAUITests;
+			productName = OpenNAUITests;
+			productReference = D2964B9B1C7344D700D5FF5C /* OpenNAUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D2964B741C7344D700D5FF5C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0710;
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = wook2;
+				TargetAttributes = {
+					D2964B7B1C7344D700D5FF5C = {
+						CreatedOnToolsVersion = 7.1;
+					};
+					D2964B8F1C7344D700D5FF5C = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = D2964B7B1C7344D700D5FF5C;
+					};
+					D2964B9A1C7344D700D5FF5C = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = D2964B7B1C7344D700D5FF5C;
+					};
+				};
+			};
+			buildConfigurationList = D2964B771C7344D700D5FF5C /* Build configuration list for PBXProject "OpenNA" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D2964B731C7344D700D5FF5C;
+			productRefGroup = D2964B7D1C7344D700D5FF5C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2964B7B1C7344D700D5FF5C /* OpenNA */,
+				D2964B8F1C7344D700D5FF5C /* OpenNATests */,
+				D2964B9A1C7344D700D5FF5C /* OpenNAUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D2964B7A1C7344D700D5FF5C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2964B8A1C7344D700D5FF5C /* LaunchScreen.storyboard in Resources */,
+				D2964B871C7344D700D5FF5C /* Assets.xcassets in Resources */,
+				D2964B851C7344D700D5FF5C /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2964B8E1C7344D700D5FF5C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2964B991C7344D700D5FF5C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D2964B781C7344D700D5FF5C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2964B821C7344D700D5FF5C /* ViewController.swift in Sources */,
+				D2964B801C7344D700D5FF5C /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2964B8C1C7344D700D5FF5C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2964B951C7344D700D5FF5C /* OpenNATests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2964B971C7344D700D5FF5C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2964BA01C7344D700D5FF5C /* OpenNAUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D2964B921C7344D700D5FF5C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D2964B7B1C7344D700D5FF5C /* OpenNA */;
+			targetProxy = D2964B911C7344D700D5FF5C /* PBXContainerItemProxy */;
+		};
+		D2964B9D1C7344D700D5FF5C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D2964B7B1C7344D700D5FF5C /* OpenNA */;
+			targetProxy = D2964B9C1C7344D700D5FF5C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D2964B831C7344D700D5FF5C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D2964B841C7344D700D5FF5C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D2964B881C7344D700D5FF5C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D2964B891C7344D700D5FF5C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D2964BA21C7344D700D5FF5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D2964BA31C7344D700D5FF5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D2964BA51C7344D700D5FF5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = OpenNA/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wook2.OpenNA;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D2964BA61C7344D700D5FF5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = OpenNA/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wook2.OpenNA;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		D2964BA81C7344D700D5FF5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = OpenNATests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wook2.OpenNATests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpenNA.app/OpenNA";
+			};
+			name = Debug;
+		};
+		D2964BA91C7344D700D5FF5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = OpenNATests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wook2.OpenNATests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpenNA.app/OpenNA";
+			};
+			name = Release;
+		};
+		D2964BAB1C7344D700D5FF5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = OpenNAUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wook2.OpenNAUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = OpenNA;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		D2964BAC1C7344D700D5FF5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = OpenNAUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wook2.OpenNAUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = OpenNA;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D2964B771C7344D700D5FF5C /* Build configuration list for PBXProject "OpenNA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D2964BA21C7344D700D5FF5C /* Debug */,
+				D2964BA31C7344D700D5FF5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D2964BA41C7344D700D5FF5C /* Build configuration list for PBXNativeTarget "OpenNA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D2964BA51C7344D700D5FF5C /* Debug */,
+				D2964BA61C7344D700D5FF5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D2964BA71C7344D700D5FF5C /* Build configuration list for PBXNativeTarget "OpenNATests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D2964BA81C7344D700D5FF5C /* Debug */,
+				D2964BA91C7344D700D5FF5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D2964BAA1C7344D700D5FF5C /* Build configuration list for PBXNativeTarget "OpenNAUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D2964BAB1C7344D700D5FF5C /* Debug */,
+				D2964BAC1C7344D700D5FF5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D2964B741C7344D700D5FF5C /* Project object */;
+}
