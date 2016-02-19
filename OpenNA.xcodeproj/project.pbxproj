@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		D2964B801C7344D700D5FF5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */; };
-		D2964B821C7344D700D5FF5C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B811C7344D700D5FF5C /* ViewController.swift */; };
+		D2964B821C7344D700D5FF5C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B811C7344D700D5FF5C /* MainViewController.swift */; };
 		D2964B851C7344D700D5FF5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2964B831C7344D700D5FF5C /* Main.storyboard */; };
 		D2964B871C7344D700D5FF5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2964B861C7344D700D5FF5C /* Assets.xcassets */; };
 		D2964B8A1C7344D700D5FF5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2964B881C7344D700D5FF5C /* LaunchScreen.storyboard */; };
 		D2964B951C7344D700D5FF5C /* OpenNATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B941C7344D700D5FF5C /* OpenNATests.swift */; };
 		D2964BA01C7344D700D5FF5C /* OpenNAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B9F1C7344D700D5FF5C /* OpenNAUITests.swift */; };
+		D2964BEA1C77080400D5FF5C /* assembly.json in Resources */ = {isa = PBXBuildFile; fileRef = D2964BE91C77080400D5FF5C /* assembly.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +37,7 @@
 /* Begin PBXFileReference section */
 		D2964B7C1C7344D700D5FF5C /* OpenNA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenNA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D2964B811C7344D700D5FF5C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D2964B811C7344D700D5FF5C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D2964B841C7344D700D5FF5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D2964B861C7344D700D5FF5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D2964B891C7344D700D5FF5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +48,7 @@
 		D2964B9B1C7344D700D5FF5C /* OpenNAUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenNAUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2964B9F1C7344D700D5FF5C /* OpenNAUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenNAUITests.swift; sourceTree = "<group>"; };
 		D2964BA11C7344D700D5FF5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2964BE91C77080400D5FF5C /* assembly.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = assembly.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,11 +100,9 @@
 			isa = PBXGroup;
 			children = (
 				D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */,
-				D2964B811C7344D700D5FF5C /* ViewController.swift */,
-				D2964B831C7344D700D5FF5C /* Main.storyboard */,
-				D2964B861C7344D700D5FF5C /* Assets.xcassets */,
-				D2964B881C7344D700D5FF5C /* LaunchScreen.storyboard */,
-				D2964B8B1C7344D700D5FF5C /* Info.plist */,
+				D2964B811C7344D700D5FF5C /* MainViewController.swift */,
+				D2964BEC1C775A6400D5FF5C /* Assets */,
+				D2964BEB1C77124E00D5FF5C /* Supporting Files */,
 			);
 			path = OpenNA;
 			sourceTree = "<group>";
@@ -123,6 +123,25 @@
 				D2964BA11C7344D700D5FF5C /* Info.plist */,
 			);
 			path = OpenNAUITests;
+			sourceTree = "<group>";
+		};
+		D2964BEB1C77124E00D5FF5C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D2964B8B1C7344D700D5FF5C /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D2964BEC1C775A6400D5FF5C /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				D2964B861C7344D700D5FF5C /* Assets.xcassets */,
+				D2964BE91C77080400D5FF5C /* assembly.json */,
+				D2964B831C7344D700D5FF5C /* Main.storyboard */,
+				D2964B881C7344D700D5FF5C /* LaunchScreen.storyboard */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -230,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2964B8A1C7344D700D5FF5C /* LaunchScreen.storyboard in Resources */,
+				D2964BEA1C77080400D5FF5C /* assembly.json in Resources */,
 				D2964B871C7344D700D5FF5C /* Assets.xcassets in Resources */,
 				D2964B851C7344D700D5FF5C /* Main.storyboard in Resources */,
 			);
@@ -256,7 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2964B821C7344D700D5FF5C /* ViewController.swift in Sources */,
+				D2964B821C7344D700D5FF5C /* MainViewController.swift in Sources */,
 				D2964B801C7344D700D5FF5C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -482,6 +502,7 @@
 				D2964BA61C7344D700D5FF5C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D2964BA71C7344D700D5FF5C /* Build configuration list for PBXNativeTarget "OpenNATests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +511,7 @@
 				D2964BA91C7344D700D5FF5C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D2964BAA1C7344D700D5FF5C /* Build configuration list for PBXNativeTarget "OpenNAUITests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +520,7 @@
 				D2964BAC1C7344D700D5FF5C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
