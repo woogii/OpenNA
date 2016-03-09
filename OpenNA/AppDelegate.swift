@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import Foundation
+import CoreData
 
 @UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
@@ -16,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        preload()
         return true
     }
 
@@ -41,6 +45,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func preload() {
+       
+        guard let pathForJSONData = NSBundle.mainBundle().pathForResource("assembly", ofType: "json") else{
+            print("There is not a data in your bundle")
+            return
+        }
+        
+        guard let rawAJSONData = NSData(contentsOfFile:pathForJSONData) else {
+            print("Can not get a raw JSON data in \(pathForJSONData)")
+            return
+        }
+        
+        let parsedResult:[[String:AnyObject]]!
+        
+        do {
+            parsedResult = try NSJSONSerialization.JSONObjectWithData(rawAJSONData, options: .AllowFragments) as! [[String:AnyObject]]
+            
+            print(parsedResult.count)
+        
+            for dict in parsedResult {
+                
+                guard let name = dict["name_kr"] as? String else {
+                    print("test")
+                    return
+                }
+                
+                guard let party = dict["party"] as? String else {
+                    
+                    return
+                }
+                
+                guard let url = dict["url"] as? String else {
+                    return
+                }
+                
+                let lawmaker = NSEntityDescription.insertNewObjectForEntityForName("Lawmaker", inManagedObjectContext: sharedContext) as! Lawmaker
+                lawmaker.name = name
+                lawmaker.party = party
+                lawmaker.imageUrl = url
+                
+                do {
+                    try sharedContext.save()
+                } catch {
+                    print(error)
+                }
+            }
+        
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
+                
+       
+    }
 
+    var sharedContext:NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext!
+    }
 }
 
