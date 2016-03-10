@@ -76,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return
                 }
                 
-                guard let url = dict["url"] as? String else {
+                guard let url = dict["photo"] as? String else {
                     return
                 }
                 

@@ -24,9 +24,30 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         
         lawmakers = fetchAllLawmakers()
+
         print(lawmakers.count)
     }
 
+//    func imageLoad() {
+//
+//        let task = NSURLSession.sharedSession().dataTaskWithURL(lawmakers[0].imageUrl){
+//            data,response, error in
+//            
+//            guard let data = data else {
+//                print(error?.description)
+//                return;
+//            }
+//        
+//        let image = UIImage(data: data)
+//        
+//        task.resume()
+//    }
+    
+   
+
+    
+    
+    
     var sharedContext : NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext!
     }
@@ -67,6 +88,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
         
         
@@ -74,16 +96,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         switch segmentedControl.selectedSegmentIndex {
             
             case 0:
-                cell.textLabel!.text = lawmakers[indexPath.row].name
-                cell.detailTextLabel!.text = lawmakers[indexPath.row].party
+                configureCell(cell, atIndexPath: indexPath)
                 break
-            
             case 1:
                 break
-            
             case 2:
                 break
-            
             default:
                 break
         }
@@ -92,6 +110,33 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         
         return cell
+    }
+        
+    func configureCell(cell:UITableViewCell, atIndexPath indexPath:NSIndexPath)
+    {
+        cell.textLabel!.text = lawmakers[indexPath.row].name
+        //cell.detailTextLabel!.text = lawmakers[indexPath.row].party
+        
+        let url = NSURL(string: lawmakers[indexPath.row].imageUrl!)!
+        print(url)
+        let task = NSURLSession.sharedSession().dataTaskWithURL(url){  data,response, error in
+        
+            guard let data = data else {
+                print(error?.description)
+                return
+            }
+            
+            let image = UIImage(data: data)
+            
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                cell.imageView!.image = image
+            }
+            
+        }
+        
+        task.resume()
+
     }
     
     @IBAction func segmentedControlChanged(sender: AnyObject) {
