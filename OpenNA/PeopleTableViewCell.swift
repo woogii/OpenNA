@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-class PeopleTableViewCell : UITableViewCell {
+class PeopleTableViewCell : TaskCancelingTableViewCell {
     @IBOutlet weak var peopleImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var partyLabel: UILabel!

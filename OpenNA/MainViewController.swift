@@ -5,7 +5,6 @@
 //  Created by Hyun on 2016. 2. 16..
 //  Copyright © 2016년 wook2. All rights reserved.
 //
-
 import UIKit
 import Foundation
 import CoreData
@@ -17,7 +16,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var tableView: UITableView!
     
     var lawmakers:[Lawmaker]!
-    let cellIdentifier = "cell"
+    let cellIdentifier = "peopleCell"
     
     override func viewDidLoad() {
         
@@ -28,26 +27,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         print(lawmakers.count)
     }
 
-//    func imageLoad() {
-//
-//        let task = NSURLSession.sharedSession().dataTaskWithURL(lawmakers[0].imageUrl){
-//            data,response, error in
-//            
-//            guard let data = data else {
-//                print(error?.description)
-//                return;
-//            }
-//        
-//        let image = UIImage(data: data)
-//        
-//        task.resume()
-//    }
-    
-   
-
-    
-    
-    
     var sharedContext : NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext!
     }
@@ -89,8 +68,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
-        
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! PeopleTableViewCell
         
         
         switch segmentedControl.selectedSegmentIndex {
@@ -106,42 +84,57 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 break
         }
         
-
-        
-        
         return cell
     }
         
-    func configureCell(cell:UITableViewCell, atIndexPath indexPath:NSIndexPath)
+    func configureCell(cell:PeopleTableViewCell , atIndexPath indexPath:NSIndexPath)
     {
-        cell.textLabel!.text = lawmakers[indexPath.row].name
-        //cell.detailTextLabel!.text = lawmakers[indexPath.row].party
+        cell.nameLabel.text = lawmakers[indexPath.row].name
+        cell.partyLabel.text = lawmakers[indexPath.row].party
         
         let url = NSURL(string: lawmakers[indexPath.row].imageUrl!)!
         print(url)
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url){  data,response, error in
+        let task = taskForImage(url) { data, response, error  in
+            
+            
+            if let data = data {
+                
+                let image = UIImage(data : data)
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    cell.peopleImage!.image = image
+                }
+            }
         
-            guard let data = data else {
-                print(error?.description)
-                return
+        }
+        
+        cell.taskToCancelifCellIsReused = task
+
+    }
+    
+    func taskForImage(url:NSURL, completionHandler : (data :NSData?, response:NSURLResponse?, error:NSError?) ->Void )->NSURLSessionTask
+    {
+        
+        let task = NSURLSession.sharedSession().dataTaskWithURL(url) {   data,response,error in
+            
+            if let error = error  {
+                print("\(error.description)")
+                completionHandler(data: data,response: response, error: error)
             }
-            
-            let image = UIImage(data: data)
-            
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                cell.imageView!.image = image
+            else {
+                completionHandler(data: data,response: response, error: error)
             }
-            
         }
         
         task.resume()
-
+        
+        return task
     }
     
     @IBAction func segmentedControlChanged(sender: AnyObject) {
         tableView.reloadData()
     }
 
+    
 }
 
