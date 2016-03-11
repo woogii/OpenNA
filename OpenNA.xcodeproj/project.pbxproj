@@ -20,6 +20,7 @@
 		D2964B951C7344D700D5FF5C /* OpenNATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B941C7344D700D5FF5C /* OpenNATests.swift */; };
 		D2964BA01C7344D700D5FF5C /* OpenNAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B9F1C7344D700D5FF5C /* OpenNAUITests.swift */; };
 		D2964BEA1C77080400D5FF5C /* assembly.json in Resources */ = {isa = PBXBuildFile; fileRef = D2964BE91C77080400D5FF5C /* assembly.json */; };
+		D29A751E1C92E03F002F06F2 /* PeopleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D29A751D1C92E03F002F06F2 /* PeopleTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		D2964B9F1C7344D700D5FF5C /* OpenNAUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenNAUITests.swift; sourceTree = "<group>"; };
 		D2964BA11C7344D700D5FF5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2964BE91C77080400D5FF5C /* assembly.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = assembly.json; sourceTree = "<group>"; };
+		D29A751D1C92E03F002F06F2 /* PeopleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PeopleTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 				D2678C5D1C904DE90056278F /* CoreDataStackManager.swift */,
 				D2964BEC1C775A6400D5FF5C /* Assets */,
 				D2964BEB1C77124E00D5FF5C /* Supporting Files */,
+				D29A751D1C92E03F002F06F2 /* PeopleTableViewCell.xib */,
 			);
 			path = OpenNA;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				D2964BEA1C77080400D5FF5C /* assembly.json in Resources */,
 				D2964B871C7344D700D5FF5C /* Assets.xcassets in Resources */,
 				D2964B851C7344D700D5FF5C /* Main.storyboard in Resources */,
+				D29A751E1C92E03F002F06F2 /* PeopleTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

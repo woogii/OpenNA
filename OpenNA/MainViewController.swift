@@ -22,6 +22,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         super.viewDidLoad()
         
+        self.tableView.registerNib(UINib(nibName: "PeopleTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
+        
         lawmakers = fetchAllLawmakers()
 
         print(lawmakers.count)
@@ -70,7 +72,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! PeopleTableViewCell
         
-        
+    
         switch segmentedControl.selectedSegmentIndex {
             
             case 0:
@@ -107,9 +109,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         
         }
-        
         cell.taskToCancelifCellIsReused = task
-
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 140
     }
     
     func taskForImage(url:NSURL, completionHandler : (data :NSData?, response:NSURLResponse?, error:NSError?) ->Void )->NSURLSessionTask
