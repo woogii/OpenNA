@@ -47,58 +47,65 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func preload() {
        
-        guard let pathForJSONData = NSBundle.mainBundle().pathForResource("assembly", ofType: "json") else{
-            print("There is not a data in your bundle")
-            return
-        }
+        let ud = NSUserDefaults.standardUserDefaults()
         
-        guard let rawAJSONData = NSData(contentsOfFile:pathForJSONData) else {
-            print("Can not get a raw JSON data in \(pathForJSONData)")
-            return
-        }
-        
-        let parsedResult:[[String:AnyObject]]!
-        
-        do {
-            parsedResult = try NSJSONSerialization.JSONObjectWithData(rawAJSONData, options: .AllowFragments) as! [[String:AnyObject]]
+        if !ud.boolForKey("datExist") {
             
-            print(parsedResult.count)
-        
-            for dict in parsedResult {
-                
-                guard let name = dict["name_kr"] as? String else {
-                    print("test")
-                    return
-                }
-                
-                guard let party = dict["party"] as? String else {
-                    
-                    return
-                }
-                
-                guard let url = dict["photo"] as? String else {
-                    return
-                }
-                
-                let lawmaker = NSEntityDescription.insertNewObjectForEntityForName("Lawmaker", inManagedObjectContext: sharedContext) as! Lawmaker
-                lawmaker.name = name
-                lawmaker.party = party
-                lawmaker.imageUrl = url
-                
-                do {
-                    try sharedContext.save()
-                } catch {
-                    print(error)
-                }
+            guard let pathForJSONData = NSBundle.mainBundle().pathForResource("assembly", ofType: "json") else{
+                print("There is not a data in your bundle")
+                return
             }
+        
+            guard let rawAJSONData = NSData(contentsOfFile:pathForJSONData) else {
+                print("Can not get a raw JSON data in \(pathForJSONData)")
+                return
+            }
+        
+            let parsedResult:[[String:AnyObject]]!
+        
+            do {
+                parsedResult = try NSJSONSerialization.JSONObjectWithData(rawAJSONData, options: .AllowFragments) as! [[String:AnyObject]]
+            
+                print(parsedResult.count)
+        
+                for dict in parsedResult {
+                
+                    guard let name = dict["name_en"] as? String else {
+                        print("test")
+                        return
+                    }
+                
+                    guard let party = dict["party"] as? String else {
+                        return
+                    }
+                
+                    guard let url = dict["photo"] as? String else {
+                        return
+                    }
+                
+                    let lawmaker = NSEntityDescription.insertNewObjectForEntityForName("Lawmaker", inManagedObjectContext: sharedContext) as! Lawmaker
+                    
+                    lawmaker.name = name
+                    lawmaker.party = party
+                    lawmaker.imageUrl = url
+                
+                    do {
+                        try sharedContext.save()
+                        // Set UserDefault as true, which implies data is already exist 
+                        ud.setBool(true, forKey: "dataExist")
+                    } catch {
+                        print(error)
+                    }
+                }
         
             } catch let error as NSError {
                 print(error.localizedDescription)
             }
-                
-       
+        }
+        
     }
 
+  
     var sharedContext:NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext!
     }

@@ -11,12 +11,13 @@ import UIKit
 
 class TaskCancelingTableViewCell : UITableViewCell {
     
-
     var taskToCancelifCellIsReused : NSURLSessionTask? {
         
+        // Property Observer
         didSet {
             
             if let oldtask = oldValue {
+                print("cancel")
                 oldtask.cancel()
             }
             

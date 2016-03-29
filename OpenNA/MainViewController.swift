@@ -12,12 +12,15 @@ import CoreData
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    // MARK : - Property
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     
     var lawmakers:[Lawmaker]!
+
     let cellIdentifier = "peopleCell"
-    
+
+    // MARK : - View Life Cycle
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -29,10 +32,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         print(lawmakers.count)
     }
 
+    // MARK : - CoreData Convenience
     var sharedContext : NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext!
     }
-    
+
+    // MARK : - Data Fetch
     func fetchAllLawmakers()->[Lawmaker]
     {
         let fetchRequest = NSFetchRequest(entityName : "Lawmaker")
@@ -46,6 +51,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    // MARK : - UITableView Delegate
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         var count = 0
@@ -66,27 +72,32 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         return count
     }
+
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 140
+    }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! PeopleTableViewCell
+
         
-    
         switch segmentedControl.selectedSegmentIndex {
             
             case 0:
+                let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! PeopleTableViewCell
                 configureCell(cell, atIndexPath: indexPath)
-                break
+                return cell
             case 1:
-                break
-            case 2:
-                break
+                let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
+                
+                return cell
             default:
-                break
+                let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! PeopleTableViewCell
+                return cell
         }
         
-        return cell
+        
     }
         
     func configureCell(cell:PeopleTableViewCell , atIndexPath indexPath:NSIndexPath)
@@ -95,10 +106,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.partyLabel.text = lawmakers[indexPath.row].party
         
         let url = NSURL(string: lawmakers[indexPath.row].imageUrl!)!
-        print(url)
-        let task = taskForImage(url) { data, response, error  in
+
+        //  The cells in the collection views get reused when you scroll
+        //  So when a completion handler completes, it will set the image on a cell, 
+        //  even if the cell is about to be reused, or is already being reused.
+        
+        //  The table view cells in FavoriteActors cancels their download task when they are reused. Take a look and see if that makes sense.
+        
+        let task = TPPClient.sharedInstance().taskForImage(url) { data, response, error  in
             
-            
+            print("After completion Handler")
             if let data = data {
                 
                 let image = UIImage(data : data)
@@ -109,32 +126,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         
         }
+        print("just above property observer")
         cell.taskToCancelifCellIsReused = task
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 140
-    }
     
-    func taskForImage(url:NSURL, completionHandler : (data :NSData?, response:NSURLResponse?, error:NSError?) ->Void )->NSURLSessionTask
-    {
-        
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url) {   data,response,error in
-            
-            if let error = error  {
-                print("\(error.description)")
-                completionHandler(data: data,response: response, error: error)
-            }
-            else {
-                completionHandler(data: data,response: response, error: error)
-            }
-        }
-        
-        task.resume()
-        
-        return task
-    }
+  
     
+      
     @IBAction func segmentedControlChanged(sender: AnyObject) {
         tableView.reloadData()
     }

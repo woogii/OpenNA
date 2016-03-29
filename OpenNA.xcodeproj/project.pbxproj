@@ -12,6 +12,8 @@
 		D2678C631C9052D80056278F /* Lawmaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2678C621C9052D80056278F /* Lawmaker.swift */; };
 		D2678C651C9173780056278F /* PeopleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2678C641C9173780056278F /* PeopleTableViewCell.swift */; };
 		D2678C671C91797D0056278F /* TaskCancelingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2678C661C91797D0056278F /* TaskCancelingTableViewCell.swift */; };
+		D27451A81CA6BE770024A904 /* TPPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27451A71CA6BE770024A904 /* TPPConstants.swift */; };
+		D27451AA1CA6BE8D0024A904 /* TPPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27451A91CA6BE8D0024A904 /* TPPClient.swift */; };
 		D2964B801C7344D700D5FF5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */; };
 		D2964B821C7344D700D5FF5C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B811C7344D700D5FF5C /* MainViewController.swift */; };
 		D2964B851C7344D700D5FF5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2964B831C7344D700D5FF5C /* Main.storyboard */; };
@@ -46,6 +48,8 @@
 		D2678C621C9052D80056278F /* Lawmaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lawmaker.swift; sourceTree = "<group>"; };
 		D2678C641C9173780056278F /* PeopleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleTableViewCell.swift; sourceTree = "<group>"; };
 		D2678C661C91797D0056278F /* TaskCancelingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCancelingTableViewCell.swift; sourceTree = "<group>"; };
+		D27451A71CA6BE770024A904 /* TPPConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPConstants.swift; sourceTree = "<group>"; };
+		D27451A91CA6BE8D0024A904 /* TPPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPClient.swift; sourceTree = "<group>"; };
 		D2964B7C1C7344D700D5FF5C /* OpenNA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenNA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2964B811C7344D700D5FF5C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -112,11 +116,11 @@
 			isa = PBXGroup;
 			children = (
 				D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */,
-				D2678C5F1C904E740056278F /* Model.xcdatamodeld */,
-				D2678C621C9052D80056278F /* Lawmaker.swift */,
-				D2964B811C7344D700D5FF5C /* MainViewController.swift */,
-				D2678C661C91797D0056278F /* TaskCancelingTableViewCell.swift */,
-				D2678C5D1C904DE90056278F /* CoreDataStackManager.swift */,
+				D2D3F9491CAA54D600D97B23 /* Controller */,
+				D2D3F9481CAA54CC00D97B23 /* View */,
+				D2D3F9471CAA54A200D97B23 /* Model */,
+				D27451A71CA6BE770024A904 /* TPPConstants.swift */,
+				D27451A91CA6BE8D0024A904 /* TPPClient.swift */,
 				D2964BEC1C775A6400D5FF5C /* Assets */,
 				D2964BEB1C77124E00D5FF5C /* Supporting Files */,
 				D29A751D1C92E03F002F06F2 /* PeopleTableViewCell.xib */,
@@ -155,11 +159,37 @@
 			children = (
 				D2964B861C7344D700D5FF5C /* Assets.xcassets */,
 				D2964BE91C77080400D5FF5C /* assembly.json */,
-				D2964B831C7344D700D5FF5C /* Main.storyboard */,
-				D2678C641C9173780056278F /* PeopleTableViewCell.swift */,
 				D2964B881C7344D700D5FF5C /* LaunchScreen.storyboard */,
+				D2964B831C7344D700D5FF5C /* Main.storyboard */,
 			);
 			name = Assets;
+			sourceTree = "<group>";
+		};
+		D2D3F9471CAA54A200D97B23 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D2678C621C9052D80056278F /* Lawmaker.swift */,
+				D2678C5F1C904E740056278F /* Model.xcdatamodeld */,
+				D2678C5D1C904DE90056278F /* CoreDataStackManager.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		D2D3F9481CAA54CC00D97B23 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D2678C641C9173780056278F /* PeopleTableViewCell.swift */,
+				D2678C661C91797D0056278F /* TaskCancelingTableViewCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		D2D3F9491CAA54D600D97B23 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D2964B811C7344D700D5FF5C /* MainViewController.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,7 +330,9 @@
 				D2678C651C9173780056278F /* PeopleTableViewCell.swift in Sources */,
 				D2964B801C7344D700D5FF5C /* AppDelegate.swift in Sources */,
 				D2678C5E1C904DE90056278F /* CoreDataStackManager.swift in Sources */,
+				D27451AA1CA6BE8D0024A904 /* TPPClient.swift in Sources */,
 				D2678C671C91797D0056278F /* TaskCancelingTableViewCell.swift in Sources */,
+				D27451A81CA6BE770024A904 /* TPPConstants.swift in Sources */,
 				D2678C611C904E740056278F /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -442,6 +474,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = OpenNA/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wook2.OpenNA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -453,6 +486,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = OpenNA/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wook2.OpenNA;
 				PRODUCT_NAME = "$(TARGET_NAME)";

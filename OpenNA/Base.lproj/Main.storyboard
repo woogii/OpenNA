@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FJb-eT-8RG">
-                                <rect key="frame" x="10" y="28" width="299" height="29"/>
+                                <rect key="frame" x="10" y="71" width="299" height="29"/>
                                 <segments>
                                     <segment title="People"/>
                                     <segment title="Bill"/>
@@ -30,23 +30,30 @@
                                 </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="reM-se-d1I">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="107" width="320" height="461"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="3jU-mv-bbK"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="5OP-YX-YyA"/>
                                 </connections>
                             </tableView>
+                            <searchBar contentMode="redraw" placeholder="Search for lawmakers,Bills and Parties" translatesAutoresizingMaskIntoConstraints="NO" id="mjK-By-K6Z">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="reM-se-d1I" firstAttribute="top" secondItem="FJb-eT-8RG" secondAttribute="bottom" constant="8" symbolic="YES" id="1yZ-yJ-YbW"/>
-                            <constraint firstItem="FJb-eT-8RG" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="GMn-zK-mY6"/>
-                            <constraint firstAttribute="trailing" secondItem="reM-se-d1I" secondAttribute="trailing" id="f6e-8f-aSS"/>
-                            <constraint firstItem="FJb-eT-8RG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="kGC-M8-U8P"/>
-                            <constraint firstItem="reM-se-d1I" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="mno-bG-mjV"/>
-                            <constraint firstItem="reM-se-d1I" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="rbU-9L-ypT"/>
-                            <constraint firstItem="reM-se-d1I" firstAttribute="centerX" secondItem="FJb-eT-8RG" secondAttribute="centerX" id="yWd-Ez-lHE"/>
+                            <constraint firstAttribute="trailing" secondItem="reM-se-d1I" secondAttribute="trailing" id="1FN-ME-grp"/>
+                            <constraint firstItem="reM-se-d1I" firstAttribute="trailing" secondItem="mjK-By-K6Z" secondAttribute="trailing" id="5nO-4w-CDG"/>
+                            <constraint firstItem="reM-se-d1I" firstAttribute="top" secondItem="FJb-eT-8RG" secondAttribute="bottom" constant="8" symbolic="YES" id="Bkh-ow-0ov"/>
+                            <constraint firstItem="FJb-eT-8RG" firstAttribute="centerX" secondItem="mjK-By-K6Z" secondAttribute="centerX" id="DhF-o0-fHY"/>
+                            <constraint firstItem="reM-se-d1I" firstAttribute="leading" secondItem="mjK-By-K6Z" secondAttribute="leading" id="Dss-8e-GnG"/>
+                            <constraint firstItem="FJb-eT-8RG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="PGa-Js-0qu"/>
+                            <constraint firstItem="reM-se-d1I" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="iwT-T0-Lid"/>
+                            <constraint firstItem="FJb-eT-8RG" firstAttribute="top" secondItem="mjK-By-K6Z" secondAttribute="bottom" constant="7" id="kKb-eX-qUR"/>
+                            <constraint firstItem="mjK-By-K6Z" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="r8C-Hi-ZDx"/>
+                            <constraint firstItem="mjK-By-K6Z" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="wWU-kQ-AZV"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
