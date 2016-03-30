@@ -17,19 +17,29 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var tableView: UITableView!
     
     var lawmakers:[Lawmaker]!
+    var bills:[Bill]!
 
-    let cellIdentifier = "peopleCell"
+    struct cellIdentifier {
+        static let PeopleCell = "peopleTableViewCell"
+        static let BillCell = "billTableViewCell"
+    }
 
     // MARK : - View Life Cycle
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        self.tableView.registerNib(UINib(nibName: "PeopleTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
+        self.tableView.registerNib(UINib(nibName: cellIdentifier.PeopleCell, bundle: nil), forCellReuseIdentifier: cellIdentifier.PeopleCell)
+        
+        self.tableView.registerNib(UINib(nibName: cellIdentifier.BillCell, bundle: nil), forCellReuseIdentifier: cellIdentifier.BillCell)
+
         
         lawmakers = fetchAllLawmakers()
+        
+       
 
         print(lawmakers.count)
+        
     }
 
     // MARK : - CoreData Convenience
@@ -59,9 +69,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         switch segmentedControl.selectedSegmentIndex {
             
             case 0 :
+                print("number of row for lawmaker")
                 count = lawmakers.count
             case 1 :
-                count = 0
+                print("number of row for Bill")
+                count = bills.count
                 break
             case 2 :
                 count = 0
@@ -85,15 +97,21 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         switch segmentedControl.selectedSegmentIndex {
             
             case 0:
-                let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! PeopleTableViewCell
+                print("cell for lawmaker")
+                let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier.PeopleCell, forIndexPath: indexPath) as! PeopleTableViewCell
                 configureCell(cell, atIndexPath: indexPath)
                 return cell
+        
             case 1:
-                let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
-                
+                print("cell for bill")
+                let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier.BillCell, forIndexPath: indexPath) as! BillTableViewCell
+                cell.textLabel!.text = bills[indexPath.row].name
+                cell.imageView!.image = nil
+                //cell.detailTextLabel!.text = bills[indexPath.row].sponsor
                 return cell
+            
             default:
-                let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! PeopleTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier.BillCell, forIndexPath: indexPath) as! BillTableViewCell
                 return cell
         }
         
@@ -115,7 +133,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let task = TPPClient.sharedInstance().taskForImage(url) { data, response, error  in
             
-            print("After completion Handler")
             if let data = data {
                 
                 let image = UIImage(data : data)
@@ -126,16 +143,43 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         
         }
-        print("just above property observer")
+        
         cell.taskToCancelifCellIsReused = task
     }
     
     
-  
-    
-      
+
     @IBAction func segmentedControlChanged(sender: AnyObject) {
-        tableView.reloadData()
+        print("control changed")
+        
+        switch segmentedControl.selectedSegmentIndex {
+            
+        case 0:
+            tableView.reloadData()
+            break
+        case 1:
+            TPPClient.sharedInstance().getBills() { (bills, error) in
+                
+                if let bills = bills {
+
+                    self.bills = bills
+                    
+                    performUIUpdatesOnMain {
+                        self.tableView.reloadData()
+                    }
+
+                } else {
+                    print(error)
+                }
+            }
+            
+            break
+        default:
+            break
+        }
+        
+
+        //tableView.reloadData()
     }
 
     

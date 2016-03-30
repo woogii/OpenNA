@@ -19,7 +19,7 @@ extension TPPClient {
         // MARK: URLs
         static let ApiScheme = "http"
         static let ApiHost = "api.popong.com"
-        static let ApiPath = "/v0.2"
+        static let ApiPath = "/v0.1"
     }
     
     // MARK: TPP Parameter Keys
@@ -53,14 +53,21 @@ extension TPPClient {
         static let StatusCode = "status_code"
         
 
-        // MARK: Movies
-        static let MovieID = "id"
-        static let MovieTitle = "title"
-        static let MoviePosterPath = "poster_path"
-        static let MovieReleaseDate = "release_date"
-        static let MovieReleaseYear = "release_year"
-        static let MovieResults = "results"
+        // MARK: Bill
+        static let BillItems = "items"
+        static let BillSponsor = "sponsor"
+        static let BillDocUrl = "document_url"
+        static let BillProposedDate = "proposed_date"
+        static let BillName = "name"
+        static let BillAssemblyID = "assembly_id"
+        static let BillDecisionDate = "decision_date"
+        static let BillCoSponsors = "cosponsors"
+        static let BillStatus = "status"
+        static let BillID = "id"
+        static let BillSummary = "summary"
+        static let BillKind = "kind"
         
+        static let NextPage = "next_page"
     }
 
 }

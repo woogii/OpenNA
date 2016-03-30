@@ -23,14 +23,38 @@ class TPPClient: NSObject {
         super.init()
     }
     
-    // MARK : GET 
     
-    func taskForGETMethod()->NSURLSessionDataTask{
+    // MARK : Convenience Methods
     
-        /* 1. Set the parameters */
-        let parameters = [ParameterKeys.ApiKey:Constants.ApiKey]
-        let method = Methods.Bill
+    func getBills( completionHandler: (results:[Bill]?, error:NSError?)->Void)  {
         
+        let method = Methods.Bill
+        let parameters = [ParameterKeys.ApiKey:Constants.ApiKey]
+        
+        taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
+            
+            if let error = error  {
+                completionHandler(results:nil, error:error)
+            }
+            else {
+                
+                if let results = requestResult[JSONResponseKeys.BillItems] as? [[String:AnyObject]] {
+                    let bills = Bill.billsFromResults(results)
+                    completionHandler(results: bills, error: nil)
+                } else {
+                    completionHandler(results: nil, error: NSError(domain: "getBills parsing", code : 0,
+                        userInfo:[NSLocalizedDescriptionKey:"Could not parse getBills"]))
+                }
+            }
+
+        }
+    }
+    
+    // MARK : GET
+    
+    func taskForGETMethod(parameters:[String:AnyObject], withPathExtension method:String ,completionHandlerForGet:(requestResult:AnyObject!, error:NSError?)->Void)->NSURLSessionDataTask{
+    
+
         let request = NSMutableURLRequest(URL:constructURL(parameters, withPathExtension:method))
         
         let task = session.dataTaskWithRequest(request) { (data,response, error) in
@@ -53,11 +77,27 @@ class TPPClient: NSObject {
                 displayError("No data was returned by the request")
                 return
             }
+            
+            self.convertDataWithCompletionHandler(data, completionHandlerForConvertData:completionHandlerForGet)
         }
         
         task.resume()
-        
         return task
+    }
+    
+    private func convertDataWithCompletionHandler(data:NSData, completionHandlerForConvertData: (convertedResult:AnyObject!, error:NSError?)->Void) {
+    
+        var parsedResult:AnyObject!
+    
+        do {
+            try parsedResult = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)            
+            completionHandlerForConvertData(convertedResult: parsedResult, error:nil)
+        } catch {
+            let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
+            completionHandlerForConvertData(convertedResult: nil, error: NSError(domain: "convertDataWithCompletionHandler", code: 1, userInfo: userInfo))
+        }
+        
+        completionHandlerForConvertData(convertedResult: parsedResult, error: nil)
     }
     
     func taskForImage(url:NSURL, completionHandler : (data :NSData?, response:NSURLResponse?, error:NSError?) ->Void )->NSURLSessionTask
