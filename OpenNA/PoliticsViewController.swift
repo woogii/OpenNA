@@ -10,18 +10,21 @@ import Foundation
 import CoreData
 
 
-class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PoliticsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     // MARK : - Property
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var lawmakers:[Lawmaker]!
     var bills:[Bill]!
+    var parties:[Party]!
 
     struct cellIdentifier {
-        static let PeopleCell = "peopleTableViewCell"
-        static let BillCell = "billTableViewCell"
+        static let PeopleCell = "PeopleCell"
+        static let BillCell = "BillCell"
+        static let PartyCell = "LogoImageCell"
     }
 
     // MARK : - View Life Cycle
@@ -33,12 +36,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.tableView.registerNib(UINib(nibName: cellIdentifier.BillCell, bundle: nil), forCellReuseIdentifier: cellIdentifier.BillCell)
 
-        
         lawmakers = fetchAllLawmakers()
-        
-       
-
-        print(lawmakers.count)
         
     }
 
@@ -69,10 +67,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         switch segmentedControl.selectedSegmentIndex {
             
             case 0 :
-                print("number of row for lawmaker")
                 count = lawmakers.count
             case 1 :
-                print("number of row for Bill")
                 count = bills.count
                 break
             case 2 :
@@ -92,27 +88,38 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-
-        
         switch segmentedControl.selectedSegmentIndex {
             
             case 0:
-                print("cell for lawmaker")
+                
                 let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier.PeopleCell, forIndexPath: indexPath) as! PeopleTableViewCell
                 configureCell(cell, atIndexPath: indexPath)
                 return cell
         
             case 1:
-                print("cell for bill")
+                
                 let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier.BillCell, forIndexPath: indexPath) as! BillTableViewCell
-                cell.textLabel!.text = bills[indexPath.row].name
-                cell.imageView!.image = nil
-                //cell.detailTextLabel!.text = bills[indexPath.row].sponsor
+                
+                cell.nameLabel.text = bills[indexPath.row].name
+                cell.sponsorLabel.text = bills[indexPath.row].sponsor
+                cell.dateLabel.text = bills[indexPath.row].date
+                cell.statusLabel.text = bills[indexPath.row].status
                 return cell
             
-            default:
-                let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier.BillCell, forIndexPath: indexPath) as! BillTableViewCell
-                return cell
+        default:
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier.BillCell, forIndexPath: indexPath) as! BillTableViewCell
+            
+            cell.nameLabel.text = bills[indexPath.row].name
+            cell.sponsorLabel.text = bills[indexPath.row].sponsor
+            cell.dateLabel.text = bills[indexPath.row].date
+            cell.statusLabel.text = bills[indexPath.row].status
+            return cell
+
+            //default:
+//                let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier.BillCell, forIndexPath: indexPath) as! PartyTableViewCell
+//                return cell
+            
         }
         
         
@@ -131,7 +138,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         //  The table view cells in FavoriteActors cancels their download task when they are reused. Take a look and see if that makes sense.
         
-        let task = TPPClient.sharedInstance().taskForImage(url) { data, response, error  in
+        let task = TPPClient.sharedInstance().taskForGetImage(url) { data, response, error  in
             
             if let data = data {
                 
@@ -150,7 +157,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
 
     @IBAction func segmentedControlChanged(sender: AnyObject) {
-        print("control changed")
         
         switch segmentedControl.selectedSegmentIndex {
             
@@ -178,10 +184,29 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             break
         }
         
+    }    
+}
 
-        //tableView.reloadData()
-    }
-
+// MARK: - PoliticsViewController: UICollectionDelegate, UICollectionViewDataSource
+extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     
+    // MARK : - UICollectionViewDataSource Methods
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier.PartyCell, forIndexPath: indexPath) as! PartyCollectionViewCell
+        
+        configureCollectionCell(cell, atIndexPath: indexPath)
+        
+        return cell
+    }
+    
+    
+    func configureCollectionCell(cell: PartyCollectionViewCell, atIndexPath indexPath : NSIndexPath) {
+        
+        
+    }
 }
 

@@ -29,7 +29,8 @@ class TPPClient: NSObject {
     func getBills( completionHandler: (results:[Bill]?, error:NSError?)->Void)  {
         
         let method = Methods.Bill
-        let parameters = [ParameterKeys.ApiKey:Constants.ApiKey]
+        var parameters = [ParameterKeys.ApiKey:Constants.ApiKey]
+        parameters[ParameterKeys.Sort] = ParameterValues.ProposedDate
         
         taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
             
@@ -47,6 +48,34 @@ class TPPClient: NSObject {
                 }
             }
 
+        }
+    }
+    
+    // default human
+    // http://ko.pokr.kr/static/images/xdefault_profile.jpg.pagespeed.ic.Ny4I6cU4oh.jpg
+    
+    func getParties( completionHandler: (results:[Party]?, error:NSError?)->Void)  {
+        
+        let method = Methods.Party
+        var parameters = [ParameterKeys.ApiKey:Constants.ApiKey]
+        parameters[ParameterKeys.Sort] = ParameterValues.Logo
+        
+        taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
+            
+        if let error = error  {
+            completionHandler(results:nil, error:error)
+        }
+        else {
+            
+            if let results = requestResult[JSONResponseKeys.BillItems] as? [[String:AnyObject]] {
+                let parties = Party.partiesFromResults(results)
+                completionHandler(results: parties, error: nil)
+            } else {
+                completionHandler(results: nil, error: NSError(domain: "getBills parsing", code : 0,
+                        userInfo:[NSLocalizedDescriptionKey:"Could not parse getBills"]))
+                }
+            }
+            
         }
     }
     
@@ -100,7 +129,7 @@ class TPPClient: NSObject {
         completionHandlerForConvertData(convertedResult: parsedResult, error: nil)
     }
     
-    func taskForImage(url:NSURL, completionHandler : (data :NSData?, response:NSURLResponse?, error:NSError?) ->Void )->NSURLSessionTask
+    func taskForGetImage(url:NSURL, completionHandler : (data :NSData?, response:NSURLResponse?, error:NSError?) ->Void )->NSURLSessionTask
     {
         
         let task = NSURLSession.sharedSession().dataTaskWithURL(url) {   data,response,error in
@@ -121,8 +150,6 @@ class TPPClient: NSObject {
     
     
     // MARK: Helpers
-    
-    
     
     // http://api.popong.com/v0.2/bill/?api_key=test
 

@@ -48,9 +48,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func preload() {
        
         let ud = NSUserDefaults.standardUserDefaults()
-        
-        if !ud.boolForKey("datExist") {
+
+        if !ud.boolForKey("dataExist") {
             
+            print("data exist")
             guard let pathForJSONData = NSBundle.mainBundle().pathForResource("assembly", ofType: "json") else{
                 print("There is not a data in your bundle")
                 return

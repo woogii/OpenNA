@@ -9,11 +9,16 @@
 import Foundation
 
 struct Bill {
+    
+    // MARK : Properties
+    
     var name:String?
     var date:String?
     var sponsor:String?
     var status:String?
     var summary:String?
+    
+    // MARK : Initialization
 
     init(dictionary: [String:AnyObject]) {
         
@@ -23,6 +28,8 @@ struct Bill {
         status = (dictionary[TPPClient.JSONResponseKeys.BillStatus] as! String)
         summary = dictionary[TPPClient.JSONResponseKeys.BillSummary] as? String
     }
+
+    // MARK : Helper Method
     
     static func billsFromResults(results:[[String:AnyObject]])->[Bill] {
         var bills = [Bill]()
@@ -33,11 +40,5 @@ struct Bill {
 
         return bills
     }
-    
-   
-        
-    
-    
-    
 
 }

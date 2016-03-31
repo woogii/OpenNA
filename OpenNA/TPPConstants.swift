@@ -25,8 +25,16 @@ extension TPPClient {
     // MARK: TPP Parameter Keys
     struct ParameterKeys {
         static let ApiKey = "api_key"
+        static let Sort = "sort"
+        static let Order = "order"
+        static let Query = "q"
     }
 
+    // MARK: TPP Parameter Values
+    struct ParameterValues {
+        static let ProposedDate = "proposed_date"
+        static let Logo = "logo"
+    }
     
     
     // http://api.popong.com/v0.2/bill/?api_key=test
@@ -52,7 +60,6 @@ extension TPPClient {
         static let StatusMessage = "status_message"
         static let StatusCode = "status_code"
         
-
         // MARK: Bill
         static let BillItems = "items"
         static let BillSponsor = "sponsor"
@@ -66,6 +73,14 @@ extension TPPClient {
         static let BillID = "id"
         static let BillSummary = "summary"
         static let BillKind = "kind"
+        
+        // MARK: Party
+        static let PartyColor = "color"
+        static let PartyLogo = "logo"
+        static let PartySize = "size"
+        static let PartyId = "id"
+        static let PartyName = "name"
+        
         
         static let NextPage = "next_page"
     }

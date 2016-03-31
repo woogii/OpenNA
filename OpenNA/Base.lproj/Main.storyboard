@@ -1,14 +1,94 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mmM-OS-uM8">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
-        <!--Main View Controller-->
+        <!--View Controller-->
+        <scene sceneID="SI2-V6-rAl">
+            <objects>
+                <viewController id="dRe-iX-53K" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Wsg-1Q-tM7"/>
+                        <viewControllerLayoutGuide type="bottom" id="mEm-Vv-N2h"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1dL-xd-t23">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" systemItem="favorites" id="aaN-Bk-uZ9"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YjY-JY-oW0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-624" y="304"/>
+        </scene>
+        <!--News-->
+        <scene sceneID="6TH-y4-RdD">
+            <objects>
+                <viewController id="AU7-1X-Woy" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JF8-Ss-mfY"/>
+                        <viewControllerLayoutGuide type="bottom" id="gut-ZD-98u"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lc5-du-x7R">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="News" image="news" selectedImage="news" id="roh-av-vNr"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fbA-dV-MqK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1485" y="723"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="g2R-Kx-i3E">
+            <objects>
+                <viewController id="YMh-MX-NU8" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="brl-I6-G8f"/>
+                        <viewControllerLayoutGuide type="bottom" id="24H-PO-AHQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lVE-Rm-oAq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" systemItem="search" id="H4d-6p-zn4"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IYU-H8-Tgc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-994" y="782"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="eJl-Kl-R1e">
+            <objects>
+                <tabBarController id="mmM-OS-uM8" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="A2f-pF-Nyj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="276-cw-3Kz" kind="relationship" relationship="viewControllers" id="Q4K-2d-bKy"/>
+                        <segue destination="dRe-iX-53K" kind="relationship" relationship="viewControllers" id="6WD-jp-LqQ"/>
+                        <segue destination="YMh-MX-NU8" kind="relationship" relationship="viewControllers" id="fRV-c1-CFz"/>
+                        <segue destination="AU7-1X-Woy" kind="relationship" relationship="viewControllers" id="wqU-g2-83q"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYe-Ny-xcP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1112" y="50"/>
+        </scene>
+        <!--Politics View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="OpenNA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="PoliticsViewController" customModule="OpenNA" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -17,53 +97,124 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FJb-eT-8RG">
-                                <rect key="frame" x="10" y="71" width="299" height="29"/>
-                                <segments>
-                                    <segment title="People"/>
-                                    <segment title="Bill"/>
-                                    <segment title="Parties"/>
-                                </segments>
-                                <connections>
-                                    <action selector="segmentedControlChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Mqa-3F-L5B"/>
-                                </connections>
-                            </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="reM-se-d1I">
-                                <rect key="frame" x="0.0" y="107" width="320" height="461"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VKl-aI-1yh">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vBj-qK-s9L">
+                                    <size key="itemSize" width="155" height="120"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LogoImageCell" id="aHT-0O-QJV" customClass="PartyCollectionViewCell" customModule="OpenNA" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="155" height="120"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="155" height="120"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9QH-Ub-WXS">
+                                                    <rect key="frame" x="5" y="5" width="145" height="110"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="9QH-Ub-WXS" firstAttribute="leading" secondItem="aHT-0O-QJV" secondAttribute="leading" constant="5" id="1jm-Cn-jXE"/>
+                                            <constraint firstItem="9QH-Ub-WXS" firstAttribute="top" secondItem="aHT-0O-QJV" secondAttribute="top" constant="5" id="92u-gS-Ijs"/>
+                                            <constraint firstAttribute="trailing" secondItem="9QH-Ub-WXS" secondAttribute="trailing" constant="5" id="Y5h-9d-5oJ"/>
+                                            <constraint firstAttribute="bottom" secondItem="9QH-Ub-WXS" secondAttribute="bottom" constant="5" id="gSo-gn-v3t"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="logoImageView" destination="9QH-Ub-WXS" id="WeO-Y4-5ui"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="reM-se-d1I">
+                                <rect key="frame" x="0.0" y="57" width="320" height="455"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="3jU-mv-bbK"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="5OP-YX-YyA"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" placeholder="Search for lawmakers,Bills and Parties" translatesAutoresizingMaskIntoConstraints="NO" id="mjK-By-K6Z">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="reM-se-d1I" secondAttribute="trailing" id="1FN-ME-grp"/>
-                            <constraint firstItem="reM-se-d1I" firstAttribute="trailing" secondItem="mjK-By-K6Z" secondAttribute="trailing" id="5nO-4w-CDG"/>
-                            <constraint firstItem="reM-se-d1I" firstAttribute="top" secondItem="FJb-eT-8RG" secondAttribute="bottom" constant="8" symbolic="YES" id="Bkh-ow-0ov"/>
-                            <constraint firstItem="FJb-eT-8RG" firstAttribute="centerX" secondItem="mjK-By-K6Z" secondAttribute="centerX" id="DhF-o0-fHY"/>
-                            <constraint firstItem="reM-se-d1I" firstAttribute="leading" secondItem="mjK-By-K6Z" secondAttribute="leading" id="Dss-8e-GnG"/>
-                            <constraint firstItem="FJb-eT-8RG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="PGa-Js-0qu"/>
-                            <constraint firstItem="reM-se-d1I" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="iwT-T0-Lid"/>
-                            <constraint firstItem="FJb-eT-8RG" firstAttribute="top" secondItem="mjK-By-K6Z" secondAttribute="bottom" constant="7" id="kKb-eX-qUR"/>
-                            <constraint firstItem="mjK-By-K6Z" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="r8C-Hi-ZDx"/>
-                            <constraint firstItem="mjK-By-K6Z" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="wWU-kQ-AZV"/>
+                            <constraint firstAttribute="trailing" secondItem="VKl-aI-1yh" secondAttribute="trailing" id="Qbw-JO-pZC"/>
+                            <constraint firstItem="VKl-aI-1yh" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="QlX-3C-AvQ"/>
+                            <constraint firstItem="VKl-aI-1yh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="i2J-e6-NyN"/>
+                            <constraint firstItem="VKl-aI-1yh" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="nT3-I7-ph7"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="ViL-fB-cwm">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="FJb-eT-8RG">
+                            <rect key="frame" x="11" y="8" width="299" height="29"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="People"/>
+                                <segment title="Bill"/>
+                                <segment title="Parties"/>
+                            </segments>
+                            <connections>
+                                <action selector="segmentedControlChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Mqa-3F-L5B"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="collectionView" destination="VKl-aI-1yh" id="Bxx-rn-CCl"/>
                         <outlet property="segmentedControl" destination="FJb-eT-8RG" id="5OU-ZA-ebE"/>
                         <outlet property="tableView" destination="reM-se-d1I" id="Bcx-qh-ziO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="229" y="206"/>
+            <point key="canvasLocation" x="-231" y="-334"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Ez5-N4-sbe">
+            <objects>
+                <viewController id="NdC-os-M8D" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TMl-eN-7qf"/>
+                        <viewControllerLayoutGuide type="bottom" id="lsx-Dw-RRd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YRL-jP-WvH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Iof-vO-9Ka" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="149" y="-334"/>
+        </scene>
+        <!--Politics-->
+        <scene sceneID="bmX-Bj-d51">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="276-cw-3Kz" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Politics" image="politics" id="mUk-LU-pcj"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="L46-t3-t61">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Tg1-iE-1Hw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dnG-QV-PVN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-618" y="-334"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="news" width="32" height="32"/>
+        <image name="politics" width="32" height="32"/>
+    </resources>
 </document>
