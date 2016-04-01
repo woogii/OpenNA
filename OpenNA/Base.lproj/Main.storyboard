@@ -100,21 +100,21 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VKl-aI-1yh">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vBj-qK-s9L">
-                                    <size key="itemSize" width="155" height="120"/>
+                                    <size key="itemSize" width="113" height="113"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LogoImageCell" id="aHT-0O-QJV" customClass="PartyCollectionViewCell" customModule="OpenNA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="155" height="120"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="113" height="113"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="155" height="120"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="113" height="113"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9QH-Ub-WXS">
-                                                    <rect key="frame" x="5" y="5" width="145" height="110"/>
+                                                    <rect key="frame" x="5" y="5" width="103" height="103"/>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -132,7 +132,7 @@
                                 </cells>
                             </collectionView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="reM-se-d1I">
-                                <rect key="frame" x="0.0" y="57" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="3jU-mv-bbK"/>
@@ -168,6 +168,7 @@
                         <outlet property="collectionView" destination="VKl-aI-1yh" id="Bxx-rn-CCl"/>
                         <outlet property="segmentedControl" destination="FJb-eT-8RG" id="5OU-ZA-ebE"/>
                         <outlet property="tableView" destination="reM-se-d1I" id="Bcx-qh-ziO"/>
+                        <segue destination="vB9-65-Ig8" kind="show" identifier="showLawMaker" id="TaT-pY-9x9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -175,23 +176,23 @@
             <point key="canvasLocation" x="-231" y="-334"/>
         </scene>
         <!--View Controller-->
-        <scene sceneID="Ez5-N4-sbe">
+        <scene sceneID="AwZ-GW-myj">
             <objects>
-                <viewController id="NdC-os-M8D" sceneMemberID="viewController">
+                <viewController id="vB9-65-Ig8" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="TMl-eN-7qf"/>
-                        <viewControllerLayoutGuide type="bottom" id="lsx-Dw-RRd"/>
+                        <viewControllerLayoutGuide type="top" id="XCY-GN-VTC"/>
+                        <viewControllerLayoutGuide type="bottom" id="bF7-zX-31J"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="YRL-jP-WvH">
+                    <view key="view" contentMode="scaleToFill" id="Lll-Dr-9Up">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Iof-vO-9Ka" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bx0-a2-hbX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="149" y="-334"/>
+            <point key="canvasLocation" x="200" y="-334"/>
         </scene>
         <!--Politics-->
         <scene sceneID="bmX-Bj-d51">

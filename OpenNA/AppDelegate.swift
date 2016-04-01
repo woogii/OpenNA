@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             do {
                 parsedResult = try NSJSONSerialization.JSONObjectWithData(rawAJSONData, options: .AllowFragments) as! [[String:AnyObject]]
             
-                print(parsedResult.count)
+                print(parsedResult)
         
                 for dict in parsedResult {
                 

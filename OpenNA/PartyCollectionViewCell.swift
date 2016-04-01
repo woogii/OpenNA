@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+// MARK : - PartyCollectionViewCell : Custom CollectionViewCell
+
 class PartyCollectionViewCell : UICollectionViewCell {
  
     

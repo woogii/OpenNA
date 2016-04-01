@@ -13,7 +13,7 @@ class TPPClient: NSObject {
     
     // MARK : Properties
     
-    // shared session
+    /* shared session */ 
     var session = NSURLSession.sharedSession()
 
     
@@ -51,9 +51,6 @@ class TPPClient: NSObject {
         }
     }
     
-    // default human
-    // http://ko.pokr.kr/static/images/xdefault_profile.jpg.pagespeed.ic.Ny4I6cU4oh.jpg
-    
     func getParties( completionHandler: (results:[Party]?, error:NSError?)->Void)  {
         
         let method = Methods.Party
@@ -69,6 +66,8 @@ class TPPClient: NSObject {
             
             if let results = requestResult[JSONResponseKeys.BillItems] as? [[String:AnyObject]] {
                 let parties = Party.partiesFromResults(results)
+                
+                
                 completionHandler(results: parties, error: nil)
             } else {
                 completionHandler(results: nil, error: NSError(domain: "getBills parsing", code : 0,
@@ -114,6 +113,8 @@ class TPPClient: NSObject {
         return task
     }
     
+    // Parse JSON data and return a foundation object
+    
     private func convertDataWithCompletionHandler(data:NSData, completionHandlerForConvertData: (convertedResult:AnyObject!, error:NSError?)->Void) {
     
         var parsedResult:AnyObject!
@@ -129,17 +130,17 @@ class TPPClient: NSObject {
         completionHandlerForConvertData(convertedResult: parsedResult, error: nil)
     }
     
-    func taskForGetImage(url:NSURL, completionHandler : (data :NSData?, response:NSURLResponse?, error:NSError?) ->Void )->NSURLSessionTask
+    func taskForGetImage(url:NSURL, completionHandlerForImage : (imageData :NSData?, error:NSError?) ->Void )->NSURLSessionTask
     {
         
         let task = NSURLSession.sharedSession().dataTaskWithURL(url) {   data,response,error in
             
             if let error = error  {
                 print("\(error.description)")
-                completionHandler(data: data,response: response, error: error)
+                completionHandlerForImage(imageData: data, error: error)
             }
             else {
-                completionHandler(data: data,response: response, error: error)
+                completionHandlerForImage(imageData: data, error: error)
             }
         }
         
@@ -159,7 +160,7 @@ class TPPClient: NSObject {
         let components = NSURLComponents()
         components.scheme = TPPClient.Constants.ApiScheme
         components.host = TPPClient.Constants.ApiHost
-        components.path = TPPClient.Constants.ApiPath + Methods.Bill
+        components.path = TPPClient.Constants.ApiPath + (withPathExtension ?? "")
         components.queryItems = [NSURLQueryItem]()
         
         for (key, value) in parameters {

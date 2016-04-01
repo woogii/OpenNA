@@ -9,8 +9,11 @@
 import Foundation
 import UIKit
 
+// MARK : - BillTableViewCell : Custom TableViewCell
 
 class PeopleTableViewCell : TaskCancelingTableViewCell {
+    
+    // MARK : Properties
     @IBOutlet weak var peopleImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var partyLabel: UILabel!
