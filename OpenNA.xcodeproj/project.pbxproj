@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D23772971CAD22E60004A2E2 /* PartyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23772961CAD22E60004A2E2 /* PartyCollectionViewCell.swift */; };
+		D23772991CAFB65E0004A2E2 /* LawmakerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */; };
 		D2678C5E1C904DE90056278F /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2678C5D1C904DE90056278F /* CoreDataStackManager.swift */; };
 		D2678C611C904E740056278F /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D2678C5F1C904E740056278F /* Model.xcdatamodeld */; };
 		D2678C631C9052D80056278F /* Lawmaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2678C621C9052D80056278F /* Lawmaker.swift */; };
@@ -51,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		D23772961CAD22E60004A2E2 /* PartyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyCollectionViewCell.swift; sourceTree = "<group>"; };
+		D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerDetailViewController.swift; sourceTree = "<group>"; };
 		D2678C5D1C904DE90056278F /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 		D2678C601C904E740056278F /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		D2678C621C9052D80056278F /* Lawmaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lawmaker.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */,
+				D2D3F94C1CAAA88F00D97B23 /* GCDBlackBox.swift */,
 				D2D3F9491CAA54D600D97B23 /* Controller */,
 				D2D3F9481CAA54CC00D97B23 /* View */,
 				D2D3F9471CAA54A200D97B23 /* Model */,
@@ -207,7 +210,7 @@
 			children = (
 				D2D3F9541CABD02D00D97B23 /* Network */,
 				D2964B811C7344D700D5FF5C /* PoliticsViewController.swift */,
-				D2D3F94C1CAAA88F00D97B23 /* GCDBlackBox.swift */,
+				D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				D2678C5E1C904DE90056278F /* CoreDataStackManager.swift in Sources */,
 				D27451AA1CA6BE8D0024A904 /* TPPClient.swift in Sources */,
 				D2D3F94B1CAA808200D97B23 /* Bill.swift in Sources */,
+				D23772991CAFB65E0004A2E2 /* LawmakerDetailViewController.swift in Sources */,
 				D2678C671C91797D0056278F /* TaskCancelingTableViewCell.swift in Sources */,
 				D2D3F95A1CAC2D6700D97B23 /* Party.swift in Sources */,
 				D27451A81CA6BE770024A904 /* TPPConstants.swift in Sources */,

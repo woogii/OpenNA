@@ -11,7 +11,7 @@ import CoreData
 
 // MARK: - PoliticsViewController : UIViewController
 
-class PoliticsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PoliticsViewController: UIViewController  {
 
     // MARK : Properties
     
@@ -22,7 +22,19 @@ class PoliticsViewController: UIViewController, UITableViewDelegate, UITableView
     var lawmakers:[Lawmaker]!
     var bills:[Bill]!
     var parties = [Party]()
+    
+    struct LawmakerInfo {
+        var name : String
+        var party : String
+        var imageUrl:String
+    }
+    
+    var lawmakerInfo = [LawmakerInfo]()
 
+    typealias Entry = (Character, [LawmakerInfo])
+
+    var indexInfo = [Entry]()
+    
     struct cellIdentifier {
         static let PeopleCell = "PeopleCell"
         static let BillCell = "BillCell"
@@ -52,18 +64,25 @@ class PoliticsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        configureLayout()
+        lawmakers = fetchAllLawmakers()
         
+        buildTableViewIndex()
+    }
+    
+    func configureLayout() {
+        
+        // Register Nib Objects
         self.tableView.registerNib(UINib(nibName: cellIdentifier.PeopleCell, bundle: nil), forCellReuseIdentifier: cellIdentifier.PeopleCell)
         
         self.tableView.registerNib(UINib(nibName: cellIdentifier.BillCell, bundle: nil), forCellReuseIdentifier: cellIdentifier.BillCell)
-        
+    
+        // Set CollectionView delegate and datasource 
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.hidden = true 
-
-        lawmakers = fetchAllLawmakers()
-    
         
+        // Hide CollectionView when the view display
+        collectionView.hidden = true
     }
 
     // MARK :  CoreData Convenience
@@ -77,6 +96,9 @@ class PoliticsViewController: UIViewController, UITableViewDelegate, UITableView
     func fetchAllLawmakers()->[Lawmaker]
     {
         let fetchRequest = NSFetchRequest(entityName : "Lawmaker")
+        let sectionSortDescriptor = NSSortDescriptor(key:"name", ascending: true)
+        let sortDescriptors = [sectionSortDescriptor]
+        fetchRequest.sortDescriptors = sortDescriptors
         
         do {
             return try sharedContext.executeFetchRequest(fetchRequest) as! [Lawmaker]
@@ -87,87 +109,6 @@ class PoliticsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    // MARK : UITableView Delegate
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        var count = 0
-        
-        switch segmentedControl.selectedSegmentIndex {
-            
-            case 0 :
-                count = lawmakers.count
-                break
-            case 1 :
-                count = bills.count
-                break
-            case 2 :
-                break
-            default:
-                break
-        }
-        
-        return count
-    }
-
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 140
-    }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        
-        if segmentedControl.selectedSegmentIndex == 0 {
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier.PeopleCell, forIndexPath: indexPath) as! PeopleTableViewCell
-            configureCell(cell, atIndexPath: indexPath)
-            return cell
-        }
-        else if segmentedControl.selectedSegmentIndex == 1 {
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier.BillCell, forIndexPath: indexPath) as! BillTableViewCell
-                
-            cell.nameLabel.text = bills[indexPath.row].name
-            cell.sponsorLabel.text = bills[indexPath.row].sponsor
-            cell.dateLabel.text = bills[indexPath.row].date
-            cell.statusLabel.text = bills[indexPath.row].status
-            
-            return cell
-        }
-
-        return UITableViewCell()
-    }
-
-    // MARK : Congifure UITableviewCell
-    
-    func configureCell(cell:PeopleTableViewCell , atIndexPath indexPath:NSIndexPath)
-    {
-        cell.nameLabel.text = lawmakers[indexPath.row].name
-        cell.partyLabel.text = lawmakers[indexPath.row].party
-        
-        let url = NSURL(string: lawmakers[indexPath.row].imageUrl!)!
-
-        
-        let task = TPPClient.sharedInstance().taskForGetImage(url) { data, error  in
-            
-            if let data = data {
-                
-                let image = UIImage(data : data)
-                
-                dispatch_async(dispatch_get_main_queue()) {
-                    cell.peopleImage!.image = image
-                }
-            }
-        
-        }
-        
-        //  The cells in the tableviews get reused when you scroll
-        //  So when a completion handler completes, it will set the image on a cell,
-        //  even if the cell is about to be reused, or is already being reused.
-        //  The table view cells need to cancel their download task when they are reused.
-        cell.taskToCancelifCellIsReused = task
-    }
     
     
     // MARK : Action Method
@@ -200,7 +141,7 @@ class PoliticsViewController: UIViewController, UITableViewDelegate, UITableView
         case 2:
             collectionView.hidden = false
             tableView.hidden = true
-            
+
             TPPClient.sharedInstance().getParties() { (parties, error) in
             
                 if let parties = parties {
@@ -220,8 +161,156 @@ class PoliticsViewController: UIViewController, UITableViewDelegate, UITableView
         default:
             break
         }
+    }
+    
+    // MARK : Helper
+    
+    func buildTableViewIndex() {
         
-    }    
+        // Create lawmakerInfo array
+        lawmakerInfo = lawmakers.map({ (customArray:Lawmaker)->LawmakerInfo in
+            
+            return LawmakerInfo(name: customArray.name!, party: customArray.party!, imageUrl: customArray.imageUrl!)
+        })
+    
+        indexInfo = buildIndex(lawmakerInfo)
+        
+     }
+    
+    func buildIndex(lawmakers: [LawmakerInfo]) -> [Entry] {
+        
+        // Create the array that contains the first letter of lawmaker's name
+        let letters = lawmakers.map {  (lawmaker) -> Character in
+            Character(lawmaker.name.substringToIndex(lawmaker.name.startIndex.advancedBy(1)).uppercaseString)
+        }
+
+        // Delete if there is a duplicate
+        let distictLetters = distinct(letters)
+        
+        // Create the Entry type Array. Entry type represents (Character, [LawmakerInfo]) tuple
+        
+        return distictLetters.map {   (letter) -> Entry in
+            
+            return (letter, lawmakers.filter  {  (lawmaker) -> Bool in
+                
+                    Character(lawmaker.name.substringToIndex(lawmaker.name.startIndex.advancedBy(1)).uppercaseString) == letter
+                  })
+        }
+        
+    }
+
+    func distinct<T:Equatable>(source: [T]) -> [T] {
+        var unique = [T]()
+        for item in source {
+            if !unique.contains(item) {
+                unique.append(item)
+            }
+        }
+        return unique
+    }
+    
+}
+
+extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
+    
+    
+    // MARK : UITableView Delegate
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        var count = 0
+        
+        switch segmentedControl.selectedSegmentIndex {
+            
+        case 0 :
+            count = indexInfo[section].1.count
+            break
+        case 1 :
+            count = bills.count
+            break
+        case 2 :
+            break
+        default:
+            break
+        }
+        
+        return count
+    }
+    
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 140
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        
+        if segmentedControl.selectedSegmentIndex == 0 {
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier.PeopleCell, forIndexPath: indexPath) as! PeopleTableViewCell
+            configureCell(cell, atIndexPath: indexPath)
+            return cell
+        }
+        else if segmentedControl.selectedSegmentIndex == 1 {
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier.BillCell, forIndexPath: indexPath) as! BillTableViewCell
+            
+            cell.nameLabel.text = bills[indexPath.row].name
+            cell.sponsorLabel.text = bills[indexPath.row].sponsor
+            cell.dateLabel.text = bills[indexPath.row].date
+            cell.statusLabel.text = bills[indexPath.row].status
+            
+            return cell
+        }
+        
+        return UITableViewCell()
+    }
+    
+    
+    // MARK : Congifure UITableviewCell
+    
+    func configureCell(cell:PeopleTableViewCell , atIndexPath indexPath:NSIndexPath)
+    {
+        
+        cell.nameLabel.text = indexInfo[indexPath.section].1[indexPath.row].name
+        cell.partyLabel.text = indexInfo[indexPath.section].1[indexPath.row].party
+        let url = NSURL(string: indexInfo[indexPath.section].1[indexPath.row].imageUrl)!
+        
+        let task = TPPClient.sharedInstance().taskForGetImage(url) { data, error  in
+            
+            if let data = data {
+                
+                let image = UIImage(data : data)
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    cell.peopleImage!.image = image
+                }
+            }
+            
+        }
+        
+        //  The cells in the tableviews get reused when you scroll
+        //  So when a completion handler completes, it will set the image on a cell,
+        //  even if the cell is about to be reused, or is already being reused.
+        //  The table view cells need to cancel their download task when they are reused.
+        cell.taskToCancelifCellIsReused = task
+    }
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return segmentedControl.selectedSegmentIndex == 0 ? indexInfo.count : 1
+    }
+
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return segmentedControl.selectedSegmentIndex == 0 ? String(indexInfo[section].0): nil
+    }
+    
+    func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+        return segmentedControl.selectedSegmentIndex == 0 ? indexInfo.map({String($0.0)}):[String]()
+    }
+
+    func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
+        return index 
+    }
 }
 
 // MARK: - PoliticsViewController: UICollectionDelegate, UICollectionViewDataSource
@@ -231,7 +320,7 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
     // MARK : UICollectionViewDataSource Methods
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
+        print(parties.count)
         return parties.count 
     }
     
@@ -247,3 +336,27 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
     
 }
 
+extension String {
+    subscript (i: Int) -> Character {
+        return self[self.startIndex.advancedBy(i)]
+    }
+    
+    var hangul: String {
+        get {
+            let hangle = [
+                ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"],
+                ["ㅏ","ㅐ","ㅑ","ㅒ","ㅓ","ㅔ","ㅕ","ㅖ","ㅗ","ㅘ","ㅙ","ㅚ","ㅛ","ㅜ","ㅝ","ㅞ","ㅟ","ㅠ","ㅡ","ㅢ","ㅣ"],
+                ["","ㄱ","ㄲ","ㄳ","ㄴ","ㄵ","ㄶ","ㄷ","ㄹ","ㄺ","ㄻ","ㄼ","ㄽ","ㄾ","ㄿ","ㅀ","ㅁ","ㅂ","ㅄ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"]
+            ]
+            
+            return characters.reduce("") { result, char in
+                if case let code = Int(String(char).unicodeScalars.reduce(0){$0.0 + $0.1.value}) - 44032
+                    where code > -1 && code < 11172 {
+                        let cho = code / 21 / 28, jung = code % (21 * 28) / 28, jong = code % 28;
+                        return result + hangle[0][cho] + hangle[1][jung] + hangle[2][jong]
+                }
+                return result + String(char)
+            }
+        }
+    }
+}

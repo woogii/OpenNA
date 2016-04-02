@@ -26,11 +26,12 @@ class TPPClient: NSObject {
     
     // MARK : Convenience Methods
     
-    func getBills( completionHandler: (results:[Bill]?, error:NSError?)->Void)  {
+    func getBills(completionHandler: (results:[Bill]?, error:NSError?)->Void)  {
         
         let method = Methods.Bill
         var parameters = [ParameterKeys.ApiKey:Constants.ApiKey]
         parameters[ParameterKeys.Sort] = ParameterValues.ProposedDate
+        parameters[ParameterKeys.PerPage] = ParameterValues.LimitPage
         
         taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
             
@@ -56,6 +57,7 @@ class TPPClient: NSObject {
         let method = Methods.Party
         var parameters = [ParameterKeys.ApiKey:Constants.ApiKey]
         parameters[ParameterKeys.Sort] = ParameterValues.Logo
+        parameters[ParameterKeys.PerPage] = ParameterValues.PartyLimitPage
         
         taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
             

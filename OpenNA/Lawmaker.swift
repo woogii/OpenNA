@@ -8,11 +8,10 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class Lawmaker : NSManagedObject {
-    
     @NSManaged var name:String?
     @NSManaged var imageUrl :String?
     @NSManaged var party:String?
-    
 }

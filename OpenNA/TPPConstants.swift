@@ -26,6 +26,7 @@ extension TPPClient {
     struct ParameterKeys {
         static let ApiKey = "api_key"
         static let Sort = "sort"
+        static let PerPage = "per_page"
         static let Order = "order"
         static let Query = "q"
     }
@@ -34,6 +35,8 @@ extension TPPClient {
     struct ParameterValues {
         static let ProposedDate = "proposed_date"
         static let Logo = "logo"
+        static let LimitPage = "200"
+        static let PartyLimitPage = "150"
     }
     
     
