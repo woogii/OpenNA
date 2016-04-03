@@ -183,4 +183,8 @@ class TPPClient: NSObject {
         return Singleton.sharedInstance
     }
     
+    struct Caches {
+        static let imageCache = ImageCache()
+    }
+    
 }

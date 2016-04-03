@@ -148,17 +148,17 @@
                         <outlet property="collectionView" destination="VKl-aI-1yh" id="Bxx-rn-CCl"/>
                         <outlet property="segmentedControl" destination="FJb-eT-8RG" id="5OU-ZA-ebE"/>
                         <outlet property="tableView" destination="reM-se-d1I" id="Bcx-qh-ziO"/>
-                        <segue destination="vB9-65-Ig8" kind="show" identifier="showLawMaker" id="TaT-pY-9x9"/>
+                        <segue destination="vB9-65-Ig8" kind="show" identifier="showLawmaker" id="TaT-pY-9x9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-231" y="-334"/>
         </scene>
-        <!--View Controller-->
+        <!--Lawmaker Detail View Controller-->
         <scene sceneID="AwZ-GW-myj">
             <objects>
-                <viewController id="vB9-65-Ig8" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="vB9-65-Ig8" customClass="LawmakerDetailViewController" customModule="OpenNA" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XCY-GN-VTC"/>
                         <viewControllerLayoutGuide type="bottom" id="bF7-zX-31J"/>
@@ -178,13 +178,23 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="zfz-NJ-brC"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RPR-zG-lhy">
                                 <rect key="frame" x="0.0" y="301" width="320" height="218"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profileCell" id="1vn-tt-PfH">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1vn-tt-PfH" id="jxu-bu-9YZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -202,6 +212,11 @@
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="nameLabel" destination="6GW-gg-gkK" id="RRU-MQ-8aU"/>
+                        <outlet property="profileImage" destination="kHE-uq-1NE" id="XNc-T6-IPG"/>
+                        <outlet property="tableView" destination="RPR-zG-lhy" id="xdC-Th-QSy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bx0-a2-hbX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

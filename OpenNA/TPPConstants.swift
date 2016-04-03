@@ -62,6 +62,18 @@ extension TPPClient {
         // MARK: General
         static let StatusMessage = "status_message"
         static let StatusCode = "status_code"
+       
+        // MARK : Lawmaker
+        static let name = "name"
+        static let NameEn = "name_en"
+        static let PhotoUrl = "photo"
+        static let imageUrl = "image"
+        static let Address = "address"
+        static let Education = "education"
+        static let Birthday = "birthday"
+        static let Homepage = "homepage"
+        static let Gender = "gender"
+        static let Id = "id"
         
         // MARK: Bill
         static let BillItems = "items"

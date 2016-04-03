@@ -14,4 +14,22 @@ class Lawmaker : NSManagedObject {
     @NSManaged var name:String?
     @NSManaged var imageUrl :String?
     @NSManaged var party:String?
+
+    var pinnedImage: UIImage? {
+        
+        get {
+            let url = NSURL(fileURLWithPath: imageUrl!)
+            let fileName = url.lastPathComponent
+            return TPPClient.Caches.imageCache.imageWithIdentifier(fileName!)
+            
+        }
+        
+        set {
+            let url = NSURL(fileURLWithPath: imageUrl!)
+            let fileName = url.lastPathComponent
+            TPPClient.Caches.imageCache.storeImage(newValue, withIdentifier: fileName!)
+            
+        }
+    }
+
 }

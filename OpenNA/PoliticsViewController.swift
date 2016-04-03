@@ -45,7 +45,6 @@ class PoliticsViewController: UIViewController  {
     
     override func viewDidLayoutSubviews() {
         
-        print("ViewDidLayoutSubviews")
         super.viewDidLayoutSubviews()
         
         // Lay out the collection view so that cells take up 1/3 of the width,
@@ -65,10 +64,14 @@ class PoliticsViewController: UIViewController  {
         
         super.viewDidLoad()
         configureLayout()
+        
         lawmakers = fetchAllLawmakers()
         
         buildTableViewIndex()
     }
+    
+    
+
     
     func configureLayout() {
         
@@ -108,8 +111,6 @@ class PoliticsViewController: UIViewController  {
             return [Lawmaker]()
         }
     }
-    
-    
     
     // MARK : Action Method
     
@@ -179,9 +180,9 @@ class PoliticsViewController: UIViewController  {
     
     func buildIndex(lawmakers: [LawmakerInfo]) -> [Entry] {
         
-        // Create the array that contains the first letter of lawmaker's name
+        // Get the first korean character 
         let letters = lawmakers.map {  (lawmaker) -> Character in
-            Character(lawmaker.name.substringToIndex(lawmaker.name.startIndex.advancedBy(1)).uppercaseString)
+            lawmaker.name.hangul[0]
         }
 
         // Delete if there is a duplicate
@@ -192,9 +193,8 @@ class PoliticsViewController: UIViewController  {
         return distictLetters.map {   (letter) -> Entry in
             
             return (letter, lawmakers.filter  {  (lawmaker) -> Bool in
-                
-                    Character(lawmaker.name.substringToIndex(lawmaker.name.startIndex.advancedBy(1)).uppercaseString) == letter
-                  })
+                        lawmaker.name.hangul[0] == letter
+            })
         }
         
     }
@@ -214,7 +214,7 @@ class PoliticsViewController: UIViewController  {
 extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
     
     
-    // MARK : UITableView Delegate
+    // MARK : UITableView DataSource Methods
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -236,14 +236,24 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         
         return count
     }
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return segmentedControl.selectedSegmentIndex == 0 ? indexInfo.count : 1
+    }
+
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return segmentedControl.selectedSegmentIndex == 0 ? String(indexInfo[section].0): nil
+    }
     
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 140
+    func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+        return segmentedControl.selectedSegmentIndex == 0 ? indexInfo.map({String($0.0)}):[String]()
+    }
+
+    func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
+        return index 
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         
         if segmentedControl.selectedSegmentIndex == 0 {
             
@@ -265,8 +275,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         
         return UITableViewCell()
     }
-    
-    
+
     // MARK : Congifure UITableviewCell
     
     func configureCell(cell:PeopleTableViewCell , atIndexPath indexPath:NSIndexPath)
@@ -274,43 +283,74 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         
         cell.nameLabel.text = indexInfo[indexPath.section].1[indexPath.row].name
         cell.partyLabel.text = indexInfo[indexPath.section].1[indexPath.row].party
-        let url = NSURL(string: indexInfo[indexPath.section].1[indexPath.row].imageUrl)!
+        let urlString:String? = indexInfo[indexPath.section].1[indexPath.row].imageUrl
+        let url = NSURL(string: urlString!)!
         
-        let task = TPPClient.sharedInstance().taskForGetImage(url) { data, error  in
-            
-            if let data = data {
-                
-                let image = UIImage(data : data)
-                
-                dispatch_async(dispatch_get_main_queue()) {
-                    cell.peopleImage!.image = image
-                }
-            }
-            
+        /*
+         Fetch a lawmaker by using a given imageUrl string to check whether an image is cached
+           If an image is not cahced, httprequest function is invoked to download an image
+        */
+        let fetchRequest = NSFetchRequest(entityName : "Lawmaker")
+        let predicate = NSPredicate(format: "imageUrl=%@", urlString!)
+        fetchRequest.predicate = predicate
+        // In order to fetch a single object
+        fetchRequest.fetchLimit = 1
+    
+        var fetchedResults:[Lawmaker]!
+        let searchedLawmaker:Lawmaker!
+        
+        do {
+            fetchedResults =  try sharedContext.executeFetchRequest(fetchRequest) as! [Lawmaker]
+        } catch let error as NSError {
+            print("\(error.description)")
         }
+        // Get a single fetched object
+        searchedLawmaker = fetchedResults.first
         
-        //  The cells in the tableviews get reused when you scroll
-        //  So when a completion handler completes, it will set the image on a cell,
-        //  even if the cell is about to be reused, or is already being reused.
-        //  The table view cells need to cancel their download task when they are reused.
-        cell.taskToCancelifCellIsReused = task
-    }
+        var pinnedImage:UIImage?
+        cell.imageView!.image = nil
+        
+        if  searchedLawmaker.pinnedImage != nil {
+            print("images exist")
+            pinnedImage = searchedLawmaker.pinnedImage
+        }
+        else {
+        
+            let task = TPPClient.sharedInstance().taskForGetImage(url) { data, error  in
+            
+                if let data = data {
+                
+                    let image = UIImage(data : data)
+                
+                    dispatch_async(dispatch_get_main_queue()) {
+                        searchedLawmaker.pinnedImage = image
+                        cell.peopleImage!.image = image
+                    }
+                }
+            
+            }
+            //  The cells in the tableviews get reused when you scroll
+            //  So when a completion handler completes, it will set the image on a cell,
+            //  even if the cell is about to be reused, or is already being reused.
+            //  The table view cells need to cancel their download task when they are reused.
+            cell.taskToCancelifCellIsReused = task
+        }
+       
+        cell.peopleImage!.image = pinnedImage
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return segmentedControl.selectedSegmentIndex == 0 ? indexInfo.count : 1
-    }
-
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return segmentedControl.selectedSegmentIndex == 0 ? String(indexInfo[section].0): nil
     }
     
-    func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
-        return segmentedControl.selectedSegmentIndex == 0 ? indexInfo.map({String($0.0)}):[String]()
+    // MARK : UITableView Delegate Method
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 140
+    }
+    
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        let controller = storyboard?.instantiateViewControllerWithIdentifier("showLawmaker") as! LawmakerDetailViewController
+        
+        navigationController?.pushViewController(controller, animated: true)
     }
 
-    func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-        return index 
-    }
 }
 
 // MARK: - PoliticsViewController: UICollectionDelegate, UICollectionViewDataSource
@@ -335,6 +375,8 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
     }
     
 }
+
+// Copyright © 2016년 minsone : http://minsone.github.io/mac/ios/linear-hangul-in-objective-c-swift
 
 extension String {
     subscript (i: Int) -> Character {

@@ -46,9 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func preload() {
-       
+        print("preload")
         let ud = NSUserDefaults.standardUserDefaults()
-
+        
         if !ud.boolForKey("dataExist") {
             
             print("data exist")
@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
                 for dict in parsedResult {
                 
-                    guard let name = dict["name_en"] as? String else {
+                    guard let name = dict["name_kr"] as? String else {
                         return
                     }
                 
