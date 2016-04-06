@@ -181,21 +181,33 @@ class PoliticsViewController: UIViewController  {
     func buildIndex(lawmakers: [LawmakerInfo]) -> [Entry] {
         
         // Get the first korean character 
+        // let letters = lawmakers.map {  (lawmaker) -> Character in
+        //    lawmaker.name.hangul[0]
+        // }
+        
+        // Create the array that contains the first letter of lawmaker's name
         let letters = lawmakers.map {  (lawmaker) -> Character in
-            lawmaker.name.hangul[0]
+            Character(lawmaker.name.substringToIndex(lawmaker.name.startIndex.advancedBy(1)).uppercaseString)
         }
 
         // Delete if there is a duplicate
         let distictLetters = distinct(letters)
         
         // Create the Entry type Array. Entry type represents (Character, [LawmakerInfo]) tuple
-        
         return distictLetters.map {   (letter) -> Entry in
             
             return (letter, lawmakers.filter  {  (lawmaker) -> Bool in
-                        lawmaker.name.hangul[0] == letter
+            
+                Character(lawmaker.name.substringToIndex(lawmaker.name.startIndex.advancedBy(1)).uppercaseString) == letter
             })
         }
+        
+        //return distictLetters.map {   (letter) -> Entry in
+
+        //   return (letter, lawmakers.filter  {  (lawmaker) -> Bool in
+        //                lawmaker.name.hangul[0] == letter
+        //    })
+        //}
         
     }
 

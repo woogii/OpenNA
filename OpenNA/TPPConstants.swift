@@ -29,6 +29,7 @@ extension TPPClient {
         static let PerPage = "per_page"
         static let Order = "order"
         static let Query = "q"
+        static let QueryString = "s"
     }
 
     // MARK: TPP Parameter Values

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D235C3301CB1068700704A90 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D235C32F1CB1068700704A90 /* ImageCache.swift */; };
+		D235C3321CB4090300704A90 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D235C3311CB4090300704A90 /* SearchViewController.swift */; };
 		D23772971CAD22E60004A2E2 /* PartyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23772961CAD22E60004A2E2 /* PartyCollectionViewCell.swift */; };
 		D23772991CAFB65E0004A2E2 /* LawmakerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */; };
 		D2678C5E1C904DE90056278F /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2678C5D1C904DE90056278F /* CoreDataStackManager.swift */; };
@@ -53,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		D235C32F1CB1068700704A90 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		D235C3311CB4090300704A90 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		D23772961CAD22E60004A2E2 /* PartyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyCollectionViewCell.swift; sourceTree = "<group>"; };
 		D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerDetailViewController.swift; sourceTree = "<group>"; };
 		D2678C5D1C904DE90056278F /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				D2D3F9541CABD02D00D97B23 /* Network */,
 				D2964B811C7344D700D5FF5C /* PoliticsViewController.swift */,
 				D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */,
+				D235C3311CB4090300704A90 /* SearchViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				D2964B821C7344D700D5FF5C /* PoliticsViewController.swift in Sources */,
 				D2678C631C9052D80056278F /* Lawmaker.swift in Sources */,
 				D235C3301CB1068700704A90 /* ImageCache.swift in Sources */,
+				D235C3321CB4090300704A90 /* SearchViewController.swift in Sources */,
 				D2678C651C9173780056278F /* PeopleTableViewCell.swift in Sources */,
 				D2964B801C7344D700D5FF5C /* AppDelegate.swift in Sources */,
 				D2D3F9531CABCE4F00D97B23 /* BillTableViewCell.swift in Sources */,

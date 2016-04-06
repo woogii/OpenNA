@@ -36,7 +36,33 @@
                     <view key="view" contentMode="scaleToFill" id="lVE-Rm-oAq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="er4-yI-cWj">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="YMh-MX-NU8" id="Bcz-Qz-Wk1"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fgh-Od-fni">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="YMh-MX-NU8" id="KKO-lk-d3N"/>
+                                    <outlet property="delegate" destination="YMh-MX-NU8" id="z9x-7v-aee"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="er4-yI-cWj" firstAttribute="leading" secondItem="fgh-Od-fni" secondAttribute="leading" id="9NG-4a-yyK"/>
+                            <constraint firstItem="fgh-Od-fni" firstAttribute="top" secondItem="er4-yI-cWj" secondAttribute="bottom" id="Y8w-gp-Y8h"/>
+                            <constraint firstItem="fgh-Od-fni" firstAttribute="leading" secondItem="lVE-Rm-oAq" secondAttribute="leading" id="poR-SQ-QF6"/>
+                            <constraint firstItem="er4-yI-cWj" firstAttribute="top" secondItem="brl-I6-G8f" secondAttribute="bottom" id="t7c-Ci-RgJ"/>
+                            <constraint firstItem="fgh-Od-fni" firstAttribute="trailing" secondItem="er4-yI-cWj" secondAttribute="trailing" id="tGi-65-mgz"/>
+                            <constraint firstAttribute="trailing" secondItem="fgh-Od-fni" secondAttribute="trailing" id="xqf-c5-sfD"/>
+                            <constraint firstItem="fgh-Od-fni" firstAttribute="bottom" secondItem="24H-PO-AHQ" secondAttribute="top" id="xsy-on-Uuc"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="search" id="H4d-6p-zn4"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

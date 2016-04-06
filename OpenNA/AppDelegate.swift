@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
                 for dict in parsedResult {
                 
-                    guard let name = dict["name_kr"] as? String else {
+                    guard let name = dict["name_en"] as? String else {
                         return
                     }
                 

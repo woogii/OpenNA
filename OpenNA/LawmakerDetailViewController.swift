@@ -9,11 +9,16 @@
 import Foundation
 import UIKit
 
+// MARK: - LawmakerDetailViewController : UIViewController
+
 class LawmakerDetailViewController: UIViewController {
     
+    // MARK : Properties
+
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     
+    // MARK : View Life Cycle
     override func viewDidLoad() {
         
         super.viewDidLoad()
