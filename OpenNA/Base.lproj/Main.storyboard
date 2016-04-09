@@ -25,10 +25,10 @@
             </objects>
             <point key="canvasLocation" x="-624" y="304"/>
         </scene>
-        <!--View Controller-->
+        <!--Search View Controller-->
         <scene sceneID="g2R-Kx-i3E">
             <objects>
-                <viewController id="YMh-MX-NU8" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="YMh-MX-NU8" customClass="SearchViewController" customModule="OpenNA" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="brl-I6-G8f"/>
                         <viewControllerLayoutGuide type="bottom" id="24H-PO-AHQ"/>
@@ -47,6 +47,16 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fgh-Od-fni">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="searchResult" id="dNI-Wb-2b8">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dNI-Wb-2b8" id="38J-sk-590">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="YMh-MX-NU8" id="KKO-lk-d3N"/>
                                     <outlet property="delegate" destination="YMh-MX-NU8" id="z9x-7v-aee"/>
@@ -66,6 +76,10 @@
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="search" id="H4d-6p-zn4"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="searchBar" destination="er4-yI-cWj" id="OQ1-dL-6l8"/>
+                        <outlet property="tableView" destination="fgh-Od-fni" id="8Ue-S1-LN4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IYU-H8-Tgc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

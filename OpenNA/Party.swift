@@ -30,7 +30,6 @@ struct Party {
         let imageData = NSData(contentsOfURL: url)
         
         guard let image = imageData else {
-            print("in gurad")
             let defaultImage = UIImage(named:"noImage")
             
             thumbnail = textToImage(name, inImage: defaultImage!, atPoint: CGPointMake(10,60))

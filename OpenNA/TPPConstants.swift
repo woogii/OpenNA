@@ -29,7 +29,7 @@ extension TPPClient {
         static let PerPage = "per_page"
         static let Order = "order"
         static let Query = "q"
-        static let QueryString = "s"
+        static let SponsorSearch = "s"
     }
 
     // MARK: TPP Parameter Values
@@ -51,7 +51,6 @@ extension TPPClient {
         static let Party = "/party"
         static let Statement = "/statement"
         
-        
         // MARK: Search
         static let Search = "/search"
         
@@ -65,6 +64,7 @@ extension TPPClient {
         static let StatusCode = "status_code"
        
         // MARK : Lawmaker
+        static let LawmakerItems = "items"
         static let name = "name"
         static let NameEn = "name_en"
         static let PhotoUrl = "photo"

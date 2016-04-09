@@ -61,26 +61,105 @@ class TPPClient: NSObject {
         
         taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
             
-        if let error = error  {
-            completionHandler(results:nil, error:error)
-        }
-        else {
+            if let error = error  {
+                completionHandler(results:nil, error:error)
+            }
+            else {
             
-            if let results = requestResult[JSONResponseKeys.BillItems] as? [[String:AnyObject]] {
-                let parties = Party.partiesFromResults(results)
+                if let results = requestResult[JSONResponseKeys.BillItems] as? [[String:AnyObject]] {
+                    let parties = Party.partiesFromResults(results)
                 
-                
-                completionHandler(results: parties, error: nil)
-            } else {
-                completionHandler(results: nil, error: NSError(domain: "getBills parsing", code : 0,
-                        userInfo:[NSLocalizedDescriptionKey:"Could not parse getBills"]))
+                    completionHandler(results: parties, error: nil)
+                } else {
+                    completionHandler(results: nil, error: NSError(domain: "getBills parsing", code : 0,
+                    userInfo:[NSLocalizedDescriptionKey:"Could not parse getBills"]))
                 }
             }
             
         }
     }
     
+    func searchPeople( searchKeyword: String, completionHandler: (results:[AnyObject]?, error:NSError?)->Void) {
+        
+        // curl "http://api.popong.com/v0.1/person/search?q=박&api_key=test"
+        // curl "http://api.popong.com/v0.1/bill/search?q=데이터&s=김영환&api_key=test"
+        // curl "http://api.popong.com/v0.1/party/search?q=통합&api_key=test"
+        
+        
+        let method = Methods.Person
+        var parameters = [ParameterKeys.ApiKey:Constants.ApiKey]
+        parameters[ParameterKeys.Query] = searchKeyword
+        
+        taskForGETMethod( parameters, withPathExtension: method) { (requestResult, error) in
+            
+            if let error = error {
+                completionHandler(results:nil, error:error)
+            }
+            else {
+                
+                if let results = requestResult[JSONResponseKeys.LawmakerItems] as? [[String:AnyObject]] {
+                    completionHandler(results: results, error: nil)
+                } else {
+                    completionHandler(results:  nil, error:NSError(domain: "search people", code: 0,
+                        userInfo: [NSLocalizedDescriptionKey:"Could not parse results of searchPeople"]))
+                }
+            }
+        }
+    }
     
+    func searchBills( searchKeyword: String, completionHandler:(results:[Bill]?, error:NSError?)->Void) {
+        
+        let method = Methods.Bill
+        var parameters = [ParameterKeys.ApiKey:Constants.ApiKey]
+        parameters[ParameterKeys.Query] = searchKeyword
+        
+        taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
+            
+            if let error = error  {
+                completionHandler(results:nil, error:error)
+            }
+            else {
+                
+                if let results = requestResult[JSONResponseKeys.BillItems] as? [[String:AnyObject]] {
+                    let bills = Bill.billsFromResults(results)
+                    completionHandler(results: bills, error: nil)
+                } else {
+                    completionHandler(results: nil, error: NSError(domain: "getBills parsing", code : 0,
+                        userInfo:[NSLocalizedDescriptionKey:"Could not parse getBills"]))
+                }
+            }
+            
+        }
+
+    }
+
+    func searchParties( searchKeyword: String, completionHandler:(results:[Party]?, error:NSError?)->Void) {
+        
+        let method = Methods.Party
+        var parameters = [ParameterKeys.ApiKey:Constants.ApiKey]
+        parameters[ParameterKeys.Query] = searchKeyword
+
+        
+        taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
+            
+            if let error = error  {
+                completionHandler(results:nil, error:error)
+            }
+            else {
+                
+                if let results = requestResult[JSONResponseKeys.BillItems] as? [[String:AnyObject]] {
+                    let parties = Party.partiesFromResults(results)
+                    
+                    completionHandler(results: parties, error: nil)
+                } else {
+                    completionHandler(results: nil, error: NSError(domain: "getBills parsing", code : 0,
+                        userInfo:[NSLocalizedDescriptionKey:"Could not parse getBills"]))
+                }
+            }
+            
+        }
+
+    }
     
     // MARK : GET
     
@@ -172,7 +251,7 @@ class TPPClient: NSObject {
             let queryItem = NSURLQueryItem(name: key, value: "\(value)")
             components.queryItems!.append(queryItem)
         }
-        
+        print(components)
         return components.URL!
     }
     
