@@ -36,7 +36,7 @@ class PoliticsViewController: UIViewController  {
     var indexInfo = [Entry]()
     
     struct cellIdentifier {
-        static let PeopleCell = "PeopleCell"
+        static let PeopleCell = "LawmakerCell"
         static let BillCell = "BillCell"
         static let PartyCell = "LogoImageCell"
     }
@@ -269,7 +269,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         
         if segmentedControl.selectedSegmentIndex == 0 {
             
-            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier.PeopleCell, forIndexPath: indexPath) as! PeopleTableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier.PeopleCell, forIndexPath: indexPath) as! LawmakerTableViewCell
             configureCell(cell, atIndexPath: indexPath)
             return cell
         }
@@ -290,7 +290,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
 
     // MARK : Congifure UITableviewCell
     
-    func configureCell(cell:PeopleTableViewCell , atIndexPath indexPath:NSIndexPath)
+    func configureCell(cell:LawmakerTableViewCell , atIndexPath indexPath:NSIndexPath)
     {
         
         cell.nameLabel.text = indexInfo[indexPath.section].1[indexPath.row].name
@@ -336,7 +336,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
                 
                     dispatch_async(dispatch_get_main_queue()) {
                         searchedLawmaker.pinnedImage = image
-                        cell.peopleImage!.image = image
+                        cell.profileImageView!.image = image
                     }
                 }
             
@@ -348,7 +348,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
             cell.taskToCancelifCellIsReused = task
         }
        
-        cell.peopleImage!.image = pinnedImage
+        cell.profileImageView!.image = pinnedImage
 
     }
     

@@ -20,6 +20,7 @@ class SearchViewController: UIViewController {
     
     let cellIdentifier = "searchResult"
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

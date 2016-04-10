@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PeopleCell" rowHeight="140" id="a1N-SM-shH" customClass="PeopleTableViewCell" customModule="OpenNA" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LawmakerCell" rowHeight="140" id="a1N-SM-shH" customClass="LawmakerTableViewCell" customModule="OpenNA" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="329" height="136"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a1N-SM-shH" id="xj4-cl-tcX">
@@ -26,7 +26,7 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eY2-Ux-dKr">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eY2-Ux-dKr" userLabel="profileImageView">
                         <rect key="frame" x="8" y="8" width="118" height="119"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="118" id="7qB-DW-7js"/>
@@ -47,7 +47,7 @@
             <connections>
                 <outlet property="nameLabel" destination="rN3-HA-Ol7" id="213-SR-O6j"/>
                 <outlet property="partyLabel" destination="J0I-Zm-8Km" id="waI-MK-h3s"/>
-                <outlet property="peopleImage" destination="eY2-Ux-dKr" id="sgh-Hv-CXa"/>
+                <outlet property="profileImageView" destination="eY2-Ux-dKr" id="fv5-Yw-lZq"/>
             </connections>
             <point key="canvasLocation" x="294.5" y="154"/>
         </tableViewCell>
