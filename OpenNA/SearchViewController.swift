@@ -8,17 +8,32 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class SearchViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var resultsTableView: UITableView!
+   
     var lawmakers = [Lawmaker]()
     var bills = [Bill]()
-    var party = [Party]()
+    var parties = [Party]()
     
     let cellIdentifier = "searchResult"
+    
+    var lawmakerSearchTask: NSURLSessionDataTask?
+    var billSearchTask: NSURLSessionDataTask?
+    var partySearchTask: NSURLSessionDataTask?
+  
+    var sharedContext : NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext!
+    }
+    
+    lazy var scratchContext: NSManagedObjectContext = {
+        var context = NSManagedObjectContext.init(concurrencyType: .MainQueueConcurrencyType)
+        context.persistentStoreCoordinator = CoreDataStackManager.sharedInstance().persistentStoreCoordinator
+        return context
+    }()
     
     
     override func viewDidLoad() {
@@ -37,26 +52,34 @@ extension SearchViewController : UISearchBarDelegate {
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         
         print("searchBar text: \(searchBar.text)")
-        TPPClient.sharedInstance().searchPeople(searchBar.text!, completionHandler:  { results, error in
+        
+        lawmakerSearchTask?.cancel()
+        partySearchTask?.cancel()
+        billSearchTask?.cancel()
+        
+        lawmakerSearchTask = TPPClient.sharedInstance().searchLawmaker(searchBar.text!, completionHandler:  { results, error in
             
-            if let resultArray = results as? [[String:AnyObject]] {
-                //print("lawmaker search")
-                //print(resultArray)
-            } else {
-                print(error)
+            if let lawmakerDict = results {
+                self.lawmakers = lawmakerDict.map() {
+                    Lawmaker(dictionary: $0, context: self.scratchContext)
+                }
             }
             
+            performUIUpdatesOnMain {
+                self.resultsTableView.reloadData()
+            }
+
         })
-        
-        
-        TPPClient.sharedInstance().searchBills(searchBar.text!, completionHandler:  { bills, error in
+
+       
+        billSearchTask = TPPClient.sharedInstance().searchBills(searchBar.text!, completionHandler:  { bills, error in
             
             if let bills = bills {
-                //print("bill search")
-                //print(bills)
+                
+                print(bills)
                 self.bills = bills
                 performUIUpdatesOnMain {
-                    self.tableView.reloadData()
+                    self.resultsTableView.reloadData()
                 }
             } else {
                 print(error)
@@ -65,18 +88,21 @@ extension SearchViewController : UISearchBarDelegate {
         })
         
         
-        TPPClient.sharedInstance().searchParties(searchBar.text!, completionHandler:  { parties, error in
+        partySearchTask = TPPClient.sharedInstance().searchParties(searchBar.text!, completionHandler:  { parties, error in
             
             if let parties = parties {
-                //print("party search")
-                //print(parties)
+                self.parties = parties
+                print(parties)
+                performUIUpdatesOnMain {
+                    self.resultsTableView.reloadData()
+                }
             } else {
                 print(error)
             }
         })
         
         
-        tableView.reloadData()
+        resultsTableView.reloadData()
         searchBar.resignFirstResponder()
     }
         
@@ -86,20 +112,57 @@ extension SearchViewController : UISearchBarDelegate {
 extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("bill count :\(bills.count)")
-        return bills.count
+        
+        switch(section) {
+            case 0:
+                return lawmakers.count
+            case 1:
+                return bills.count
+            default:
+                return parties.count
+        }
+
     }
-    
+   
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        var sectionName:String?
+        
+        switch(section) {
+            case 0:
+                sectionName = "lawmaker"
+                break
+            case 1:
+                sectionName = "bill"
+                break
+            default:
+                sectionName = "party"
+                break
+        }
+        
+        return sectionName
+    }
+   
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
-        cell.textLabel!.text = bills[indexPath.row].name
-        return cell
+        
+        switch(indexPath.section) {
+            case 0:
+                cell.textLabel?.text = lawmakers[indexPath.row].name
+                return cell
+            case 1:
+                cell.textLabel?.text = bills[indexPath.row].name
+                return cell
+            default:
+                cell.textLabel?.text = parties[indexPath.row].name
+                return cell
+        }
     }
     
-//    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        return 3
-//    }
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 3
+    }
     
     
 

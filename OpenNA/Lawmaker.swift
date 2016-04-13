@@ -11,9 +11,31 @@ import CoreData
 import UIKit
 
 class Lawmaker : NSManagedObject {
+    
+    struct Keys {
+        static let Name = "name"
+        static let ImageUrl = "imageUrl"
+        static let Party = "party"
+    }
+    
     @NSManaged var name:String?
     @NSManaged var imageUrl :String?
     @NSManaged var party:String?
+    
+    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
+        super.init(entity:entity, insertIntoManagedObjectContext: context)
+    }
+    
+    init(dictionary :[String:AnyObject], context: NSManagedObjectContext?)
+    {
+        let entity = NSEntityDescription.entityForName("Lawmaker", inManagedObjectContext: context!)
+        
+        super.init(entity : entity!, insertIntoManagedObjectContext: context)
+        
+        name = dictionary[Keys.Name] as? String
+        imageUrl = dictionary[Keys.ImageUrl] as? String
+        party = dictionary[Keys.Party] as? String
+    }
 
     var pinnedImage: UIImage? {
         

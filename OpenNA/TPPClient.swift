@@ -79,7 +79,7 @@ class TPPClient: NSObject {
         }
     }
     
-    func searchPeople( searchKeyword: String, completionHandler: (results:[AnyObject]?, error:NSError?)->Void) {
+    func searchLawmaker( searchKeyword: String, completionHandler: (results:[[String:AnyObject]]?, error:NSError?)->Void)->NSURLSessionDataTask {
         
         // curl "http://api.popong.com/v0.1/person/search?q=박&api_key=test"
         // curl "http://api.popong.com/v0.1/bill/search?q=데이터&s=김영환&api_key=test"
@@ -90,7 +90,7 @@ class TPPClient: NSObject {
         var parameters = [ParameterKeys.ApiKey:Constants.ApiKey]
         parameters[ParameterKeys.Query] = searchKeyword
         
-        taskForGETMethod( parameters, withPathExtension: method) { (requestResult, error) in
+        let dataTask = taskForGETMethod( parameters, withPathExtension: method) { (requestResult, error) in
             
             if let error = error {
                 completionHandler(results:nil, error:error)
@@ -105,15 +105,18 @@ class TPPClient: NSObject {
                 }
             }
         }
+        
+        return dataTask
     }
     
-    func searchBills( searchKeyword: String, completionHandler:(results:[Bill]?, error:NSError?)->Void) {
+    func searchBills( searchKeyword: String, completionHandler:(results:[Bill]?, error:NSError?)->Void)->NSURLSessionDataTask {
         
-        let method = Methods.Bill
+        let method = Methods.Bill + Methods.Search
         var parameters = [ParameterKeys.ApiKey:Constants.ApiKey]
+
         parameters[ParameterKeys.Query] = searchKeyword
         
-        taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
+        let dataTask = taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
             
             if let error = error  {
                 completionHandler(results:nil, error:error)
@@ -130,17 +133,18 @@ class TPPClient: NSObject {
             }
             
         }
-
+        
+        return dataTask
     }
 
-    func searchParties( searchKeyword: String, completionHandler:(results:[Party]?, error:NSError?)->Void) {
+    func searchParties( searchKeyword: String, completionHandler:(results:[Party]?, error:NSError?)->Void)->NSURLSessionDataTask {
         
         let method = Methods.Party
         var parameters = [ParameterKeys.ApiKey:Constants.ApiKey]
         parameters[ParameterKeys.Query] = searchKeyword
 
         
-        taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
+        let dataTask = taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
             
             if let error = error  {
                 completionHandler(results:nil, error:error)
@@ -159,6 +163,7 @@ class TPPClient: NSObject {
             
         }
 
+        return dataTask
     }
     
     // MARK : GET
@@ -251,7 +256,7 @@ class TPPClient: NSObject {
             let queryItem = NSURLQueryItem(name: key, value: "\(value)")
             components.queryItems!.append(queryItem)
         }
-        print(components)
+        print(String(components.URL))
         return components.URL!
     }
     

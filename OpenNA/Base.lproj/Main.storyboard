@@ -48,12 +48,21 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="searchResult" id="dNI-Wb-2b8">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="searchResult" textLabel="XGw-xc-zUl" style="IBUITableViewCellStyleDefault" id="dNI-Wb-2b8">
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dNI-Wb-2b8" id="38J-sk-590">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XGw-xc-zUl">
+                                                    <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -65,20 +74,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="er4-yI-cWj" firstAttribute="leading" secondItem="fgh-Od-fni" secondAttribute="leading" id="9NG-4a-yyK"/>
-                            <constraint firstItem="fgh-Od-fni" firstAttribute="top" secondItem="er4-yI-cWj" secondAttribute="bottom" id="Y8w-gp-Y8h"/>
-                            <constraint firstItem="fgh-Od-fni" firstAttribute="leading" secondItem="lVE-Rm-oAq" secondAttribute="leading" id="poR-SQ-QF6"/>
-                            <constraint firstItem="er4-yI-cWj" firstAttribute="top" secondItem="brl-I6-G8f" secondAttribute="bottom" id="t7c-Ci-RgJ"/>
-                            <constraint firstItem="fgh-Od-fni" firstAttribute="trailing" secondItem="er4-yI-cWj" secondAttribute="trailing" id="tGi-65-mgz"/>
-                            <constraint firstAttribute="trailing" secondItem="fgh-Od-fni" secondAttribute="trailing" id="xqf-c5-sfD"/>
-                            <constraint firstItem="fgh-Od-fni" firstAttribute="bottom" secondItem="24H-PO-AHQ" secondAttribute="top" id="xsy-on-Uuc"/>
+                            <constraint firstItem="er4-yI-cWj" firstAttribute="top" secondItem="brl-I6-G8f" secondAttribute="bottom" id="8g3-kW-g2u"/>
+                            <constraint firstItem="fgh-Od-fni" firstAttribute="bottom" secondItem="24H-PO-AHQ" secondAttribute="top" id="Fpb-L2-RW3"/>
+                            <constraint firstItem="fgh-Od-fni" firstAttribute="leading" secondItem="lVE-Rm-oAq" secondAttribute="leading" id="SwL-i0-F4d"/>
+                            <constraint firstItem="er4-yI-cWj" firstAttribute="trailing" secondItem="fgh-Od-fni" secondAttribute="trailing" id="VAM-tW-rSf"/>
+                            <constraint firstItem="fgh-Od-fni" firstAttribute="leading" secondItem="er4-yI-cWj" secondAttribute="leading" id="dcR-Bd-Iui"/>
+                            <constraint firstItem="fgh-Od-fni" firstAttribute="top" secondItem="er4-yI-cWj" secondAttribute="bottom" id="gz1-kx-59l"/>
+                            <constraint firstAttribute="trailing" secondItem="er4-yI-cWj" secondAttribute="trailing" id="iFE-l1-wdd"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="search" id="H4d-6p-zn4"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="resultsTableView" destination="fgh-Od-fni" id="7i9-j3-nO8"/>
                         <outlet property="searchBar" destination="er4-yI-cWj" id="OQ1-dL-6l8"/>
-                        <outlet property="tableView" destination="fgh-Od-fni" id="8Ue-S1-LN4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IYU-H8-Tgc" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -23,7 +23,7 @@ struct Bill {
     init(dictionary: [String:AnyObject]) {
         
         name = (dictionary[TPPClient.JSONResponseKeys.BillName] as! String)
-        date = (dictionary[TPPClient.JSONResponseKeys.BillProposedDate] as! String)
+        date =  dictionary[TPPClient.JSONResponseKeys.BillProposedDate] as? String
         sponsor = (dictionary[TPPClient.JSONResponseKeys.BillSponsor] as! String)
         status = (dictionary[TPPClient.JSONResponseKeys.BillStatus] as! String)
         summary = dictionary[TPPClient.JSONResponseKeys.BillSummary] as? String
