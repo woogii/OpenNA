@@ -18,6 +18,7 @@
 		D2678C671C91797D0056278F /* TaskCancelingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2678C661C91797D0056278F /* TaskCancelingTableViewCell.swift */; };
 		D27451A81CA6BE770024A904 /* TPPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27451A71CA6BE770024A904 /* TPPConstants.swift */; };
 		D27451AA1CA6BE8D0024A904 /* TPPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27451A91CA6BE8D0024A904 /* TPPClient.swift */; };
+		D29468131CC2538600232D41 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29468121CC2538600232D41 /* Search.swift */; };
 		D2964B801C7344D700D5FF5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */; };
 		D2964B821C7344D700D5FF5C /* PoliticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B811C7344D700D5FF5C /* PoliticsViewController.swift */; };
 		D2964B851C7344D700D5FF5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2964B831C7344D700D5FF5C /* Main.storyboard */; };
@@ -64,6 +65,7 @@
 		D2678C661C91797D0056278F /* TaskCancelingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCancelingTableViewCell.swift; sourceTree = "<group>"; };
 		D27451A71CA6BE770024A904 /* TPPConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPConstants.swift; sourceTree = "<group>"; };
 		D27451A91CA6BE8D0024A904 /* TPPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPClient.swift; sourceTree = "<group>"; };
+		D29468121CC2538600232D41 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		D2964B7C1C7344D700D5FF5C /* OpenNA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenNA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2964B811C7344D700D5FF5C /* PoliticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliticsViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +114,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D29468141CC2564C00232D41 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D2964B811C7344D700D5FF5C /* PoliticsViewController.swift */,
+				D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */,
+				D235C3311CB4090300704A90 /* SearchViewController.swift */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
 		D2964B731C7344D700D5FF5C = {
 			isa = PBXGroup;
 			children = (
@@ -213,10 +225,9 @@
 		D2D3F9491CAA54D600D97B23 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D29468121CC2538600232D41 /* Search.swift */,
 				D2D3F9541CABD02D00D97B23 /* Network */,
-				D2964B811C7344D700D5FF5C /* PoliticsViewController.swift */,
-				D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */,
-				D235C3311CB4090300704A90 /* SearchViewController.swift */,
+				D29468141CC2564C00232D41 /* ViewController */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -375,6 +386,7 @@
 				D2D3F94D1CAAA88F00D97B23 /* GCDBlackBox.swift in Sources */,
 				D2678C5E1C904DE90056278F /* CoreDataStackManager.swift in Sources */,
 				D27451AA1CA6BE8D0024A904 /* TPPClient.swift in Sources */,
+				D29468131CC2538600232D41 /* Search.swift in Sources */,
 				D2D3F94B1CAA808200D97B23 /* Bill.swift in Sources */,
 				D23772991CAFB65E0004A2E2 /* LawmakerDetailViewController.swift in Sources */,
 				D2678C671C91797D0056278F /* TaskCancelingTableViewCell.swift in Sources */,

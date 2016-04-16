@@ -16,13 +16,11 @@ class TPPClient: NSObject {
     /* shared session */ 
     var session = NSURLSession.sharedSession()
 
-    
     // MARK : Initializers
     
     override init() {
         super.init()
     }
-    
     
     // MARK : Convenience Methods
     
@@ -78,6 +76,9 @@ class TPPClient: NSObject {
             
         }
     }
+    
+       
+    
     
     func searchLawmaker( searchKeyword: String, completionHandler: (results:[[String:AnyObject]]?, error:NSError?)->Void)->NSURLSessionDataTask {
         

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Bill {
+class Bill {
     
     // MARK : Properties
     

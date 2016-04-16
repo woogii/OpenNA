@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct Party {
+class Party {
     
     var name:String
     var logo:String?
