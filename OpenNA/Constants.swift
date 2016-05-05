@@ -8,27 +8,30 @@
 
 import Foundation
 
-extension TPPClient {
+struct Constants {
     
+    
+    static let LogFileName = "XCGLogger_Log.txt"
     
     // MARK: Constants
-    struct Constants {
+    struct Api {
+        
         // MARK: API Key
-        static let ApiKey : String = "test"
+        static let Key    = "test"
         
         // MARK: URLs
-        static let ApiScheme = "http"
-        static let ApiHost = "api.popong.com"
-        static let ApiPath = "/v0.1"
+        static let Scheme = "http"
+        static let Host   = "api.popong.com"
+        static let Path   = "/v0.1"
     }
     
     // MARK: TPP Parameter Keys
     struct ParameterKeys {
-        static let ApiKey = "api_key"
-        static let Sort = "sort"
+        static let ApiKey  = "api_key"
+        static let Sort    = "sort"
         static let PerPage = "per_page"
-        static let Order = "order"
-        static let Query = "q"
+        static let Order   = "order"
+        static let Query   = "q"
         static let SponsorSearch = "s"
     }
 
@@ -46,9 +49,9 @@ extension TPPClient {
     // MARK: Methods
     struct Methods {
         
-        static let Bill = "/bill"
+        static let Bill   = "/bill"
         static let Person = "/person"
-        static let Party = "/party"
+        static let Party  = "/party"
         static let Statement = "/statement"
         
         // MARK: Search

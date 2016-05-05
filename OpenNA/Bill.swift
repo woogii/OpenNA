@@ -22,11 +22,11 @@ class Bill {
 
     init(dictionary: [String:AnyObject]) {
         
-        name = (dictionary[TPPClient.JSONResponseKeys.BillName] as! String)
-        date =  dictionary[TPPClient.JSONResponseKeys.BillProposedDate] as? String
-        sponsor = (dictionary[TPPClient.JSONResponseKeys.BillSponsor] as! String)
-        status = (dictionary[TPPClient.JSONResponseKeys.BillStatus] as! String)
-        summary = dictionary[TPPClient.JSONResponseKeys.BillSummary] as? String
+        name = (dictionary[Constants.JSONResponseKeys.BillName] as! String)
+        date =  dictionary[Constants.JSONResponseKeys.BillProposedDate] as? String
+        sponsor = (dictionary[Constants.JSONResponseKeys.BillSponsor] as! String)
+        status = (dictionary[Constants.JSONResponseKeys.BillStatus] as! String)
+        summary = dictionary[Constants.JSONResponseKeys.BillSummary] as? String
     }
 
     // MARK : Helper Method

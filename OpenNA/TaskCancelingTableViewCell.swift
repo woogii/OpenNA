@@ -15,6 +15,7 @@ class TaskCancelingTableViewCell : UITableViewCell {
         
         // Property Observer
         didSet {
+            
             if let oldtask = oldValue {
                 oldtask.cancel()
             }

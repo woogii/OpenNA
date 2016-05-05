@@ -18,7 +18,8 @@ class SearchViewController: UIViewController {
        
     let cellIdentifier = "searchResult"
     let search = Search()
-    var searchResults = [SearchResult]()
+    // var searchResults = [SearchResult]()
+    var searchResults = [String:AnyObject]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,11 +39,17 @@ extension SearchViewController : UISearchBarDelegate {
         print("searchBar text: \(searchBar.text)")
         
                 
-        search.searchAll(searchBar.text!) { (resultss, errorString) in
+        search.searchAll(searchBar.text!) { (results, errorString) in
             
+            if let results = results {
+                print(results)
+                self.searchResults = results
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.resultsTableView.reloadData()
+                }
+            }
         }
-    
-        resultsTableView.reloadData()
         searchBar.resignFirstResponder()
     }
         
@@ -53,17 +60,22 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-//        switch(section) {
-//            case 0:
-//                return lawmakers.count
-//            case 1:
-//                return bills.count
-//            default:
-//                return parties.count
-//        }
-        return 0
+        switch(section) {
+            case 0:
+                return (searchResults["lawmaker"] as! [Lawmaker]).count
+            case 1:
+                return (searchResults["bill"] as! [Bill]).count
+            default:
+                return (searchResults["party"] as! [Party]).count
+        }
+        
+        // return searchResults[section].item!.count
     }
    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return searchResults.count
+    }
+    
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         var sectionName:String?
@@ -81,30 +93,31 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
         }
         
         return sectionName
+        //return searchResults[section].title
     }
    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
         
-//        switch(indexPath.section) {
-//            case 0:
-//                cell.textLabel?.text = lawmakers[indexPath.row].name
-//                return cell
-//            case 1:
-//                cell.textLabel?.text = bills[indexPath.row].name
-//                return cell
-//            default:
-//                cell.textLabel?.text = parties[indexPath.row].name
-//                return cell
-//        }
-        return cell
+        // cell.textLabel?.text = searchResults[indexPath.section].item![indexPath.row].name
+        
+        switch(indexPath.section) {
+            case 0:
+                cell.textLabel?.text = (searchResults["lawmaker"] as! [Lawmaker])[indexPath.row].name
+                return cell
+            case 1:
+                cell.textLabel?.text = (searchResults["bill"] as! [Bill])[indexPath.row].name
+                return cell
+            default:
+                cell.textLabel?.text = (searchResults["party"] as! [Party])[indexPath.row].name
+                return cell
+        }
+        
+        //return cell
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
-    }
-    
+
     
 
 }

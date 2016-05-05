@@ -20,11 +20,11 @@ class Party {
 
     init(dictionary: [String:AnyObject]) {
         
-        name  = (dictionary[TPPClient.JSONResponseKeys.PartyName] as! String)
-        logo  = dictionary[TPPClient.JSONResponseKeys.PartyLogo] as? String ?? ""
-        color = dictionary[TPPClient.JSONResponseKeys.PartyColor] as? Int
-        id    = (dictionary[TPPClient.JSONResponseKeys.PartyId] as! Int)
-        size  = dictionary[TPPClient.JSONResponseKeys.PartySize] as? Int
+        name  = (dictionary[Constants.JSONResponseKeys.PartyName] as! String)
+        logo  = dictionary[Constants.JSONResponseKeys.PartyLogo] as? String ?? ""
+        color = dictionary[Constants.JSONResponseKeys.PartyColor] as? Int
+        id    = (dictionary[Constants.JSONResponseKeys.PartyId] as! Int)
+        size  = dictionary[Constants.JSONResponseKeys.PartySize] as? Int
 
         let url = NSURL(string: "http://data.popong.com/parties/images/\(id).png")!
         let imageData = NSData(contentsOfURL: url)

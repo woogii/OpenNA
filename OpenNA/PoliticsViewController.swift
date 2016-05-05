@@ -8,6 +8,7 @@
 import UIKit
 import Foundation
 import CoreData
+import MBProgressHUD
 
 // MARK: - PoliticsViewController : UIViewController
 
@@ -63,6 +64,7 @@ class PoliticsViewController: UIViewController  {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+                
         configureLayout()
         
         lawmakers = fetchAllLawmakers()
@@ -124,14 +126,19 @@ class PoliticsViewController: UIViewController  {
             break
         case 1:
             tableView.hidden = false
+            
+            let spinActivity = MBProgressHUD.showHUDAddedTo(view, animated: true)
+            spinActivity.labelText = "Loading..."
+            
             TPPClient.sharedInstance().getBills() { (bills, error) in
                 
                 if let bills = bills {
 
                     self.bills = bills
                     
-                    performUIUpdatesOnMain {
+                    dispatch_async(dispatch_get_main_queue())  {
                         self.tableView.reloadData()
+                        spinActivity.hide(true)
                     }
 
                 } else {
@@ -142,15 +149,19 @@ class PoliticsViewController: UIViewController  {
         case 2:
             collectionView.hidden = false
             tableView.hidden = true
-
+            
+            let spinActivity = MBProgressHUD.showHUDAddedTo(view, animated: true)
+            spinActivity.labelText = "Loading..."
+            
             TPPClient.sharedInstance().getParties() { (parties, error) in
             
                 if let parties = parties {
                     print(parties)
                     self.parties = parties
                     
-                    performUIUpdatesOnMain {
+                    dispatch_async(dispatch_get_main_queue())  {
                         self.collectionView.reloadData()
+                        spinActivity.hide(true)
                     }
                 }
                 else {
@@ -323,7 +334,9 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         cell.imageView!.image = nil
         
         if  searchedLawmaker.pinnedImage != nil {
-            print("images exist")
+            #if DEBUG
+            log.debug("images exist")
+            #endif
             pinnedImage = searchedLawmaker.pinnedImage
         }
         else {
