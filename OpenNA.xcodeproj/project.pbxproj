@@ -242,6 +242,7 @@
 			children = (
 				D2964B811C7344D700D5FF5C /* PoliticsViewController.swift */,
 				D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */,
+				D29468121CC2538600232D41 /* Search.swift */,
 				D235C3311CB4090300704A90 /* SearchViewController.swift */,
 			);
 			name = Controller;
@@ -252,7 +253,6 @@
 			children = (
 				D27451A91CA6BE8D0024A904 /* TPPClient.swift */,
 				D22A7F521CDB511500CFF74A /* TPPClientConvenience.swift */,
-				D29468121CC2538600232D41 /* Search.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";

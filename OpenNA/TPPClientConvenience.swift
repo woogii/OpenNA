@@ -73,9 +73,10 @@ extension TPPClient {
         // curl "http://api.popong.com/v0.1/party/search?q=통합&api_key=test"
         
         
-        let method = Constants.Methods.Person
-        var parameters = [Constants.ParameterKeys.ApiKey:Constants.Api.Key]
-        parameters[Constants.ParameterKeys.Query] = searchKeyword
+        let method = Constants.Methods.Person + Constants.Methods.Search
+        var parameters = [Constants.ParameterKeys.Query:searchKeyword]
+        parameters[Constants.ParameterKeys.ApiKey] = Constants.Api.Key
+        
         
         let task = taskForGETMethod( parameters, withPathExtension: method) { (requestResult, error) in
             
@@ -99,10 +100,10 @@ extension TPPClient {
     func searchBills( searchKeyword: String, completionHandler:(results:[Bill]?, error:NSError?)->Void)->NSURLSessionTask {
         
         let method = Constants.Methods.Bill + Constants.Methods.Search
-        var parameters = [Constants.ParameterKeys.ApiKey:Constants.Api.Key]
+        var parameters = [Constants.ParameterKeys.Query : searchKeyword]
         
-        parameters[Constants.ParameterKeys.Query] = searchKeyword
-        
+        parameters[Constants.ParameterKeys.ApiKey] = Constants.Api.Key
+    
         let task = taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
             
             if let error = error  {
@@ -126,11 +127,11 @@ extension TPPClient {
     
     func searchParties( searchKeyword: String, completionHandler:(results:[Party]?, error:NSError?)->Void)->NSURLSessionTask {
         
-        let method = Constants.Methods.Party
-        var parameters = [Constants.ParameterKeys.ApiKey:Constants.Api.Key]
-        parameters[Constants.ParameterKeys.Query] = searchKeyword
+        let method = Constants.Methods.Party + Constants.Methods.Search
+        var parameters = [Constants.ParameterKeys.Query : searchKeyword]
         
-        
+        parameters[Constants.ParameterKeys.ApiKey] = Constants.Api.Key
+    
         let request = taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
             
             if let error = error  {

@@ -10,7 +10,6 @@ import UIKit
 import Foundation
 import CoreData
 import XCGLogger
-import AlamofireNetworkActivityIndicator
 
 
 let log: XCGLogger = {
@@ -88,16 +87,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
         let ud = NSUserDefaults.standardUserDefaults()
         
-        if !ud.boolForKey("dataExist") {
+        if !ud.boolForKey(Constants.UserDefaultsKey) {
             
-            guard let pathForJSONData = NSBundle.mainBundle().pathForResource("assembly", ofType: "json") else{
-                print("There is not a data in your bundle")
+            guard let pathForJSONData = NSBundle.mainBundle().pathForResource(Constants.BundleFileName, ofType: Constants.BundleFileType) else{
+                #if DEBUG
+                print("There is no data in your bundle")
+                #endif
                 return
             }
 
             
             guard let rawAJSONData = NSData(contentsOfFile:pathForJSONData) else {
+                #if DEBUG
                 print("Can not get a raw JSON data in \(pathForJSONData)")
+                #endif
                 return
             }
         
@@ -131,7 +134,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     do {
                         try sharedContext.save()
                         // Set UserDefault as true, which implies data is already exist 
-                        ud.setBool(true, forKey: "dataExist")
+                        ud.setBool(true, forKey: Constants.UserDefaultsKey)
                     } catch {
                         print(error)
                     }

@@ -12,12 +12,6 @@ import UIKit
 
 class Lawmaker : NSManagedObject {
     
-    struct Keys {
-        static let Name     = "name"
-        static let ImageUrl = "imageUrl"
-        static let Party    = "party"
-    }
-    
     @NSManaged var name:String?
     @NSManaged var imageUrl :String?
     @NSManaged var party:String?
@@ -28,13 +22,13 @@ class Lawmaker : NSManagedObject {
     
     init(dictionary :[String:AnyObject], context: NSManagedObjectContext?)
     {
-        let entity = NSEntityDescription.entityForName("Lawmaker", inManagedObjectContext: context!)
+        let entity = NSEntityDescription.entityForName(Constants.ModelKeys.LawmakerEntity, inManagedObjectContext: context!)
         
         super.init(entity : entity!, insertIntoManagedObjectContext: context)
         
-        name = dictionary[Keys.Name] as? String
-        imageUrl = dictionary[Keys.ImageUrl] as? String
-        party = dictionary[Keys.Party] as? String
+        name = dictionary[Constants.ModelKeys.Name] as? String
+        imageUrl = dictionary[Constants.ModelKeys.ImageUrl] as? String
+        party = dictionary[Constants.ModelKeys.Party] as? String
     }
 
     var pinnedImage: UIImage? {

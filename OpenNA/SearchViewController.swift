@@ -18,8 +18,14 @@ class SearchViewController: UIViewController {
    
     let search = Search()
     
-    var searchResults = [String:AnyObject]()
+    var searchedLawmakers = [Lawmaker]()
+    var searchedBills     = [Bill]()
+    var searchedParties   = [Party]()
     
+    var numOfSection = 0
+    
+    var searchResults:NSMutableArray = [[Lawmaker](),[Bill](),[Party]()]
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -38,21 +44,44 @@ extension SearchViewController : UISearchBarDelegate {
         let spinActivity = MBProgressHUD.showHUDAddedTo(view, animated: true)
         spinActivity.labelText = Constants.ActivityIndicatorText.Searching
         
-        search.searchAll(searchBar.text!) { (results, errorString) in
+        search.searchAll(searchBar.text!) { (lawmakers,bills,parties, errorString) in
             
-            if let results = results {
+            self.searchedLawmakers = lawmakers
+            self.searchedBills     = bills
+            self.searchedParties   = parties
+            
+            self.searchResults.addObject(lawmakers)
+            self.searchResults.addObject(bills)
+            self.searchResults.addObject(parties)
+            
+            log.debug("\(self.searchedLawmakers.count)")
+            log.debug("\(self.searchedBills.count)")
+            log.debug("\(self.searchedParties.count)")
+            
+            if lawmakers.count > 0 {
+                self.numOfSection = self.numOfSection + 1
+            }
+
+            if bills.count > 0 {
+                self.numOfSection = self.numOfSection + 1
+            }
+            
+            if parties.count > 0 {
+                self.numOfSection = self.numOfSection + 1
+            }
+
+            #if DEBUG
+                log.debug("\(self.numOfSection)")
+                log.debug("search complete")
+            #endif
                 
-                #if DEBUG
-                    log.debug("search complete")
-                #endif
-                self.searchResults = results
                 
-                dispatch_async(dispatch_get_main_queue()) {
-                    spinActivity.hide(true)
-                    self.resultsTableView.reloadData()
-                }
+            dispatch_async(dispatch_get_main_queue()) {
+                spinActivity.hide(true)
+                self.resultsTableView.reloadData()
             }
         }
+        
         searchBar.resignFirstResponder()
     }
         
@@ -62,21 +91,35 @@ extension SearchViewController : UISearchBarDelegate {
 extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        switch(section) {
-            case 0:
-                return (searchResults[Constants.SectionName.Lawmaker] as! [Lawmaker]).count
-            case 1:
-                return (searchResults[Constants.SectionName.Bill] as! [Bill]).count
-            default:
-                return (searchResults[Constants.SectionName.Party] as! [Party]).count
-        }
-        
-        // return searchResults[section].item!.count
+//        log.debug("numberOfRowsInsection")
+//        switch(section) {
+//        
+//        case 0:
+//            log.debug("First section")
+////            if searchedLawmakers.count > 0 {
+////                return searchedLawmakers.count
+////            }
+//            return searchedLawmakers.count
+//        case 1:
+//            log.debug("Second section")
+////            if searchedBills.count > 0 {
+////                return searchedBills.count
+////            }
+//            return searchedBills.count
+//        default:
+//            log.debug("Third section")
+////            if searchedParties.count > 0 {
+////                return searchedParties.count
+////            }
+//            return searchedParties.count
+//        }
+        log.debug("\(searchResults[section].count)")
+        return searchResults[section].count
     }
    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return searchResults.count
+        log.debug("\(numOfSection)")
+        return numOfSection
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -84,40 +127,53 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
         var sectionName:String?
         
         switch(section) {
-            case 0:
+        
+        case 0:
+            if searchedLawmakers.count > 0 {
                 sectionName = Constants.SectionName.Lawmaker
-                break
-            case 1:
+            }
+            break
+        case 1:
+            if searchedBills.count > 0 {
                 sectionName = Constants.SectionName.Bill
-                break
-            default:
+            }
+            break
+        default:
+            if searchedParties.count > 0 {
                 sectionName = Constants.SectionName.Party
-                break
+            }
+            break
         }
         
         return sectionName
-        //return searchResults[section].title
     }
    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
+        log.debug("cellForRowAtIndexPath")
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchResult, forIndexPath: indexPath)
         
         // cell.textLabel?.text = searchResults[indexPath.section].item![indexPath.row].name
         
         switch(indexPath.section) {
-            case 0:
-                cell.textLabel?.text = (searchResults[Constants.SectionName.Lawmaker] as! [Lawmaker])[indexPath.row].name
+            
+        case 0:
+             if searchedLawmakers.count > 0 {
+                cell.textLabel?.text = searchedLawmakers[indexPath.row].name
                 return cell
-            case 1:
-                cell.textLabel?.text = (searchResults[Constants.SectionName.Bill] as! [Bill])[indexPath.row].name
+            }
+        case 1:
+            if searchedBills.count > 0 {
+                cell.textLabel?.text = searchedBills[indexPath.row].name
                 return cell
-            default:
-                cell.textLabel?.text = (searchResults[Constants.SectionName.Party] as! [Party])[indexPath.row].name
+            }
+        default:
+            if searchedParties.count > 0 {
+                cell.textLabel?.text = searchedParties[indexPath.row].name 
                 return cell
+            }
         }
         
-        //return cell
+        return cell
     }
     
 

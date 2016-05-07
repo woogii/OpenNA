@@ -65,18 +65,18 @@ struct Constants {
         static let StatusCode    = "status_code"
        
         // MARK : Lawmaker
-        static let Name      = "name"
-        static let NameEn    = "name_en"
-        static let Photo     = "photo"
-        static let ImageUrl  = "imageUrl"
-        static let Party     = "party"
-        static let Address   = "address"
-        static let Education = "education"
-        static let Birthday  = "birthday"
-        static let Homepage  = "homepage"
-        static let Gender    = "gender"
-        static let Id = "id"
+        static let Name          = "name"
+        static let NameEn        = "name_en"
+        static let Photo         = "photo"
+        static let ImageUrl      = "imageUrl"
+        static let Party         = "party"
+        static let Address       = "address"
+        static let Education     = "education"
+        static let Birthday      = "birthday"
+        static let Homepage      = "homepage"
+        static let Gender        = "gender"
         static let LawmakerItems = "items"
+        static let Id            = "id"
         
         // MARK: Bill
         static let BillItems        = "items"
@@ -100,7 +100,7 @@ struct Constants {
         static let PartyName  = "name"
         
         
-        static let NextPage = "next_page"
+        static let NextPage   = "next_page"
     }
     
     // MARK : Fetch
@@ -127,8 +127,6 @@ struct Constants {
         static let Searching = "Searching..."
     }
     
-    static let LogFileName = "XCGLogger_Log.txt"
-
     // MARK : Error
     struct Error {
         
@@ -155,7 +153,7 @@ struct Constants {
     
         // MARK : Lawmaker
         static let Name = "name"
-        static let ImageUrl = "image"
+        static let ImageUrl = "imageUrl"
         static let Party    = "party"
         static let LawmakerEntity = "Lawmaker"
         
@@ -173,5 +171,10 @@ struct Constants {
         static let PartyId    = "id"
         static let PartyName  = "name"
     }
+    
+    static let UserDefaultsKey = "dataExist"
+    static let BundleFileName = "assembly"
+    static let BundleFileType = "json"
+    static let LogFileName = "XCGLogger_Log.txt"
   
 }

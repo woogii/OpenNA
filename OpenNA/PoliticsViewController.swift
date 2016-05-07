@@ -20,9 +20,9 @@ class PoliticsViewController: UIViewController  {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var lawmakers:[Lawmaker]!
-    var bills:[Bill]!
-    var parties = [Party]()
+    var lawmakers = [Lawmaker]()
+    var bills     = [Bill]()
+    var parties   = [Party]()
     
     struct LawmakerInfo {
         var name : String
