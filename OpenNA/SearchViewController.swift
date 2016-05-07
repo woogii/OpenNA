@@ -9,16 +9,15 @@
 import Foundation
 import UIKit
 import CoreData
+import MBProgressHUD
 
 class SearchViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var resultsTableView: UITableView!
    
-       
-    let cellIdentifier = "searchResult"
     let search = Search()
-    // var searchResults = [SearchResult]()
+    
     var searchResults = [String:AnyObject]()
     
     override func viewDidLoad() {
@@ -36,16 +35,20 @@ extension SearchViewController : UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         
-        print("searchBar text: \(searchBar.text)")
+        let spinActivity = MBProgressHUD.showHUDAddedTo(view, animated: true)
+        spinActivity.labelText = Constants.ActivityIndicatorText.Searching
         
-                
         search.searchAll(searchBar.text!) { (results, errorString) in
             
             if let results = results {
-                print(results)
+                
+                #if DEBUG
+                    log.debug("search complete")
+                #endif
                 self.searchResults = results
                 
                 dispatch_async(dispatch_get_main_queue()) {
+                    spinActivity.hide(true)
                     self.resultsTableView.reloadData()
                 }
             }
@@ -62,11 +65,11 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
         
         switch(section) {
             case 0:
-                return (searchResults["lawmaker"] as! [Lawmaker]).count
+                return (searchResults[Constants.SectionName.Lawmaker] as! [Lawmaker]).count
             case 1:
-                return (searchResults["bill"] as! [Bill]).count
+                return (searchResults[Constants.SectionName.Bill] as! [Bill]).count
             default:
-                return (searchResults["party"] as! [Party]).count
+                return (searchResults[Constants.SectionName.Party] as! [Party]).count
         }
         
         // return searchResults[section].item!.count
@@ -82,13 +85,13 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
         
         switch(section) {
             case 0:
-                sectionName = "lawmaker"
+                sectionName = Constants.SectionName.Lawmaker
                 break
             case 1:
-                sectionName = "bill"
+                sectionName = Constants.SectionName.Bill
                 break
             default:
-                sectionName = "party"
+                sectionName = Constants.SectionName.Party
                 break
         }
         
@@ -98,19 +101,19 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchResult, forIndexPath: indexPath)
         
         // cell.textLabel?.text = searchResults[indexPath.section].item![indexPath.row].name
         
         switch(indexPath.section) {
             case 0:
-                cell.textLabel?.text = (searchResults["lawmaker"] as! [Lawmaker])[indexPath.row].name
+                cell.textLabel?.text = (searchResults[Constants.SectionName.Lawmaker] as! [Lawmaker])[indexPath.row].name
                 return cell
             case 1:
-                cell.textLabel?.text = (searchResults["bill"] as! [Bill])[indexPath.row].name
+                cell.textLabel?.text = (searchResults[Constants.SectionName.Bill] as! [Bill])[indexPath.row].name
                 return cell
             default:
-                cell.textLabel?.text = (searchResults["party"] as! [Party])[indexPath.row].name
+                cell.textLabel?.text = (searchResults[Constants.SectionName.Party] as! [Party])[indexPath.row].name
                 return cell
         }
         

@@ -31,19 +31,11 @@ class PoliticsViewController: UIViewController  {
     }
     
     var lawmakerInfo = [LawmakerInfo]()
-
     typealias Entry = (Character, [LawmakerInfo])
-
     var indexInfo = [Entry]()
     
-    struct cellIdentifier {
-        static let PeopleCell = "LawmakerCell"
-        static let BillCell = "BillCell"
-        static let PartyCell = "LogoImageCell"
-    }
-    
-    // MARK :  View Life Cycle
-    
+  
+    // MARK :  View LifeCycle
     override func viewDidLayoutSubviews() {
         
         super.viewDidLayoutSubviews()
@@ -64,23 +56,18 @@ class PoliticsViewController: UIViewController  {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-                
         configureLayout()
-        
         lawmakers = fetchAllLawmakers()
-        
         buildTableViewIndex()
+    
     }
     
-    
-
-    
+    // MARK : Configure Layout
     func configureLayout() {
         
         // Register Nib Objects
-        self.tableView.registerNib(UINib(nibName: cellIdentifier.PeopleCell, bundle: nil), forCellReuseIdentifier: cellIdentifier.PeopleCell)
-        
-        self.tableView.registerNib(UINib(nibName: cellIdentifier.BillCell, bundle: nil), forCellReuseIdentifier: cellIdentifier.BillCell)
+        self.tableView.registerNib(UINib(nibName: Constants.Identifier.PeopleCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.PeopleCell)
+        self.tableView.registerNib(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
     
         // Set CollectionView delegate and datasource 
         collectionView.dataSource = self
@@ -91,17 +78,15 @@ class PoliticsViewController: UIViewController  {
     }
 
     // MARK :  CoreData Convenience
-    
     var sharedContext : NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext!
     }
 
     // MARK :  Data Fetch
-    
     func fetchAllLawmakers()->[Lawmaker]
     {
-        let fetchRequest = NSFetchRequest(entityName : "Lawmaker")
-        let sectionSortDescriptor = NSSortDescriptor(key:"name", ascending: true)
+        let fetchRequest = NSFetchRequest(entityName : Constants.Fetch.FetchEntityLawmaker)
+        let sectionSortDescriptor = NSSortDescriptor(key:Constants.Fetch.SortKeyForLawmaker, ascending: true)
         let sortDescriptors = [sectionSortDescriptor]
         fetchRequest.sortDescriptors = sortDescriptors
         
@@ -115,7 +100,6 @@ class PoliticsViewController: UIViewController  {
     }
     
     // MARK : Action Method
-    
     @IBAction func segmentedControlChanged(sender: AnyObject) {
         
         switch segmentedControl.selectedSegmentIndex {
@@ -128,7 +112,7 @@ class PoliticsViewController: UIViewController  {
             tableView.hidden = false
             
             let spinActivity = MBProgressHUD.showHUDAddedTo(view, animated: true)
-            spinActivity.labelText = "Loading..."
+            spinActivity.labelText = Constants.ActivityIndicatorText.Loading
             
             TPPClient.sharedInstance().getBills() { (bills, error) in
                 
@@ -151,7 +135,7 @@ class PoliticsViewController: UIViewController  {
             tableView.hidden = true
             
             let spinActivity = MBProgressHUD.showHUDAddedTo(view, animated: true)
-            spinActivity.labelText = "Loading..."
+            spinActivity.labelText = Constants.ActivityIndicatorText.Loading
             
             TPPClient.sharedInstance().getParties() { (parties, error) in
             
@@ -186,15 +170,16 @@ class PoliticsViewController: UIViewController  {
         })
     
         indexInfo = buildIndex(lawmakerInfo)
-        
      }
     
     func buildIndex(lawmakers: [LawmakerInfo]) -> [Entry] {
         
+        #if DEBUG
         // Get the first korean character 
         // let letters = lawmakers.map {  (lawmaker) -> Character in
         //    lawmaker.name.hangul[0]
         // }
+        #endif
         
         // Create the array that contains the first letter of lawmaker's name
         let letters = lawmakers.map {  (lawmaker) -> Character in
@@ -213,13 +198,14 @@ class PoliticsViewController: UIViewController  {
             })
         }
         
+        #if DEBUG
         //return distictLetters.map {   (letter) -> Entry in
 
         //   return (letter, lawmakers.filter  {  (lawmaker) -> Bool in
         //                lawmaker.name.hangul[0] == letter
         //    })
         //}
-        
+        #endif
     }
 
     func distinct<T:Equatable>(source: [T]) -> [T] {
@@ -280,13 +266,13 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         
         if segmentedControl.selectedSegmentIndex == 0 {
             
-            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier.PeopleCell, forIndexPath: indexPath) as! LawmakerTableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.PeopleCell, forIndexPath: indexPath) as! LawmakerTableViewCell
             configureCell(cell, atIndexPath: indexPath)
             return cell
         }
         else if segmentedControl.selectedSegmentIndex == 1 {
             
-            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier.BillCell, forIndexPath: indexPath) as! BillTableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.BillCell, forIndexPath: indexPath) as! BillTableViewCell
             
             cell.nameLabel.text = bills[indexPath.row].name
             cell.sponsorLabel.text = bills[indexPath.row].sponsor
@@ -309,12 +295,13 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         let urlString:String? = indexInfo[indexPath.section].1[indexPath.row].imageUrl
         let url = NSURL(string: urlString!)!
         
+        
         /*
          Fetch a lawmaker by using a given imageUrl string to check whether an image is cached
            If an image is not cahced, httprequest function is invoked to download an image
         */
-        let fetchRequest = NSFetchRequest(entityName : "Lawmaker")
-        let predicate = NSPredicate(format: "imageUrl=%@", urlString!)
+        let fetchRequest = NSFetchRequest(entityName : Constants.Fetch.FetchEntityLawmaker )
+        let predicate = NSPredicate(format: Constants.Fetch.PredicateForImage, urlString!)
         fetchRequest.predicate = predicate
         // In order to fetch a single object
         fetchRequest.fetchLimit = 1
@@ -371,7 +358,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        let controller = storyboard?.instantiateViewControllerWithIdentifier("showLawmaker") as! LawmakerDetailViewController
+        let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.DetailStoryboardSegue) as! LawmakerDetailViewController
         
         navigationController?.pushViewController(controller, animated: true)
     }
@@ -391,7 +378,7 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier.PartyCell, forIndexPath: indexPath) as! PartyCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Constants.Identifier.PartyCell, forIndexPath: indexPath) as! PartyCollectionViewCell
         
         //configureCollectionCell(cell, atIndexPath: indexPath)
         cell.logoImageView.image = parties[indexPath.row].thumbnail

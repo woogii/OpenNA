@@ -10,36 +10,14 @@ import Foundation
 import CoreData
 import Alamofire
 
-struct SearchResult {
-    
-    var resultDict = [String:AnyObject]()
-    
-    // var title:String?
-    // var item:[AnyObject]?
-    
-    init(title: String, item:[AnyObject]) {
-        resultDict[title] = item
-    }
-    
-//    init(title: String, item:[AnyObject]) {
-//        self.title = title
-//        self.item  = item
-//    }
-}
-
 class Search : NSObject {
     
     var lawmakers = [Lawmaker]()
     var bills = [Bill]()
     var parties = [Party]()
     
-    // var searchResults: SearchResult?
-    
     var searchResult = [String:AnyObject]()
     
-    // var searchedLawmakers: SearchResult?
-    // var searchedBills:SearchResult?
-    // var searchedParties: SearchResult?
     
     var lawmakerSearchTask: NSURLSessionTask?
     var billSearchTask: NSURLSessionTask?
@@ -61,11 +39,11 @@ class Search : NSObject {
         lawmakerSearchTask?.cancel()
         partySearchTask?.cancel()
         billSearchTask?.cancel()
-
-        let queue = dispatch_queue_create("com.wook2.OpenNA.queue", DISPATCH_QUEUE_CONCURRENT)
         
-        dispatch_async(queue) {
-            
+        let group = dispatch_group_create()
+        
+        dispatch_group_enter(group)
+        
             self.lawmakerSearchTask = TPPClient.sharedInstance().searchLawmaker(searchKeyword, completionHandler:  { results, error in
             
                 if let lawmakerDict = results {
@@ -82,10 +60,10 @@ class Search : NSObject {
                         log.debug(error?.localizedDescription)
                     #endif
                 }
+                dispatch_group_leave(group)
             })
-        }
-    
-        dispatch_async(queue) {
+        
+        dispatch_group_enter(group)
             
             self.billSearchTask = TPPClient.sharedInstance().searchBills(searchKeyword, completionHandler:  { bills, error in
             
@@ -102,10 +80,10 @@ class Search : NSObject {
                         log.debug(error?.localizedDescription)
                     #endif
                 }
+                dispatch_group_leave(group)
             })
-        }
         
-        dispatch_async(queue) {
+        dispatch_group_enter(group)
             
             self.partySearchTask = TPPClient.sharedInstance().searchParties(searchKeyword, completionHandler:  { parties, error in
             
@@ -113,52 +91,44 @@ class Search : NSObject {
                     self.parties = parties
                 
                     #if DEBUG
-                        print("party count: \(parties.count)")
+                        log.debug("party count: \(parties.count)")
                     #endif
                 } else {
                     log.debug(error?.localizedDescription)
                 }
-            })
-        }
-        
-        dispatch_barrier_sync(queue) {
-            
-            log.debug("dispatch_barrier")
-            if self.lawmakers.count > 0 {
                 
-                // self.searchedLawmakers = SearchResult(title: "lawmaker", item: self.lawmakers)
-                // self.searchResults.append(self.searchedLawmakers!)
-                self.searchResult["lawmaker"] = self.lawmakers
+                dispatch_group_leave(group)
+            })
+        
+        
+        dispatch_group_notify(group, dispatch_get_main_queue()) {
+            #if DEBUG
+                log.debug("dispatch_barrier")
+            #endif
+            
+            if self.lawmakers.count > 0 {
+                self.searchResult[Constants.SectionName.Lawmaker] = self.lawmakers
             }
             
             if self.bills.count > 0 {
-                // self.searchedBills  = SearchResult(title:"bill", item: self.bills)
-                // self.searchResults.append(self.searchedBills!)
-                // self.searchedBills  = SearchResult(title:"bill", item: self.bills)
-                self.searchResult["bill"] = self.bills
+                self.searchResult[Constants.SectionName.Bill] = self.bills
             }
             
             if self.parties.count > 0 {
-                // self.searchedParties   = SearchResult(title:"party", item: self.parties)
-                // self.searchResults.append(self.searchedParties!)
-                // self.searchedBills  = SearchResult(title:"bill", item: self.bills)
-                self.searchResult["party"] = self.parties
+                self.searchResult[Constants.SectionName.Party] = self.parties
             }
             
             if !self.searchResult.isEmpty {
-                print(self.searchResult)
                 completionHandler(results: self.searchResult, error:nil)
             }
             else {
                 #if DEBUG
                     log.debug("empty")
                 #endif
-                completionHandler(results:nil, error: NSError(domain: "Search All", code: 0, userInfo: [NSLocalizedDescriptionKey:"There is no search results"]))
+                completionHandler(results:nil, error: NSError(domain: Constants.Error.DomainSearchAll, code: 0, userInfo: [NSLocalizedDescriptionKey:Constants.Error.DescKeyForNoSearchResult]))
             }
 
         }
-        
-        
     }
     
 }

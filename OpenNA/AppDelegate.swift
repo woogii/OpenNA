@@ -20,7 +20,7 @@ let log: XCGLogger = {
     log.xcodeColorsEnabled = true // Or set the XcodeColors environment variable in your scheme to YES
     log.xcodeColors = [
         .Verbose: .lightGrey,
-        .Debug: .darkGrey,
+        .Debug: XCGLogger.XcodeColor(fg: (255, 255, 100), bg: (0, 0, 0)),
         .Info: .darkGreen,
         .Warning: .orange,
         .Error: XCGLogger.XcodeColor(fg: UIColor.redColor(), bg: UIColor.whiteColor()), // Optionally use a UIColor
@@ -28,9 +28,10 @@ let log: XCGLogger = {
     ]
     
     #if DEBUG // Set via Build Settings, under Other Swift Flags
-        log.removeLogDestination(XCGLogger.Constants.baseConsoleLogDestinationIdentifier)
-        log.addLogDestination(XCGNSLogDestination(owner: log, identifier: XCGLogger.Constants.nslogDestinationIdentifier))
-        log.logAppDetails()
+        //log.removeLogDestination(XCGLogger.Constants.baseConsoleLogDestinationIdentifier)
+        //log.addLogDestination(XCGNSLogDestination(owner: log, identifier: XCGLogger.Constants.nslogDestinationIdentifier))
+        //log.logAppDetails()
+        log.setup(.Debug, showThreadName: true, showLogLevel: true, showFileNames: true, showLineNumbers: true)
     #else
         let logPath: NSURL = (UIApplication.sharedApplication().delegate as! AppDelegate).cacheDirectory.URLByAppendingPathComponent(Constants.LogFileName)
         log.setup(.Debug, showThreadName: true, showLogLevel: true, showFileNames: true, showLineNumbers: true, writeToFile: logPath)
@@ -109,19 +110,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
                 for dict in parsedResult {
                 
-                    guard let name = dict["name_en"] as? String else {
+                    guard let name = dict[Constants.JSONResponseKeys.NameEn] as? String else {
                         return
                     }
                 
-                    guard let party = dict["party"] as? String else {
+                    guard let party = dict[Constants.JSONResponseKeys.Party] as? String else {
                         return
                     }
                 
-                    guard let url = dict["photo"] as? String else {
+                    guard let url = dict[Constants.JSONResponseKeys.Photo] as? String else {
                         return
                     }
                 
-                    let lawmaker = NSEntityDescription.insertNewObjectForEntityForName("Lawmaker", inManagedObjectContext: sharedContext) as! Lawmaker
+                    let lawmaker = NSEntityDescription.insertNewObjectForEntityForName(Constants.ModelKeys.LawmakerEntity, inManagedObjectContext: sharedContext) as! Lawmaker
                     
                     lawmaker.name = name
                     lawmaker.party = party

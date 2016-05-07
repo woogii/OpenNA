@@ -13,9 +13,9 @@ import UIKit
 class Lawmaker : NSManagedObject {
     
     struct Keys {
-        static let Name = "name"
+        static let Name     = "name"
         static let ImageUrl = "imageUrl"
-        static let Party = "party"
+        static let Party    = "party"
     }
     
     @NSManaged var name:String?

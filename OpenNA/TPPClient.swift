@@ -34,13 +34,16 @@ class TPPClient: NSObject {
             
                         case .Success:
         
-
                             if let results = response.result.value {
-                                log.debug("response success")
+                                #if DEBUG
+                                    log.debug("response success")
+                                #endif
                                 completionHandlerForGet(results: results , error:nil)
                             }
                     case .Failure(let error):
-                        log.debug("response success")
+                        #if DEBUG
+                            log.debug("response success")
+                        #endif
                         completionHandlerForGet(results: nil, error: error)
                 
                     }
@@ -64,14 +67,17 @@ class TPPClient: NSObject {
                     
                                 case .Success:
                     
-                    
                                     if let result = response.data {
-                                        log.debug("response success")
+                                        #if DEBUG
+                                            log.debug("response success")
+                                        #endif
                                         completionHandlerForImage(imageData: result, error: nil)
                                     }
                     
                                 case .Failure(let error):
-                                    log.debug("response success")
+                                    #if DEBUG
+                                        log.debug("response success")
+                                        #endif
                                     completionHandlerForImage(imageData: nil, error: error)
                     
                                 }
@@ -82,9 +88,6 @@ class TPPClient: NSObject {
     
     
     // MARK: Helpers
-    
-    // http://api.popong.com/v0.2/bill/?api_key=test
-
     // Create a URL from parameters
     private func constructURL(parameters: [String:AnyObject], withPathExtension: String? = nil) -> NSURL {
         
@@ -104,7 +107,6 @@ class TPPClient: NSObject {
     }
     
     // MARK : Shared Instance
-    
     class func sharedInstance()->TPPClient {
         struct Singleton {
             static var sharedInstance = TPPClient()

@@ -31,8 +31,8 @@ extension TPPClient {
                     let bills = Bill.billsFromResults(results)
                     completionHandler(results: bills, error: nil)
                 } else {
-                    completionHandler(results: nil, error: NSError(domain: "getBills parsing", code : 0,
-                        userInfo:[NSLocalizedDescriptionKey:"Could not parse getBills"]))
+                    completionHandler(results: nil, error: NSError(domain: Constants.Error.DomainJSONParsing, code : Constants.Error.Code,
+                        userInfo:[NSLocalizedDescriptionKey:Constants.Error.DescKeyForBillJSONParsing]))
                 }
             }
             
@@ -58,16 +58,13 @@ extension TPPClient {
                     
                     completionHandler(results: parties, error: nil)
                 } else {
-                    completionHandler(results: nil, error: NSError(domain: "getBills parsing", code : 0,
-                        userInfo:[NSLocalizedDescriptionKey:"Could not parse getBills"]))
+                    completionHandler(results: nil, error: NSError(domain: Constants.Error.DomainJSONParsing, code : Constants.Error.Code,
+                        userInfo:[NSLocalizedDescriptionKey:Constants.Error.DescKeyForPartyJSONParsing]))
                 }
             }
             
         }
     }
-    
-    
-    
     
     func searchLawmaker( searchKeyword: String, completionHandler: (results:[[String:AnyObject]]?, error:NSError?)->Void)->NSURLSessionTask {
         
@@ -90,8 +87,8 @@ extension TPPClient {
                 if let results = requestResult![Constants.JSONResponseKeys.LawmakerItems] as? [[String:AnyObject]] {
                     completionHandler(results: results, error: nil)
                 } else {
-                    completionHandler(results:  nil, error:NSError(domain: "search people", code: 0,
-                        userInfo: [NSLocalizedDescriptionKey:"Could not parse results of searchPeople"]))
+                    completionHandler(results:  nil, error:NSError(domain: Constants.Error.DomainJSONParsing, code: 0,
+                        userInfo: [NSLocalizedDescriptionKey:Constants.Error.DescKeyForLawmakerJSONParsing]))
                 }
             }
         }
@@ -117,8 +114,8 @@ extension TPPClient {
                     let bills = Bill.billsFromResults(results)
                     completionHandler(results: bills, error: nil)
                 } else {
-                    completionHandler(results: nil, error: NSError(domain: "getBills parsing", code : 0,
-                        userInfo:[NSLocalizedDescriptionKey:"Could not parse getBills"]))
+                    completionHandler(results: nil, error: NSError(domain: Constants.Error.DomainJSONParsing, code : 0,
+                        userInfo:[NSLocalizedDescriptionKey:Constants.Error.DescKeyForBillJSONParsing]))
                 }
             }
             
@@ -146,8 +143,8 @@ extension TPPClient {
                     
                     completionHandler(results: parties, error: nil)
                 } else {
-                    completionHandler(results: nil, error: NSError(domain: "getBills parsing", code : 0,
-                        userInfo:[NSLocalizedDescriptionKey:"Could not parse getBills"]))
+                    completionHandler(results: nil, error: NSError(domain: Constants.Error.DomainJSONParsing, code : 0,
+                        userInfo:[NSLocalizedDescriptionKey:Constants.Error.DescKeyForPartyJSONParsing]))
                 }
             }
             
