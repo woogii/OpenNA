@@ -285,12 +285,6 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        
-    }
-    
-    
     // MARK : Congifure UITableviewCell
     
     func configureCell(cell:LawmakerTableViewCell , atIndexPath indexPath:NSIndexPath)
@@ -363,9 +357,15 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         return 140
     }
     
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.DetailStoryboardSegue) as! LawmakerDetailViewController
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        log.debug("did select")
         
+        let controller = storyboard?.instantiateViewControllerWithIdentifier("LawmakerDetail") as! LawmakerDetailViewController
+        
+        controller.lawmaker = lawmakers[indexPath.row]
+        controller.image = lawmakers[indexPath.row].pinnedImage
+
+        // performSegueWithIdentifier(Constants.Identifier.DetailStoryboardSegue, sender: self)
         navigationController?.pushViewController(controller, animated: true)
     }
 

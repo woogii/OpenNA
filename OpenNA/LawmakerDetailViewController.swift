@@ -17,10 +17,26 @@ class LawmakerDetailViewController: UIViewController {
 
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
+    
+    var lawmaker:Lawmaker? 
+    var image:UIImage?
     
     // MARK : View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
+    
+    override func viewWillAppear(animated: Bool) {
+        log.debug("test")
+        profileImage.layer.cornerRadius = profileImage.frame.size.width/2
+        profileImage.clipsToBounds = true
+        profileImage.image = image 
+        //nameLabel.text = lawmaker?.name
+        //profileImage.image = UIImage(named:(lawmaker?.imageUrl)!)
+    }
+    
+    
+    
 }
