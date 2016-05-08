@@ -176,5 +176,7 @@ struct Constants {
     static let BundleFileName = "assembly"
     static let BundleFileType = "json"
     static let LogFileName = "XCGLogger_Log.txt"
+    
+    static let LaunchView = "LaunchScreen"
   
 }

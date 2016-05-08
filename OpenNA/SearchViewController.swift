@@ -18,10 +18,6 @@ class SearchViewController: UIViewController {
    
     let search = Search()
     
-    var searchedLawmakers = [Lawmaker]()
-    var searchedBills     = [Bill]()
-    var searchedParties   = [Party]()
-    
     var searchResults = [(String, [AnyObject])]()
     var numOfSection = 0
 
@@ -48,13 +44,9 @@ extension SearchViewController : UISearchBarDelegate {
         
         search.searchAll(searchBar.text!) { (lawmakers,bills,parties, errorString) in
             
-            self.searchedLawmakers = lawmakers
-            self.searchedBills     = bills
-            self.searchedParties   = parties
-            
-            log.debug("number of lawmaker : \(self.searchedLawmakers.count)")  // 0
-            log.debug("number of bill     : \(self.searchedBills.count)")      //  20
-            log.debug("number of party    : \(self.searchedParties.count)")    // 0
+            log.debug("number of lawmaker : \(lawmakers.count)")
+            log.debug("number of bill     : \(bills.count)")
+            log.debug("number of party    : \(parties.count)")
 
             if lawmakers.count > 0 || bills.count > 0 || parties.count > 0 {
                 
@@ -75,8 +67,6 @@ extension SearchViewController : UISearchBarDelegate {
                     self.searchResults.append((Constants.SectionName.Party, parties))
                     self.numOfSection = self.numOfSection + 1
                 }
-                
-                
             }
     
             dispatch_async(dispatch_get_main_queue()) {

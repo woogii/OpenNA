@@ -9,10 +9,9 @@
 import Foundation
 
 extension TPPClient {
-    
-    
+
     // MARK : Convenience Methods
-    
+    /// Get bill information
     func getBills(completionHandler: (results:[Bill]?, error:NSError?)->Void)  {
         
         let method = Constants.Methods.Bill
@@ -39,6 +38,7 @@ extension TPPClient {
         }
     }
     
+    /// Get party information
     func getParties( completionHandler: (results:[Party]?, error:NSError?)->Void)  {
         
         let method = Constants.Methods.Party
@@ -66,6 +66,7 @@ extension TPPClient {
         }
     }
     
+    /// Get lawmaker information
     func searchLawmaker( searchKeyword: String, completionHandler: (results:[[String:AnyObject]]?, error:NSError?)->Void)->NSURLSessionTask {
         
         // curl "http://api.popong.com/v0.1/person/search?q=박&api_key=test"
@@ -97,6 +98,7 @@ extension TPPClient {
         return task
     }
     
+    /// Search bill information with given search keyword
     func searchBills( searchKeyword: String, completionHandler:(results:[Bill]?, error:NSError?)->Void)->NSURLSessionTask {
         
         let method = Constants.Methods.Bill + Constants.Methods.Search
@@ -125,6 +127,7 @@ extension TPPClient {
         return task
     }
     
+    /// Search party information with given search keyword
     func searchParties( searchKeyword: String, completionHandler:(results:[Party]?, error:NSError?)->Void)->NSURLSessionTask {
         
         let method = Constants.Methods.Party + Constants.Methods.Search
@@ -153,7 +156,5 @@ extension TPPClient {
         
         return request
     }
-    
-    
     
 }

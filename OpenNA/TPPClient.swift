@@ -12,7 +12,6 @@ import Alamofire
 
 class TPPClient: NSObject {
     
-    
     // MARK : Initializers
     override init() {
         super.init()
@@ -25,29 +24,24 @@ class TPPClient: NSObject {
         let request = Alamofire.request(.GET, constructURL(parameters, withPathExtension:method), parameters: parameters)
                                .responseJSON { response in
             
-                                //log.debug(response.request)  // original URL request
-                                //log.debug(response.response) // URL response
-                                //print(response.data)     // server data
-                                //print(response.result)   // result of response serialization
-                   
-                    switch response.result {
+                                switch response.result {
             
-                        case .Success:
+                                case .Success:
         
-                            if let results = response.result.value {
-                                #if DEBUG
-                                    log.debug("response success")
-                                #endif
-                                completionHandlerForGet(results: results , error:nil)
-                            }
-                    case .Failure(let error):
-                        #if DEBUG
-                            log.debug("response success")
-                        #endif
-                        completionHandlerForGet(results: nil, error: error)
+                                    if let results = response.result.value {
+                                        #if DEBUG
+                                            log.debug("response success")
+                                        #endif
+                                        completionHandlerForGet(results: results , error:nil)
+                                    }
+                                case .Failure(let error):
+                                    #if DEBUG
+                                        log.debug("response success")
+                                    #endif
+                                    completionHandlerForGet(results: nil, error: error)
                 
-                    }
-        }
+                                }
+            }
         
         return request.task
     }
@@ -58,10 +52,6 @@ class TPPClient: NSObject {
         let request = Alamofire.request(.GET, url)
                                .responseData { response in
                 
-                //print(response.request)  // original URL request
-                //print(response.response) // URL response
-                //print(response.data)     // server data
-                //print(response.result)   // result of response serialization
                 
                                 switch response.result {
                     
@@ -86,7 +76,6 @@ class TPPClient: NSObject {
         return request.task
     }
     
-    
     // MARK: Helpers
     // Create a URL from parameters
     private func constructURL(parameters: [String:AnyObject], withPathExtension: String? = nil) -> NSURL {
@@ -106,7 +95,7 @@ class TPPClient: NSObject {
         return components.URL!
     }
     
-    // MARK : Shared Instance
+    // MARK : Shared Instance (TPPClient Type)
     class func sharedInstance()->TPPClient {
         struct Singleton {
             static var sharedInstance = TPPClient()
@@ -114,6 +103,7 @@ class TPPClient: NSObject {
         return Singleton.sharedInstance
     }
     
+    // MARK : Shared Instance (ImageCache Type)
     struct Caches {
         static let imageCache = ImageCache()
     }

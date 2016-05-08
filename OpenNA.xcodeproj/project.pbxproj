@@ -13,6 +13,7 @@
 		D235C3321CB4090300704A90 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D235C3311CB4090300704A90 /* SearchViewController.swift */; };
 		D23772971CAD22E60004A2E2 /* PartyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23772961CAD22E60004A2E2 /* PartyCollectionViewCell.swift */; };
 		D23772991CAFB65E0004A2E2 /* LawmakerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */; };
+		D26488011CDF5D1D00F29874 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2964B881C7344D700D5FF5C /* LaunchScreen.storyboard */; };
 		D2678C5E1C904DE90056278F /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2678C5D1C904DE90056278F /* CoreDataStackManager.swift */; };
 		D2678C611C904E740056278F /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D2678C5F1C904E740056278F /* Model.xcdatamodeld */; };
 		D2678C631C9052D80056278F /* Lawmaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2678C621C9052D80056278F /* Lawmaker.swift */; };
@@ -25,7 +26,6 @@
 		D2964B821C7344D700D5FF5C /* PoliticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B811C7344D700D5FF5C /* PoliticsViewController.swift */; };
 		D2964B851C7344D700D5FF5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2964B831C7344D700D5FF5C /* Main.storyboard */; };
 		D2964B871C7344D700D5FF5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2964B861C7344D700D5FF5C /* Assets.xcassets */; };
-		D2964B8A1C7344D700D5FF5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2964B881C7344D700D5FF5C /* LaunchScreen.storyboard */; };
 		D2964B951C7344D700D5FF5C /* OpenNATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B941C7344D700D5FF5C /* OpenNATests.swift */; };
 		D2964BA01C7344D700D5FF5C /* OpenNAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B9F1C7344D700D5FF5C /* OpenNAUITests.swift */; };
 		D2964BEA1C77080400D5FF5C /* assembly.json in Resources */ = {isa = PBXBuildFile; fileRef = D2964BE91C77080400D5FF5C /* assembly.json */; };
@@ -364,9 +364,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2964B8A1C7344D700D5FF5C /* LaunchScreen.storyboard in Resources */,
 				D2D3F9581CABFA3F00D97B23 /* PartyCell.xib in Resources */,
 				D2964BEA1C77080400D5FF5C /* assembly.json in Resources */,
+				D26488011CDF5D1D00F29874 /* LaunchScreen.storyboard in Resources */,
 				D2D3F9561CABD1A500D97B23 /* BillCell.xib in Resources */,
 				D2964B871C7344D700D5FF5C /* Assets.xcassets in Resources */,
 				D2964B851C7344D700D5FF5C /* Main.storyboard in Resources */,

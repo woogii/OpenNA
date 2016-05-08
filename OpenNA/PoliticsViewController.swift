@@ -285,6 +285,12 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
 
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        
+    }
+    
+    
     // MARK : Congifure UITableviewCell
     
     func configureCell(cell:LawmakerTableViewCell , atIndexPath indexPath:NSIndexPath)
