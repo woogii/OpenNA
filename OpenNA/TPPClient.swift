@@ -102,7 +102,7 @@ class TPPClient: NSObject {
             let queryItem = NSURLQueryItem(name: key, value: "\(value)")
             components.queryItems!.append(queryItem)
         }
-        print(String(components.URL))
+        print("URL : \(String(components.URL))")
         return components.URL!
     }
     
