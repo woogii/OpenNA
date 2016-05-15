@@ -32,6 +32,7 @@ class PoliticsViewController: UIViewController  {
     
     var lawmakerInfo = [LawmakerInfo]()
     typealias Entry = (Character, [LawmakerInfo])
+    
     var indexInfo = [Entry]()
     
   
@@ -360,10 +361,14 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         log.debug("did select")
         
-        let controller = storyboard?.instantiateViewControllerWithIdentifier("LawmakerDetail") as! LawmakerDetailViewController
+        let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.LawmakerDetailVC) as! LawmakerDetailViewController
         
         controller.lawmaker = lawmakers[indexPath.row]
         controller.image = lawmakers[indexPath.row].pinnedImage
+        
+        // controller.lawmaker =  indexInfo[indexPath.section].1[indexPath.row]
+        // controller.image = indexInfo[indexPath.section].1[indexPath.row].pinnedImage
+        
         controller.hidesBottomBarWhenPushed = true
 
         // performSegueWithIdentifier(Constants.Identifier.DetailStoryboardSegue, sender: self)
@@ -380,7 +385,7 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
     // MARK : UICollectionViewDataSource Methods
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(parties.count)
+        // print(parties.count)
         return parties.count 
     }
     

@@ -41,6 +41,15 @@ class LawmakerDetailViewController: UIViewController {
         nameLabel.text = lawmaker?.name
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == Constants.Identifier.HomepageStoryboardSegue {
+            let controller = segue.destinationViewController as! LawmakerWebViewController
+            controller.urlString = lawmaker?.homepage
+            print(controller.urlString)
+        }
+    }
+    
 }
 
 extension LawmakerDetailViewController : UITableViewDelegate, UITableViewDataSource {
@@ -88,7 +97,7 @@ extension LawmakerDetailViewController : UITableViewDelegate, UITableViewDataSou
         
         return UITableViewCell()
     }
-
+    
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return Constants.HeaderTitle
     }

@@ -112,7 +112,7 @@ struct Constants {
         static let PredicateForImage   = "imageUrl=%@"
     }
     
-    // MARK : Cell Identifier
+    // MARK : Cell & Segue Identifier
     struct Identifier {
         
         static let PeopleCell     = "LawmakerCell"
@@ -126,7 +126,10 @@ struct Constants {
         static let HomepageCell   = "homepageCell"
         
         static let DetailStoryboardSegue = "showLawmaker"
+        static let HomepageStoryboardSegue = "showHomepage"
         
+        static let LawmakerDetailVC = "LawmakerDetail"
+        static let LawmakerHomepageVC = "LawmakerHomepage"
     }
 
     // MARK : Activity Indicator Text 
