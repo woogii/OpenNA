@@ -344,16 +344,35 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        log.debug("did select")
-        
-        let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.LawmakerDetailVC) as! LawmakerDetailViewController
-        
-        controller.lawmaker =  indexInfo[indexPath.section].1[indexPath.row]
-        controller.image = indexInfo[indexPath.section].1[indexPath.row].pinnedImage
-        controller.hidesBottomBarWhenPushed = true
+    
+        switch segmentedControl.selectedSegmentIndex {
+            
+        case 0 :
+            let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.LawmakerDetailVC) as! LawmakerDetailViewController
+            
+            controller.lawmaker =  indexInfo[indexPath.section].1[indexPath.row]
+            controller.image = indexInfo[indexPath.section].1[indexPath.row].pinnedImage
+            controller.hidesBottomBarWhenPushed = true
+            
+            navigationController?.pushViewController(controller, animated: true)
+            
+            break
+        case 1 :
+            let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.LawmakerDetailVC) as! BillDetailViewController
+            
+            controller.lawmaker =  indexInfo[indexPath.section].1[indexPath.row]
+            controller.image = indexInfo[indexPath.section].1[indexPath.row].pinnedImage
+            controller.hidesBottomBarWhenPushed = true
+            
+            navigationController?.pushViewController(controller, animated: true)
+            
+            break
+        case 2 :
+            break
+        default:
+            break
+        }
 
-
-        navigationController?.pushViewController(controller, animated: true)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 

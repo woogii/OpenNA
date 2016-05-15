@@ -10,7 +10,9 @@ import Foundation
 import UIKit
 import MBProgressHUD
 
-class LawmakerWebViewController: UIViewController, UIWebViewDelegate {
+// MARK: - LawmakerDetailViewController : UIViewController
+
+class LawmakerWebViewController: UIViewController {
     
     @IBOutlet weak var webView: UIWebView!
     var urlString: String?
@@ -37,16 +39,22 @@ class LawmakerWebViewController: UIViewController, UIWebViewDelegate {
         webView.loadRequest(NSURLRequest(URL: url))
     }
     
+}
+
+// MARK: - LawmakerDetailViewController : UIWebViewDelegate
+
+extension LawmakerWebViewController : UIWebViewDelegate {
+    
     func webViewDidStartLoad(webView: UIWebView) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         loadingActivity = MBProgressHUD.showHUDAddedTo(view, animated: true)
         loadingActivity!.labelText = Constants.ActivityIndicatorText.Loading
     }
-
+    
     func webViewDidFinishLoad(webView: UIWebView) {
         loadingActivity?.hide(true)
     }
-
+    
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
         loadingActivity?.hide(true)
         
@@ -55,6 +63,5 @@ class LawmakerWebViewController: UIViewController, UIWebViewDelegate {
         self.presentViewController(alertView, animated: true, completion: nil)
         
     }
-
 
 }

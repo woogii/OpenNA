@@ -17,6 +17,8 @@ class Bill {
     var sponsor:String?
     var status:String?
     var summary:String?
+    var documentUrl:String?
+    var assemblyId:String? 
     
     // MARK : Initialization
 
@@ -27,6 +29,8 @@ class Bill {
         sponsor = (dictionary[Constants.JSONResponseKeys.BillSponsor] as! String)
         status = (dictionary[Constants.JSONResponseKeys.BillStatus] as! String)
         summary = dictionary[Constants.JSONResponseKeys.BillSummary] as? String
+        documentUrl = dictionary[Constants.JSONResponseKeys.BillDocUrl] as? String
+        assemblyId  = dictionary[Constants.JSONResponseKeys.BillAssemblyID] as? String
     }
 
     // MARK : Helper Method

@@ -125,11 +125,13 @@ struct Constants {
         static let DistrictCell   = "districtCell"
         static let HomepageCell   = "homepageCell"
         
-        static let DetailStoryboardSegue = "showLawmaker"
-        static let HomepageStoryboardSegue = "showHomepage"
+        
+        static let segueToHomepageVC = "showHomepage"
         
         static let LawmakerDetailVC = "LawmakerDetail"
+        static let BillDetailVC = "BillDetail"
         static let LawmakerHomepageVC = "LawmakerHomepage"
+        
     }
 
     // MARK : Activity Indicator Text 

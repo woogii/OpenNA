@@ -15,6 +15,7 @@
 		D200282A1CE7F03000F1369E /* DistrictTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20028291CE7F03000F1369E /* DistrictTableViewCell.swift */; };
 		D200282C1CE7F05800F1369E /* HomepageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200282B1CE7F05800F1369E /* HomepageTableViewCell.swift */; };
 		D20028301CE86C9E00F1369E /* LawmakerWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200282F1CE86C9E00F1369E /* LawmakerWebViewController.swift */; };
+		D20028321CE8B3C300F1369E /* BillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20028311CE8B3C300F1369E /* BillDetailViewController.swift */; };
 		D22A7F531CDB511500CFF74A /* TPPClientConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A7F521CDB511500CFF74A /* TPPClientConvenience.swift */; };
 		D235C3301CB1068700704A90 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D235C32F1CB1068700704A90 /* ImageCache.swift */; };
 		D235C3321CB4090300704A90 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D235C3311CB4090300704A90 /* SearchViewController.swift */; };
@@ -71,6 +72,7 @@
 		D20028291CE7F03000F1369E /* DistrictTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictTableViewCell.swift; sourceTree = "<group>"; };
 		D200282B1CE7F05800F1369E /* HomepageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomepageTableViewCell.swift; sourceTree = "<group>"; };
 		D200282F1CE86C9E00F1369E /* LawmakerWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerWebViewController.swift; sourceTree = "<group>"; };
+		D20028311CE8B3C300F1369E /* BillDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailViewController.swift; sourceTree = "<group>"; };
 		D22A7F521CDB511500CFF74A /* TPPClientConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPClientConvenience.swift; sourceTree = "<group>"; };
 		D235C32F1CB1068700704A90 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		D235C3311CB4090300704A90 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				D2964B811C7344D700D5FF5C /* PoliticsViewController.swift */,
 				D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */,
 				D200282F1CE86C9E00F1369E /* LawmakerWebViewController.swift */,
+				D20028311CE8B3C300F1369E /* BillDetailViewController.swift */,
 				D29468121CC2538600232D41 /* Search.swift */,
 				D235C3311CB4090300704A90 /* SearchViewController.swift */,
 			);
@@ -482,6 +485,7 @@
 				D20028261CE7F00600F1369E /* PartyTableViewCell.swift in Sources */,
 				D2D3F95A1CAC2D6700D97B23 /* Party.swift in Sources */,
 				D27451A81CA6BE770024A904 /* Constants.swift in Sources */,
+				D20028321CE8B3C300F1369E /* BillDetailViewController.swift in Sources */,
 				D2678C611C904E740056278F /* Model.xcdatamodeld in Sources */,
 				D22A7F531CDB511500CFF74A /* TPPClientConvenience.swift in Sources */,
 				D23772971CAD22E60004A2E2 /* PartyCollectionViewCell.swift in Sources */,
