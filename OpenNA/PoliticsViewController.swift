@@ -23,19 +23,10 @@ class PoliticsViewController: UIViewController  {
     var lawmakers = [Lawmaker]()
     var bills     = [Bill]()
     var parties   = [Party]()
-    
-    struct LawmakerInfo {
-        var name : String
-        var party : String
-        var imageUrl:String
-    }
-    
-    var lawmakerInfo = [LawmakerInfo]()
-    typealias Entry = (Character, [LawmakerInfo])
-    
     var indexInfo = [Entry]()
     
-  
+    typealias Entry = (Character, [Lawmaker])
+    
     // MARK :  View LifeCycle
     override func viewDidLayoutSubviews() {
         
@@ -162,18 +153,12 @@ class PoliticsViewController: UIViewController  {
     
     // MARK : Helper
     
-    func buildTableViewIndex() {
+    func buildTableViewIndex() {        
         
-        // Create lawmakerInfo array
-        lawmakerInfo = lawmakers.map({ (customArray:Lawmaker)->LawmakerInfo in
-            
-            return LawmakerInfo(name: customArray.name!, party: customArray.party!, imageUrl: customArray.imageUrl!)
-        })
-    
-        indexInfo = buildIndex(lawmakerInfo)
+        indexInfo = buildIndex(lawmakers)
      }
     
-    func buildIndex(lawmakers: [LawmakerInfo]) -> [Entry] {
+    func buildIndex(lawmakers: [Lawmaker]) -> [Entry] {
         
         #if DEBUG
         // Get the first korean character 
@@ -184,18 +169,18 @@ class PoliticsViewController: UIViewController  {
         
         // Create the array that contains the first letter of lawmaker's name
         let letters = lawmakers.map {  (lawmaker) -> Character in
-            Character(lawmaker.name.substringToIndex(lawmaker.name.startIndex.advancedBy(1)).uppercaseString)
+            Character(lawmaker.name!.substringToIndex(lawmaker.name!.startIndex.advancedBy(1)).uppercaseString)
         }
 
         // Delete if there is a duplicate
         let distictLetters = distinct(letters)
         
-        // Create the Entry type Array. Entry type represents (Character, [LawmakerInfo]) tuple
+        // Create the Entry type Array. Entry type represents (Character, [Lawmaker]) tuple
         return distictLetters.map {   (letter) -> Entry in
             
             return (letter, lawmakers.filter  {  (lawmaker) -> Bool in
             
-                Character(lawmaker.name.substringToIndex(lawmaker.name.startIndex.advancedBy(1)).uppercaseString) == letter
+                Character(lawmaker.name!.substringToIndex(lawmaker.name!.startIndex.advancedBy(1)).uppercaseString) == letter
             })
         }
         
@@ -363,15 +348,11 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         
         let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.LawmakerDetailVC) as! LawmakerDetailViewController
         
-        controller.lawmaker = lawmakers[indexPath.row]
-        controller.image = lawmakers[indexPath.row].pinnedImage
-        
-        // controller.lawmaker =  indexInfo[indexPath.section].1[indexPath.row]
-        // controller.image = indexInfo[indexPath.section].1[indexPath.row].pinnedImage
-        
+        controller.lawmaker =  indexInfo[indexPath.section].1[indexPath.row]
+        controller.image = indexInfo[indexPath.section].1[indexPath.row].pinnedImage
         controller.hidesBottomBarWhenPushed = true
 
-        // performSegueWithIdentifier(Constants.Identifier.DetailStoryboardSegue, sender: self)
+
         navigationController?.pushViewController(controller, animated: true)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
@@ -385,7 +366,7 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
     // MARK : UICollectionViewDataSource Methods
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // print(parties.count)
+        
         return parties.count 
     }
     
@@ -393,7 +374,6 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
     
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Constants.Identifier.PartyImageCell, forIndexPath: indexPath) as! PartyCollectionViewCell
         
-        //configureCollectionCell(cell, atIndexPath: indexPath)
         cell.logoImageView.image = parties[indexPath.row].thumbnail
         
         return cell

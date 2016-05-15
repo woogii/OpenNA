@@ -304,26 +304,26 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In Office" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0WZ-hu-loi">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="In Office" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0WZ-hu-loi">
                                                     <rect key="frame" x="19" y="8" width="66" height="27"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LPd-5e-rDx">
-                                                    <rect key="frame" x="124" y="11" width="183" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LPd-5e-rDx">
+                                                    <rect key="frame" x="124" y="4" width="183" height="36"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="LPd-5e-rDx" secondAttribute="bottom" constant="3" id="F4v-Cy-ekq"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="LPd-5e-rDx" secondAttribute="bottom" constant="-5" id="F4v-Cy-ekq"/>
                                                 <constraint firstAttribute="bottom" secondItem="0WZ-hu-loi" secondAttribute="bottom" constant="8" id="Iub-bM-oNq"/>
                                                 <constraint firstItem="0WZ-hu-loi" firstAttribute="leading" secondItem="0mk-lg-o1A" secondAttribute="leading" constant="19" id="Mb4-bp-Bhz"/>
                                                 <constraint firstItem="LPd-5e-rDx" firstAttribute="leading" secondItem="0WZ-hu-loi" secondAttribute="trailing" constant="39" id="TWW-Ag-5Jr"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="LPd-5e-rDx" secondAttribute="trailing" constant="5" id="YFP-bR-GbX"/>
                                                 <constraint firstItem="0WZ-hu-loi" firstAttribute="top" secondItem="0mk-lg-o1A" secondAttribute="top" constant="8" id="b5r-1k-jcW"/>
-                                                <constraint firstItem="LPd-5e-rDx" firstAttribute="top" secondItem="0mk-lg-o1A" secondAttribute="topMargin" constant="3" id="wc0-8t-Ima"/>
+                                                <constraint firstItem="LPd-5e-rDx" firstAttribute="top" secondItem="0mk-lg-o1A" secondAttribute="topMargin" constant="-4" id="wc0-8t-Ima"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -338,7 +338,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="District" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ynD-3F-AhO">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="District" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ynD-3F-AhO">
                                                     <rect key="frame" x="19" y="8" width="58" height="27"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
@@ -378,7 +378,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="io8-nW-l9n">
-                                                    <rect key="frame" x="120" y="11" width="187" height="21"/>
+                                                    <rect key="frame" x="124" y="11" width="183" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -389,7 +389,7 @@
                                                 <constraint firstItem="DTx-MF-8wK" firstAttribute="top" secondItem="JYQ-eh-t4u" secondAttribute="top" constant="8" id="Pby-xS-QpD"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="io8-nW-l9n" secondAttribute="bottom" constant="3" id="ViR-cl-GgN"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="io8-nW-l9n" secondAttribute="trailing" constant="5" id="XNt-cs-X6J"/>
-                                                <constraint firstItem="io8-nW-l9n" firstAttribute="leading" secondItem="DTx-MF-8wK" secondAttribute="trailing" constant="20" id="ZYw-jG-qsE"/>
+                                                <constraint firstItem="io8-nW-l9n" firstAttribute="leading" secondItem="DTx-MF-8wK" secondAttribute="trailing" constant="24" id="ZYw-jG-qsE"/>
                                                 <constraint firstItem="io8-nW-l9n" firstAttribute="top" secondItem="JYQ-eh-t4u" secondAttribute="topMargin" constant="3" id="dhq-yq-nWS"/>
                                                 <constraint firstAttribute="bottom" secondItem="DTx-MF-8wK" secondAttribute="bottom" constant="8" id="gP0-rl-oE4"/>
                                             </constraints>
@@ -450,7 +450,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ft1-CT-9lF">
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ft1-CT-9lF">
                                 <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                             </webView>
