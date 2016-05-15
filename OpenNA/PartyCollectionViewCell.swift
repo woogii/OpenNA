@@ -24,4 +24,5 @@ class PartyCollectionViewCell : UICollectionViewCell {
             }
         }
     }
+    
 }

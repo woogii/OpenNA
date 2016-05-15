@@ -13,8 +13,12 @@ import UIKit
 class Lawmaker : NSManagedObject {
     
     @NSManaged var name:String?
-    @NSManaged var imageUrl :String?
+    @NSManaged var imageUrl:String?
     @NSManaged var party:String?
+    @NSManaged var birth:String?
+    @NSManaged var homepage:String?
+    @NSManaged var when_elected:String?
+    @NSManaged var district:String?
     
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
         super.init(entity:entity, insertIntoManagedObjectContext: context)
@@ -26,9 +30,13 @@ class Lawmaker : NSManagedObject {
         
         super.init(entity : entity!, insertIntoManagedObjectContext: context)
         
-        name = dictionary[Constants.ModelKeys.Name] as? String
-        imageUrl = dictionary[Constants.ModelKeys.ImageUrl] as? String
-        party = dictionary[Constants.ModelKeys.Party] as? String
+        name         = dictionary[Constants.ModelKeys.Name] as? String
+        imageUrl     = dictionary[Constants.ModelKeys.ImageUrl] as? String
+        party        = dictionary[Constants.ModelKeys.Party] as? String
+        birth        = dictionary[Constants.ModelKeys.Birth] as? String
+        homepage     = dictionary[Constants.ModelKeys.Homepage] as? String
+        when_elected = dictionary[Constants.ModelKeys.WhenElected] as? String
+        district     = dictionary[Constants.ModelKeys.District] as? String
     }
 
     var pinnedImage: UIImage? {

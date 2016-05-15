@@ -364,9 +364,11 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         
         controller.lawmaker = lawmakers[indexPath.row]
         controller.image = lawmakers[indexPath.row].pinnedImage
+        controller.hidesBottomBarWhenPushed = true
 
         // performSegueWithIdentifier(Constants.Identifier.DetailStoryboardSegue, sender: self)
         navigationController?.pushViewController(controller, animated: true)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
 }
@@ -384,7 +386,7 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Constants.Identifier.PartyCell, forIndexPath: indexPath) as! PartyCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Constants.Identifier.PartyImageCell, forIndexPath: indexPath) as! PartyCollectionViewCell
         
         //configureCollectionCell(cell, atIndexPath: indexPath)
         cell.logoImageView.image = parties[indexPath.row].thumbnail

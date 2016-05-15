@@ -105,15 +105,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         return
                     }
                 
-                    guard let url = dict[Constants.JSONResponseKeys.Photo] as? String else {
+                    guard let imageUrl = dict[Constants.JSONResponseKeys.Photo] as? String else {
                         return
+                    }
+                
+                    guard let birth = dict[Constants.JSONResponseKeys.Birth] as? String else {
+                        return
+                    }
+                    
+                    guard let district = dict[Constants.JSONResponseKeys.District] as? String else {
+                        return
+                    }
+                    
+                    guard let when_elected = dict[Constants.JSONResponseKeys.WhenElected] as? String else {
+                        return
+                    }
+                
+                    guard let homepage = dict[Constants.JSONResponseKeys.Homepage] as? String else {
+                        return 
                     }
                 
                     let lawmaker = NSEntityDescription.insertNewObjectForEntityForName(Constants.ModelKeys.LawmakerEntity, inManagedObjectContext: sharedContext) as! Lawmaker
                     
                     lawmaker.name = name
                     lawmaker.party = party
-                    lawmaker.imageUrl = url
+                    lawmaker.imageUrl = imageUrl
+                    lawmaker.birth = birth
+                    lawmaker.district = district
+                    lawmaker.when_elected = when_elected
+                    lawmaker.homepage = homepage
                 
                     do {
                         try sharedContext.save()

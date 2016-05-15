@@ -72,11 +72,13 @@ struct Constants {
         static let Party         = "party"
         static let Address       = "address"
         static let Education     = "education"
-        static let Birthday      = "birthday"
+        static let Birth         = "birth"
         static let Homepage      = "homepage"
         static let Gender        = "gender"
         static let LawmakerItems = "items"
         static let Id            = "id"
+        static let WhenElected   = "when_elected"
+        static let District      = "district"
         
         // MARK: Bill
         static let BillItems        = "items"
@@ -113,11 +115,18 @@ struct Constants {
     // MARK : Cell Identifier
     struct Identifier {
         
-        static let PeopleCell = "LawmakerCell"
-        static let BillCell   = "BillCell"
-        static let PartyCell  = "LogoImageCell"
+        static let PeopleCell     = "LawmakerCell"
+        static let BillCell       = "BillCell"
+        static let PartyImageCell = "LogoImageCell"
+        static let SearchResult   = "searchResult"
+        static let BirthCell      = "birthCell"
+        static let PartyCell      = "partyCell"
+        static let InOfficeCell   = "inOfficeCell"
+        static let DistrictCell   = "districtCell"
+        static let HomepageCell   = "homepageCell"
+        
         static let DetailStoryboardSegue = "showLawmaker"
-        static let SearchResult = "searchResult"
+        
     }
 
     // MARK : Activity Indicator Text 
@@ -155,6 +164,10 @@ struct Constants {
         static let Name = "name"
         static let ImageUrl = "imageUrl"
         static let Party    = "party"
+        static let Birth    = "birth"
+        static let Homepage = "homepage"
+        static let WhenElected = "when_elected"
+        static let District = "district"
         static let LawmakerEntity = "Lawmaker"
         
         // MARK : Bill
@@ -170,6 +183,17 @@ struct Constants {
         static let PartySize  = "size"
         static let PartyId    = "id"
         static let PartyName  = "name"
+        
+    }
+    
+    struct CustomCell {
+        
+        static let PartyLabel    = "Party"
+        static let BirthLabel    = "Birth"
+        static let InOfficeLabel = "In Office"
+        static let DistrictLabel = "District"
+        static let HomepageLabel = "Homepage"
+    
     }
     
     static let UserDefaultsKey = "dataExist"
@@ -178,5 +202,7 @@ struct Constants {
     static let LogFileName = "XCGLogger_Log.txt"
     
     static let LaunchView = "LaunchScreen"
-  
+    
+    static let NumOfProfileCells = 5
+    static let HeaderTitle = "Profile"
 }
