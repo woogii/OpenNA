@@ -44,7 +44,7 @@ class LawmakerDetailViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == Constants.Identifier.segueToHomepageVC {
-            let controller = segue.destinationViewController as! LawmakerWebViewController
+            let controller = segue.destinationViewController as! WebViewController
             controller.urlString = lawmaker?.homepage
         }
     }

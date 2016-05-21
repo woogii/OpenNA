@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mmM-OS-uM8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mmM-OS-uM8">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -187,7 +187,7 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="logoImageView" destination="9QH-Ub-WXS" id="WeO-Y4-5ui"/>
-                                            <segue destination="Dhe-YD-e6d" kind="show" id="Y3L-a5-2dc"/>
+                                            <segue destination="Dhe-YD-e6d" kind="show" identifier="showPartyInfo" id="Y3L-a5-2dc"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -470,7 +470,7 @@
             </objects>
             <point key="canvasLocation" x="310" y="-403"/>
         </scene>
-        <!--Title-->
+        <!--Bill Detail-->
         <scene sceneID="jIy-mD-HjM">
             <objects>
                 <tableViewController storyboardIdentifier="BillDetail" id="ZRi-9x-VhW" customClass="BillDetailViewController" customModule="OpenNA" customModuleProvider="target" sceneMemberID="viewController">
@@ -613,14 +613,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="External Links" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8A-m1-Gbv">
-                                                    <rect key="frame" x="13" y="11" width="103" height="21"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <rect key="frame" x="13" y="11" width="91" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qMH-pd-jnE">
-                                                    <rect key="frame" x="134" y="11" width="174" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="122" y="11" width="186" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -636,36 +636,34 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="Dhe-YD-e6d" kind="show" id="pvd-li-cak"/>
+                                            <segue destination="Dhe-YD-e6d" kind="show" identifier="showHomepage" id="pvd-li-cak"/>
                                         </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="eXs-Yn-0rS">
-                                        <rect key="frame" x="0.0" y="312" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eXs-Yn-0rS" id="LbH-GU-ifc">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Summary" id="WhV-Cs-HEh">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="135" id="AHS-Me-en1">
-                                        <rect key="frame" x="0.0" y="384" width="320" height="135"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="181" id="AHS-Me-en1">
+                                        <rect key="frame" x="0.0" y="340" width="320" height="181"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AHS-Me-en1" id="qdB-dM-Xth">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="134"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nCK-Ag-NaE">
-                                                    <rect key="frame" x="8" y="3" width="304" height="128"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nCK-Ag-NaE">
+                                                    <rect key="frame" x="0.0" y="3" width="320" height="177"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="nCK-Ag-NaE" secondAttribute="trailing" id="KPz-k7-2sW"/>
+                                                <constraint firstItem="nCK-Ag-NaE" firstAttribute="top" secondItem="qdB-dM-Xth" secondAttribute="top" constant="3" id="NBI-i4-IXO"/>
+                                                <constraint firstItem="nCK-Ag-NaE" firstAttribute="leading" secondItem="qdB-dM-Xth" secondAttribute="leading" id="dgt-C8-gj9"/>
+                                                <constraint firstAttribute="bottom" secondItem="nCK-Ag-NaE" secondAttribute="bottom" id="zFd-v0-kAF"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -676,25 +674,25 @@
                             <outlet property="delegate" destination="ZRi-9x-VhW" id="0dT-Ix-9pw"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="nSj-Qs-zRu"/>
+                    <navigationItem key="navigationItem" title="Bill Detail" id="nSj-Qs-zRu"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="assemblyIDCell" destination="BRd-Rs-W0y" id="tCk-8f-Ocv"/>
-                        <outlet property="documentUrlCell" destination="P2D-k4-zsE" id="8bq-8z-jYe"/>
-                        <outlet property="proposedDateCell" destination="uih-Iw-IDV" id="YpZ-Mh-N8g"/>
-                        <outlet property="sponsorCell" destination="B6b-nV-oqx" id="obQ-QC-Tlb"/>
-                        <outlet property="statusCell" destination="FmT-HQ-nbA" id="54C-Ne-3u5"/>
-                        <outlet property="summaryCell" destination="AHS-Me-en1" id="7n2-No-Ec3"/>
+                        <outlet property="assembylIDLabel" destination="JMa-Qf-VZd" id="JQO-kd-wY7"/>
+                        <outlet property="documentURLLabel" destination="qMH-pd-jnE" id="M5H-Tn-paY"/>
+                        <outlet property="proposedDateLabel" destination="0TK-Ci-JAE" id="QaU-Bs-Pon"/>
+                        <outlet property="sponsorLabel" destination="rqj-Ra-Vdx" id="lXT-NH-J4l"/>
+                        <outlet property="statusLabel" destination="tpy-Fg-382" id="61J-Nh-yww"/>
+                        <outlet property="summaryTextView" destination="nCK-Ag-NaE" id="yJS-hq-Jjo"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hYT-Bo-1UQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-215" y="487"/>
         </scene>
-        <!--Lawmaker Web View Controller-->
+        <!--Web View Controller-->
         <scene sceneID="KRk-iJ-q5n">
             <objects>
-                <viewController storyboardIdentifier="LawmakerHomepage" automaticallyAdjustsScrollViewInsets="NO" id="Dhe-YD-e6d" customClass="LawmakerWebViewController" customModule="OpenNA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LawmakerHomepage" automaticallyAdjustsScrollViewInsets="NO" id="Dhe-YD-e6d" customClass="WebViewController" customModule="OpenNA" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="psg-g7-UWc"/>
                         <viewControllerLayoutGuide type="bottom" id="7ih-Cz-4MF"/>
@@ -751,6 +749,6 @@
         <image name="politics" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pvd-li-cak"/>
+        <segue reference="Y3L-a5-2dc"/>
     </inferredMetricsTieBreakers>
 </document>

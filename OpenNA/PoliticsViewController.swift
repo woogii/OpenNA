@@ -24,6 +24,7 @@ class PoliticsViewController: UIViewController  {
     var bills     = [Bill]()
     var parties   = [Party]()
     var indexInfo = [Entry]()
+    var selectedPartyName : String?
     
     typealias Entry = (Character, [Lawmaker])
     
@@ -151,6 +152,16 @@ class PoliticsViewController: UIViewController  {
         }
     }
     
+    // MARK : Prepare Segue 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        print("segue")
+        if segue.identifier == "showPartyInfo" {
+
+            let controller = segue.destinationViewController as! WebViewController
+            controller.urlString = "https://ko.wikipedia.org/wiki/" + selectedPartyName!
+        }
+        
+    }
     // MARK : Helper
     
     func buildTableViewIndex() {        
@@ -262,7 +273,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
             
             cell.nameLabel.text = bills[indexPath.row].name
             cell.sponsorLabel.text = bills[indexPath.row].sponsor
-            cell.dateLabel.text = bills[indexPath.row].date
+            cell.dateLabel.text = bills[indexPath.row].proposeDate
             cell.statusLabel.text = bills[indexPath.row].status
             
             return cell
@@ -358,11 +369,9 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
             
             break
         case 1 :
-            let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.LawmakerDetailVC) as! BillDetailViewController
+            let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.BillDetailVC) as! BillDetailViewController
             
-            controller.lawmaker =  indexInfo[indexPath.section].1[indexPath.row]
-            controller.image = indexInfo[indexPath.section].1[indexPath.row].pinnedImage
-            controller.hidesBottomBarWhenPushed = true
+            controller.bill = bills[indexPath.row]
             
             navigationController?.pushViewController(controller, animated: true)
             
@@ -397,7 +406,18 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
         
         return cell
     }
-    
+ 
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        print("select")
+        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) else {
+            return
+        }
+        cell.layer.borderWidth = 2.0
+        cell.layer.borderColor = UIColor.whiteColor().CGColor
+        
+        selectedPartyName = parties[indexPath.row].name
+        print("party name : \(selectedPartyName)")
+    }
 }
 
 // Copyright © 2016년 minsone : http://minsone.github.io/mac/ios/linear-hangul-in-objective-c-swift

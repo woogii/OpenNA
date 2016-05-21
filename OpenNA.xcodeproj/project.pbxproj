@@ -9,13 +9,13 @@
 /* Begin PBXBuildFile section */
 		13174E43509921D70E2FDBA0 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3801775D12FBF6181F3CD108 /* Pods.framework */; };
 		D20028221CE7584D00F1369E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D20028211CE7584D00F1369E /* Launch Screen.storyboard */; };
-		D20028241CE7EFE000F1369E /* BirthTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20028231CE7EFE000F1369E /* BirthTableViewCell.swift */; };
 		D20028261CE7F00600F1369E /* PartyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20028251CE7F00600F1369E /* PartyTableViewCell.swift */; };
-		D20028281CE7F01B00F1369E /* InOfficeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20028271CE7F01B00F1369E /* InOfficeTableViewCell.swift */; };
-		D200282A1CE7F03000F1369E /* DistrictTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20028291CE7F03000F1369E /* DistrictTableViewCell.swift */; };
-		D200282C1CE7F05800F1369E /* HomepageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200282B1CE7F05800F1369E /* HomepageTableViewCell.swift */; };
-		D20028301CE86C9E00F1369E /* LawmakerWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200282F1CE86C9E00F1369E /* LawmakerWebViewController.swift */; };
+		D20028301CE86C9E00F1369E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200282F1CE86C9E00F1369E /* WebViewController.swift */; };
 		D20028321CE8B3C300F1369E /* BillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20028311CE8B3C300F1369E /* BillDetailViewController.swift */; };
+		D212D3561CF0438B008CEC5C /* HomepageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3511CF0438B008CEC5C /* HomepageTableViewCell.swift */; };
+		D212D3571CF0438B008CEC5C /* DistrictTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3521CF0438B008CEC5C /* DistrictTableViewCell.swift */; };
+		D212D3591CF0438B008CEC5C /* BirthTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3541CF0438B008CEC5C /* BirthTableViewCell.swift */; };
+		D212D35B1CF043D9008CEC5C /* InOfficeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D35A1CF043D9008CEC5C /* InOfficeTableViewCell.swift */; };
 		D22A7F531CDB511500CFF74A /* TPPClientConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A7F521CDB511500CFF74A /* TPPClientConvenience.swift */; };
 		D235C3301CB1068700704A90 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D235C32F1CB1068700704A90 /* ImageCache.swift */; };
 		D235C3321CB4090300704A90 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D235C3311CB4090300704A90 /* SearchViewController.swift */; };
@@ -66,13 +66,13 @@
 		48DA9048AE9501E62CCFAF3E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		86E1E5853AA5541A8A5D07D0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D20028211CE7584D00F1369E /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		D20028231CE7EFE000F1369E /* BirthTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthTableViewCell.swift; sourceTree = "<group>"; };
 		D20028251CE7F00600F1369E /* PartyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyTableViewCell.swift; sourceTree = "<group>"; };
-		D20028271CE7F01B00F1369E /* InOfficeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InOfficeTableViewCell.swift; sourceTree = "<group>"; };
-		D20028291CE7F03000F1369E /* DistrictTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictTableViewCell.swift; sourceTree = "<group>"; };
-		D200282B1CE7F05800F1369E /* HomepageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomepageTableViewCell.swift; sourceTree = "<group>"; };
-		D200282F1CE86C9E00F1369E /* LawmakerWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerWebViewController.swift; sourceTree = "<group>"; };
+		D200282F1CE86C9E00F1369E /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		D20028311CE8B3C300F1369E /* BillDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailViewController.swift; sourceTree = "<group>"; };
+		D212D3511CF0438B008CEC5C /* HomepageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomepageTableViewCell.swift; sourceTree = "<group>"; };
+		D212D3521CF0438B008CEC5C /* DistrictTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictTableViewCell.swift; sourceTree = "<group>"; };
+		D212D3541CF0438B008CEC5C /* BirthTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthTableViewCell.swift; sourceTree = "<group>"; };
+		D212D35A1CF043D9008CEC5C /* InOfficeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InOfficeTableViewCell.swift; sourceTree = "<group>"; };
 		D22A7F521CDB511500CFF74A /* TPPClientConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPClientConvenience.swift; sourceTree = "<group>"; };
 		D235C32F1CB1068700704A90 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		D235C3311CB4090300704A90 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +148,18 @@
 				3801775D12FBF6181F3CD108 /* Pods.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D212D35C1CF04549008CEC5C /* Lawmaker Info TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				D212D3511CF0438B008CEC5C /* HomepageTableViewCell.swift */,
+				D212D3521CF0438B008CEC5C /* DistrictTableViewCell.swift */,
+				D212D3541CF0438B008CEC5C /* BirthTableViewCell.swift */,
+				D212D35A1CF043D9008CEC5C /* InOfficeTableViewCell.swift */,
+				D20028251CE7F00600F1369E /* PartyTableViewCell.swift */,
+			);
+			name = "Lawmaker Info TableViewCells";
 			sourceTree = "<group>";
 		};
 		D2964B731C7344D700D5FF5C = {
@@ -243,12 +255,8 @@
 		D2D3F9481CAA54CC00D97B23 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D212D35C1CF04549008CEC5C /* Lawmaker Info TableViewCells */,
 				D2678C641C9173780056278F /* LawmakerTableViewCell.swift */,
-				D20028231CE7EFE000F1369E /* BirthTableViewCell.swift */,
-				D20028251CE7F00600F1369E /* PartyTableViewCell.swift */,
-				D20028271CE7F01B00F1369E /* InOfficeTableViewCell.swift */,
-				D20028291CE7F03000F1369E /* DistrictTableViewCell.swift */,
-				D200282B1CE7F05800F1369E /* HomepageTableViewCell.swift */,
 				D23772961CAD22E60004A2E2 /* PartyCollectionViewCell.swift */,
 				D2D3F9521CABCE4F00D97B23 /* BillTableViewCell.swift */,
 				D2678C661C91797D0056278F /* TaskCancelingTableViewCell.swift */,
@@ -261,7 +269,7 @@
 			children = (
 				D2964B811C7344D700D5FF5C /* PoliticsViewController.swift */,
 				D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */,
-				D200282F1CE86C9E00F1369E /* LawmakerWebViewController.swift */,
+				D200282F1CE86C9E00F1369E /* WebViewController.swift */,
 				D20028311CE8B3C300F1369E /* BillDetailViewController.swift */,
 				D29468121CC2538600232D41 /* Search.swift */,
 				D235C3311CB4090300704A90 /* SearchViewController.swift */,
@@ -468,20 +476,19 @@
 				D2678C631C9052D80056278F /* Lawmaker.swift in Sources */,
 				D235C3301CB1068700704A90 /* ImageCache.swift in Sources */,
 				D235C3321CB4090300704A90 /* SearchViewController.swift in Sources */,
-				D20028241CE7EFE000F1369E /* BirthTableViewCell.swift in Sources */,
 				D2678C651C9173780056278F /* LawmakerTableViewCell.swift in Sources */,
 				D2964B801C7344D700D5FF5C /* AppDelegate.swift in Sources */,
 				D2D3F9531CABCE4F00D97B23 /* BillTableViewCell.swift in Sources */,
+				D212D35B1CF043D9008CEC5C /* InOfficeTableViewCell.swift in Sources */,
 				D2678C5E1C904DE90056278F /* CoreDataStackManager.swift in Sources */,
 				D27451AA1CA6BE8D0024A904 /* TPPClient.swift in Sources */,
 				D29468131CC2538600232D41 /* Search.swift in Sources */,
-				D20028301CE86C9E00F1369E /* LawmakerWebViewController.swift in Sources */,
-				D200282A1CE7F03000F1369E /* DistrictTableViewCell.swift in Sources */,
+				D20028301CE86C9E00F1369E /* WebViewController.swift in Sources */,
 				D2D3F94B1CAA808200D97B23 /* Bill.swift in Sources */,
 				D23772991CAFB65E0004A2E2 /* LawmakerDetailViewController.swift in Sources */,
+				D212D3561CF0438B008CEC5C /* HomepageTableViewCell.swift in Sources */,
 				D2678C671C91797D0056278F /* TaskCancelingTableViewCell.swift in Sources */,
-				D200282C1CE7F05800F1369E /* HomepageTableViewCell.swift in Sources */,
-				D20028281CE7F01B00F1369E /* InOfficeTableViewCell.swift in Sources */,
+				D212D3591CF0438B008CEC5C /* BirthTableViewCell.swift in Sources */,
 				D20028261CE7F00600F1369E /* PartyTableViewCell.swift in Sources */,
 				D2D3F95A1CAC2D6700D97B23 /* Party.swift in Sources */,
 				D27451A81CA6BE770024A904 /* Constants.swift in Sources */,
@@ -489,6 +496,7 @@
 				D2678C611C904E740056278F /* Model.xcdatamodeld in Sources */,
 				D22A7F531CDB511500CFF74A /* TPPClientConvenience.swift in Sources */,
 				D23772971CAD22E60004A2E2 /* PartyCollectionViewCell.swift in Sources */,
+				D212D3571CF0438B008CEC5C /* DistrictTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

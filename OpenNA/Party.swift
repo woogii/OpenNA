@@ -28,7 +28,7 @@ class Party {
 
         let url = NSURL(string: "http://data.popong.com/parties/images/\(id).png")!
         let imageData = NSData(contentsOfURL: url)
-        
+        print(name)
         guard let image = imageData else {
             let defaultImage = UIImage(named:"noImage")
             

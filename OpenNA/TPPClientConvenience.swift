@@ -69,11 +69,6 @@ extension TPPClient {
     /// Get lawmaker information
     func searchLawmaker( searchKeyword: String, completionHandler: (results:[[String:AnyObject]]?, error:NSError?)->Void)->NSURLSessionTask {
         
-        // curl "http://api.popong.com/v0.1/person/search?q=박&api_key=test"
-        // curl "http://api.popong.com/v0.1/bill/search?q=데이터&s=김영환&api_key=test"
-        // curl "http://api.popong.com/v0.1/party/search?q=통합&api_key=test"
-        
-        
         let method = Constants.Methods.Person + Constants.Methods.Search
         var parameters = [Constants.ParameterKeys.Query:searchKeyword]
         parameters[Constants.ParameterKeys.ApiKey] = Constants.Api.Key

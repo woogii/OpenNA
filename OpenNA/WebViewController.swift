@@ -12,7 +12,7 @@ import MBProgressHUD
 
 // MARK: - LawmakerDetailViewController : UIViewController
 
-class LawmakerWebViewController: UIViewController {
+class WebViewController: UIViewController {
     
     @IBOutlet weak var webView: UIWebView!
     var urlString: String?
@@ -43,7 +43,7 @@ class LawmakerWebViewController: UIViewController {
 
 // MARK: - LawmakerDetailViewController : UIWebViewDelegate
 
-extension LawmakerWebViewController : UIWebViewDelegate {
+extension WebViewController : UIWebViewDelegate {
     
     func webViewDidStartLoad(webView: UIWebView) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
