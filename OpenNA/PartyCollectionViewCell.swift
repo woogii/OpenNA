@@ -12,10 +12,10 @@ import UIKit
 // MARK : - PartyCollectionViewCell : Custom CollectionViewCell
 
 class PartyCollectionViewCell : UICollectionViewCell {
- 
+    
     
     @IBOutlet weak var logoImageView: UIImageView!
-
+    
     var taskToCancelifCellIsReused: NSURLSessionTask? {
         
         didSet {

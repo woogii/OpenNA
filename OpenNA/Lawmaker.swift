@@ -38,7 +38,7 @@ class Lawmaker : NSManagedObject {
         when_elected = dictionary[Constants.ModelKeys.WhenElected] as? String
         district     = dictionary[Constants.ModelKeys.District] as? String
     }
-
+    
     var pinnedImage: UIImage? {
         
         get {
@@ -55,5 +55,5 @@ class Lawmaker : NSManagedObject {
             
         }
     }
-
+    
 }

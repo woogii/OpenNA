@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import Alamofire
 
-// MARK : - Search : NSObject 
+// MARK : - Search : NSObject
 
 class Search : NSObject {
     
@@ -44,21 +44,21 @@ class Search : NSObject {
         // Search keyword with the given search keyword
         self.lawmakerSearchTask = TPPClient.sharedInstance().searchLawmaker(searchKeyword, completionHandler:  { results, error in
             
-                if let lawmakerDict = results {
-                 
-                    self.lawmakers = lawmakerDict.map() {
-                        Lawmaker(dictionary: $0, context: self.scratchContext)
-                    }
+            if let lawmakerDict = results {
                 
-                    #if DEBUG
-                        log.debug("lawmaker count: \(self.lawmakers.count)")
-                    #endif
-                } else {
-                    #if DEBUG
-                        log.debug(error?.localizedDescription)
-                    #endif
+                self.lawmakers = lawmakerDict.map() {
+                    Lawmaker(dictionary: $0, context: self.scratchContext)
                 }
-                dispatch_group_leave(group)
+                
+                #if DEBUG
+                    log.debug("lawmaker count: \(self.lawmakers.count)")
+                #endif
+            } else {
+                #if DEBUG
+                    log.debug(error?.localizedDescription)
+                #endif
+            }
+            dispatch_group_leave(group)
         })
         
         dispatch_group_enter(group)
@@ -67,13 +67,13 @@ class Search : NSObject {
         self.billSearchTask = TPPClient.sharedInstance().searchBills(searchKeyword, completionHandler:  { bills, error in
             
             if let bills = bills {
-        
+                
                 #if DEBUG
                     log.debug("bill count: \(bills.count)")
                 #endif
                 
                 self.bills = bills
-            
+                
             } else {
                 #if DEBUG
                     log.debug(error?.localizedDescription)
@@ -96,10 +96,10 @@ class Search : NSObject {
             } else {
                 log.debug(error?.localizedDescription)
             }
-                
+            
             dispatch_group_leave(group)
         })
-    
+        
         // Wait until all search operations finish
         dispatch_group_notify(group, dispatch_get_main_queue()) {
             #if DEBUG
@@ -113,9 +113,9 @@ class Search : NSObject {
                 #if DEBUG
                     log.debug("empty")
                 #endif
-               completionHandler(lawmakers:self.lawmakers, bills:self.bills, parties:self.parties, error: NSError(domain: Constants.Error.DomainSearchAll, code: 0, userInfo: [NSLocalizedDescriptionKey:Constants.Error.DescKeyForNoSearchResult]))
+                completionHandler(lawmakers:self.lawmakers, bills:self.bills, parties:self.parties, error: NSError(domain: Constants.Error.DomainSearchAll, code: 0, userInfo: [NSLocalizedDescriptionKey:Constants.Error.DescKeyForNoSearchResult]))
             }
-
+            
         }
     }
     

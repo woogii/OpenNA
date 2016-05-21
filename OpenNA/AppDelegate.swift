@@ -41,7 +41,7 @@ let log: XCGLogger = {
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     // MARK : Properties
     var window: UIWindow?
     var splashView: UIView?
@@ -64,51 +64,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         preload()
         return true
     }
-
+    
     func preload() {
-       
+        
         let ud = NSUserDefaults.standardUserDefaults()
         
         if !ud.boolForKey(Constants.UserDefaultsKey) {
             
             let activityIndicator = MBProgressHUD.showHUDAddedTo(window, animated: true)
             activityIndicator.labelText = Constants.ActivityIndicatorText.Loading
-    
+            
             guard let pathForJSONData = NSBundle.mainBundle().pathForResource(Constants.BundleFileName, ofType: Constants.BundleFileType) else{
                 #if DEBUG
-                print("There is no data in your bundle")
+                    print("There is no data in your bundle")
                 #endif
                 return
             }
-
+            
             guard let rawAJSONData = NSData(contentsOfFile:pathForJSONData) else {
                 #if DEBUG
-                print("Can not get a raw JSON data in \(pathForJSONData)")
+                    print("Can not get a raw JSON data in \(pathForJSONData)")
                 #endif
                 return
             }
-        
+            
             let parsedResult:[[String:AnyObject]]!
-        
+            
             do {
                 parsedResult = try NSJSONSerialization.JSONObjectWithData(rawAJSONData, options: .AllowFragments) as! [[String:AnyObject]]
-            
-                print(parsedResult)
-        
-                for dict in parsedResult {
                 
+                print(parsedResult)
+                
+                for dict in parsedResult {
+                    
                     guard let name = dict[Constants.JSONResponseKeys.NameEn] as? String else {
                         return
                     }
-                
+                    
                     guard let party = dict[Constants.JSONResponseKeys.Party] as? String else {
                         return
                     }
-                
+                    
                     guard let imageUrl = dict[Constants.JSONResponseKeys.Photo] as? String else {
                         return
                     }
-                
+                    
                     guard let birth = dict[Constants.JSONResponseKeys.Birth] as? String else {
                         return
                     }
@@ -120,11 +120,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     guard let when_elected = dict[Constants.JSONResponseKeys.WhenElected] as? String else {
                         return
                     }
-                
+                    
                     guard let homepage = dict[Constants.JSONResponseKeys.Homepage] as? String else {
-                        return 
+                        return
                     }
-                
+                    
                     let lawmaker = NSEntityDescription.insertNewObjectForEntityForName(Constants.ModelKeys.LawmakerEntity, inManagedObjectContext: sharedContext) as! Lawmaker
                     
                     lawmaker.name = name
@@ -134,22 +134,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     lawmaker.district = district
                     lawmaker.when_elected = when_elected
                     lawmaker.homepage = homepage
-                
+                    
                     do {
                         try sharedContext.save()
-                        // Set UserDefault as true, which implies data is already exist 
+                        // Set UserDefault as true, which implies data is already exist
                         ud.setBool(true, forKey: Constants.UserDefaultsKey)
                     } catch {
                         print(error)
                     }
                 }
                 activityIndicator.hide(true)
-        
+                
             } catch let error as NSError {
                 print(error.localizedDescription)
             }
         }
-         self.removeSplash()
+        self.removeSplash()
     }
     
     var sharedContext:NSManagedObjectContext {
@@ -160,7 +160,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func addSplash() {
         
         splashView = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("splashView").view
-            // UIStoryboard(name: "splashView", bundle: nil).instantiateInitialViewController()?.view
+        // UIStoryboard(name: "splashView", bundle: nil).instantiateInitialViewController()?.view
         window?.addSubview(splashView!)
         
     }
@@ -172,8 +172,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             splashView?.removeFromSuperview()
         }
     }
-
     
-
+    
+    
 }
 

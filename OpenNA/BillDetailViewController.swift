@@ -43,12 +43,12 @@ class BillDetailViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if segue.identifier == Constants.Identifier.segueToHomepageVC {
+        if segue.identifier == Constants.Identifier.segueToWebViewVC {
             let controller = segue.destinationViewController as! WebViewController
             controller.urlString = bill?.documentUrl
             controller.hidesBottomBarWhenPushed = true
         }
     }
-
+    
     
 }

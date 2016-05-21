@@ -33,7 +33,7 @@ struct Constants {
         static let SponsorSearch = "s"
         
     }
-
+    
     // MARK: TPP Parameter Values
     struct ParameterValues {
         
@@ -63,7 +63,7 @@ struct Constants {
         // MARK: General
         static let StatusMessage = "status_message"
         static let StatusCode    = "status_code"
-       
+        
         // MARK : Lawmaker
         static let Name          = "name"
         static let NameEn        = "name_en"
@@ -126,15 +126,15 @@ struct Constants {
         static let HomepageCell   = "homepageCell"
         
         
-        static let segueToHomepageVC = "showHomepage"
+        static let segueToWebViewVC = "showWebView"
         
         static let LawmakerDetailVC = "LawmakerDetail"
         static let BillDetailVC = "BillDetail"
-        static let LawmakerHomepageVC = "LawmakerHomepage"
+        static let WebViewVC = "webViewVC"
         
     }
-
-    // MARK : Activity Indicator Text 
+    
+    // MARK : Activity Indicator Text
     struct ActivityIndicatorText {
         
         static let Loading   = "Loading..."
@@ -164,7 +164,7 @@ struct Constants {
     
     // MARK : Model Key
     struct ModelKeys {
-    
+        
         // MARK : Lawmaker
         static let Name = "name"
         static let ImageUrl = "imageUrl"
@@ -198,7 +198,7 @@ struct Constants {
         static let InOfficeLabel = "In Office"
         static let DistrictLabel = "District"
         static let HomepageLabel = "Homepage"
-    
+        
     }
     
     static let UserDefaultsKey = "dataExist"

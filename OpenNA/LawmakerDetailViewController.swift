@@ -14,12 +14,12 @@ import UIKit
 class LawmakerDetailViewController: UIViewController {
     
     // MARK : Properties
-
+    
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
-    var lawmaker:Lawmaker? 
+    var lawmaker:Lawmaker?
     var image:UIImage?
     
     enum customCell:Int {
@@ -30,10 +30,10 @@ class LawmakerDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     
     override func viewWillAppear(animated: Bool) {
-    
+        
         profileImage.layer.cornerRadius = profileImage.frame.size.width/2
         profileImage.clipsToBounds = true
         profileImage.image = image
@@ -43,7 +43,7 @@ class LawmakerDetailViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if segue.identifier == Constants.Identifier.segueToHomepageVC {
+        if segue.identifier == Constants.Identifier.segueToWebViewVC {
             let controller = segue.destinationViewController as! WebViewController
             controller.urlString = lawmaker?.homepage
         }
@@ -59,7 +59,7 @@ extension LawmakerDetailViewController : UITableViewDelegate, UITableViewDataSou
         return Constants.NumOfProfileCells
     }
     
-
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         switch(indexPath.row) {

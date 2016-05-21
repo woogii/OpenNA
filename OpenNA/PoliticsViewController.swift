@@ -13,7 +13,7 @@ import MBProgressHUD
 // MARK: - PoliticsViewController : UIViewController
 
 class PoliticsViewController: UIViewController  {
-
+    
     // MARK : Properties
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -24,8 +24,6 @@ class PoliticsViewController: UIViewController  {
     var bills     = [Bill]()
     var parties   = [Party]()
     var indexInfo = [Entry]()
-    var selectedPartyName : String?
-    
     typealias Entry = (Character, [Lawmaker])
     
     // MARK :  View LifeCycle
@@ -52,7 +50,7 @@ class PoliticsViewController: UIViewController  {
         configureLayout()
         lawmakers = fetchAllLawmakers()
         buildTableViewIndex()
-    
+        
     }
     
     // MARK : Configure Layout
@@ -61,20 +59,20 @@ class PoliticsViewController: UIViewController  {
         // Register Nib Objects
         self.tableView.registerNib(UINib(nibName: Constants.Identifier.PeopleCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.PeopleCell)
         self.tableView.registerNib(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
-    
-        // Set CollectionView delegate and datasource 
+        
+        // Set CollectionView delegate and datasource
         collectionView.dataSource = self
         collectionView.delegate = self
         
         // Hide CollectionView when the view display
         collectionView.hidden = true
     }
-
+    
     // MARK :  CoreData Convenience
     var sharedContext : NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext!
     }
-
+    
     // MARK :  Data Fetch
     func fetchAllLawmakers()->[Lawmaker]
     {
@@ -110,14 +108,14 @@ class PoliticsViewController: UIViewController  {
             TPPClient.sharedInstance().getBills() { (bills, error) in
                 
                 if let bills = bills {
-
+                    
                     self.bills = bills
                     
                     dispatch_async(dispatch_get_main_queue())  {
                         self.tableView.reloadData()
                         spinActivity.hide(true)
                     }
-
+                    
                 } else {
                     print(error)
                 }
@@ -131,9 +129,8 @@ class PoliticsViewController: UIViewController  {
             spinActivity.labelText = Constants.ActivityIndicatorText.Loading
             
             TPPClient.sharedInstance().getParties() { (parties, error) in
-            
+                
                 if let parties = parties {
-                    print(parties)
                     self.parties = parties
                     
                     dispatch_async(dispatch_get_main_queue())  {
@@ -151,38 +148,29 @@ class PoliticsViewController: UIViewController  {
             break
         }
     }
+   
     
-    // MARK : Prepare Segue 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        print("segue")
-        if segue.identifier == "showPartyInfo" {
-
-            let controller = segue.destinationViewController as! WebViewController
-            controller.urlString = "https://ko.wikipedia.org/wiki/" + selectedPartyName!
-        }
-        
-    }
     // MARK : Helper
     
-    func buildTableViewIndex() {        
+    func buildTableViewIndex() {
         
         indexInfo = buildIndex(lawmakers)
-     }
+    }
     
     func buildIndex(lawmakers: [Lawmaker]) -> [Entry] {
         
         #if DEBUG
-        // Get the first korean character 
-        // let letters = lawmakers.map {  (lawmaker) -> Character in
-        //    lawmaker.name.hangul[0]
-        // }
+            // Get the first korean character
+            // let letters = lawmakers.map {  (lawmaker) -> Character in
+            //    lawmaker.name.hangul[0]
+            // }
         #endif
         
         // Create the array that contains the first letter of lawmaker's name
         let letters = lawmakers.map {  (lawmaker) -> Character in
             Character(lawmaker.name!.substringToIndex(lawmaker.name!.startIndex.advancedBy(1)).uppercaseString)
         }
-
+        
         // Delete if there is a duplicate
         let distictLetters = distinct(letters)
         
@@ -190,21 +178,21 @@ class PoliticsViewController: UIViewController  {
         return distictLetters.map {   (letter) -> Entry in
             
             return (letter, lawmakers.filter  {  (lawmaker) -> Bool in
-            
+                
                 Character(lawmaker.name!.substringToIndex(lawmaker.name!.startIndex.advancedBy(1)).uppercaseString) == letter
-            })
+                })
         }
         
         #if DEBUG
-        //return distictLetters.map {   (letter) -> Entry in
-
-        //   return (letter, lawmakers.filter  {  (lawmaker) -> Bool in
-        //                lawmaker.name.hangul[0] == letter
-        //    })
-        //}
+            //return distictLetters.map {   (letter) -> Entry in
+            
+            //   return (letter, lawmakers.filter  {  (lawmaker) -> Bool in
+            //                lawmaker.name.hangul[0] == letter
+            //    })
+            //}
         #endif
     }
-
+    
     func distinct<T:Equatable>(source: [T]) -> [T] {
         var unique = [T]()
         for item in source {
@@ -242,11 +230,11 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         
         return count
     }
-
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return segmentedControl.selectedSegmentIndex == 0 ? indexInfo.count : 1
     }
-
+    
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return segmentedControl.selectedSegmentIndex == 0 ? String(indexInfo[section].0): nil
     }
@@ -254,9 +242,9 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
     func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
         return segmentedControl.selectedSegmentIndex == 0 ? indexInfo.map({String($0.0)}):[String]()
     }
-
+    
     func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-        return index 
+        return index
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -281,7 +269,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         
         return UITableViewCell()
     }
-
+    
     // MARK : Congifure UITableviewCell
     
     func configureCell(cell:LawmakerTableViewCell , atIndexPath indexPath:NSIndexPath)
@@ -295,14 +283,14 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         
         /*
          Fetch a lawmaker by using a given imageUrl string to check whether an image is cached
-           If an image is not cahced, httprequest function is invoked to download an image
-        */
+         If an image is not cahced, httprequest function is invoked to download an image
+         */
         let fetchRequest = NSFetchRequest(entityName : Constants.Fetch.FetchEntityLawmaker )
         let predicate = NSPredicate(format: Constants.Fetch.PredicateForImage, urlString!)
         fetchRequest.predicate = predicate
         // In order to fetch a single object
         fetchRequest.fetchLimit = 1
-    
+        
         var fetchedResults:[Lawmaker]!
         let searchedLawmaker:Lawmaker!
         
@@ -319,24 +307,24 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         
         if  searchedLawmaker.pinnedImage != nil {
             #if DEBUG
-            log.debug("images exist")
+                log.debug("images exist")
             #endif
             pinnedImage = searchedLawmaker.pinnedImage
         }
         else {
-        
-            let task = TPPClient.sharedInstance().taskForGetImage(url) { data, error  in
             
+            let task = TPPClient.sharedInstance().taskForGetImage(url) { data, error  in
+                
                 if let data = data {
-                
+                    
                     let image = UIImage(data : data)
-                
+                    
                     dispatch_async(dispatch_get_main_queue()) {
                         searchedLawmaker.pinnedImage = image
                         cell.profileImageView!.image = image
                     }
                 }
-            
+                
             }
             //  The cells in the tableviews get reused when you scroll
             //  So when a completion handler completes, it will set the image on a cell,
@@ -344,9 +332,9 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
             //  The table view cells need to cancel their download task when they are reused.
             cell.taskToCancelifCellIsReused = task
         }
-       
+        
         cell.profileImageView!.image = pinnedImage
-
+        
     }
     
     // MARK : UITableView Delegate Method
@@ -355,7 +343,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    
+        
         switch segmentedControl.selectedSegmentIndex {
             
         case 0 :
@@ -372,7 +360,6 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
             let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.BillDetailVC) as! BillDetailViewController
             
             controller.bill = bills[indexPath.row]
-            
             navigationController?.pushViewController(controller, animated: true)
             
             break
@@ -381,42 +368,41 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         default:
             break
         }
-
+        
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
-
+    
 }
 
 // MARK: - PoliticsViewController: UICollectionDelegate, UICollectionViewDataSource
 
 extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewDelegate {
-  
+    
     // MARK : UICollectionViewDataSource Methods
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return parties.count 
+        return parties.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    
+        
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Constants.Identifier.PartyImageCell, forIndexPath: indexPath) as! PartyCollectionViewCell
         
         cell.logoImageView.image = parties[indexPath.row].thumbnail
         
         return cell
     }
- 
+    
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        print("select")
-        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) else {
-            return
-        }
-        cell.layer.borderWidth = 2.0
-        cell.layer.borderColor = UIColor.whiteColor().CGColor
+                
+        let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.WebViewVC) as! WebViewController
         
-        selectedPartyName = parties[indexPath.row].name
-        print("party name : \(selectedPartyName)")
+        controller.urlString = "https://ko.wikipedia.org/wiki/" + parties[indexPath.row].name
+        controller.hidesBottomBarWhenPushed = true
+        
+        navigationController?.pushViewController(controller, animated: true)
+        
     }
 }
 
@@ -438,8 +424,8 @@ extension String {
             return characters.reduce("") { result, char in
                 if case let code = Int(String(char).unicodeScalars.reduce(0){$0.0 + $0.1.value}) - 44032
                     where code > -1 && code < 11172 {
-                        let cho = code / 21 / 28, jung = code % (21 * 28) / 28, jong = code % 28;
-                        return result + hangle[0][cho] + hangle[1][jung] + hangle[2][jong]
+                    let cho = code / 21 / 28, jung = code % (21 * 28) / 28, jong = code % 28;
+                    return result + hangle[0][cho] + hangle[1][jung] + hangle[2][jong]
                 }
                 return result + String(char)
             }

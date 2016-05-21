@@ -16,32 +16,32 @@ class TPPClient: NSObject {
     override init() {
         super.init()
     }
-
+    
     // MARK : GET
     func taskForGETMethod(parameters:[String:AnyObject], withPathExtension method:String ,completionHandlerForGet:(results:AnyObject?, error:NSError?)->Void)->NSURLSessionTask{
-    
+        
         
         let request = Alamofire.request(.GET, constructURL(parameters, withPathExtension:method), parameters: parameters)
-                               .responseJSON { response in
-            
-                                switch response.result {
-            
-                                case .Success:
-        
-                                    if let results = response.result.value {
-                                        #if DEBUG
-                                            log.debug("response success")
-                                        #endif
-                                        completionHandlerForGet(results: results , error:nil)
-                                    }
-                                case .Failure(let error):
-                                    #if DEBUG
-                                        log.debug("response success")
-                                    #endif
-                                    completionHandlerForGet(results: nil, error: error)
+            .responseJSON { response in
                 
-                                }
-            }
+                switch response.result {
+                    
+                case .Success:
+                    
+                    if let results = response.result.value {
+                        #if DEBUG
+                            log.debug("response success")
+                        #endif
+                        completionHandlerForGet(results: results , error:nil)
+                    }
+                case .Failure(let error):
+                    #if DEBUG
+                        log.debug("response success")
+                    #endif
+                    completionHandlerForGet(results: nil, error: error)
+                    
+                }
+        }
         
         return request.task
     }
@@ -50,27 +50,27 @@ class TPPClient: NSObject {
     {
         
         let request = Alamofire.request(.GET, url)
-                               .responseData { response in
+            .responseData { response in
                 
                 
-                                switch response.result {
+                switch response.result {
                     
-                                case .Success:
+                case .Success:
                     
-                                    if let result = response.data {
-                                        #if DEBUG
-                                            log.debug("response success")
-                                        #endif
-                                        completionHandlerForImage(imageData: result, error: nil)
-                                    }
+                    if let result = response.data {
+                        #if DEBUG
+                            log.debug("response success")
+                        #endif
+                        completionHandlerForImage(imageData: result, error: nil)
+                    }
                     
-                                case .Failure(let error):
-                                    #if DEBUG
-                                        log.debug("response success")
-                                        #endif
-                                    completionHandlerForImage(imageData: nil, error: error)
+                case .Failure(let error):
+                    #if DEBUG
+                        log.debug("response success")
+                    #endif
+                    completionHandlerForImage(imageData: nil, error: error)
                     
-                                }
+                }
         }
         
         return request.task
