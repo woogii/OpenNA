@@ -18,7 +18,9 @@ class LawmakerDetailViewController: UIViewController {
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var favoriteButton: UIButton!
     
+  
     var lawmaker:Lawmaker?
     var image:UIImage?
     
@@ -49,6 +51,9 @@ class LawmakerDetailViewController: UIViewController {
         }
     }
     
+    @IBAction func favoriteBtnTapped(sender: UIButton) {
+        
+    }
 }
 
 // MARK: - LawmakerDetailViewController : UITableViewDelegate, UITableViewDataSource

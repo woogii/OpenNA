@@ -38,6 +38,9 @@
                                                 <constraint firstAttribute="bottom" secondItem="BMI-lQ-3mK" secondAttribute="bottom" constant="11" id="zIE-UH-o47"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="1f2-Bu-3Mg" kind="show" id="D5e-Qf-rmq"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="UN3-8a-kzc">
                                         <rect key="frame" x="0.0" y="158" width="320" height="44"/>
@@ -60,6 +63,9 @@
                                                 <constraint firstAttribute="bottom" secondItem="kWO-Ov-8NF" secondAttribute="bottom" constant="11" id="hlK-rm-mCy"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="Lmp-Mn-7kk" kind="show" id="vev-Ip-N3z"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -75,6 +81,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vPv-cs-RkP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-611" y="1030"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="c9q-iS-HcS">
+            <objects>
+                <viewController id="1f2-Bu-3Mg" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yrn-2s-ePU"/>
+                        <viewControllerLayoutGuide type="bottom" id="94X-FF-yNB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Eyb-Um-kbr">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XtK-lS-fUD">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="94X-FF-yNB" firstAttribute="top" secondItem="XtK-lS-fUD" secondAttribute="bottom" id="6oJ-nJ-vq7"/>
+                            <constraint firstItem="XtK-lS-fUD" firstAttribute="top" secondItem="yrn-2s-ePU" secondAttribute="bottom" id="V3I-UN-g9t"/>
+                            <constraint firstItem="XtK-lS-fUD" firstAttribute="leading" secondItem="Eyb-Um-kbr" secondAttribute="leading" id="dg3-Ic-Wmo"/>
+                            <constraint firstAttribute="trailing" secondItem="XtK-lS-fUD" secondAttribute="trailing" id="zJc-Zm-n8l"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bFa-dU-hJS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-144" y="1039"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ajR-Jf-NFB">
+            <objects>
+                <viewController id="Lmp-Mn-7kk" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kDK-CH-uez"/>
+                        <viewControllerLayoutGuide type="bottom" id="9xC-rQ-JhJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ca2-tM-cPU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="osj-ZX-ttX">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="osj-ZX-ttX" firstAttribute="top" secondItem="kDK-CH-uez" secondAttribute="bottom" id="Htz-Eb-o4W"/>
+                            <constraint firstItem="osj-ZX-ttX" firstAttribute="leading" secondItem="Ca2-tM-cPU" secondAttribute="leading" id="RpB-DK-jK6"/>
+                            <constraint firstAttribute="trailing" secondItem="osj-ZX-ttX" secondAttribute="trailing" id="atI-8t-F6v"/>
+                            <constraint firstItem="9xC-rQ-JhJ" firstAttribute="top" secondItem="osj-ZX-ttX" secondAttribute="bottom" id="xyO-OH-zdA"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HUp-Bx-ATd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-379" y="1729"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="g2R-Kx-i3E">
@@ -139,6 +207,7 @@
                     <connections>
                         <outlet property="resultsTableView" destination="fgh-Od-fni" id="7i9-j3-nO8"/>
                         <outlet property="searchBar" destination="er4-yI-cWj" id="OQ1-dL-6l8"/>
+                        <outlet property="tableView" destination="fgh-Od-fni" id="sB9-1u-GHt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IYU-H8-Tgc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -242,8 +311,8 @@
                         <outlet property="collectionView" destination="VKl-aI-1yh" id="Bxx-rn-CCl"/>
                         <outlet property="segmentedControl" destination="FJb-eT-8RG" id="5OU-ZA-ebE"/>
                         <outlet property="tableView" destination="reM-se-d1I" id="Bcx-qh-ziO"/>
-                        <segue destination="vB9-65-Ig8" kind="show" id="lrF-M3-Aj4"/>
-                        <segue destination="ZRi-9x-VhW" kind="show" id="LMf-ef-WAk"/>
+                        <segue destination="vB9-65-Ig8" kind="show" identifier="showLawmakerDetail" id="lrF-M3-Aj4"/>
+                        <segue destination="ZRi-9x-VhW" kind="show" identifier="showBillDetail" id="LMf-ef-WAk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -463,6 +532,9 @@
                                     <constraint firstAttribute="width" constant="30" id="TuB-KX-c5T"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="Heart Icon"/>
+                                <connections>
+                                    <action selector="favoriteBtnTapped:" destination="vB9-65-Ig8" eventType="touchUpInside" id="eQ3-fM-3LX"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -489,6 +561,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="favoriteButton" destination="rpc-6d-2z8" id="WZM-40-ttc"/>
                         <outlet property="nameLabel" destination="6GW-gg-gkK" id="RRU-MQ-8aU"/>
                         <outlet property="profileImage" destination="kHE-uq-1NE" id="XNc-T6-IPG"/>
                         <outlet property="tableView" destination="RPR-zG-lhy" id="b65-kf-YWr"/>
@@ -703,12 +776,17 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Bill Detail" id="nSj-Qs-zRu">
-                        <barButtonItem key="rightBarButtonItem" image="Heart Icon" id="aWr-eC-wSl"/>
+                        <barButtonItem key="rightBarButtonItem" image="Heart Icon" id="aWr-eC-wSl">
+                            <connections>
+                                <action selector="favoriteButtonTapped:" destination="ZRi-9x-VhW" id="FgL-aX-0bJ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="assembylIDLabel" destination="JMa-Qf-VZd" id="JQO-kd-wY7"/>
                         <outlet property="documentURLLabel" destination="qMH-pd-jnE" id="M5H-Tn-paY"/>
+                        <outlet property="favoriteButton" destination="aWr-eC-wSl" id="nJ2-NV-Hgc"/>
                         <outlet property="proposedDateLabel" destination="0TK-Ci-JAE" id="QaU-Bs-Pon"/>
                         <outlet property="sponsorLabel" destination="rqj-Ra-Vdx" id="lXT-NH-J4l"/>
                         <outlet property="statusLabel" destination="tpy-Fg-382" id="61J-Nh-yww"/>
@@ -799,6 +877,6 @@
         <image name="politics" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="oqd-cF-DFC"/>
+        <segue reference="pvd-li-cak"/>
     </inferredMetricsTieBreakers>
 </document>

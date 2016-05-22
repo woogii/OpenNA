@@ -16,6 +16,7 @@ class SearchViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var resultsTableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
     let search = Search()
     
@@ -24,6 +25,12 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        // Register Nib Objects
+        tableView.registerNib(UINib(nibName: Constants.Identifier.PeopleCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.PeopleCell)
+        tableView.registerNib(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -146,12 +153,13 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                         cell.imageView!.image = image 
                         return cell
                     }
-                    // print(urlString)
+                    print(urlString)
                     // let url = NSURL(string: urlString)!
                     
                     request = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
                         
                         dispatch_async(dispatch_get_main_queue()) {
+                            print("Get Image")
                             cell.imageView?.image = image
                         }
                     }
