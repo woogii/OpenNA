@@ -13,7 +13,7 @@ import UIKit
 class Lawmaker : NSManagedObject {
     
     @NSManaged var name:String?
-    @NSManaged var imageUrl:String?
+    @NSManaged var image:String?
     @NSManaged var party:String?
     @NSManaged var birth:String?
     @NSManaged var homepage:String?
@@ -31,25 +31,26 @@ class Lawmaker : NSManagedObject {
         super.init(entity : entity!, insertIntoManagedObjectContext: context)
         
         name         = dictionary[Constants.ModelKeys.Name] as? String
-        imageUrl     = dictionary[Constants.ModelKeys.ImageUrl] as? String
+        image        = dictionary[Constants.ModelKeys.ImageUrl] as? String
         party        = dictionary[Constants.ModelKeys.Party] as? String
         birth        = dictionary[Constants.ModelKeys.Birth] as? String
         homepage     = dictionary[Constants.ModelKeys.Homepage] as? String
         when_elected = dictionary[Constants.ModelKeys.WhenElected] as? String
         district     = dictionary[Constants.ModelKeys.District] as? String
+    
     }
     
     var pinnedImage: UIImage? {
         
         get {
-            let url = NSURL(fileURLWithPath: imageUrl!)
+            let url = NSURL(fileURLWithPath: image!)
             let fileName = url.lastPathComponent
             return TPPClient.Caches.imageCache.imageWithIdentifier(fileName!)
             
         }
         
         set {
-            let url = NSURL(fileURLWithPath: imageUrl!)
+            let url = NSURL(fileURLWithPath: image!)
             let fileName = url.lastPathComponent
             TPPClient.Caches.imageCache.storeImage(newValue, withIdentifier: fileName!)
             

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 import MBProgressHUD
+import Alamofire
 
 class SearchViewController: UIViewController {
     
@@ -51,13 +52,13 @@ extension SearchViewController : UISearchBarDelegate {
             if lawmakers.count > 0 || bills.count > 0 || parties.count > 0 {
                 
                 if lawmakers.count > 0 {
-                    log.debug("lawmaker count is larger than 0")  // 0
+                    log.debug("lawmaker count is larger than 0")
                     self.searchResults.append((Constants.SectionName.Lawmaker, lawmakers))
                     self.numOfSection = self.numOfSection + 1
                 }
                 
                 if bills.count > 0 {
-                    log.debug("bill count is larger than 0")  // 0
+                    log.debug("bill count is larger than 0")
                     self.searchResults.append((Constants.SectionName.Bill, bills))
                     self.numOfSection = self.numOfSection + 1
                 }
@@ -121,31 +122,63 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        var request : Request?
+        
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchResult, forIndexPath: indexPath)
         
         if searchResults.count > 0 {
             
             if searchResults[indexPath.section].0 == "lawmaker" {
                 
-                if let lawmaker = searchResults[indexPath.section].1 as? [Lawmaker] {
-                    cell.textLabel?.text = lawmaker[indexPath.row].name
-                }
+                cell.imageView!.image = nil
+                request?.cancel()
                 
+                if let lawmaker = searchResults[indexPath.section].1 as? [Lawmaker] {
+                    
+                    cell.textLabel?.text = lawmaker[indexPath.row].name
+                    
+                    guard let urlString = lawmaker[indexPath.row].image else {
+                        cell.imageView!.image = UIImage(named:"noImage")
+                        return cell
+                    }
+                    
+                    if let image = TPPClient.sharedInstance().cachedImage(urlString) {
+                        cell.imageView!.image = image 
+                        return cell
+                    }
+                    // print(urlString)
+                    // let url = NSURL(string: urlString)!
+                    
+                    request = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
+                        
+                        dispatch_async(dispatch_get_main_queue()) {
+                            cell.imageView?.image = image
+                        }
+                    }
+                    // cell.taskToCancelifCellIsReused = task
+                }
             } else if searchResults[indexPath.section].0 == "bill" {
                 
                 if let bill = searchResults[indexPath.section].1 as? [Bill] {
                     cell.textLabel?.text = bill[indexPath.row].name
+                    cell.imageView?.image = nil
                 }
                 
             } else {
                 
                 if let party = searchResults[indexPath.section].1 as? [Party] {
                     cell.textLabel?.text = party[indexPath.row].name
+                    cell.imageView?.image = nil
                 }
             }
         }
         
         return cell
+    }
+    
+    // MARK : UITableView Delegate Method
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 140
     }
 }
 

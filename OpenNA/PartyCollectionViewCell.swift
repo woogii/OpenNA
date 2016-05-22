@@ -13,7 +13,7 @@ import UIKit
 
 class PartyCollectionViewCell : UICollectionViewCell {
     
-    
+    // MARK : Properties
     @IBOutlet weak var logoImageView: UIImageView!
     
     var taskToCancelifCellIsReused: NSURLSessionTask? {

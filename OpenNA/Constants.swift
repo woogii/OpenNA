@@ -68,7 +68,7 @@ struct Constants {
         static let Name          = "name"
         static let NameEn        = "name_en"
         static let Photo         = "photo"
-        static let ImageUrl      = "imageUrl"
+        static let ImageUrl      = "image"
         static let Party         = "party"
         static let Address       = "address"
         static let Education     = "education"
@@ -109,7 +109,8 @@ struct Constants {
     struct Fetch {
         static let FetchEntityLawmaker = "Lawmaker"
         static let SortKeyForLawmaker  = "name"
-        static let PredicateForImage   = "imageUrl=%@"
+        //static let PredicateForImage   = "imageUrl=%@"
+        static let PredicateForImage   = "image=%@"
     }
     
     // MARK : Cell & Segue Identifier
@@ -167,7 +168,7 @@ struct Constants {
         
         // MARK : Lawmaker
         static let Name = "name"
-        static let ImageUrl = "imageUrl"
+        static let ImageUrl = "image"
         static let Party    = "party"
         static let Birth    = "birth"
         static let Homepage = "homepage"

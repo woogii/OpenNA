@@ -277,7 +277,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         
         cell.nameLabel.text = indexInfo[indexPath.section].1[indexPath.row].name
         cell.partyLabel.text = indexInfo[indexPath.section].1[indexPath.row].party
-        let urlString:String? = indexInfo[indexPath.section].1[indexPath.row].imageUrl
+        let urlString:String? = indexInfo[indexPath.section].1[indexPath.row].image
         let url = NSURL(string: urlString!)!
         
         

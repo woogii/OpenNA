@@ -8,10 +8,14 @@
 
 import Foundation
 import Alamofire
-
+import AlamofireImage
 
 class TPPClient: NSObject {
     
+    let photoCache = AutoPurgingImageCache (
+        memoryCapacity: 100 * 1024 * 1024,
+        preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
+    )
     // MARK : Initializers
     override init() {
         super.init()
@@ -76,6 +80,36 @@ class TPPClient: NSObject {
         return request.task
     }
     
+    func taskForGetDirectImage(urlString:String, completionHandlerForImage : (image :UIImage?, error:NSError?) -> Void)->Request
+    {
+        
+        return Alamofire.request(.GET, urlString)
+            .responseImage { response in
+                
+                
+                switch response.result {
+                    
+                case .Success:
+                    
+                    if let image = response.result.value {
+                        #if DEBUG
+                            log.debug("response success")
+                        #endif
+                        self.cacheImage(image, urlString: urlString)
+                        completionHandlerForImage(image: image, error: nil)
+                    }
+                    
+                case .Failure(let error):
+                    #if DEBUG
+                        log.debug("response success")
+                    #endif
+                    completionHandlerForImage(image: nil, error: error)
+                    
+                }
+        }
+    
+    }
+
     // MARK: Helpers
     // Create a URL from parameters
     private func constructURL(parameters: [String:AnyObject], withPathExtension: String? = nil) -> NSURL {
@@ -93,6 +127,14 @@ class TPPClient: NSObject {
         }
         print("URL : \(String(components.URL))")
         return components.URL!
+    }
+    
+    func cacheImage(image: Image, urlString:String) {
+        photoCache.addImage(image, withIdentifier: urlString)
+    }
+    
+    func cachedImage(urlString:String)->Image? {
+        return photoCache.imageWithIdentifier(urlString)
     }
     
     // MARK : Shared Instance (TPPClient Type)
