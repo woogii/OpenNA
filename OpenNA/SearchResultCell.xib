@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="87" id="VN9-bj-xbM">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" rowHeight="87" id="VN9-bj-xbM" customClass="SearchResultTableViewCell" customModule="OpenNA" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="305" height="87"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VN9-bj-xbM" id="bUt-v5-PQf">
@@ -36,16 +36,11 @@
                     <constraint firstItem="NZG-Ni-53g" firstAttribute="top" secondItem="bUt-v5-PQf" secondAttribute="top" constant="8" id="qbY-Uc-T6K"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="resultImageView" destination="NZG-Ni-53g" id="iP7-u5-89F"/>
+                <outlet property="resultTextLabel" destination="yc1-vq-pmJ" id="e2J-ji-5PM"/>
+            </connections>
             <point key="canvasLocation" x="197.5" y="195.5"/>
         </tableViewCell>
-        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="E4d-Pu-ZpE">
-            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-        </imageView>
-        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZM4-np-7QV">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-        </tableView>
     </objects>
 </document>

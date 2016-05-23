@@ -28,8 +28,7 @@ class SearchViewController: UIViewController {
         
         
         // Register Nib Objects
-        tableView.registerNib(UINib(nibName: Constants.Identifier.PeopleCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.PeopleCell)
-        tableView.registerNib(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
+        tableView.registerNib(UINib(nibName: Constants.Identifier.SearchResultCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchResultCell)
 
     }
     
@@ -131,26 +130,26 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
         
         var request : Request?
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchResult, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchResultCell, forIndexPath: indexPath) as! SearchResultTableViewCell
         
         if searchResults.count > 0 {
             
             if searchResults[indexPath.section].0 == "lawmaker" {
                 
-                cell.imageView!.image = nil
+                cell.resultImageView!.image = nil
                 request?.cancel()
                 
                 if let lawmaker = searchResults[indexPath.section].1 as? [Lawmaker] {
                     
-                    cell.textLabel?.text = lawmaker[indexPath.row].name
+                    cell.resultTextLabel?.text = lawmaker[indexPath.row].name
                     
                     guard let urlString = lawmaker[indexPath.row].image else {
-                        cell.imageView!.image = UIImage(named:"noImage")
+                        cell.resultImageView!.image = UIImage(named:"noImage")
                         return cell
                     }
                     
                     if let image = TPPClient.sharedInstance().cachedImage(urlString) {
-                        cell.imageView!.image = image 
+                        cell.resultImageView!.image = image
                         return cell
                     }
                     print(urlString)
@@ -160,7 +159,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                         
                         dispatch_async(dispatch_get_main_queue()) {
                             print("Get Image")
-                            cell.imageView?.image = image
+                            cell.resultImageView?.image = image
                         }
                     }
                     // cell.taskToCancelifCellIsReused = task
@@ -186,7 +185,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     
     // MARK : UITableView Delegate Method
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 140
+        return 70
     }
 }
 

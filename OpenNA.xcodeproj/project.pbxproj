@@ -28,6 +28,7 @@
 		D27451A81CA6BE770024A904 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27451A71CA6BE770024A904 /* Constants.swift */; };
 		D27451AA1CA6BE8D0024A904 /* TPPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27451A91CA6BE8D0024A904 /* TPPClient.swift */; };
 		D2934CFA1CF2015500EA734C /* LawmakerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */; };
+		D2934CFC1CF333B200EA734C /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2934CFB1CF333B200EA734C /* SearchResultTableViewCell.swift */; };
 		D29468131CC2538600232D41 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29468121CC2538600232D41 /* Search.swift */; };
 		D2964B801C7344D700D5FF5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */; };
 		D2964B821C7344D700D5FF5C /* PoliticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B811C7344D700D5FF5C /* PoliticsViewController.swift */; };
@@ -85,6 +86,7 @@
 		D2678C661C91797D0056278F /* TaskCancelingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCancelingTableViewCell.swift; sourceTree = "<group>"; };
 		D27451A71CA6BE770024A904 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D27451A91CA6BE8D0024A904 /* TPPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPClient.swift; sourceTree = "<group>"; };
+		D2934CFB1CF333B200EA734C /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		D29468121CC2538600232D41 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		D2964B7C1C7344D700D5FF5C /* OpenNA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenNA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 			children = (
 				D212D35C1CF04549008CEC5C /* Lawmaker Info TableViewCells */,
 				D2678C641C9173780056278F /* LawmakerTableViewCell.swift */,
+				D2934CFB1CF333B200EA734C /* SearchResultTableViewCell.swift */,
 				D23772961CAD22E60004A2E2 /* PartyCollectionViewCell.swift */,
 				D2D3F9521CABCE4F00D97B23 /* BillTableViewCell.swift */,
 				D2678C661C91797D0056278F /* TaskCancelingTableViewCell.swift */,
@@ -496,6 +499,7 @@
 				D2678C611C904E740056278F /* Model.xcdatamodeld in Sources */,
 				D22A7F531CDB511500CFF74A /* TPPClientConvenience.swift in Sources */,
 				D23772971CAD22E60004A2E2 /* PartyCollectionViewCell.swift in Sources */,
+				D2934CFC1CF333B200EA734C /* SearchResultTableViewCell.swift in Sources */,
 				D212D3571CF0438B008CEC5C /* DistrictTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
