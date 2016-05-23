@@ -76,7 +76,7 @@ class PoliticsViewController: UIViewController  {
     // MARK :  Data Fetch
     func fetchAllLawmakers()->[Lawmaker]
     {
-        let fetchRequest = NSFetchRequest(entityName : Constants.Fetch.FetchEntityLawmaker)
+        let fetchRequest = NSFetchRequest(entityName : Constants.Entity.Lawmaker)
         let sectionSortDescriptor = NSSortDescriptor(key:Constants.Fetch.SortKeyForLawmaker, ascending: true)
         let sortDescriptors = [sectionSortDescriptor]
         fetchRequest.sortDescriptors = sortDescriptors
@@ -285,7 +285,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
          Fetch a lawmaker by using a given imageUrl string to check whether an image is cached
          If an image is not cahced, httprequest function is invoked to download an image
          */
-        let fetchRequest = NSFetchRequest(entityName : Constants.Fetch.FetchEntityLawmaker )
+        let fetchRequest = NSFetchRequest(entityName : Constants.Entity.Lawmaker )
         let predicate = NSPredicate(format: Constants.Fetch.PredicateForImage, urlString!)
         fetchRequest.predicate = predicate
         // In order to fetch a single object

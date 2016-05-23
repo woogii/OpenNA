@@ -107,10 +107,17 @@ struct Constants {
     
     // MARK : Fetch
     struct Fetch {
-        static let FetchEntityLawmaker = "Lawmaker"
+        // static let FetchEntityLawmaker = "Lawmaker"
         static let SortKeyForLawmaker  = "name"
         //static let PredicateForImage   = "imageUrl=%@"
         static let PredicateForImage   = "image=%@"
+        static let PredicateForName    = "name=%@"
+    }
+    
+    struct Entity {
+        static let Lawmaker = "Lawmaker"
+        static let LawmakersInList = "LawmakersInList"
+        static let BillsInList = "BillsInList"
     }
     
     // MARK : Cell & Segue Identifier

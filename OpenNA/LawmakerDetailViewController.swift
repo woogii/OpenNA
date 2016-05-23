@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 // MARK: - LawmakerDetailViewController : UIViewController
 
@@ -20,9 +21,13 @@ class LawmakerDetailViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var favoriteButton: UIButton!
     
-  
     var lawmaker:Lawmaker?
     var image:UIImage?
+    
+    // MARK :  CoreData Convenience
+    var sharedContext : NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext!
+    }
     
     enum customCell:Int {
         case birth = 0,party,inOffice,district,homepage
@@ -41,6 +46,31 @@ class LawmakerDetailViewController: UIViewController {
         profileImage.image = image
         
         nameLabel.text = lawmaker?.name
+        
+        
+        let fetchRequest = NSFetchRequest(entityName : Constants.Entity.LawmakersInList)
+        let firstPredicate = NSPredicate(format: Constants.Fetch.PredicateForImage, (lawmaker?.name)!)
+        let secondPredicate = NSPredicate(format: Constants.Fetch.PredicateForImage, (lawmaker?.image)!)
+        let compoundPredicate = NSCompoundPredicate(type: .AndPredicateType, subpredicates:[firstPredicate,secondPredicate])
+        fetchRequest.predicate = compoundPredicate
+        
+        // In order to fetch a single object
+        fetchRequest.fetchLimit = 1
+
+        
+        var fetchedResults : [Lawmaker]?
+        
+        do {
+            fetchedResults = try sharedContext.executeFetchRequest(fetchRequest) as? [Lawmaker]
+        } catch let error as NSError {
+            print("\(error.description)")
+        }
+
+        guard let result = fetchedResults else {
+            return
+        }
+        
+        result.count > 0 ? (favoriteButton.tintColor = nil) : (favoriteButton.tintColor = UIColor.blackColor())
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
