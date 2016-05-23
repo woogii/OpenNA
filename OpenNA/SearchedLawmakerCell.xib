@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" rowHeight="87" id="VN9-bj-xbM" customClass="SearchResultTableViewCell" customModule="OpenNA" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchedLawmakerCell" rowHeight="87" id="VN9-bj-xbM" customClass="SearchedLawmakerTableViewCell" customModule="OpenNA" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="305" height="87"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VN9-bj-xbM" id="bUt-v5-PQf">
@@ -37,10 +37,10 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="resultImageView" destination="NZG-Ni-53g" id="iP7-u5-89F"/>
-                <outlet property="resultTextLabel" destination="yc1-vq-pmJ" id="e2J-ji-5PM"/>
+                <outlet property="lawmakerImageView" destination="NZG-Ni-53g" id="q5r-Ij-KHO"/>
+                <outlet property="nameLabel" destination="yc1-vq-pmJ" id="rk3-zg-84C"/>
             </connections>
-            <point key="canvasLocation" x="197.5" y="195.5"/>
+            <point key="canvasLocation" x="-146.5" y="244.5"/>
         </tableViewCell>
     </objects>
 </document>

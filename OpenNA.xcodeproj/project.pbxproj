@@ -28,7 +28,11 @@
 		D27451A81CA6BE770024A904 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27451A71CA6BE770024A904 /* Constants.swift */; };
 		D27451AA1CA6BE8D0024A904 /* TPPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27451A91CA6BE8D0024A904 /* TPPClient.swift */; };
 		D2934CFA1CF2015500EA734C /* LawmakerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */; };
-		D2934CFC1CF333B200EA734C /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2934CFB1CF333B200EA734C /* SearchResultTableViewCell.swift */; };
+		D2934CFE1CF3442B00EA734C /* SearchedBillCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2934CFD1CF3442B00EA734C /* SearchedBillCell.xib */; };
+		D2934D041CF3448C00EA734C /* SearchedPartyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2934D031CF3448C00EA734C /* SearchedPartyCell.xib */; };
+		D2934D061CF346E700EA734C /* SearchedLawmakerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2934D051CF346E700EA734C /* SearchedLawmakerTableViewCell.swift */; };
+		D2934D081CF346FA00EA734C /* SearchedBillTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2934D071CF346FA00EA734C /* SearchedBillTableViewCell.swift */; };
+		D2934D0A1CF3470800EA734C /* SearchedPartyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2934D091CF3470800EA734C /* SearchedPartyTableViewCell.swift */; };
 		D29468131CC2538600232D41 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29468121CC2538600232D41 /* Search.swift */; };
 		D2964B801C7344D700D5FF5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */; };
 		D2964B821C7344D700D5FF5C /* PoliticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2964B811C7344D700D5FF5C /* PoliticsViewController.swift */; };
@@ -41,7 +45,7 @@
 		D2D3F94B1CAA808200D97B23 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D3F94A1CAA808200D97B23 /* Bill.swift */; };
 		D2D3F9531CABCE4F00D97B23 /* BillTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D3F9521CABCE4F00D97B23 /* BillTableViewCell.swift */; };
 		D2D3F9561CABD1A500D97B23 /* BillCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2D3F9551CABD1A500D97B23 /* BillCell.xib */; };
-		D2D3F9581CABFA3F00D97B23 /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2D3F9571CABFA3F00D97B23 /* SearchResultCell.xib */; };
+		D2D3F9581CABFA3F00D97B23 /* SearchedLawmakerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2D3F9571CABFA3F00D97B23 /* SearchedLawmakerCell.xib */; };
 		D2D3F95A1CAC2D6700D97B23 /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D3F9591CAC2D6700D97B23 /* Party.swift */; };
 /* End PBXBuildFile section */
 
@@ -86,7 +90,11 @@
 		D2678C661C91797D0056278F /* TaskCancelingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCancelingTableViewCell.swift; sourceTree = "<group>"; };
 		D27451A71CA6BE770024A904 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D27451A91CA6BE8D0024A904 /* TPPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPClient.swift; sourceTree = "<group>"; };
-		D2934CFB1CF333B200EA734C /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
+		D2934CFD1CF3442B00EA734C /* SearchedBillCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchedBillCell.xib; sourceTree = "<group>"; };
+		D2934D031CF3448C00EA734C /* SearchedPartyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchedPartyCell.xib; sourceTree = "<group>"; };
+		D2934D051CF346E700EA734C /* SearchedLawmakerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchedLawmakerTableViewCell.swift; sourceTree = "<group>"; };
+		D2934D071CF346FA00EA734C /* SearchedBillTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchedBillTableViewCell.swift; sourceTree = "<group>"; };
+		D2934D091CF3470800EA734C /* SearchedPartyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchedPartyTableViewCell.swift; sourceTree = "<group>"; };
 		D29468121CC2538600232D41 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		D2964B7C1C7344D700D5FF5C /* OpenNA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenNA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -105,7 +113,7 @@
 		D2D3F94A1CAA808200D97B23 /* Bill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		D2D3F9521CABCE4F00D97B23 /* BillTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillTableViewCell.swift; sourceTree = "<group>"; };
 		D2D3F9551CABD1A500D97B23 /* BillCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BillCell.xib; sourceTree = "<group>"; };
-		D2D3F9571CABFA3F00D97B23 /* SearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
+		D2D3F9571CABFA3F00D97B23 /* SearchedLawmakerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchedLawmakerCell.xib; sourceTree = "<group>"; };
 		D2D3F9591CAC2D6700D97B23 /* Party.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Party.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -236,7 +244,9 @@
 				D2964B831C7344D700D5FF5C /* Main.storyboard */,
 				D29A751D1C92E03F002F06F2 /* LawmakerCell.xib */,
 				D2D3F9551CABD1A500D97B23 /* BillCell.xib */,
-				D2D3F9571CABFA3F00D97B23 /* SearchResultCell.xib */,
+				D2D3F9571CABFA3F00D97B23 /* SearchedLawmakerCell.xib */,
+				D2934CFD1CF3442B00EA734C /* SearchedBillCell.xib */,
+				D2934D031CF3448C00EA734C /* SearchedPartyCell.xib */,
 				D20028211CE7584D00F1369E /* Launch Screen.storyboard */,
 			);
 			name = Assets;
@@ -259,7 +269,9 @@
 			children = (
 				D212D35C1CF04549008CEC5C /* Lawmaker Info TableViewCells */,
 				D2678C641C9173780056278F /* LawmakerTableViewCell.swift */,
-				D2934CFB1CF333B200EA734C /* SearchResultTableViewCell.swift */,
+				D2934D051CF346E700EA734C /* SearchedLawmakerTableViewCell.swift */,
+				D2934D071CF346FA00EA734C /* SearchedBillTableViewCell.swift */,
+				D2934D091CF3470800EA734C /* SearchedPartyTableViewCell.swift */,
 				D23772961CAD22E60004A2E2 /* PartyCollectionViewCell.swift */,
 				D2D3F9521CABCE4F00D97B23 /* BillTableViewCell.swift */,
 				D2678C661C91797D0056278F /* TaskCancelingTableViewCell.swift */,
@@ -396,9 +408,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2D3F9581CABFA3F00D97B23 /* SearchResultCell.xib in Resources */,
+				D2D3F9581CABFA3F00D97B23 /* SearchedLawmakerCell.xib in Resources */,
 				D2964BEA1C77080400D5FF5C /* assembly.json in Resources */,
+				D2934D041CF3448C00EA734C /* SearchedPartyCell.xib in Resources */,
 				D20028221CE7584D00F1369E /* Launch Screen.storyboard in Resources */,
+				D2934CFE1CF3442B00EA734C /* SearchedBillCell.xib in Resources */,
 				D2D3F9561CABD1A500D97B23 /* BillCell.xib in Resources */,
 				D2964B871C7344D700D5FF5C /* Assets.xcassets in Resources */,
 				D2964B851C7344D700D5FF5C /* Main.storyboard in Resources */,
@@ -487,19 +501,21 @@
 				D2678C5E1C904DE90056278F /* CoreDataStackManager.swift in Sources */,
 				D27451AA1CA6BE8D0024A904 /* TPPClient.swift in Sources */,
 				D29468131CC2538600232D41 /* Search.swift in Sources */,
+				D2934D061CF346E700EA734C /* SearchedLawmakerTableViewCell.swift in Sources */,
 				D20028301CE86C9E00F1369E /* WebViewController.swift in Sources */,
 				D2D3F94B1CAA808200D97B23 /* Bill.swift in Sources */,
 				D212D3561CF0438B008CEC5C /* HomepageTableViewCell.swift in Sources */,
+				D2934D0A1CF3470800EA734C /* SearchedPartyTableViewCell.swift in Sources */,
 				D2678C671C91797D0056278F /* TaskCancelingTableViewCell.swift in Sources */,
 				D212D3591CF0438B008CEC5C /* BirthTableViewCell.swift in Sources */,
 				D20028261CE7F00600F1369E /* PartyTableViewCell.swift in Sources */,
+				D2934D081CF346FA00EA734C /* SearchedBillTableViewCell.swift in Sources */,
 				D2D3F95A1CAC2D6700D97B23 /* Party.swift in Sources */,
 				D27451A81CA6BE770024A904 /* Constants.swift in Sources */,
 				D20028321CE8B3C300F1369E /* BillDetailViewController.swift in Sources */,
 				D2678C611C904E740056278F /* Model.xcdatamodeld in Sources */,
 				D22A7F531CDB511500CFF74A /* TPPClientConvenience.swift in Sources */,
 				D23772971CAD22E60004A2E2 /* PartyCollectionViewCell.swift in Sources */,
-				D2934CFC1CF333B200EA734C /* SearchResultTableViewCell.swift in Sources */,
 				D212D3571CF0438B008CEC5C /* DistrictTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -28,7 +28,9 @@ class SearchViewController: UIViewController {
         
         
         // Register Nib Objects
-        tableView.registerNib(UINib(nibName: Constants.Identifier.SearchResultCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchResultCell)
+        tableView.registerNib(UINib(nibName: Constants.Identifier.SearchedLawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedLawmakerCell)
+        tableView.registerNib(UINib(nibName: Constants.Identifier.SearchedBillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedBillCell)
+        tableView.registerNib(UINib(nibName: Constants.Identifier.SearchedPartyCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedPartyCell)
 
     }
     
@@ -128,64 +130,92 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var request : Request?
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchResultCell, forIndexPath: indexPath) as! SearchResultTableViewCell
+        var lawmakerImageRequest : Request?
+        var partyImageRequest : Request?
         
         if searchResults.count > 0 {
             
             if searchResults[indexPath.section].0 == "lawmaker" {
-                
-                cell.resultImageView!.image = nil
-                request?.cancel()
+        
+                let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchedLawmakerCell, forIndexPath: indexPath) as! SearchedLawmakerTableViewCell
+                cell.lawmakerImageView!.image = nil
+                lawmakerImageRequest?.cancel()
                 
                 if let lawmaker = searchResults[indexPath.section].1 as? [Lawmaker] {
                     
-                    cell.resultTextLabel?.text = lawmaker[indexPath.row].name
+                    cell.nameLabel?.text = lawmaker[indexPath.row].name
                     
                     guard let urlString = lawmaker[indexPath.row].image else {
-                        cell.resultImageView!.image = UIImage(named:"noImage")
+                        cell.lawmakerImageView!.image = UIImage(named:"noImage")
                         return cell
                     }
                     
                     if let image = TPPClient.sharedInstance().cachedImage(urlString) {
-                        cell.resultImageView!.image = image
+                        cell.lawmakerImageView!.image = image
                         return cell
                     }
                     print(urlString)
                     // let url = NSURL(string: urlString)!
                     
-                    request = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
+                    lawmakerImageRequest = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
                         
                         dispatch_async(dispatch_get_main_queue()) {
-                            print("Get Image")
-                            cell.resultImageView?.image = image
+                            
+                            cell.lawmakerImageView?.image = image
                         }
                     }
                     // cell.taskToCancelifCellIsReused = task
                 }
+                return cell
             } else if searchResults[indexPath.section].0 == "bill" {
                 
+                let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchedBillCell, forIndexPath: indexPath) as! SearchedBillTableViewCell
+                
                 if let bill = searchResults[indexPath.section].1 as? [Bill] {
-                    cell.textLabel?.text = bill[indexPath.row].name
-                    cell.imageView?.image = nil
+                    cell.nameLabel?.text = bill[indexPath.row].name
+                    cell.sponsorLabel?.text = bill[indexPath.row].sponsor
+                    // cell.imageView?.image = nil
                 }
+                return cell
                 
             } else {
                 
+                let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchedPartyCell, forIndexPath: indexPath) as! SearchedPartyTableViewCell
+                cell.partyImageView!.image = nil
+                partyImageRequest?.cancel()
+                
                 if let party = searchResults[indexPath.section].1 as? [Party] {
-                    cell.textLabel?.text = party[indexPath.row].name
-                    cell.imageView?.image = nil
+                    
+                    cell.partyLabel?.text = party[indexPath.row].name
+                    
+                    guard let urlString = party[indexPath.row].logo else {
+                        cell.partyImageView!.image = UIImage(named:"noImage")
+                        return cell
+                    }
+                    print(urlString)
+                    if let image = TPPClient.sharedInstance().cachedImage(urlString) {
+                        cell.partyImageView!.image = image
+                        return cell
+                    }
+                    
+                    partyImageRequest = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
+                        
+                        dispatch_async(dispatch_get_main_queue()) {
+                            
+                            cell.partyImageView?.image = image
+                        }
+                    }
                 }
+                return cell
             }
         }
         
-        return cell
+        return UITableViewCell()
     }
     
     // MARK : UITableView Delegate Method
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 70
+        return 90
     }
 }
 

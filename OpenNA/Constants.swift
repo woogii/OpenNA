@@ -119,8 +119,12 @@ struct Constants {
         static let PeopleCell       = "LawmakerCell"
         static let BillCell         = "BillCell"
         static let PartyImageCell   = "LogoImageCell"
-        static let SearchResultCell = "SearchResultCell"
+        static let SearchedResultCell = "SearchResultCell"
         static let SearchResult     = "searchResult"
+        
+        static let SearchedLawmakerCell = "SearchedLawmakerCell"
+        static let SearchedBillCell = "SearchedBillCell"
+        static let SearchedPartyCell = "SearchedPartyCell"
         
         static let BirthCell      = "birthCell"
         static let PartyCell      = "partyCell"
