@@ -31,10 +31,10 @@ class WebViewController: UIViewController {
         guard let urlString = urlString else {
             return
         }
-        
-        guard let url = NSURL(string: urlString) else {
-            return
-        }
+        let url = NSURL(dataRepresentation:urlString.dataUsingEncoding(NSUTF8StringEncoding)!, relativeToURL:nil)
+        //guard let url = NSURL(string: urlString) else {
+        //    return
+        //}
         
         webView.loadRequest(NSURLRequest(URL: url))
     }
@@ -63,5 +63,5 @@ extension WebViewController : UIWebViewDelegate {
         self.presentViewController(alertView, animated: true, completion: nil)
         
     }
-
+    
 }

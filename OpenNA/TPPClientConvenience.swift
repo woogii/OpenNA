@@ -9,7 +9,7 @@
 import Foundation
 
 extension TPPClient {
-
+    
     // MARK : Convenience Methods
     /// Get bill information
     func getBills(completionHandler: (results:[Bill]?, error:NSError?)->Void)  {
@@ -100,7 +100,7 @@ extension TPPClient {
         var parameters = [Constants.ParameterKeys.Query : searchKeyword]
         
         parameters[Constants.ParameterKeys.ApiKey] = Constants.Api.Key
-    
+        
         let task = taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
             
             if let error = error  {
@@ -129,7 +129,7 @@ extension TPPClient {
         var parameters = [Constants.ParameterKeys.Query : searchKeyword]
         
         parameters[Constants.ParameterKeys.ApiKey] = Constants.Api.Key
-    
+        
         let request = taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
             
             if let error = error  {

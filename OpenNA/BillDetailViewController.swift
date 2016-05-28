@@ -49,6 +49,6 @@ class BillDetailViewController: UITableViewController {
             controller.hidesBottomBarWhenPushed = true
         }
     }
-
+    
     
 }
