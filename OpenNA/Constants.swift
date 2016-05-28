@@ -116,8 +116,8 @@ struct Constants {
     
     struct Entity {
         static let Lawmaker = "Lawmaker"
-        static let LawmakersInList = "LawmakerInList"
-        static let BillsInList = "BillInList"
+        static let LawmakerInList = "LawmakerInList"
+        static let BillInList = "BillInList"
     }
     
     // MARK : Cell & Segue Identifier

@@ -32,7 +32,7 @@ class BillInList : NSManagedObject {
     
     init(dictionary :[String:AnyObject], context: NSManagedObjectContext?)
     {
-        let entity = NSEntityDescription.entityForName(Constants.Entity.BillsInList, inManagedObjectContext: context!)
+        let entity = NSEntityDescription.entityForName(Constants.Entity.BillInList, inManagedObjectContext: context!)
         
         super.init(entity : entity!, insertIntoManagedObjectContext: context)
         

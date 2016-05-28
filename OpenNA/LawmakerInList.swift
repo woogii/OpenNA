@@ -49,7 +49,7 @@ class LawmakerInList : NSManagedObject {
     
     init(dictionary :[String:AnyObject], context: NSManagedObjectContext?)
     {
-        let entity = NSEntityDescription.entityForName(Constants.Entity.LawmakersInList , inManagedObjectContext: context!)
+        let entity = NSEntityDescription.entityForName(Constants.Entity.LawmakerInList , inManagedObjectContext: context!)
         
         super.init(entity : entity!, insertIntoManagedObjectContext: context)
         

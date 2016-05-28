@@ -47,29 +47,9 @@ class LawmakerDetailViewController: UIViewController {
         
         nameLabel.text = lawmaker?.name
         
+        let fetchedResults = fetchLawmakerInList()
         
-        let fetchRequest = NSFetchRequest(entityName : Constants.Entity.LawmakersInList)
-        let firstPredicate = NSPredicate(format: Constants.Fetch.PredicateForImage, (lawmaker?.name)!)
-        //let secondPredicate = NSPredicate(format: Constants.Fetch.PredicateForImage, (lawmaker?.image)!)
-        //let compoundPredicate = NSCompoundPredicate(type: .AndPredicateType, subpredicates:[firstPredicate,secondPredicate])
-        //fetchRequest.predicate = compoundPredicate
-        fetchRequest.predicate = firstPredicate
-        
-        // In order to fetch a single object
-        fetchRequest.fetchLimit = 1
-
-        
-        var fetchedResults : [LawmakerInList]?
-        
-        do {
-            fetchedResults = try sharedContext.executeFetchRequest(fetchRequest) as? [LawmakerInList]
-        } catch let error as NSError {
-            print("\(error.description)")
-        }
-
-        print("fetch result : \(fetchedResults)")
         fetchedResults!.count == 0 ? (favoriteButton.tintColor = nil) : (favoriteButton.tintColor = UIColor.redColor())
-        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -80,16 +60,19 @@ class LawmakerDetailViewController: UIViewController {
         }
     }
     
-    @IBAction func favoriteBtnTapped(sender: UIButton) {
-        print("button tapped")
-        let fetchRequest = NSFetchRequest(entityName : Constants.Entity.LawmakersInList)
-        let firstPredicate = NSPredicate(format: Constants.Fetch.PredicateForImage, (lawmaker?.name)!)
+    func fetchLawmakerInList()->[LawmakerInList]? {
+        
+        let fetchRequest = NSFetchRequest(entityName : Constants.Entity.LawmakerInList)
+        let firstPredicate = NSPredicate(format: Constants.Fetch.PredicateForName, (lawmaker?.name)!)
         let secondPredicate = NSPredicate(format: Constants.Fetch.PredicateForImage, (lawmaker?.image)!)
         let compoundPredicate = NSCompoundPredicate(type: .AndPredicateType, subpredicates:[firstPredicate,secondPredicate])
         fetchRequest.predicate = compoundPredicate
         
+    
+        
         // In order to fetch a single object
         fetchRequest.fetchLimit = 1
+        
         
         var fetchedResults : [LawmakerInList]?
         
@@ -100,7 +83,14 @@ class LawmakerDetailViewController: UIViewController {
         }
         
         print("fetch result : \(fetchedResults)")
-
+        
+        return fetchedResults
+    }
+    
+    @IBAction func favoriteBtnTapped(sender: UIButton) {
+        print("button tapped")
+        
+        let fetchedResults = fetchLawmakerInList()
         
         if fetchedResults!.count == 0  {
             
@@ -131,6 +121,7 @@ class LawmakerDetailViewController: UIViewController {
                 return
             }
             
+            print("lawmaker delete")
             sharedContext.deleteObject(result)
             
             do {

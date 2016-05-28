@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--My List-->
         <scene sceneID="fTX-VP-JIe">
             <objects>
                 <tableViewController id="D04-cF-XRR" sceneMemberID="viewController">
@@ -15,10 +15,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection headerTitle="My Lists" id="rDF-ds-l30">
+                            <tableViewSection id="rDF-ds-l30">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="gm0-Ih-ZOT">
-                                        <rect key="frame" x="0.0" y="114" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="99" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gm0-Ih-ZOT" id="s1A-Uu-obq">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -43,7 +43,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="UN3-8a-kzc">
-                                        <rect key="frame" x="0.0" y="158" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="143" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UN3-8a-kzc" id="Son-uJ-BGL">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -75,17 +75,17 @@
                             <outlet property="delegate" destination="D04-cF-XRR" id="uVT-AZ-t0t"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="vTt-8q-Zrw"/>
+                    <navigationItem key="navigationItem" title="My List" id="sJr-Kx-wrj"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vPv-cs-RkP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-611" y="1030"/>
         </scene>
-        <!--View Controller-->
+        <!--Lawmaker List View Controller-->
         <scene sceneID="c9q-iS-HcS">
             <objects>
-                <viewController id="1f2-Bu-3Mg" sceneMemberID="viewController">
+                <viewController id="1f2-Bu-3Mg" customClass="LawmakerListViewController" customModule="OpenNA" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yrn-2s-ePU"/>
                         <viewControllerLayoutGuide type="bottom" id="94X-FF-yNB"/>
@@ -108,15 +108,18 @@
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="tableView" destination="XtK-lS-fUD" id="Eae-an-MIL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bFa-dU-hJS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-144" y="1039"/>
+            <point key="canvasLocation" x="-176" y="1030"/>
         </scene>
-        <!--View Controller-->
+        <!--Bill List View Controller-->
         <scene sceneID="ajR-Jf-NFB">
             <objects>
-                <viewController id="Lmp-Mn-7kk" sceneMemberID="viewController">
+                <viewController id="Lmp-Mn-7kk" customClass="BillListViewController" customModule="OpenNA" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kDK-CH-uez"/>
                         <viewControllerLayoutGuide type="bottom" id="9xC-rQ-JhJ"/>
@@ -139,6 +142,9 @@
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="tableView" destination="osj-ZX-ttX" id="rXM-WB-UzI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HUp-Bx-ATd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
