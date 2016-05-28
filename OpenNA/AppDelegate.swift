@@ -59,8 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         window?.makeKeyAndVisible()
-        // addSplash()
-        // Override point for customization after application launch.
+       
         preload()
         return true
     }
@@ -125,15 +124,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         return
                     }
                     
-                    let lawmaker = NSEntityDescription.insertNewObjectForEntityForName(Constants.ModelKeys.LawmakerEntity, inManagedObjectContext: sharedContext) as! Lawmaker
+                    var dictionary = [String:AnyObject]()
                     
-                    lawmaker.name = name
-                    lawmaker.party = party
-                    lawmaker.image = imageUrl
-                    lawmaker.birth = birth
-                    lawmaker.district = district
-                    lawmaker.when_elected = when_elected
-                    lawmaker.homepage = homepage
+                    dictionary[Constants.ModelKeys.Name] = name
+                    dictionary[Constants.ModelKeys.ImageUrl] = imageUrl
+                    dictionary[Constants.ModelKeys.Party] = party
+                    dictionary[Constants.ModelKeys.Birth] = birth
+                    dictionary[Constants.ModelKeys.Homepage] = homepage
+                    dictionary[Constants.ModelKeys.WhenElected] = when_elected
+                    dictionary[Constants.ModelKeys.District] = district
+                    
+                    let _ = Lawmaker(dictionary: dictionary, context: self.sharedContext)
                     
                     do {
                         try sharedContext.save()
@@ -149,30 +150,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print(error.localizedDescription)
             }
         }
-        self.removeSplash()
+
     }
     
     var sharedContext:NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext!
     }
-    
-    // MARK: Add Launch Screen
-    func addSplash() {
-        
-        splashView = self.window?.rootViewController?.storyboard?.instantiateViewControllerWithIdentifier("splashView").view
-        // UIStoryboard(name: "splashView", bundle: nil).instantiateInitialViewController()?.view
-        window?.addSubview(splashView!)
-        
-    }
-    
-    // MARK: Remove Launch Screen
-    func removeSplash() {
-        
-        if ((splashView?.isDescendantOfView(self.window!)) != nil) {
-            splashView?.removeFromSuperview()
-        }
-    }
-    
     
     
 }

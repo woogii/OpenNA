@@ -1,8 +1,8 @@
 //
-//  Lawmaker.swift
+//  LawmakersInList.swift
 //  OpenNA
 //
-//  Created by Hyun on 2016. 3. 9..
+//  Created by TeamSlogup on 2016. 5. 28..
 //  Copyright © 2016년 wook2. All rights reserved.
 //
 
@@ -10,11 +10,11 @@ import Foundation
 import CoreData
 import UIKit
 
-// MARK : - Lawmaker : NSManagedObject 
+// MARK : - LawmakersInList : NSManagedObject
 
-class Lawmaker : NSManagedObject {
-
-    // MARK : Properties 
+class LawmakerInList : NSManagedObject {
+    
+    // MARK : Properties
     
     @NSManaged var name:String?
     @NSManaged var image:String?
@@ -40,8 +40,8 @@ class Lawmaker : NSManagedObject {
             
         }
     }
-
-    // MARK : Initialization 
+    
+    // MARK : Initialization
     
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
         super.init(entity:entity, insertIntoManagedObjectContext: context)
@@ -49,7 +49,7 @@ class Lawmaker : NSManagedObject {
     
     init(dictionary :[String:AnyObject], context: NSManagedObjectContext?)
     {
-        let entity = NSEntityDescription.entityForName(Constants.Entity.Lawmaker, inManagedObjectContext: context!)
+        let entity = NSEntityDescription.entityForName(Constants.Entity.LawmakersInList , inManagedObjectContext: context!)
         
         super.init(entity : entity!, insertIntoManagedObjectContext: context)
         
@@ -60,8 +60,7 @@ class Lawmaker : NSManagedObject {
         homepage     = dictionary[Constants.ModelKeys.Homepage] as? String
         when_elected = dictionary[Constants.ModelKeys.WhenElected] as? String
         district     = dictionary[Constants.ModelKeys.District] as? String
-    
+        
     }
-    
     
 }

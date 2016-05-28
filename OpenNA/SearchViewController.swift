@@ -27,7 +27,6 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         // Register Nib Objects
         tableView.registerNib(UINib(nibName: Constants.Identifier.SearchedLawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedLawmakerCell)
         tableView.registerNib(UINib(nibName: Constants.Identifier.SearchedBillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedBillCell)
@@ -219,7 +218,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     // MARK : UITableView Delegate Method
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 90
->>>>>>> f34c88811eca0e4670bd8b153c9b02f599a5b830
+
     }
 }
 

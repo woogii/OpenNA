@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mmM-OS-uM8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mmM-OS-uM8">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -311,11 +311,8 @@
                         <outlet property="collectionView" destination="VKl-aI-1yh" id="Bxx-rn-CCl"/>
                         <outlet property="segmentedControl" destination="FJb-eT-8RG" id="5OU-ZA-ebE"/>
                         <outlet property="tableView" destination="reM-se-d1I" id="Bcx-qh-ziO"/>
-<<<<<<< HEAD
-=======
                         <segue destination="vB9-65-Ig8" kind="show" identifier="showLawmakerDetail" id="lrF-M3-Aj4"/>
                         <segue destination="ZRi-9x-VhW" kind="show" identifier="showBillDetail" id="LMf-ef-WAk"/>
->>>>>>> f34c88811eca0e4670bd8b153c9b02f599a5b830
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -586,7 +583,7 @@
                             <tableViewSection headerTitle="Outline" id="JqB-lh-aNo">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="BRd-Rs-W0y">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="92" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BRd-Rs-W0y" id="VCL-dA-iOZ">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -617,7 +614,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="uih-Iw-IDV">
-                                        <rect key="frame" x="0.0" y="72" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="136" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uih-Iw-IDV" id="ULm-yZ-3IQ">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -648,7 +645,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="FmT-HQ-nbA">
-                                        <rect key="frame" x="0.0" y="116" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="180" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FmT-HQ-nbA" id="L5b-E9-n9A">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -679,7 +676,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="B6b-nV-oqx">
-                                        <rect key="frame" x="0.0" y="160" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="224" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="B6b-nV-oqx" id="AHi-Oo-fqT">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -710,7 +707,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="P2D-k4-zsE">
-                                        <rect key="frame" x="0.0" y="204" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="268" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P2D-k4-zsE" id="voH-Fw-Fi5">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -748,7 +745,7 @@
                             <tableViewSection headerTitle="Summary" id="WhV-Cs-HEh">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="181" id="AHS-Me-en1">
-                                        <rect key="frame" x="0.0" y="276" width="320" height="181"/>
+                                        <rect key="frame" x="0.0" y="340" width="320" height="181"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AHS-Me-en1" id="qdB-dM-Xth">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
@@ -803,11 +800,7 @@
         <!--Web View Controller-->
         <scene sceneID="KRk-iJ-q5n">
             <objects>
-<<<<<<< HEAD
-                <viewController storyboardIdentifier="webViewController" automaticallyAdjustsScrollViewInsets="NO" id="Dhe-YD-e6d" customClass="WebViewController" customModule="OpenNA" customModuleProvider="target" sceneMemberID="viewController">
-=======
                 <viewController storyboardIdentifier="webViewVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dhe-YD-e6d" customClass="WebViewController" customModule="OpenNA" customModuleProvider="target" sceneMemberID="viewController">
->>>>>>> f34c88811eca0e4670bd8b153c9b02f599a5b830
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="psg-g7-UWc"/>
                         <viewControllerLayoutGuide type="bottom" id="7ih-Cz-4MF"/>
@@ -816,7 +809,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ft1-CT-9lF">
+                            <webView contentMode="scaleToFill" misplaced="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ft1-CT-9lF">
                                 <rect key="frame" x="0.0" y="20" width="320" height="504"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                             </webView>
@@ -884,10 +877,6 @@
         <image name="politics" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-<<<<<<< HEAD
-        <segue reference="pvd-li-cak"/>
-=======
         <segue reference="oqd-cF-DFC"/>
->>>>>>> f34c88811eca0e4670bd8b153c9b02f599a5b830
     </inferredMetricsTieBreakers>
 </document>

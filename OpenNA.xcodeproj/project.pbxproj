@@ -17,6 +17,8 @@
 		D212D3591CF0438B008CEC5C /* BirthTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3541CF0438B008CEC5C /* BirthTableViewCell.swift */; };
 		D212D35B1CF043D9008CEC5C /* InOfficeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D35A1CF043D9008CEC5C /* InOfficeTableViewCell.swift */; };
 		D212D3BC1CF95FCD008CEC5C /* assembly.json in Resources */ = {isa = PBXBuildFile; fileRef = D212D3BB1CF95FCD008CEC5C /* assembly.json */; };
+		D212D3BE1CF97563008CEC5C /* LawmakerInList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3BD1CF97563008CEC5C /* LawmakerInList.swift */; };
+		D212D3C01CF97574008CEC5C /* BillInList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3BF1CF97574008CEC5C /* BillInList.swift */; };
 		D22A7F531CDB511500CFF74A /* TPPClientConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A7F521CDB511500CFF74A /* TPPClientConvenience.swift */; };
 		D235C3301CB1068700704A90 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D235C32F1CB1068700704A90 /* ImageCache.swift */; };
 		D235C3321CB4090300704A90 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D235C3311CB4090300704A90 /* SearchViewController.swift */; };
@@ -79,6 +81,8 @@
 		D212D3541CF0438B008CEC5C /* BirthTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthTableViewCell.swift; sourceTree = "<group>"; };
 		D212D35A1CF043D9008CEC5C /* InOfficeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InOfficeTableViewCell.swift; sourceTree = "<group>"; };
 		D212D3BB1CF95FCD008CEC5C /* assembly.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = assembly.json; sourceTree = "<group>"; };
+		D212D3BD1CF97563008CEC5C /* LawmakerInList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerInList.swift; sourceTree = "<group>"; };
+		D212D3BF1CF97574008CEC5C /* BillInList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillInList.swift; sourceTree = "<group>"; };
 		D22A7F521CDB511500CFF74A /* TPPClientConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPClientConvenience.swift; sourceTree = "<group>"; };
 		D235C32F1CB1068700704A90 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		D235C3311CB4090300704A90 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -256,6 +260,8 @@
 			isa = PBXGroup;
 			children = (
 				D2678C621C9052D80056278F /* Lawmaker.swift */,
+				D212D3BD1CF97563008CEC5C /* LawmakerInList.swift */,
+				D212D3BF1CF97574008CEC5C /* BillInList.swift */,
 				D2D3F94A1CAA808200D97B23 /* Bill.swift */,
 				D2D3F9591CAC2D6700D97B23 /* Party.swift */,
 				D2678C5D1C904DE90056278F /* CoreDataStackManager.swift */,
@@ -408,13 +414,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
-				D2D3F9581CABFA3F00D97B23 /* PartyCell.xib in Resources */,
-=======
 				D2D3F9581CABFA3F00D97B23 /* SearchedLawmakerCell.xib in Resources */,
-				D2964BEA1C77080400D5FF5C /* assembly.json in Resources */,
+				D2D3F9581CABFA3F00D97B23 /* SearchedLawmakerCell.xib in Resources */,
 				D2934D041CF3448C00EA734C /* SearchedPartyCell.xib in Resources */,
->>>>>>> f34c88811eca0e4670bd8b153c9b02f599a5b830
 				D20028221CE7584D00F1369E /* Launch Screen.storyboard in Resources */,
 				D2934CFE1CF3442B00EA734C /* SearchedBillCell.xib in Resources */,
 				D2D3F9561CABD1A500D97B23 /* BillCell.xib in Resources */,
@@ -499,6 +501,7 @@
 				D2678C631C9052D80056278F /* Lawmaker.swift in Sources */,
 				D235C3301CB1068700704A90 /* ImageCache.swift in Sources */,
 				D235C3321CB4090300704A90 /* SearchViewController.swift in Sources */,
+				D212D3C01CF97574008CEC5C /* BillInList.swift in Sources */,
 				D2678C651C9173780056278F /* LawmakerTableViewCell.swift in Sources */,
 				D2964B801C7344D700D5FF5C /* AppDelegate.swift in Sources */,
 				D2D3F9531CABCE4F00D97B23 /* BillTableViewCell.swift in Sources */,
@@ -515,6 +518,7 @@
 				D212D3591CF0438B008CEC5C /* BirthTableViewCell.swift in Sources */,
 				D20028261CE7F00600F1369E /* PartyTableViewCell.swift in Sources */,
 				D2934D081CF346FA00EA734C /* SearchedBillTableViewCell.swift in Sources */,
+				D212D3BE1CF97563008CEC5C /* LawmakerInList.swift in Sources */,
 				D2D3F95A1CAC2D6700D97B23 /* Party.swift in Sources */,
 				D27451A81CA6BE770024A904 /* Constants.swift in Sources */,
 				D20028321CE8B3C300F1369E /* BillDetailViewController.swift in Sources */,

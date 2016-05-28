@@ -50,27 +50,26 @@ class LawmakerDetailViewController: UIViewController {
         
         let fetchRequest = NSFetchRequest(entityName : Constants.Entity.LawmakersInList)
         let firstPredicate = NSPredicate(format: Constants.Fetch.PredicateForImage, (lawmaker?.name)!)
-        let secondPredicate = NSPredicate(format: Constants.Fetch.PredicateForImage, (lawmaker?.image)!)
-        let compoundPredicate = NSCompoundPredicate(type: .AndPredicateType, subpredicates:[firstPredicate,secondPredicate])
-        fetchRequest.predicate = compoundPredicate
+        //let secondPredicate = NSPredicate(format: Constants.Fetch.PredicateForImage, (lawmaker?.image)!)
+        //let compoundPredicate = NSCompoundPredicate(type: .AndPredicateType, subpredicates:[firstPredicate,secondPredicate])
+        //fetchRequest.predicate = compoundPredicate
+        fetchRequest.predicate = firstPredicate
         
         // In order to fetch a single object
         fetchRequest.fetchLimit = 1
 
         
-        var fetchedResults : [Lawmaker]?
+        var fetchedResults : [LawmakerInList]?
         
         do {
-            fetchedResults = try sharedContext.executeFetchRequest(fetchRequest) as? [Lawmaker]
+            fetchedResults = try sharedContext.executeFetchRequest(fetchRequest) as? [LawmakerInList]
         } catch let error as NSError {
             print("\(error.description)")
         }
 
-        guard let result = fetchedResults else {
-            return
-        }
+        print("fetch result : \(fetchedResults)")
+        fetchedResults!.count == 0 ? (favoriteButton.tintColor = nil) : (favoriteButton.tintColor = UIColor.redColor())
         
-        result.count > 0 ? (favoriteButton.tintColor = nil) : (favoriteButton.tintColor = UIColor.blackColor())
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -82,7 +81,66 @@ class LawmakerDetailViewController: UIViewController {
     }
     
     @IBAction func favoriteBtnTapped(sender: UIButton) {
+        print("button tapped")
+        let fetchRequest = NSFetchRequest(entityName : Constants.Entity.LawmakersInList)
+        let firstPredicate = NSPredicate(format: Constants.Fetch.PredicateForImage, (lawmaker?.name)!)
+        let secondPredicate = NSPredicate(format: Constants.Fetch.PredicateForImage, (lawmaker?.image)!)
+        let compoundPredicate = NSCompoundPredicate(type: .AndPredicateType, subpredicates:[firstPredicate,secondPredicate])
+        fetchRequest.predicate = compoundPredicate
         
+        // In order to fetch a single object
+        fetchRequest.fetchLimit = 1
+        
+        var fetchedResults : [LawmakerInList]?
+        
+        do {
+            fetchedResults = try sharedContext.executeFetchRequest(fetchRequest) as? [LawmakerInList]
+        } catch let error as NSError {
+            print("\(error.description)")
+        }
+        
+        print("fetch result : \(fetchedResults)")
+
+        
+        if fetchedResults!.count == 0  {
+            
+            var dictionary = [String:AnyObject]()
+            
+            dictionary[Constants.ModelKeys.Name] = lawmaker?.name
+            dictionary[Constants.ModelKeys.ImageUrl] = lawmaker?.image
+            dictionary[Constants.ModelKeys.Party] = lawmaker?.party
+            dictionary[Constants.ModelKeys.Birth] = lawmaker?.birth
+            dictionary[Constants.ModelKeys.Homepage] = lawmaker?.homepage
+            dictionary[Constants.ModelKeys.WhenElected] = lawmaker?.when_elected
+            dictionary[Constants.ModelKeys.District] = lawmaker?.district
+            
+            let _ = LawmakerInList(dictionary: dictionary, context: sharedContext)
+            
+            do {
+                print("lawmaker save")
+                try sharedContext.save()
+            } catch {
+                print(error)
+            }
+
+            favoriteButton.tintColor = UIColor.redColor()
+
+        } else {
+            
+            guard let result = fetchedResults!.first else {
+                return
+            }
+            
+            sharedContext.deleteObject(result)
+            
+            do {
+                try sharedContext.save()
+            } catch {
+                print(error)
+            }
+            
+            favoriteButton.tintColor = nil
+        }
     }
 }
 
