@@ -68,7 +68,7 @@ struct Constants {
         static let Name          = "name"
         static let NameEn        = "name_en"
         static let Photo         = "photo"
-        static let ImageUrl      = "imageUrl"
+        static let ImageUrl      = "image"
         static let Party         = "party"
         static let Address       = "address"
         static let Education     = "education"
@@ -107,18 +107,32 @@ struct Constants {
     
     // MARK : Fetch
     struct Fetch {
-        static let FetchEntityLawmaker = "Lawmaker"
+        // static let FetchEntityLawmaker = "Lawmaker"
         static let SortKeyForLawmaker  = "name"
-        static let PredicateForImage   = "imageUrl=%@"
+        //static let PredicateForImage   = "imageUrl=%@"
+        static let PredicateForImage   = "image=%@"
+        static let PredicateForName    = "name=%@"
+    }
+    
+    struct Entity {
+        static let Lawmaker = "Lawmaker"
+        static let LawmakersInList = "LawmakersInList"
+        static let BillsInList = "BillsInList"
     }
     
     // MARK : Cell & Segue Identifier
     struct Identifier {
         
-        static let PeopleCell     = "LawmakerCell"
-        static let BillCell       = "BillCell"
-        static let PartyImageCell = "LogoImageCell"
-        static let SearchResult   = "searchResult"
+        static let PeopleCell       = "LawmakerCell"
+        static let BillCell         = "BillCell"
+        static let PartyImageCell   = "LogoImageCell"
+        static let SearchedResultCell = "SearchResultCell"
+        static let SearchResult     = "searchResult"
+        
+        static let SearchedLawmakerCell = "SearchedLawmakerCell"
+        static let SearchedBillCell = "SearchedBillCell"
+        static let SearchedPartyCell = "SearchedPartyCell"
+        
         static let BirthCell      = "birthCell"
         static let PartyCell      = "partyCell"
         static let InOfficeCell   = "inOfficeCell"
@@ -126,11 +140,11 @@ struct Constants {
         static let HomepageCell   = "homepageCell"
         
         
-        static let segueToHomepageVC = "showHomepage"
+        static let segueToWebViewVC = "showWebView"
         
         static let LawmakerDetailVC = "LawmakerDetail"
         static let BillDetailVC = "BillDetail"
-        static let LawmakerHomepageVC = "LawmakerHomepage"
+        static let WebViewVC = "webViewVC"
         
     }
     
@@ -167,7 +181,7 @@ struct Constants {
         
         // MARK : Lawmaker
         static let Name = "name"
-        static let ImageUrl = "imageUrl"
+        static let ImageUrl = "image"
         static let Party    = "party"
         static let Birth    = "birth"
         static let Homepage = "homepage"

@@ -17,6 +17,7 @@ class BillDetailViewController: UITableViewController {
     @IBOutlet weak var sponsorLabel: UILabel!
     @IBOutlet weak var documentURLLabel: UILabel!
     @IBOutlet weak var summaryTextView: UITextView!
+    @IBOutlet weak var favoriteButton: UIBarButtonItem!
     
     var bill:Bill?
     
@@ -40,10 +41,15 @@ class BillDetailViewController: UITableViewController {
         assembylIDLabel.text = "\(assemblyID)"
     }
     
+    @IBAction func favoriteButtonTapped(sender: UIBarButtonItem) {
+        
+        
+        
+    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if segue.identifier == Constants.Identifier.segueToHomepageVC {
+        if segue.identifier == Constants.Identifier.segueToWebViewVC {
             let controller = segue.destinationViewController as! WebViewController
             controller.urlString = bill?.documentUrl
             controller.hidesBottomBarWhenPushed = true

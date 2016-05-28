@@ -23,7 +23,7 @@ class PoliticsViewController: UIViewController  {
     var bills     = [Bill]()
     var parties   = [Party]()
     var indexInfo = [Entry]()
-    
+
     typealias Entry = (Character, [Lawmaker])
     
     // MARK :  View LifeCycle
@@ -76,7 +76,7 @@ class PoliticsViewController: UIViewController  {
     // MARK :  Data Fetch
     func fetchAllLawmakers()->[Lawmaker]
     {
-        let fetchRequest = NSFetchRequest(entityName : Constants.Fetch.FetchEntityLawmaker)
+        let fetchRequest = NSFetchRequest(entityName : Constants.Entity.Lawmaker)
         let sectionSortDescriptor = NSSortDescriptor(key:Constants.Fetch.SortKeyForLawmaker, ascending: true)
         let sortDescriptors = [sectionSortDescriptor]
         fetchRequest.sortDescriptors = sortDescriptors
@@ -131,7 +131,7 @@ class PoliticsViewController: UIViewController  {
             TPPClient.sharedInstance().getParties() { (parties, error) in
                 
                 if let parties = parties {
-                    // print(parties)
+
                     self.parties = parties
                     
                     dispatch_async(dispatch_get_main_queue())  {
@@ -277,14 +277,15 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         
         cell.nameLabel.text = indexInfo[indexPath.section].1[indexPath.row].name
         cell.partyLabel.text = indexInfo[indexPath.section].1[indexPath.row].party
-        let urlString:String? = indexInfo[indexPath.section].1[indexPath.row].imageUrl
+        let urlString:String? = indexInfo[indexPath.section].1[indexPath.row].image
         let url = NSURL(string: urlString!)!
         
         /*
          Fetch a lawmaker by using a given imageUrl string to check whether an image is cached
          If an image is not cahced, httprequest function is invoked to download an image
          */
-        let fetchRequest = NSFetchRequest(entityName : Constants.Fetch.FetchEntityLawmaker )
+        let fetchRequest = NSFetchRequest(entityName : Constants.Entity.Lawmaker )
+
         let predicate = NSPredicate(format: Constants.Fetch.PredicateForImage, urlString!)
         fetchRequest.predicate = predicate
         // In order to fetch a single object
@@ -360,7 +361,6 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
             let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.BillDetailVC) as! BillDetailViewController
             
             controller.bill = bills[indexPath.row]
-            
             navigationController?.pushViewController(controller, animated: true)
             
             break
@@ -396,19 +396,14 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        print("select")
-        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) else {
-            return
-        }
-        cell.layer.borderWidth = 2.0
-        cell.layer.borderColor = UIColor.whiteColor().CGColor
+                
+        let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.WebViewVC) as! WebViewController
         
-        let controller = storyboard?.instantiateViewControllerWithIdentifier("webViewController") as! WebViewController
-    
         controller.urlString = "https://ko.wikipedia.org/wiki/" + parties[indexPath.row].name
         controller.hidesBottomBarWhenPushed = true
         
         navigationController?.pushViewController(controller, animated: true)
+        
     }
 }
 

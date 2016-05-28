@@ -24,18 +24,15 @@ class WebViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        print(urlString)
         
         super.viewWillAppear(animated)
         
         guard let urlString = urlString else {
             return
         }
+
         let url = NSURL(dataRepresentation:urlString.dataUsingEncoding(NSUTF8StringEncoding)!, relativeToURL:nil)
-        //guard let url = NSURL(string: urlString) else {
-        //    return
-        //}
-        
+
         webView.loadRequest(NSURLRequest(URL: url))
     }
     

@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+    <entity name="BillsInList" representedClassName="." syncable="YES">
+        <attribute name="assemblyId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="documentUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="proposeDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sponsor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Lawmaker" representedClassName=".Lawmaker" syncable="YES">
         <attribute name="birth" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="district" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="homepage" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="party" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="when_elected" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="LawmakersInList" representedClassName="." syncable="YES">
+        <attribute name="birth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="district" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="homepage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="party" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="when_elected" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Lawmaker" positionX="-63" positionY="-18" width="128" height="150"/>
+        <element name="LawmakersInList" positionX="-63" positionY="36" width="128" height="150"/>
+        <element name="BillsInList" positionX="-54" positionY="45" width="128" height="150"/>
     </elements>
 </model>

@@ -129,7 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     lawmaker.name = name
                     lawmaker.party = party
-                    lawmaker.imageUrl = imageUrl
+                    lawmaker.image = imageUrl
                     lawmaker.birth = birth
                     lawmaker.district = district
                     lawmaker.when_elected = when_elected

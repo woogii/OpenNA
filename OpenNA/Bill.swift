@@ -21,7 +21,7 @@ class Bill {
     var assemblyId:Int
     
     // MARK : Initialization
-
+    
     init(dictionary: [String:AnyObject]) {
         
         name = (dictionary[Constants.JSONResponseKeys.BillName] as! String)
@@ -33,17 +33,17 @@ class Bill {
         assemblyId  = (dictionary[Constants.JSONResponseKeys.BillAssemblyID] as? Int)!
         
     }
-
+    
     // MARK : Helper Method
     
     static func billsFromResults(results:[[String:AnyObject]])->[Bill] {
         var bills = [Bill]()
-    
+        
         for result in results {
             bills.append(Bill(dictionary:result))
         }
-
+        
         return bills
     }
-
+    
 }

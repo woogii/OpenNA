@@ -17,7 +17,7 @@ class Party {
     var thumbnail:UIImage?
     var id:Int
     var size:Int?
-
+    
     init(dictionary: [String:AnyObject]) {
         
         name  = (dictionary[Constants.JSONResponseKeys.PartyName] as! String)
@@ -25,10 +25,10 @@ class Party {
         color = dictionary[Constants.JSONResponseKeys.PartyColor] as? Int
         id    = (dictionary[Constants.JSONResponseKeys.PartyId] as! Int)
         size  = dictionary[Constants.JSONResponseKeys.PartySize] as? Int
-
+        
         let url = NSURL(string: "http://data.popong.com/parties/images/\(id).png")!
         let imageData = NSData(contentsOfURL: url)
-        print(name)
+        
         guard let image = imageData else {
             let defaultImage = UIImage(named:"noImage")
             
@@ -63,7 +63,7 @@ class Party {
         let textFontAttributes = [
             NSFontAttributeName: textFont,
             NSForegroundColorAttributeName: textColor,
-        ]
+            ]
         
         //Put the image into a rectangle as large as the original image.
         inImage.drawInRect(CGRectMake(0, 0, inImage.size.width, inImage.size.height))
