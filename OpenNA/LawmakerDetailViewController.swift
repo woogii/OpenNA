@@ -24,6 +24,14 @@ class LawmakerDetailViewController: UIViewController {
     var lawmaker:Lawmaker?
     var image:UIImage?
     
+    var birth:String?
+    var party:String?
+    var when_elected:String?
+    var district:String?
+    var homepage:String?
+    var name : String? 
+
+    
     // MARK :  CoreData Convenience
     var sharedContext : NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext!

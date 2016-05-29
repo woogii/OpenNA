@@ -47,6 +47,16 @@ class LawmakerListViewController : UIViewController {
         tableView.dataSource = self
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let path = tableView.indexPathForSelectedRow!
+        
+        let detailVC = segue.destinationViewController as! LawmakerDetailViewController
+        
+        detailVC.image = lawmakersInList[path.row].pinnedImage
+        detailVC.hidesBottomBarWhenPushed = true
+        
+        
+    }
     
 }
 
@@ -106,6 +116,7 @@ extension LawmakerListViewController : UITableViewDelegate, UITableViewDataSourc
         return 140
     }
     
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("lawmakers In List \(lawmakersInList.count)")
         return lawmakersInList.count

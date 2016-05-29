@@ -80,7 +80,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vPv-cs-RkP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-611" y="1030"/>
+            <point key="canvasLocation" x="-185" y="184"/>
         </scene>
         <!--Lawmaker List View Controller-->
         <scene sceneID="c9q-iS-HcS">
@@ -105,6 +105,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="vB9-65-Ig8" kind="show" identifier="showLamakerDetail" id="fkq-FM-VYu"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -124,7 +127,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bFa-dU-hJS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-176" y="1030"/>
+            <point key="canvasLocation" x="287" y="88"/>
         </scene>
         <!--Bill List View Controller-->
         <scene sceneID="ajR-Jf-NFB">
@@ -142,13 +145,16 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="a6T-kK-u6d">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BillCell" id="a6T-kK-u6d">
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a6T-kK-u6d" id="3hz-xl-4dx">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="ZRi-9x-VhW" kind="show" identifier="showBillDetail" id="hAT-aM-Zpd"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -168,7 +174,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HUp-Bx-ATd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-379" y="1729"/>
+            <point key="canvasLocation" x="287" y="728"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="g2R-Kx-i3E">
@@ -234,11 +240,14 @@
                         <outlet property="resultsTableView" destination="fgh-Od-fni" id="7i9-j3-nO8"/>
                         <outlet property="searchBar" destination="er4-yI-cWj" id="OQ1-dL-6l8"/>
                         <outlet property="tableView" destination="fgh-Od-fni" id="sB9-1u-GHt"/>
+                        <segue destination="vB9-65-Ig8" kind="show" id="AEA-b0-yOF"/>
+                        <segue destination="ZRi-9x-VhW" kind="show" id="TTa-oM-Kzs"/>
+                        <segue destination="Dhe-YD-e6d" kind="show" id="g6M-w6-cmr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IYU-H8-Tgc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-994" y="782"/>
+            <point key="canvasLocation" x="-609" y="872"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="eJl-Kl-R1e">
@@ -343,7 +352,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-166" y="-346"/>
+            <point key="canvasLocation" x="-185" y="-454"/>
         </scene>
         <!--Lawmaker Detail View Controller-->
         <scene sceneID="AwZ-GW-myj">
@@ -595,7 +604,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bx0-a2-hbX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="310" y="-403"/>
+            <point key="canvasLocation" x="760" y="-804"/>
         </scene>
         <!--Bill Detail-->
         <scene sceneID="jIy-mD-HjM">
@@ -821,7 +830,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hYT-Bo-1UQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="376" y="396"/>
+            <point key="canvasLocation" x="760" y="-174"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="KRk-iJ-q5n">
@@ -835,8 +844,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" misplaced="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ft1-CT-9lF">
-                                <rect key="frame" x="0.0" y="20" width="320" height="504"/>
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ft1-CT-9lF">
+                                <rect key="frame" x="0.0" y="64" width="320" height="460"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                             </webView>
                         </subviews>
@@ -857,7 +866,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jZb-ZK-X5s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="876" y="444"/>
+            <point key="canvasLocation" x="1350" y="-558"/>
         </scene>
         <!--Politics-->
         <scene sceneID="bmX-Bj-d51">
@@ -876,7 +885,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dnG-QV-PVN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-618" y="-334"/>
+            <point key="canvasLocation" x="-619" y="-454"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aeX-0E-Gfe">
@@ -895,7 +904,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mTv-8q-xHv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-605" y="315"/>
+            <point key="canvasLocation" x="-619" y="176"/>
         </scene>
     </scenes>
     <resources>
@@ -903,6 +912,8 @@
         <image name="politics" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="oqd-cF-DFC"/>
+        <segue reference="g6M-w6-cmr"/>
+        <segue reference="hAT-aM-Zpd"/>
+        <segue reference="fkq-FM-VYu"/>
     </inferredMetricsTieBreakers>
 </document>
