@@ -123,7 +123,7 @@ struct Constants {
     // MARK : Cell & Segue Identifier
     struct Identifier {
         
-        static let PeopleCell       = "LawmakerCell"
+        static let LawmakerCell       = "LawmakerCell"
         static let BillCell         = "BillCell"
         static let PartyImageCell   = "LogoImageCell"
         static let SearchedResultCell = "SearchResultCell"

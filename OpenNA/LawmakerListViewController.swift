@@ -13,23 +13,38 @@ import CoreData
 class LawmakerListViewController : UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    var lawmakers = [LawmakerInList]()
     
+    var lawmakersInList = [LawmakerInList]()
+    
+    var sharedContext : NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext!
+    }
     
     override func viewWillAppear(animated: Bool) {
         
+        lawmakersInList = fetchLawmakersInList()
+        print("count : \(lawmakersInList.count)")
+    }
+    
+    func  fetchLawmakersInList()->[LawmakerInList] {
         
         let fetchRequest = NSFetchRequest(entityName : Constants.Entity.LawmakerInList)
-    
-
+        
+        do {
+            return try sharedContext.executeFetchRequest(fetchRequest) as! [LawmakerInList]
+            
+        } catch let error as NSError {
+            print("\(error.description)")
+            return [LawmakerInList]()
+        }
+        
     }
     
     override func viewDidLoad() {
         // Register Nib Objects
-        tableView.registerNib(UINib(nibName: Constants.Identifier.PeopleCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.PeopleCell)
-       
-        
-
+        tableView.registerNib(UINib(nibName: Constants.Identifier.LawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.LawmakerCell)
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     
@@ -39,11 +54,61 @@ extension LawmakerListViewController : UITableViewDelegate, UITableViewDataSourc
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.LawmakerCell, forIndexPath: indexPath) as! LawmakerTableViewCell
+        configureCell(cell, atIndexPath: indexPath)
+        return cell
+    }
+    
+    func configureCell(cell:LawmakerTableViewCell , atIndexPath indexPath:NSIndexPath)
+    {
+        
+        cell.nameLabel.text = lawmakersInList[indexPath.row].name
+        print(lawmakersInList[indexPath.row].name)
+        cell.partyLabel.text = lawmakersInList[indexPath.row].party
+        let urlString:String? = lawmakersInList[indexPath.row].image
+        let url = NSURL(string: urlString!)!
+        
+        var pinnedImage:UIImage?
+        cell.imageView!.image = nil
+        
+        if  lawmakersInList[indexPath.row].pinnedImage != nil {
+            #if DEBUG
+                log.debug("images exist")
+            #endif
+            pinnedImage = lawmakersInList[indexPath.row].pinnedImage
+        }
+        else {
+            
+            let task = TPPClient.sharedInstance().taskForGetImage(url) { data, error  in
+                
+                if let data = data {
+                    
+                    let image = UIImage(data : data)
+                    
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.lawmakersInList[indexPath.row].pinnedImage = image
+                        cell.profileImageView!.image = image
+                    }
+                }
+                
+            }
+            
+            cell.taskToCancelifCellIsReused = task
+        }
+        
+        cell.profileImageView!.image = pinnedImage
+        
+    }
+    
+    // MARK : UITableView Delegate Method
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 140
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        print("lawmakers In List \(lawmakersInList.count)")
+        return lawmakersInList.count
     }
     
     

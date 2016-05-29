@@ -57,7 +57,7 @@ class PoliticsViewController: UIViewController  {
     func configureLayout() {
         
         // Register Nib Objects
-        self.tableView.registerNib(UINib(nibName: Constants.Identifier.PeopleCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.PeopleCell)
+        self.tableView.registerNib(UINib(nibName: Constants.Identifier.LawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.LawmakerCell)
         self.tableView.registerNib(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
         
         // Set CollectionView delegate and datasource
@@ -251,7 +251,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         
         if segmentedControl.selectedSegmentIndex == 0 {
             
-            let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.PeopleCell, forIndexPath: indexPath) as! LawmakerTableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.LawmakerCell, forIndexPath: indexPath) as! LawmakerTableViewCell
             configureCell(cell, atIndexPath: indexPath)
             return cell
         }

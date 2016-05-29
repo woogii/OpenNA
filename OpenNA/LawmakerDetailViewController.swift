@@ -29,8 +29,9 @@ class LawmakerDetailViewController: UIViewController {
         return CoreDataStackManager.sharedInstance().managedObjectContext!
     }
     
-    enum customCell:Int {
-        case birth = 0,party,inOffice,district,homepage
+    // MARK : Enumeration Cases
+    enum CustomCell:Int {
+        case Birth = 0,Party,InOffice,District,Homepage
     }
     
     // MARK : View Life Cycle
@@ -148,25 +149,25 @@ extension LawmakerDetailViewController : UITableViewDelegate, UITableViewDataSou
         
         switch(indexPath.row) {
             
-        case customCell.birth.rawValue:
+        case CustomCell.Birth.rawValue:
             if let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.BirthCell, forIndexPath: indexPath) as? BirthTableViewCell {
                 cell.title.text = Constants.CustomCell.BirthLabel
                 cell.birthDesc.text = lawmaker?.birth
                 return cell
             }
-        case customCell.party.rawValue:
+        case CustomCell.Party.rawValue:
             if let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.PartyCell, forIndexPath: indexPath) as? PartyTableViewCell {
                 cell.title.text = Constants.CustomCell.PartyLabel
                 cell.partyDesc.text = lawmaker?.party
                 return cell
             }
-        case customCell.inOffice.rawValue:
+        case CustomCell.InOffice.rawValue:
             if let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.InOfficeCell, forIndexPath: indexPath) as? InOfficeTableViewCell {
                 cell.title.text = Constants.CustomCell.InOfficeLabel
                 cell.inOfficeDesc.text = lawmaker?.when_elected
                 return cell
             }
-        case customCell.district.rawValue:
+        case CustomCell.District.rawValue:
             if let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.DistrictCell, forIndexPath: indexPath) as? DistrictTableViewCell {
                 cell.title.text = Constants.CustomCell.DistrictLabel
                 cell.districtDesc.text = lawmaker?.district
