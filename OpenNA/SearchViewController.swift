@@ -15,16 +15,12 @@ import Alamofire
 class SearchViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
-
     @IBOutlet weak var tableView: UITableView!
     
     let search = Search()
-    var searchResults = [(String, [AnyObject])]()
-
-    var searchResults2 = [[String:AnyObject]]()
-    var keySet = [Constants.SectionName.Lawmaker, Constants.SectionName.Bill, Constants.SectionName.Party]
-    // var searchResults2 = NSMutableDictionary()
     
+    var searchResults2 = [[String:AnyObject]]()
+    var keyArray = [Constants.SectionName.Lawmaker, Constants.SectionName.Bill, Constants.SectionName.Party]
     var numOfSection = 0
     
     override func viewDidLoad() {
@@ -52,10 +48,7 @@ extension SearchViewController : UISearchBarDelegate {
         spinActivity.labelText = Constants.ActivityIndicatorText.Searching
         
         numOfSection = 0
-        searchResults = []
-        print("Search bar button tapped")
-        
-        tableView.reloadData()
+        searchResults2 = []
         
         search.searchAll(searchBar.text!) { (lawmakers,bills,parties, errorString) in
             
@@ -66,26 +59,21 @@ extension SearchViewController : UISearchBarDelegate {
             if lawmakers.count > 0 || bills.count > 0 || parties.count > 0 {
                 
                 if lawmakers.count > 0 {
-                    log.debug("lawmaker count is larger than 0")
-                    self.searchResults.append((Constants.SectionName.Lawmaker, lawmakers))
-                    self.numOfSection = self.numOfSection + 1
-                    // self.searchResults2.setValue(lawmakers, forKey: Constants.SectionName.Lawmaker)
                     
+                    self.searchResults2.append([Constants.SectionName.Lawmaker:lawmakers])
+                    self.numOfSection = self.numOfSection + 1
                     
                 }
                 
                 if bills.count > 0 {
-                    log.debug("bill count is larger than 0")
-                    // self.searchResults.append((Constants.SectionName.Bill, bills))
-                    self.searchResults2.append([Constants.SectionName.Lawmaker : bills])
-                    // self.searchResults2.setValue(bills, forKey: Constants.SectionName.Bill)
+                    
+                    self.searchResults2.append([Constants.SectionName.Bill: bills])
                     self.numOfSection = self.numOfSection + 1
                 }
                 
                 if parties.count > 0 {
-                    log.debug("party count is larger than 0")
-                    self.searchResults2.append([Constants.SectionName.Lawmaker : parties])
-                    // self.searchResults2.setValue(parties, forKey: Constants.SectionName.Party)
+                    
+                    self.searchResults2.append([Constants.SectionName.Party : parties])
                     self.numOfSection = self.numOfSection + 1
                 }
             }
@@ -96,6 +84,7 @@ extension SearchViewController : UISearchBarDelegate {
             }
         }
         
+        tableView.reloadData()
         searchBar.resignFirstResponder()
     }
     
@@ -105,68 +94,19 @@ extension SearchViewController : UISearchBarDelegate {
 extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    
-//        if searchResults.count > 0 {
-//            
-//            if searchResults2[section] == "lawmaker" {
-//                
-//                if let lawmaker = searchResults[section].1 as? [Lawmaker] {
-//                    return lawmaker.count
-//                }
-//            } else if searchResults[section].0 == "bill" {
-//                
-//                if let bill = searchResults[section].1 as? [Bill] {
-//                    return bill.count
-//                }
-//                
-//            } else {
-//                
-//                if let party = searchResults[section].1 as? [Party] {
-//                    return party.count
-//                }
-//            }
-//        }
         
-//            if searchResults2.count > 0 {
-//        
-//                if searchResults2[section] [Lawmaker] {
-//        
-//                    if let lawmaker = searchResults[section].1 as? [Lawmaker] {
-//                            return lawmaker.count
-//                        }
-//                } else if searchResults[section].0 == "bill" {
-//        
-//                    if let bill = searchResults[section].1 as? [Bill] {
-//                        return bill.count
-//                    }
-//        
-//                } else {
-//        
-//                    if let party = searchResults[section].1 as? [Party] {
-//                        return party.count
-//                    }
-//                }
-//            }
-        
-        // return searchResults[section].1.count
-        
-        print("row count : \(searchResults2[section].count)")
-        return searchResults2[section]["lawmaker"]!.count
+        log.debug("row count : \(searchResults2[section][keyArray[section]]!.count)")
+        return searchResults2[section][keyArray[section]]!.count
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        print("section in table : \(searchResults2.count)")
+        log.debug("section in table : \(searchResults2.count)")
         return searchResults2.count
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        //return searchResults.count > 0 ? searchResults[section].0  :  ""
-        
-        // let keys = searchResults2[section].keys
-        // let arrayKeys = Array(keys.map{return String($0)})
-        let key = [String](searchResults2[section].keys)
-        return searchResults2.count > 0 ? key[0] : "" //searchResults2[section].keys : ""
+        return searchResults2.count > 0 ? keyArray[section] : "" //searchResults2[section].keys : ""
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -177,8 +117,8 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
         if searchResults2.count > 0 {
             
             let key = [String](searchResults2[indexPath.section].keys)
-
-            // if searchResults2[indexPath.section].0 == "lawmaker" {
+            print("key : \(key)")
+            
             if key[0] == "lawmaker" {
         
                 let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchedLawmakerCell, forIndexPath: indexPath) as! SearchedLawmakerTableViewCell
@@ -186,8 +126,8 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                 cell.lawmakerImageView!.image = nil
                 lawmakerImageRequest?.cancel()
                 
-                //if let lawmaker = searchResults[indexPath.section].1 as? [Lawmaker] {
                 if let lawmaker = searchResults2[indexPath.section][Constants.SectionName.Lawmaker] as? [Lawmaker] {
+                    print(lawmaker[indexPath.row].name)
                     
                     cell.nameLabel?.text = lawmaker[indexPath.row].name
                     
@@ -209,21 +149,20 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                             cell.lawmakerImageView?.image = image
                         }
                     }
-                    // cell.taskToCancelifCellIsReused = task
+                    
+                    return cell
                 }
 
-                
-            // } else if searchResults[indexPath.section].0 == "bill" {
             } else if key[0] == "bill" {
                 
                 let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchedBillCell, forIndexPath: indexPath) as! SearchedBillTableViewCell
                 
-
-                //if let bill = searchResults[indexPath.section].1 as? [Bill] {
                 if let bill = searchResults2[indexPath.section][Constants.SectionName.Bill] as? [Bill] {
                     cell.nameLabel?.text = bill[indexPath.row].name
                     cell.sponsorLabel?.text = bill[indexPath.row].sponsor
                 }
+                
+                return cell
                 
             } else {
                 
@@ -231,7 +170,6 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                 cell.partyImageView!.image = nil
                 partyImageRequest?.cancel()
                 
-                // if let party = searchResults[indexPath.section].1 as? [Party] {
                 if let party = searchResults2[indexPath.section][Constants.SectionName.Party] as? [Party] {
                     
                     cell.partyLabel?.text = party[indexPath.row].name
@@ -266,13 +204,8 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
         return 90
 
     }
-}
-
-
-extension Dictionary {
-    subscript(i:Int) -> (key:Key,value:Value) {
-        get {
-            return self[self.startIndex.advancedBy(i)]
-        }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
     }
 }

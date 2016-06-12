@@ -26,6 +26,8 @@ class LawmakerListViewController : UIViewController {
             tableView.deselectRowAtIndexPath(row, animated: false)
         }
         
+        lawmakersInList = fetchLawmakersInList()
+        tableView.reloadData()
     }
     
     func  fetchLawmakersInList()->[LawmakerInList] {
@@ -134,7 +136,6 @@ extension LawmakerListViewController : UITableViewDelegate, UITableViewDataSourc
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("lawmakers In List \(lawmakersInList.count)")
         return lawmakersInList.count
     }
     
