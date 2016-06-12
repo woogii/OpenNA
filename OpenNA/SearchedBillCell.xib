@@ -22,7 +22,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sponsor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pYX-2u-eUk">
-                        <rect key="frame" x="99" y="46" width="214" height="17"/>
+                        <rect key="frame" x="259" y="49" width="54" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -31,11 +31,10 @@
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="pYX-2u-eUk" secondAttribute="trailing" constant="34" id="5wG-Gb-Y4J"/>
                     <constraint firstItem="TCN-yd-nX8" firstAttribute="top" secondItem="feZ-TH-b5Y" secondAttribute="top" constant="14" id="Hnw-8u-pOK"/>
-                    <constraint firstItem="pYX-2u-eUk" firstAttribute="leading" secondItem="feZ-TH-b5Y" secondAttribute="leadingMargin" constant="91" id="QEb-vf-M1u"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="pYX-2u-eUk" secondAttribute="bottom" constant="3" id="c4s-35-Q6J"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="pYX-2u-eUk" secondAttribute="bottom" id="c4s-35-Q6J"/>
                     <constraint firstAttribute="trailing" secondItem="TCN-yd-nX8" secondAttribute="trailing" constant="22" id="dkV-au-Tji"/>
                     <constraint firstItem="TCN-yd-nX8" firstAttribute="leading" secondItem="feZ-TH-b5Y" secondAttribute="leading" constant="26" id="iEm-vz-L3c"/>
-                    <constraint firstItem="pYX-2u-eUk" firstAttribute="top" secondItem="TCN-yd-nX8" secondAttribute="bottom" constant="11" id="rcc-cf-RjH"/>
+                    <constraint firstItem="pYX-2u-eUk" firstAttribute="top" secondItem="TCN-yd-nX8" secondAttribute="bottom" constant="14" id="rcc-cf-RjH"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

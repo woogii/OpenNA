@@ -216,14 +216,12 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         var count = 0
-        print("number of row in section")
         switch segmentedControl.selectedSegmentIndex {
             
         case 0 :
             count = indexInfo[section].1.count
             break
         case 1 :
-            print("bill count : \(bills.count)")
             count = bills.count
             break
         case 2 :
@@ -288,7 +286,6 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
          If an image is not cahced, httprequest function is invoked to download an image
          */
         let fetchRequest = NSFetchRequest(entityName : Constants.Entity.Lawmaker )
-
         let predicate = NSPredicate(format: Constants.Fetch.PredicateForImage, urlString!)
         fetchRequest.predicate = predicate
         // In order to fetch a single object
@@ -353,17 +350,31 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         case 0 :
             let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.LawmakerDetailVC) as! LawmakerDetailViewController
             
-            controller.lawmaker =  indexInfo[indexPath.section].1[indexPath.row]
-            controller.image = indexInfo[indexPath.section].1[indexPath.row].pinnedImage
+            controller.name  = indexInfo[indexPath.section].1[indexPath.row].name
+            controller.birth = indexInfo[indexPath.section].1[indexPath.row].birth
+            controller.party = indexInfo[indexPath.section].1[indexPath.row].party
+            controller.when_elected = indexInfo[indexPath.section].1[indexPath.row].when_elected
+            controller.district = indexInfo[indexPath.section].1[indexPath.row].district
+            controller.homepage = indexInfo[indexPath.section].1[indexPath.row].homepage
+            controller.image = indexInfo[indexPath.section].1[indexPath.row].image
+            controller.pinnedImage = indexInfo[indexPath.section].1[indexPath.row].pinnedImage
+
             controller.hidesBottomBarWhenPushed = true
-            
             navigationController?.pushViewController(controller, animated: true)
             
             break
         case 1 :
             let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.BillDetailVC) as! BillDetailViewController
             
-            controller.bill = bills[indexPath.row]
+            // scontroller.bill = bills[indexPath.row]
+            controller.name = bills[indexPath.row].name
+            controller.proposedDate = bills[indexPath.row].proposeDate
+            controller.status = bills[indexPath.row].status
+            controller.sponsor = bills[indexPath.row].sponsor
+            controller.documentUrl = bills[indexPath.row].documentUrl
+            controller.summary = bills[indexPath.row].summary
+            controller.assemblyID = bills[indexPath.row].assemblyId
+        
             navigationController?.pushViewController(controller, animated: true)
             
             break

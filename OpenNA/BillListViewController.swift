@@ -13,14 +13,17 @@ import CoreData
 class BillListViewController : UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    var bills = [BillInList]()
+    var billsInList = [BillInList]()
     var sharedContext : NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext!
     }
     
     override func viewWillAppear(animated: Bool) {
         
-        bills = fetchBillsInList()
+        if let row = tableView.indexPathForSelectedRow {
+            tableView.deselectRowAtIndexPath(row, animated: false)
+        }
+
     }
     
     override func viewDidLoad() {
@@ -28,6 +31,8 @@ class BillListViewController : UIViewController {
         tableView.registerNib(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
         tableView.delegate = self
         tableView.dataSource = self
+        
+        billsInList = fetchBillsInList()
     }
     
     func  fetchBillsInList()->[BillInList] {
@@ -43,7 +48,23 @@ class BillListViewController : UIViewController {
         }
     }
     
-    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let path = tableView.indexPathForSelectedRow!
+        
+        let detailVC = segue.destinationViewController as! BillDetailViewController
+        
+        detailVC.name = billsInList[path.row].name
+        detailVC.proposedDate = billsInList[path.row].proposeDate
+        detailVC.sponsor = billsInList[path.row].sponsor
+        detailVC.status = billsInList[path.row].status
+        detailVC.summary = billsInList[path.row].summary
+        detailVC.documentUrl = billsInList[path.row].documentUrl
+        detailVC.assemblyID = billsInList[path.row].assemblyId as? Int
+        
+        detailVC.hidesBottomBarWhenPushed = true
+        
+    }
+
 }
 
 extension BillListViewController : UITableViewDelegate, UITableViewDataSource {
@@ -52,16 +73,15 @@ extension BillListViewController : UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.BillCell, forIndexPath: indexPath) as! BillTableViewCell
         
-        cell.nameLabel.text    = bills[indexPath.row].name
-        cell.sponsorLabel.text = bills[indexPath.row].sponsor
-        // cell.dateLabel.text    = bills[indexPath.row].proposeDate
-        cell.statusLabel.text  = bills[indexPath.row].status
+        cell.nameLabel.text    = billsInList[indexPath.row].name
+        cell.sponsorLabel.text = billsInList[indexPath.row].sponsor
+        cell.statusLabel.text  = billsInList[indexPath.row].status
         
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bills.count
+        return billsInList.count
     }
     
     // MARK : UITableView Delegate Method
@@ -69,5 +89,8 @@ extension BillListViewController : UITableViewDelegate, UITableViewDataSource {
         return 140
     }
     
-    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier(Constants.Identifier.BillDetailVC, sender: self)
+    }
+
 }

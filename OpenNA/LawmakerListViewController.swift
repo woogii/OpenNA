@@ -22,8 +22,10 @@ class LawmakerListViewController : UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         
-        lawmakersInList = fetchLawmakersInList()
-        print("count : \(lawmakersInList.count)")
+        if let row = tableView.indexPathForSelectedRow {
+            tableView.deselectRowAtIndexPath(row, animated: false)
+        }
+        
     }
     
     func  fetchLawmakersInList()->[LawmakerInList] {
@@ -45,16 +47,27 @@ class LawmakerListViewController : UIViewController {
         tableView.registerNib(UINib(nibName: Constants.Identifier.LawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.LawmakerCell)
         tableView.delegate = self
         tableView.dataSource = self
+        
+        lawmakersInList = fetchLawmakersInList()
+        print("count : \(lawmakersInList.count)")
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let path = tableView.indexPathForSelectedRow!
         
         let detailVC = segue.destinationViewController as! LawmakerDetailViewController
-        
-        detailVC.image = lawmakersInList[path.row].pinnedImage
+    
+        detailVC.pinnedImage = lawmakersInList[path.row].pinnedImage
+        detailVC.name = lawmakersInList[path.row].name
+        detailVC.birth = lawmakersInList[path.row].birth
+        detailVC.party = lawmakersInList[path.row].party
+        detailVC.when_elected = lawmakersInList[path.row].when_elected
+        detailVC.district = lawmakersInList[path.row].when_elected
+        detailVC.homepage = lawmakersInList[path.row].homepage
+        detailVC.image = lawmakersInList[path.row].image
+        detailVC.pinnedImage = lawmakersInList[path.row].pinnedImage
+
         detailVC.hidesBottomBarWhenPushed = true
-        
         
     }
     

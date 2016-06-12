@@ -12,4 +12,11 @@ class SearchedLawmakerTableViewCell: UITableViewCell {
 
     @IBOutlet weak var lawmakerImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        lawmakerImageView.layer.cornerRadius = lawmakerImageView.frame.size.width/2
+        lawmakerImageView.clipsToBounds = true
+    }
 }
