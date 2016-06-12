@@ -63,6 +63,7 @@ struct Constants {
         // MARK: General
         static let StatusMessage = "status_message"
         static let StatusCode    = "status_code"
+        static let Items         = "items"
         
         // MARK : Lawmaker
         static let Name          = "name"
@@ -75,13 +76,11 @@ struct Constants {
         static let Birth         = "birth"
         static let Homepage      = "homepage"
         static let Gender        = "gender"
-        static let LawmakerItems = "items"
         static let Id            = "id"
         static let WhenElected   = "when_elected"
         static let District      = "district"
         
         // MARK: Bill
-        static let BillItems        = "items"
         static let BillSponsor      = "sponsor"
         static let BillDocUrl       = "document_url"
         static let BillProposedDate = "proposed_date"
@@ -100,7 +99,7 @@ struct Constants {
         static let PartySize  = "size"
         static let PartyId    = "id"
         static let PartyName  = "name"
-        
+    
         
         static let NextPage   = "next_page"
     }

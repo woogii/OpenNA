@@ -38,6 +38,10 @@ class BillDetailViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         
+        if let row = tableView.indexPathForSelectedRow {
+            tableView.deselectRowAtIndexPath(row, animated: false)
+        }
+
         proposedDateLabel.text = bill?.proposeDate
         statusLabel.text = bill?.status
         sponsorLabel.text = bill?.sponsor

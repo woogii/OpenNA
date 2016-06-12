@@ -22,8 +22,8 @@ class LawmakerDetailViewController: UIViewController {
     @IBOutlet weak var favoriteButton: UIButton!
     
     var lawmaker:Lawmaker?
-    var image:UIImage?
     
+    var image:UIImage?
     var birth:String?
     var party:String?
     var when_elected:String?
@@ -49,6 +49,10 @@ class LawmakerDetailViewController: UIViewController {
     
     
     override func viewWillAppear(animated: Bool) {
+        
+        if let row = tableView.indexPathForSelectedRow {
+            tableView.deselectRowAtIndexPath(row, animated: false)
+        }
         
         profileImage.layer.cornerRadius = profileImage.frame.size.width/2
         profileImage.clipsToBounds = true

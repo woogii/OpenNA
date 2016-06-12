@@ -59,7 +59,7 @@ class PoliticsViewController: UIViewController  {
         // Register Nib Objects
         self.tableView.registerNib(UINib(nibName: Constants.Identifier.LawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.LawmakerCell)
         self.tableView.registerNib(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
-        
+    
         // Set CollectionView delegate and datasource
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -96,17 +96,20 @@ class PoliticsViewController: UIViewController  {
         switch segmentedControl.selectedSegmentIndex {
             
         case 0:
+            tableView.setContentOffset(CGPointZero, animated: true)
             tableView.hidden = false
             tableView.reloadData()
             break
         case 1:
+            tableView.reloadData()
+            tableView.setContentOffset(CGPointZero, animated: true)
             tableView.hidden = false
-            
+        
             let spinActivity = MBProgressHUD.showHUDAddedTo(view, animated: true)
             spinActivity.labelText = Constants.ActivityIndicatorText.Loading
             
             TPPClient.sharedInstance().getBills() { (bills, error) in
-                
+                print(bills)
                 if let bills = bills {
                     
                     self.bills = bills
@@ -213,13 +216,14 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         var count = 0
-        
+        print("number of row in section")
         switch segmentedControl.selectedSegmentIndex {
             
         case 0 :
             count = indexInfo[section].1.count
             break
         case 1 :
+            print("bill count : \(bills.count)")
             count = bills.count
             break
         case 2 :
@@ -258,10 +262,9 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         else if segmentedControl.selectedSegmentIndex == 1 {
             
             let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.BillCell, forIndexPath: indexPath) as! BillTableViewCell
-            
+            print(bills.count)
             cell.nameLabel.text = bills[indexPath.row].name
             cell.sponsorLabel.text = bills[indexPath.row].sponsor
-            cell.dateLabel.text = bills[indexPath.row].proposeDate
             cell.statusLabel.text = bills[indexPath.row].status
             
             return cell

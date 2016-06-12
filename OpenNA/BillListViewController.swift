@@ -54,7 +54,7 @@ extension BillListViewController : UITableViewDelegate, UITableViewDataSource {
         
         cell.nameLabel.text    = bills[indexPath.row].name
         cell.sponsorLabel.text = bills[indexPath.row].sponsor
-        cell.dateLabel.text    = bills[indexPath.row].proposeDate
+        // cell.dateLabel.text    = bills[indexPath.row].proposeDate
         cell.statusLabel.text  = bills[indexPath.row].status
         
         return cell

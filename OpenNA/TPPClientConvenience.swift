@@ -26,7 +26,7 @@ extension TPPClient {
             }
             else {
                 
-                if let results = requestResult![Constants.JSONResponseKeys.BillItems] as? [[String:AnyObject]] {
+                if let results = requestResult![Constants.JSONResponseKeys.Items] as? [[String:AnyObject]] {
                     let bills = Bill.billsFromResults(results)
                     completionHandler(results: bills, error: nil)
                 } else {
@@ -52,10 +52,11 @@ extension TPPClient {
                 completionHandler(results:nil, error:error)
             }
             else {
+                print("return from taskForGetMethod")
+                if let results = requestResult![Constants.JSONResponseKeys.Items] as? [[String:AnyObject]] {
                 
-                if let results = requestResult![Constants.JSONResponseKeys.BillItems] as? [[String:AnyObject]] {
                     let parties = Party.partiesFromResults(results)
-                    
+                    print(parties)
                     completionHandler(results: parties, error: nil)
                 } else {
                     completionHandler(results: nil, error: NSError(domain: Constants.Error.DomainJSONParsing, code : Constants.Error.Code,
@@ -81,7 +82,7 @@ extension TPPClient {
             }
             else {
                 
-                if let results = requestResult![Constants.JSONResponseKeys.LawmakerItems] as? [[String:AnyObject]] {
+                if let results = requestResult![Constants.JSONResponseKeys.Items] as? [[String:AnyObject]] {
                     completionHandler(results: results, error: nil)
                 } else {
                     completionHandler(results:  nil, error:NSError(domain: Constants.Error.DomainJSONParsing, code: 0,
@@ -108,7 +109,7 @@ extension TPPClient {
             }
             else {
                 
-                if let results = requestResult![Constants.JSONResponseKeys.BillItems] as? [[String:AnyObject]] {
+                if let results = requestResult![Constants.JSONResponseKeys.Items] as? [[String:AnyObject]] {
                     let bills = Bill.billsFromResults(results)
                     completionHandler(results: bills, error: nil)
                 } else {
@@ -137,7 +138,7 @@ extension TPPClient {
             }
             else {
                 
-                if let results = requestResult![Constants.JSONResponseKeys.BillItems] as? [[String:AnyObject]] {
+                if let results = requestResult![Constants.JSONResponseKeys.Items] as? [[String:AnyObject]] {
                     let parties = Party.partiesFromResults(results)
                     
                     completionHandler(results: parties, error: nil)

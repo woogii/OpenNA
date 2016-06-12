@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,37 +16,44 @@
                 <rect key="frame" x="0.0" y="0.0" width="329" height="135"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rN3-HA-Ol7">
-                        <rect key="frame" x="142" y="42" width="48" height="21"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E4y-DX-CKm">
+                        <rect key="frame" x="8" y="8" width="313" height="119"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Party" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J0I-Zm-8Km">
-                        <rect key="frame" x="145" y="82" width="118" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="137" y="91" width="37" height="17"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eY2-Ux-dKr" userLabel="profileImageView">
-                        <rect key="frame" x="8" y="8" width="118" height="119"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="118" id="7qB-DW-7js"/>
-                            <constraint firstAttribute="height" constant="119" id="hgE-eI-v1f"/>
-                        </constraints>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rN3-HA-Ol7">
+                        <rect key="frame" x="137" y="53" width="169" height="18"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="eY2-Ux-dKr" userLabel="profileImageView">
+                        <rect key="frame" x="15" y="14" width="109" height="107"/>
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="J0I-Zm-8Km" firstAttribute="top" secondItem="rN3-HA-Ol7" secondAttribute="bottom" constant="19" id="BPf-ex-Qwm"/>
-                    <constraint firstItem="J0I-Zm-8Km" firstAttribute="leading" secondItem="rN3-HA-Ol7" secondAttribute="leading" constant="3" id="OPW-x7-7sp"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="J0I-Zm-8Km" secondAttribute="bottom" constant="24" id="XfX-Lp-eeh"/>
-                    <constraint firstItem="eY2-Ux-dKr" firstAttribute="leading" secondItem="xj4-cl-tcX" secondAttribute="leadingMargin" id="dW2-FR-rWq"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="J0I-Zm-8Km" secondAttribute="trailing" constant="58" id="ivt-5l-Lec"/>
-                    <constraint firstItem="J0I-Zm-8Km" firstAttribute="leading" secondItem="eY2-Ux-dKr" secondAttribute="trailing" constant="19" id="oAs-oy-Uq3"/>
-                    <constraint firstItem="eY2-Ux-dKr" firstAttribute="top" secondItem="xj4-cl-tcX" secondAttribute="topMargin" id="veJ-wD-9Yu"/>
+                    <constraint firstItem="rN3-HA-Ol7" firstAttribute="top" secondItem="xj4-cl-tcX" secondAttribute="topMargin" constant="45" id="7QD-On-rNg"/>
+                    <constraint firstAttribute="bottom" secondItem="E4y-DX-CKm" secondAttribute="bottom" constant="8" id="7ek-GP-fg8"/>
+                    <constraint firstItem="eY2-Ux-dKr" firstAttribute="top" secondItem="xj4-cl-tcX" secondAttribute="top" constant="14" id="9wD-YS-Sv2"/>
+                    <constraint firstItem="J0I-Zm-8Km" firstAttribute="top" secondItem="rN3-HA-Ol7" secondAttribute="bottom" constant="20" id="Ehi-3l-xRn"/>
+                    <constraint firstItem="J0I-Zm-8Km" firstAttribute="leading" secondItem="rN3-HA-Ol7" secondAttribute="leading" id="F9f-wq-Hjk"/>
+                    <constraint firstItem="eY2-Ux-dKr" firstAttribute="leading" secondItem="xj4-cl-tcX" secondAttribute="leading" constant="15" id="RV9-jV-jFM"/>
+                    <constraint firstItem="eY2-Ux-dKr" firstAttribute="width" secondItem="xj4-cl-tcX" secondAttribute="width" multiplier="0.33" id="S0F-r2-m44"/>
+                    <constraint firstItem="E4y-DX-CKm" firstAttribute="top" secondItem="xj4-cl-tcX" secondAttribute="top" constant="8" id="gTZ-xA-szK"/>
+                    <constraint firstAttribute="trailing" secondItem="E4y-DX-CKm" secondAttribute="trailing" constant="8" id="ghD-4X-4nY"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="rN3-HA-Ol7" secondAttribute="trailing" constant="15" id="iOs-Gt-BRO"/>
+                    <constraint firstItem="rN3-HA-Ol7" firstAttribute="leading" secondItem="eY2-Ux-dKr" secondAttribute="trailing" constant="13" id="tl5-pT-O6i"/>
+                    <constraint firstItem="E4y-DX-CKm" firstAttribute="leading" secondItem="xj4-cl-tcX" secondAttribute="leading" constant="8" id="wvX-i5-k3Q"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="eY2-Ux-dKr" secondAttribute="bottom" constant="6" id="xWo-m1-vsN"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="backgroundCardView" destination="E4y-DX-CKm" id="Wua-qU-1yr"/>
                 <outlet property="nameLabel" destination="rN3-HA-Ol7" id="213-SR-O6j"/>
                 <outlet property="partyLabel" destination="J0I-Zm-8Km" id="waI-MK-h3s"/>
                 <outlet property="profileImageView" destination="eY2-Ux-dKr" id="fv5-Yw-lZq"/>

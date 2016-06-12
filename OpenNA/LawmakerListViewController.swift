@@ -116,6 +116,9 @@ extension LawmakerListViewController : UITableViewDelegate, UITableViewDataSourc
         return 140
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier(Constants.Identifier.LawmakerDetailVC, sender: self)
+    }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("lawmakers In List \(lawmakersInList.count)")

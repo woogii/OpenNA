@@ -42,7 +42,7 @@ class Bill {
         for result in results {
             bills.append(Bill(dictionary:result))
         }
-        
+    
         return bills
     }
     

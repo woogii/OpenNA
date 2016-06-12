@@ -16,6 +16,7 @@ class TPPClient: NSObject {
         memoryCapacity: 100 * 1024 * 1024,
         preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
     )
+    
     // MARK : Initializers
     override init() {
         super.init()

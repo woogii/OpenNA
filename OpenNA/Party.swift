@@ -29,24 +29,28 @@ class Party {
         let url = NSURL(string: "http://data.popong.com/parties/images/\(id).png")!
         let imageData = NSData(contentsOfURL: url)
         
+        
         guard let image = imageData else {
-            let defaultImage = UIImage(named:"noImage")
             
+            let defaultImage = UIImage(named:"noImage")
             thumbnail = textToImage(name, inImage: defaultImage!, atPoint: CGPointMake(10,60))
             
             return
         }
+        
         thumbnail = UIImage(data: image)
         
     }
     
+
     static func partiesFromResults(results:[[String:AnyObject]])->[Party] {
         var parties = [Party]()
         
         for result in results {
+            log.debug("\(result)")
             parties.append(Party(dictionary:result))
         }
-        
+        log.debug("\(parties)")
         return parties
     }
     
