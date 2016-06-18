@@ -18,10 +18,8 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     let search = Search()
-    
-    var searchResults2 = [[String:AnyObject]]()
-    var keyArray = [Constants.SectionName.Lawmaker, Constants.SectionName.Bill, Constants.SectionName.Party]
-    var numOfSection = 0
+    var searchResults = [[String:AnyObject]]()
+    var sectionTitle = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,11 +29,17 @@ class SearchViewController: UIViewController {
         tableView.registerNib(UINib(nibName: Constants.Identifier.SearchedBillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedBillCell)
         tableView.registerNib(UINib(nibName: Constants.Identifier.SearchedPartyCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedPartyCell)
 
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tableView.addGestureRecognizer(gestureRecognizer)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         searchBar.becomeFirstResponder()
+    }
+    
+    func hideKeyboard() {
+        view.endEditing(true)
     }
     
 }
@@ -47,8 +51,8 @@ extension SearchViewController : UISearchBarDelegate {
         let spinActivity = MBProgressHUD.showHUDAddedTo(view, animated: true)
         spinActivity.labelText = Constants.ActivityIndicatorText.Searching
         
-        numOfSection = 0
-        searchResults2 = []
+        searchResults = []
+        sectionTitle = []
         
         search.searchAll(searchBar.text!) { (lawmakers,bills,parties, errorString) in
             
@@ -56,26 +60,24 @@ extension SearchViewController : UISearchBarDelegate {
             log.debug("number of bill     : \(bills.count)")
             log.debug("number of party    : \(parties.count)")
             
-            if lawmakers.count > 0 || bills.count > 0 || parties.count > 0 {
+            if lawmakers.count > 0 {
+                    
+                self.searchResults.append([Constants.SectionName.Lawmaker:lawmakers])
+                self.sectionTitle.append(Constants.SectionName.Lawmaker)
+            
+            }
                 
-                if lawmakers.count > 0 {
+            if bills.count > 0 {
                     
-                    self.searchResults2.append([Constants.SectionName.Lawmaker:lawmakers])
-                    self.numOfSection = self.numOfSection + 1
-                    
-                }
+                self.searchResults.append([Constants.SectionName.Bill: bills])
+                self.sectionTitle.append(Constants.SectionName.Bill)
+            }
                 
-                if bills.count > 0 {
-                    
-                    self.searchResults2.append([Constants.SectionName.Bill: bills])
-                    self.numOfSection = self.numOfSection + 1
-                }
+            if parties.count > 0 {
                 
-                if parties.count > 0 {
-                    
-                    self.searchResults2.append([Constants.SectionName.Party : parties])
-                    self.numOfSection = self.numOfSection + 1
-                }
+                self.searchResults.append([Constants.SectionName.Party : parties])
+                self.sectionTitle.append(Constants.SectionName.Party)
+            
             }
             
             dispatch_async(dispatch_get_main_queue()) {
@@ -88,45 +90,58 @@ extension SearchViewController : UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
     
-    
+    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
+        return .TopAttached
+    }
+
 }
 
 extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        log.debug("section : \(section)")
         
-        log.debug("row count : \(searchResults2[section][keyArray[section]]!.count)")
-        return searchResults2[section][keyArray[section]]!.count
+        guard let section = searchResults[section][sectionTitle[section]] else {
+            log.debug("number of rows : 0")
+            return 0
+        }
+
+        return section.count
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        log.debug("section in table : \(searchResults2.count)")
-        return searchResults2.count
+        log.debug("number of section : \(searchResults.count)")
+        return searchResults.count
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        log.debug("section for title  : \(section)")
         
-        return searchResults2.count > 0 ? keyArray[section] : "" //searchResults2[section].keys : ""
+        return sectionTitle[section]
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var lawmakerImageRequest : Request?
         var partyImageRequest : Request?
+        print("search result : \(searchResults.count)")
         
-        if searchResults2.count > 0 {
+        if searchResults.count > 0 {
             
-            let key = [String](searchResults2[indexPath.section].keys)
+            let key = [String](searchResults[indexPath.section].keys)
             print("key : \(key)")
-            
-            if key[0] == "lawmaker" {
+           
+            let section = sectionTitle[indexPath.section]
+
+            //if key[0] == "lawmaker" {
+            if section == "lawmaker" {
         
                 let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchedLawmakerCell, forIndexPath: indexPath) as! SearchedLawmakerTableViewCell
                 
                 cell.lawmakerImageView!.image = nil
                 lawmakerImageRequest?.cancel()
                 
-                if let lawmaker = searchResults2[indexPath.section][Constants.SectionName.Lawmaker] as? [Lawmaker] {
+                if let lawmaker = searchResults[indexPath.section][Constants.SectionName.Lawmaker] as? [Lawmaker] {
                     print(lawmaker[indexPath.row].name)
                     
                     cell.nameLabel?.text = lawmaker[indexPath.row].name
@@ -153,11 +168,12 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                     return cell
                 }
 
-            } else if key[0] == "bill" {
+            // } else if key[0] == "bill" {
+            } else if section == "bill" {
                 
                 let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchedBillCell, forIndexPath: indexPath) as! SearchedBillTableViewCell
                 
-                if let bill = searchResults2[indexPath.section][Constants.SectionName.Bill] as? [Bill] {
+                if let bill = searchResults[indexPath.section][Constants.SectionName.Bill] as? [Bill] {
                     cell.nameLabel?.text = bill[indexPath.row].name
                     cell.sponsorLabel?.text = bill[indexPath.row].sponsor
                 }
@@ -170,15 +186,23 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                 cell.partyImageView!.image = nil
                 partyImageRequest?.cancel()
                 
-                if let party = searchResults2[indexPath.section][Constants.SectionName.Party] as? [Party] {
+                if let party = searchResults[indexPath.section][Constants.SectionName.Party] as? [Party] {
                     
                     cell.partyLabel?.text = party[indexPath.row].name
                     
+                    log.debug("logo url : \(party[indexPath.row].logo)")
+                    
                     guard let urlString = party[indexPath.row].logo else {
+                        return cell
+                    }
+                    
+                    if party[indexPath.row].logo == ""  {
+                        print("party logo is not exist")
                         cell.partyImageView!.image = UIImage(named:"noImage")
                         return cell
                     }
-                    print(urlString)
+                    
+                    // print(urlString)
                     if let image = TPPClient.sharedInstance().cachedImage(urlString) {
                         cell.partyImageView!.image = image
                         return cell
@@ -208,4 +232,5 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
     }
+    
 }

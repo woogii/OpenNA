@@ -126,6 +126,10 @@ extension LawmakerListViewController : UITableViewDelegate, UITableViewDataSourc
         
     }
     
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return lawmakersInList.count
+    }
+    
     // MARK : UITableView Delegate Method
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 140
@@ -134,10 +138,7 @@ extension LawmakerListViewController : UITableViewDelegate, UITableViewDataSourc
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier(Constants.Identifier.LawmakerDetailVC, sender: self)
     }
-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return lawmakersInList.count
-    }
     
+
     
 }

@@ -23,7 +23,10 @@ class PoliticsViewController: UIViewController  {
     var bills     = [Bill]()
     var parties   = [Party]()
     var indexInfo = [Entry]()
-
+    var loadingData = false
+    var lastRowIndex = 20
+    static var page = 1
+    
     typealias Entry = (Character, [Lawmaker])
     
     // MARK :  View LifeCycle
@@ -104,12 +107,15 @@ class PoliticsViewController: UIViewController  {
             tableView.reloadData()
             tableView.setContentOffset(CGPointZero, animated: true)
             tableView.hidden = false
-        
+            
+            lastRowIndex = 20
+            PoliticsViewController.page = 1
+            
             let spinActivity = MBProgressHUD.showHUDAddedTo(view, animated: true)
             spinActivity.labelText = Constants.ActivityIndicatorText.Loading
             
-            TPPClient.sharedInstance().getBills() { (bills, error) in
-                print(bills)
+            TPPClient.sharedInstance().getBills(PoliticsViewController.page) { (bills, error) in
+                
                 if let bills = bills {
                     
                     self.bills = bills
@@ -222,6 +228,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
             count = indexInfo[section].1.count
             break
         case 1 :
+            log.debug("\(bills.count)")
             count = bills.count
             break
         case 2 :
@@ -260,7 +267,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         else if segmentedControl.selectedSegmentIndex == 1 {
             
             let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.BillCell, forIndexPath: indexPath) as! BillTableViewCell
-            print(bills.count)
+            log.debug("\(indexPath.row)")
             cell.nameLabel.text = bills[indexPath.row].name
             cell.sponsorLabel.text = bills[indexPath.row].sponsor
             cell.statusLabel.text = bills[indexPath.row].status
@@ -366,7 +373,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         case 1 :
             let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.BillDetailVC) as! BillDetailViewController
             
-            // scontroller.bill = bills[indexPath.row]
+            // controller.bill = bills[indexPath.row]
             controller.name = bills[indexPath.row].name
             controller.proposedDate = bills[indexPath.row].proposeDate
             controller.status = bills[indexPath.row].status
@@ -385,6 +392,55 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         }
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    
+        switch segmentedControl.selectedSegmentIndex {
+            
+        case 1:
+            log.debug("loadingData : \(loadingData)")
+            log.debug("lastRowIndex: \(lastRowIndex)")
+            if !loadingData && indexPath.row == lastRowIndex - 1{
+                
+                log.debug("indexPath = \(indexPath.row)")
+                loadingData = true
+                let spinActivity = MBProgressHUD.showHUDAddedTo(view, animated: true)
+                spinActivity.labelText = Constants.ActivityIndicatorText.Loading
+                PoliticsViewController.page += 1
+                
+                TPPClient.sharedInstance().getBills(PoliticsViewController.page) { (bills, error) in
+                
+                    if let addedbills = bills {
+                    
+                        log.debug("appended bills count : \(addedbills.count)")
+                        
+                        if addedbills.count == 0 {
+                        
+                            dispatch_async(dispatch_get_main_queue())  {
+                                spinActivity.hide(true)
+                            }
+                            return
+                        }
+                        
+                        self.bills.appendContentsOf(addedbills)
+                        self.lastRowIndex += 20
+                        self.loadingData = false
+                        
+                        dispatch_async(dispatch_get_main_queue())  {
+                            self.tableView.reloadData()
+                            spinActivity.hide(true)
+                        }
+                    }
+                    else {
+                        print(error)
+                    }
+                }
+            }
+            break
+        default:
+            break
+        }
     }
     
 }

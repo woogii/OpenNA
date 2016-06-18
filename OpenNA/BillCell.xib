@@ -43,7 +43,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sponsor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OGP-I8-5ub">
-                        <rect key="frame" x="61" y="105" width="92" height="17"/>
+                        <rect key="frame" x="56" y="105" width="92" height="17"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -76,9 +76,9 @@
                     <constraint firstAttribute="bottom" secondItem="XL9-i1-raQ" secondAttribute="bottom" constant="6" id="eAI-eE-SmY"/>
                     <constraint firstItem="AlQ-tF-1cW" firstAttribute="leading" secondItem="dfs-Xo-Tvr" secondAttribute="leading" constant="169" id="fa2-oP-VNf"/>
                     <constraint firstItem="1ef-Md-qxM" firstAttribute="top" secondItem="dfs-Xo-Tvr" secondAttribute="top" constant="21" id="h1X-J1-8JI"/>
-                    <constraint firstItem="OGP-I8-5ub" firstAttribute="leading" secondItem="gd5-D9-vYS" secondAttribute="trailing" constant="13" id="hJG-XP-Jfx"/>
+                    <constraint firstItem="OGP-I8-5ub" firstAttribute="leading" secondItem="gd5-D9-vYS" secondAttribute="trailing" constant="8" id="hJG-XP-Jfx"/>
                     <constraint firstItem="3Ha-D3-0Hb" firstAttribute="leading" secondItem="1ef-Md-qxM" secondAttribute="trailing" constant="8" id="nx8-jL-2ar"/>
-                    <constraint firstItem="AlQ-tF-1cW" firstAttribute="leading" secondItem="OGP-I8-5ub" secondAttribute="trailing" constant="16" id="pDq-ZP-4L3"/>
+                    <constraint firstItem="AlQ-tF-1cW" firstAttribute="leading" secondItem="OGP-I8-5ub" secondAttribute="trailing" constant="21" id="pDq-ZP-4L3"/>
                     <constraint firstAttribute="bottomMargin" secondItem="gd5-D9-vYS" secondAttribute="bottom" constant="10" id="ua1-h1-jaT"/>
                     <constraint firstAttribute="bottomMargin" secondItem="AlQ-tF-1cW" secondAttribute="bottom" constant="10" id="wnV-rz-ToA"/>
                     <constraint firstItem="XL9-i1-raQ" firstAttribute="leading" secondItem="dfs-Xo-Tvr" secondAttribute="leading" constant="8" id="xw1-xm-9Ob"/>

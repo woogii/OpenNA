@@ -39,7 +39,7 @@ struct Constants {
         
         static let ProposedDate   = "proposed_date"
         static let Logo           = "logo"
-        static let LimitPage      = "200"
+        static let LimitPage      = "20"
         static let PartyLimitPage = "150"
         
     }
@@ -99,20 +99,19 @@ struct Constants {
         static let PartySize  = "size"
         static let PartyId    = "id"
         static let PartyName  = "name"
-    
         
+        // MARK : Common
         static let NextPage   = "next_page"
     }
     
     // MARK : Fetch
     struct Fetch {
-        // static let FetchEntityLawmaker = "Lawmaker"
         static let SortKeyForLawmaker  = "name"
-        //static let PredicateForImage   = "imageUrl=%@"
         static let PredicateForImage   = "image=%@"
         static let PredicateForName    = "name=%@"
     }
     
+    // MARK : Entity 
     struct Entity {
         static let Lawmaker = "Lawmaker"
         static let LawmakerInList = "LawmakerInList"

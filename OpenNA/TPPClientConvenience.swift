@@ -12,12 +12,13 @@ extension TPPClient {
     
     // MARK : Convenience Methods
     /// Get bill information
-    func getBills(completionHandler: (results:[Bill]?, error:NSError?)->Void)  {
+    func getBills(page:Int, completionHandler: (results:[Bill]?, error:NSError?)->Void)  {
         
         let method = Constants.Methods.Bill
         var parameters = [Constants.ParameterKeys.ApiKey:Constants.Api.Key]
         parameters[Constants.ParameterKeys.Sort] = Constants.ParameterValues.ProposedDate
         parameters[Constants.ParameterKeys.PerPage] = Constants.ParameterValues.LimitPage
+        parameters["page"] = "\(page)"
         
         taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
             

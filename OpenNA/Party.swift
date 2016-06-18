@@ -18,6 +18,8 @@ class Party {
     var id:Int
     var size:Int?
     
+    let imageTextFont = "Helvetica Bold"
+    
     init(dictionary: [String:AnyObject]) {
         
         name  = (dictionary[Constants.JSONResponseKeys.PartyName] as! String)
@@ -58,7 +60,7 @@ class Party {
         
         // Setup the font specific variables
         let textColor: UIColor = UIColor.blackColor()
-        let textFont: UIFont = UIFont(name: "Helvetica Bold", size: 17)!
+        let textFont: UIFont = UIFont(name: imageTextFont, size: 17)!
         
         //Setup the image context using the passed image.
         UIGraphicsBeginImageContext(inImage.size)

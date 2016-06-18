@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		13174E43509921D70E2FDBA0 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3801775D12FBF6181F3CD108 /* Pods.framework */; };
-		D20028221CE7584D00F1369E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D20028211CE7584D00F1369E /* Launch Screen.storyboard */; };
 		D20028261CE7F00600F1369E /* PartyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20028251CE7F00600F1369E /* PartyTableViewCell.swift */; };
 		D20028301CE86C9E00F1369E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200282F1CE86C9E00F1369E /* WebViewController.swift */; };
 		D20028321CE8B3C300F1369E /* BillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20028311CE8B3C300F1369E /* BillDetailViewController.swift */; };
@@ -74,7 +73,6 @@
 		3801775D12FBF6181F3CD108 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		48DA9048AE9501E62CCFAF3E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		86E1E5853AA5541A8A5D07D0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		D20028211CE7584D00F1369E /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		D20028251CE7F00600F1369E /* PartyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyTableViewCell.swift; sourceTree = "<group>"; };
 		D200282F1CE86C9E00F1369E /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		D20028311CE8B3C300F1369E /* BillDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailViewController.swift; sourceTree = "<group>"; };
@@ -255,7 +253,6 @@
 				D2D3F9571CABFA3F00D97B23 /* SearchedLawmakerCell.xib */,
 				D2934CFD1CF3442B00EA734C /* SearchedBillCell.xib */,
 				D2934D031CF3448C00EA734C /* SearchedPartyCell.xib */,
-				D20028211CE7584D00F1369E /* Launch Screen.storyboard */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -425,7 +422,6 @@
 				D23147B91D0D1CBD00273DD3 /* assembly.json in Resources */,
 				D2D3F9581CABFA3F00D97B23 /* SearchedLawmakerCell.xib in Resources */,
 				D2934D041CF3448C00EA734C /* SearchedPartyCell.xib in Resources */,
-				D20028221CE7584D00F1369E /* Launch Screen.storyboard in Resources */,
 				D2934CFE1CF3442B00EA734C /* SearchedBillCell.xib in Resources */,
 				D2D3F9561CABD1A500D97B23 /* BillCell.xib in Resources */,
 				D2964B871C7344D700D5FF5C /* Assets.xcassets in Resources */,

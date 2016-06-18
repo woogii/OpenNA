@@ -24,6 +24,8 @@ class BillListViewController : UIViewController {
             tableView.deselectRowAtIndexPath(row, animated: false)
         }
 
+        billsInList = fetchBillsInList()
+        tableView.reloadData()
     }
     
     override func viewDidLoad() {
