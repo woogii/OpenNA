@@ -382,6 +382,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
             controller.summary = bills[indexPath.row].summary
             controller.assemblyID = bills[indexPath.row].assemblyId
         
+            controller.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(controller, animated: true)
             
             break
@@ -469,7 +470,7 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
                 
         let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.WebViewVC) as! WebViewController
         
-        controller.urlString = "https://ko.wikipedia.org/wiki/" + parties[indexPath.row].name
+        controller.urlString = Constants.WikiUrl + parties[indexPath.row].name
         controller.hidesBottomBarWhenPushed = true
         
         navigationController?.pushViewController(controller, animated: true)

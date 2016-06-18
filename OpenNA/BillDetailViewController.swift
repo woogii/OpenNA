@@ -41,8 +41,13 @@ class BillDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.estimatedRowHeight = 44.0
+        tableView.rowHeight = UITableViewAutomaticDimension
+        //summaryTextView.textContainer.maximumNumberOfLines = 0
+        //summaryTextView.textContainer.lineBreakMode = .ByWordWrapping
     }
-    
+
     override func viewWillAppear(animated: Bool) {
         
         if let row = tableView.indexPathForSelectedRow {
@@ -66,7 +71,16 @@ class BillDetailViewController: UITableViewController {
         
         fetchedResults!.count == 0 ? (favoriteButton.tintColor = nil) : (favoriteButton.tintColor = UIColor.redColor())
     }
-    
+        
+    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+        if indexPath.section == 1 {
+            return UITableViewAutomaticDimension
+        } else {
+            return CGFloat(44)
+        }
+    }
+
     // MARK : Fetch Bills in MyList
     
     func fetchBillInList()->[BillInList]?{

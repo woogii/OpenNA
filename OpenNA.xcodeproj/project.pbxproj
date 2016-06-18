@@ -24,6 +24,8 @@
 		D235C3301CB1068700704A90 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D235C32F1CB1068700704A90 /* ImageCache.swift */; };
 		D235C3321CB4090300704A90 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D235C3311CB4090300704A90 /* SearchViewController.swift */; };
 		D23772971CAD22E60004A2E2 /* PartyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23772961CAD22E60004A2E2 /* PartyCollectionViewCell.swift */; };
+		D259513D1D1538AA007AD7D1 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259513C1D1538AA007AD7D1 /* SplashViewController.swift */; };
+		D25951411D153EB5007AD7D1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D25951401D153EB5007AD7D1 /* Launch Screen.storyboard */; };
 		D2678C5E1C904DE90056278F /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2678C5D1C904DE90056278F /* CoreDataStackManager.swift */; };
 		D2678C611C904E740056278F /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D2678C5F1C904E740056278F /* Model.xcdatamodeld */; };
 		D2678C631C9052D80056278F /* Lawmaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2678C621C9052D80056278F /* Lawmaker.swift */; };
@@ -90,6 +92,8 @@
 		D235C3311CB4090300704A90 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		D23772961CAD22E60004A2E2 /* PartyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyCollectionViewCell.swift; sourceTree = "<group>"; };
 		D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerDetailViewController.swift; sourceTree = "<group>"; };
+		D259513C1D1538AA007AD7D1 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		D25951401D153EB5007AD7D1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		D2678C5D1C904DE90056278F /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 		D2678C601C904E740056278F /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		D2678C621C9052D80056278F /* Lawmaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lawmaker.swift; sourceTree = "<group>"; };
@@ -248,6 +252,7 @@
 			children = (
 				D2964B861C7344D700D5FF5C /* Assets.xcassets */,
 				D2964B831C7344D700D5FF5C /* Main.storyboard */,
+				D25951401D153EB5007AD7D1 /* Launch Screen.storyboard */,
 				D29A751D1C92E03F002F06F2 /* LawmakerCell.xib */,
 				D2D3F9551CABD1A500D97B23 /* BillCell.xib */,
 				D2D3F9571CABFA3F00D97B23 /* SearchedLawmakerCell.xib */,
@@ -297,6 +302,7 @@
 				D235C3311CB4090300704A90 /* SearchViewController.swift */,
 				D212D3C11CF99A8C008CEC5C /* LawmakerListViewController.swift */,
 				D212D3C31CF99AA6008CEC5C /* BillListViewController.swift */,
+				D259513C1D1538AA007AD7D1 /* SplashViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -426,6 +432,7 @@
 				D2D3F9561CABD1A500D97B23 /* BillCell.xib in Resources */,
 				D2964B871C7344D700D5FF5C /* Assets.xcassets in Resources */,
 				D2964B851C7344D700D5FF5C /* Main.storyboard in Resources */,
+				D25951411D153EB5007AD7D1 /* Launch Screen.storyboard in Resources */,
 				D29A751E1C92E03F002F06F2 /* LawmakerCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -520,6 +527,7 @@
 				D2678C671C91797D0056278F /* TaskCancelingTableViewCell.swift in Sources */,
 				D212D3C21CF99A8C008CEC5C /* LawmakerListViewController.swift in Sources */,
 				D212D3591CF0438B008CEC5C /* BirthTableViewCell.swift in Sources */,
+				D259513D1D1538AA007AD7D1 /* SplashViewController.swift in Sources */,
 				D212D3C41CF99AA6008CEC5C /* BillListViewController.swift in Sources */,
 				D20028261CE7F00600F1369E /* PartyTableViewCell.swift in Sources */,
 				D2934D081CF346FA00EA734C /* SearchedBillTableViewCell.swift in Sources */,

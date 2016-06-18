@@ -139,6 +139,7 @@ struct Constants {
         
         
         static let segueToWebViewVC = "showWebView"
+        static let segueToTabVarVC = "ShowTabBarVC"
         
         static let LawmakerDetailVC = "LawmakerDetail"
         static let BillDetailVC = "BillDetail"
@@ -215,13 +216,18 @@ struct Constants {
         
     }
     
-    static let UserDefaultsKey = "dataExist"
+    struct UserDefaultKeys {
+        static let InitialDataExist = "InitialData"
+    }
+    
     static let BundleFileName = "assembly"
     static let BundleFileType = "json"
     static let LogFileName = "XCGLogger_Log.txt"
-    
     static let LaunchView = "LaunchScreen"
-    
     static let NumOfProfileCells = 5
     static let HeaderTitle = "Profile"
+    static let WikiUrl = "https://ko.wikipedia.org/wiki/"
+    
+    
+    
 }

@@ -12,6 +12,7 @@ import CoreData
 import MBProgressHUD
 import Alamofire
 
+// MARK : - SearchViewController : UIViewController
 class SearchViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -24,6 +25,7 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //  navigationController?.navigationBarHidden = true
         // Register Nib Objects
         tableView.registerNib(UINib(nibName: Constants.Identifier.SearchedLawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedLawmakerCell)
         tableView.registerNib(UINib(nibName: Constants.Identifier.SearchedBillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedBillCell)
@@ -31,11 +33,20 @@ class SearchViewController: UIViewController {
 
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         tableView.addGestureRecognizer(gestureRecognizer)
+        gestureRecognizer.cancelsTouchesInView = false 
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         searchBar.becomeFirstResponder()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        navigationController?.navigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        navigationController?.navigationBarHidden = false
     }
     
     func hideKeyboard() {
@@ -59,7 +70,7 @@ extension SearchViewController : UISearchBarDelegate {
             log.debug("number of lawmaker : \(lawmakers.count)")
             log.debug("number of bill     : \(bills.count)")
             log.debug("number of party    : \(parties.count)")
-            
+            log.debug("\(lawmakers)")
             if lawmakers.count > 0 {
                     
                 self.searchResults.append([Constants.SectionName.Lawmaker:lawmakers])
@@ -134,7 +145,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
             let section = sectionTitle[indexPath.section]
 
             //if key[0] == "lawmaker" {
-            if section == "lawmaker" {
+            if section == Constants.SectionName.Lawmaker {
         
                 let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchedLawmakerCell, forIndexPath: indexPath) as! SearchedLawmakerTableViewCell
                 
@@ -169,7 +180,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                 }
 
             // } else if key[0] == "bill" {
-            } else if section == "bill" {
+            } else if section == Constants.SectionName.Bill {
                 
                 let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchedBillCell, forIndexPath: indexPath) as! SearchedBillTableViewCell
                 
@@ -190,14 +201,12 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                     
                     cell.partyLabel?.text = party[indexPath.row].name
                     
-                    log.debug("logo url : \(party[indexPath.row].logo)")
-                    
                     guard let urlString = party[indexPath.row].logo else {
                         return cell
                     }
                     
                     if party[indexPath.row].logo == ""  {
-                        print("party logo is not exist")
+                
                         cell.partyImageView!.image = UIImage(named:"noImage")
                         return cell
                     }
@@ -231,6 +240,64 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        if sectionTitle[indexPath.section] == Constants.SectionName.Lawmaker {
+            
+            guard let lawmakers = searchResults[indexPath.section][Constants.SectionName.Lawmaker] as? [Lawmaker] else {
+                return
+            }
+
+            let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.LawmakerDetailVC) as! LawmakerDetailViewController
+        
+            log.debug("\(lawmakers[indexPath.row].name)")
+            log.debug("\(lawmakers[indexPath.row].birth)")
+            log.debug("\(lawmakers[indexPath.row].party)")
+            controller.name  = lawmakers[indexPath.row].name
+            controller.birth = lawmakers[indexPath.row].birth
+        
+            controller.party = lawmakers[indexPath.row].party
+            controller.when_elected = lawmakers[indexPath.row].when_elected
+            controller.district = lawmakers[indexPath.row].district
+            controller.homepage = lawmakers[indexPath.row].homepage
+            controller.image = lawmakers[indexPath.row].image
+            controller.pinnedImage = lawmakers[indexPath.row].pinnedImage
+            
+            controller.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(controller, animated: true)
+
+        } else if sectionTitle[indexPath.section] == Constants.SectionName.Bill {
+        
+            guard let bills = searchResults[indexPath.section][Constants.SectionName.Bill] as? [Bill] else {
+                return
+            }
+            
+            let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.BillDetailVC) as! BillDetailViewController
+            
+            controller.name = bills[indexPath.row].name
+            controller.proposedDate = bills[indexPath.row].proposeDate
+            controller.status = bills[indexPath.row].status
+            controller.sponsor = bills[indexPath.row].sponsor
+            controller.documentUrl = bills[indexPath.row].documentUrl
+            controller.summary = bills[indexPath.row].summary
+            controller.assemblyID = bills[indexPath.row].assemblyId
+            
+            controller.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(controller, animated: true)
+
+        } else {
+        
+            guard let party = searchResults[indexPath.section][Constants.SectionName.Party] as? [Party] else {
+                return
+            }
+            
+            let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.WebViewVC) as! WebViewController
+            controller.urlString = Constants.WikiUrl + party[indexPath.row].name
+            
+            controller.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(controller, animated: true)
+        }
+
     }
     
 }
