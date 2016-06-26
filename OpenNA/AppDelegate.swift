@@ -12,7 +12,7 @@ import CoreData
 import XCGLogger
 import MBProgressHUD
 
-
+// MARK : XCGLogger constant variable 
 let log: XCGLogger = {
     
     // Setup XCGLogger
@@ -58,9 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // window?.makeKeyAndVisible()
-       
-        // preload()
+        
         return true
     }
     

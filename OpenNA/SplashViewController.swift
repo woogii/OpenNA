@@ -10,40 +10,56 @@ import UIKit
 import MBProgressHUD
 import CoreData
 
-// MARK: - PoliticsViewController : UIViewController
+// MARK : - PoliticsViewController : UIViewController
 class SplashViewController: UIViewController, MBProgressHUDDelegate  {
 
+    // MARK : Property
+    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    // MARK : Convenience Properties
     var userDefaults : NSUserDefaults {
         return NSUserDefaults.standardUserDefaults()
     }
     
+    var sharedContext:NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext!
+    }
+    
+    // MARK : View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        
+        preload()
+        
+        if userDefaults.boolForKey(Constants.UserDefaultKeys.InitialDataExist) {
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
+                
+                self.performSegueWithIdentifier(Constants.Identifier.segueToTabVarVC, sender: self)
+            }
+        }
+    }
+
+    // MARK : Load Assembly Data
     func preload() {
         
         if !userDefaults.boolForKey(Constants.UserDefaultKeys.InitialDataExist) {
             activityIndicator.startAnimating()
-//            var activityIndicator = MBProgressHUD()
-//            
-//            dispatch_async(dispatch_get_main_queue()) {
-//                activityIndicator = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-//                activityIndicator.labelText = Constants.ActivityIndicatorText.Loading
-//            }
             
             guard let pathForJSONData = NSBundle.mainBundle().pathForResource(Constants.BundleFileName, ofType: Constants.BundleFileType) else{
                 #if DEBUG
-                    print("There is no data in your bundle")
+                    log.debug("There is no data in your bundle")
                 #endif
                 return
             }
             
             guard let rawAJSONData = NSData(contentsOfFile:pathForJSONData) else {
                 #if DEBUG
-                    print("Can not get a raw JSON data in \(pathForJSONData)")
+                    log.debug("Can not get a raw JSON data in \(pathForJSONData)")
                 #endif
                 return
             }
@@ -53,7 +69,9 @@ class SplashViewController: UIViewController, MBProgressHUDDelegate  {
             do {
                 parsedResult = try NSJSONSerialization.JSONObjectWithData(rawAJSONData, options: .AllowFragments) as! [[String:AnyObject]]
                 
-                print(parsedResult)
+                #if DEBUG
+                    log.debug("\(parsedResult)")
+                #endif 
                 
                 for dict in parsedResult {
                     
@@ -87,7 +105,7 @@ class SplashViewController: UIViewController, MBProgressHUDDelegate  {
                     
                     var dictionary = [String:AnyObject]()
                     
-                    dictionary[Constants.ModelKeys.Name] = name
+                    dictionary[Constants.ModelKeys.NameEn] = name
                     dictionary[Constants.ModelKeys.ImageUrl] = imageUrl
                     dictionary[Constants.ModelKeys.Party] = party
                     dictionary[Constants.ModelKeys.Birth] = birth
@@ -99,42 +117,30 @@ class SplashViewController: UIViewController, MBProgressHUDDelegate  {
                     
                     do {
                         try sharedContext.save()
+                        
                         // Set UserDefault as true, which implies data is already exist
                         userDefaults.setBool(true, forKey: Constants.UserDefaultKeys.InitialDataExist)
                         activityIndicator.stopAnimating()
                     } catch {
-                        print(error)
+                        #if DEBUG
+                            log.debug("\(error)")
+                        #endif
                     }
                 }
                 
                 
             } catch let error as NSError {
-                print(error.localizedDescription)
-            }
-        }
-        
-        
-
-    }
-    
-    var sharedContext:NSManagedObjectContext {
-        return CoreDataStackManager.sharedInstance().managedObjectContext!
-    }
-
-    
-    override func viewDidAppear(animated: Bool) {
-        
-        
-        preload()
-        
-        
-        if userDefaults.boolForKey(Constants.UserDefaultKeys.InitialDataExist) {
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
-                
-                self.performSegueWithIdentifier(Constants.Identifier.segueToTabVarVC, sender: self)
+                #if DEBUG
+                    let alertView = UIAlertController(title:"", message:error.localizedDescription, preferredStyle: .Alert)
+                    alertView.addAction(UIAlertAction(title:Constants.Alert.Title.Dismiss, style:.Default, handler:nil))
+                    self.presentViewController(alertView, animated: true, completion: nil)
+                #endif
             }
         }
     }
-   
+    
+ 
+
+    
+    
 }

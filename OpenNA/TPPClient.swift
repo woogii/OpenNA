@@ -10,6 +10,8 @@ import Foundation
 import Alamofire
 import AlamofireImage
 
+// MARK : - TPPClient : NSObject 
+
 class TPPClient: NSObject {
     
     let photoCache = AutoPurgingImageCache (
@@ -17,12 +19,12 @@ class TPPClient: NSObject {
         preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
     )
     
-    // MARK : Initializers
+    // MARK : - Initializers
     override init() {
         super.init()
     }
     
-    // MARK : GET
+    // MARK : - HTTP GET Request
     func taskForGETMethod(parameters:[String:AnyObject], withPathExtension method:String ,completionHandlerForGet:(results:AnyObject?, error:NSError?)->Void)->NSURLSessionTask{
         
         
@@ -111,7 +113,7 @@ class TPPClient: NSObject {
     
     }
 
-    // MARK: Helpers
+    // MARK : - Helper
     // Create a URL from parameters
     private func constructURL(parameters: [String:AnyObject], withPathExtension: String? = nil) -> NSURL {
         
@@ -126,7 +128,9 @@ class TPPClient: NSObject {
             let queryItem = NSURLQueryItem(name: key, value: "\(value)")
             components.queryItems!.append(queryItem)
         }
-        Swift.debugPrint("URL : \(String(components.URL))")
+        #if DEBUG
+            log.debug("URL : \(String(components.URL))")
+        #endif
         return components.URL!
     }
     
@@ -138,7 +142,7 @@ class TPPClient: NSObject {
         return photoCache.imageWithIdentifier(urlString)
     }
     
-    // MARK : Shared Instance (TPPClient Type)
+    // MARK : - Shared Instance (TPPClient Type)
     class func sharedInstance()->TPPClient {
         struct Singleton {
             static var sharedInstance = TPPClient()
@@ -146,7 +150,7 @@ class TPPClient: NSObject {
         return Singleton.sharedInstance
     }
     
-    // MARK : Shared Instance (ImageCache Type)
+    // MARK : - Shared Instance (ImageCache Type)
     struct Caches {
         static let imageCache = ImageCache()
     }

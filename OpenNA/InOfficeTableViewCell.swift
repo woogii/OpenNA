@@ -13,5 +13,6 @@ class InOfficeTableViewCell: UITableViewCell{
     
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var inOfficeDesc: UILabel!
+    @IBOutlet weak var blogLabel: UILabel!
     
 }

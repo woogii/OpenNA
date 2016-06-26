@@ -45,7 +45,9 @@ class BillListViewController : UIViewController {
             return try sharedContext.executeFetchRequest(fetchRequest) as! [BillInList]
             
         } catch let error as NSError {
-            print("\(error.description)")
+            #if DEBUG
+                log.debug("\(error.description)")
+            #endif 
             return [BillInList]()
         }
     }

@@ -21,8 +21,6 @@ class LawmakerDetailViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var favoriteButton: UIButton!
     
-    // var lawmaker:Lawmaker?
-    
     var image:String?
     var birth:String?
     var party:String?
@@ -30,9 +28,10 @@ class LawmakerDetailViewController: UIViewController {
     var district:String?
     var homepage:String?
     var name : String?
+    var blog : String?
+    var education : String?
     var pinnedImage:UIImage?
 
-    
     // MARK :  CoreData Convenience
     var sharedContext : NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext!
@@ -48,7 +47,6 @@ class LawmakerDetailViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    
     override func viewWillAppear(animated: Bool) {
         
         if let row = tableView.indexPathForSelectedRow {
@@ -58,11 +56,9 @@ class LawmakerDetailViewController: UIViewController {
         profileImage.layer.cornerRadius = profileImage.frame.size.width/2
         profileImage.clipsToBounds = true
         profileImage.image = pinnedImage
-        
         nameLabel.text = name!
         
         let fetchedResults = fetchLawmakerInList()
-        
         fetchedResults!.count == 0 ? (favoriteButton.tintColor = nil) : (favoriteButton.tintColor = UIColor.redColor())
     }
     
@@ -70,7 +66,7 @@ class LawmakerDetailViewController: UIViewController {
         
         if segue.identifier == Constants.Identifier.segueToWebViewVC {
             let controller = segue.destinationViewController as! WebViewController
-            controller.urlString = homepage // lawmaker?.homepage
+            controller.urlString = homepage
         }
     }
     
@@ -91,10 +87,14 @@ class LawmakerDetailViewController: UIViewController {
         do {
             fetchedResults = try sharedContext.executeFetchRequest(fetchRequest) as? [LawmakerInList]
         } catch let error as NSError {
-            print("\(error.description)")
+            #if DEBUG
+                log.debug("\(error.description)")
+            #endif
         }
         
-        print("fetch result : \(fetchedResults)")
+        #if DEBUG
+            log.debug("fetch result : \(fetchedResults)")
+        #endif
         
         return fetchedResults
     }
@@ -107,7 +107,7 @@ class LawmakerDetailViewController: UIViewController {
             
             var dictionary = [String:AnyObject]()
             
-            dictionary[Constants.ModelKeys.Name] =  name
+            dictionary[Constants.ModelKeys.NameEn] =  name
             dictionary[Constants.ModelKeys.ImageUrl] = image
             dictionary[Constants.ModelKeys.Party] =  party
             dictionary[Constants.ModelKeys.Birth] =  birth
@@ -120,7 +120,9 @@ class LawmakerDetailViewController: UIViewController {
             do {
                 try sharedContext.save()
             } catch {
-                print(error)
+                #if DEBUG
+                    log.debug("\(error)")
+                #endif
             }
 
             favoriteButton.tintColor = UIColor.redColor()
@@ -131,13 +133,14 @@ class LawmakerDetailViewController: UIViewController {
                 return
             }
             
-            print("lawmaker delete")
             sharedContext.deleteObject(result)
             
             do {
                 try sharedContext.save()
             } catch {
-                print(error)
+                #if DEBUG
+                    log.debug("\(error)")
+                #endif
             }
             
             favoriteButton.tintColor = nil

@@ -53,7 +53,7 @@ class LawmakerInList : NSManagedObject {
         
         super.init(entity : entity!, insertIntoManagedObjectContext: context)
         
-        name         = dictionary[Constants.ModelKeys.Name] as? String
+        name         = dictionary[Constants.ModelKeys.NameEn] as? String
         image        = dictionary[Constants.ModelKeys.ImageUrl] as? String
         party        = dictionary[Constants.ModelKeys.Party] as? String
         birth        = dictionary[Constants.ModelKeys.Birth] as? String

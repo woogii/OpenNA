@@ -12,6 +12,7 @@ import UIKit
 class PartyTableViewCell: UITableViewCell{
     
     @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var educationLabel: UILabel!
     @IBOutlet weak var partyDesc: UILabel!
 
 }
