@@ -14,7 +14,7 @@ import CoreData
 
 class BillDetailViewController: UITableViewController {
     
-    // MARK : Properties 
+    // MARK : - Property
     
     @IBOutlet weak var assembylIDLabel: UILabel!
     @IBOutlet weak var proposedDateLabel: UILabel!
@@ -24,7 +24,6 @@ class BillDetailViewController: UITableViewController {
     @IBOutlet weak var summaryTextView: UITextView!
     @IBOutlet weak var favoriteButton: UIBarButtonItem!
     
-    // var bill:Bill?
     var proposedDate: String?
     var status : String?
     var sponsor : String?
@@ -37,7 +36,7 @@ class BillDetailViewController: UITableViewController {
         return CoreDataStackManager.sharedInstance().managedObjectContext!
     }
     
-    // MARK : View Life Cycle
+    // MARK : - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,13 +64,24 @@ class BillDetailViewController: UITableViewController {
             return
         }
         
+        if previousViewController() != nil {
+            
+            if previousViewController() is SearchViewController {
+                print("from SearchVC")
+                favoriteButton.image = nil
+            }
+        
+        }
+    
         assembylIDLabel.text = "\(assemblyID)"
         
         let fetchedResults = fetchBillInList()
         
         fetchedResults!.count == 0 ? (favoriteButton.tintColor = nil) : (favoriteButton.tintColor = UIColor.redColor())
     }
-        
+    
+    // MARK : - UITableViewDelegate Method
+    
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         if indexPath.section == 1 {
@@ -81,7 +91,7 @@ class BillDetailViewController: UITableViewController {
         }
     }
 
-    // MARK : Fetch Bills in MyList
+    // MARK : - Fetch Bills in MyList
     
     func fetchBillInList()->[BillInList]?{
         
@@ -104,7 +114,7 @@ class BillDetailViewController: UITableViewController {
         return fetchedResults
     }
     
-    // MARK : Action 
+    // MARK : - Action Method
     
     @IBAction func favoriteButtonTapped(sender: UIBarButtonItem) {
         
@@ -155,7 +165,7 @@ class BillDetailViewController: UITableViewController {
         
     }
     
-    // MARK : Prepare Segue 
+    // MARK : - Prepare Segue
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
@@ -167,4 +177,18 @@ class BillDetailViewController: UITableViewController {
     }
     
     
+}
+
+extension UIViewController {
+    
+    func previousViewController() -> UIViewController? {
+        if let stack = self.navigationController?.viewControllers {
+            for i in (1..<stack.count).reverse() {
+                if(stack[i] == self) {
+                    return stack[i-1]
+                }
+            }
+        }
+        return nil
+    }
 }

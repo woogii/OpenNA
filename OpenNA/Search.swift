@@ -14,12 +14,12 @@ import Alamofire
 
 class Search : NSObject {
     
-    // MARK :  Properties
+    // MARK :  - Property
+    
     var lawmakers    = [Lawmaker]()
     var bills        = [Bill]()
     var parties      = [Party]()
     var searchResult = [String:AnyObject]()
-    
     var lawmakerSearchTask: NSURLSessionTask?
     var billSearchTask: NSURLSessionTask?
     var partySearchTask: NSURLSessionTask?
@@ -30,13 +30,16 @@ class Search : NSObject {
         return context
     }()
     
+    // MARK : - Search All Information
+    
     func searchAll(searchKeyword:String, completionHandler: (lawmakers:[Lawmaker],bills:[Bill], parties:[Party], error:NSError?)->Void) {
         
+        // Cancel all search tasks
         lawmakerSearchTask?.cancel()
         partySearchTask?.cancel()
         billSearchTask?.cancel()
         
-        // Dispatch group is used as this searchAll function should return the final search results after each individual search operation is performed
+        // Dispatch group is used as this function should return the final search results after each individual search operation is done
         let group = dispatch_group_create()
         
         dispatch_group_enter(group)

@@ -9,7 +9,11 @@
 import Foundation
 import UIKit
 
+// MARK : - Party
+
 class Party {
+    
+    // MARK : - Property
     
     var name:String
     var logo:String?
@@ -18,7 +22,7 @@ class Party {
     var id:Int
     var size:Int?
     
-    let imageTextFont = "Helvetica Bold"
+    // MARK : - Initialization
     
     init(dictionary: [String:AnyObject]) {
         
@@ -27,14 +31,15 @@ class Party {
         color = dictionary[Constants.JSONResponseKeys.PartyColor] as? Int
         id    = (dictionary[Constants.JSONResponseKeys.PartyId] as! Int)
         size  = dictionary[Constants.JSONResponseKeys.PartySize] as? Int
-        
-        let url = NSURL(string: "http://data.popong.com/parties/images/\(id).png")!
+    
+        let urlString =  Constants.Strings.Party.partyImageUrl + String(id) + Constants.Strings.Party.partyImageExtension
+        let url =  NSURL(string:urlString)!
         let imageData = NSData(contentsOfURL: url)
         
         
         guard let image = imageData else {
             
-            let defaultImage = UIImage(named:"noImage")
+            let defaultImage = UIImage(named:Constants.Strings.Party.defaultImageName)
             thumbnail = textToImage(name, inImage: defaultImage!, atPoint: CGPointMake(10,60))
             
             return
@@ -43,8 +48,9 @@ class Party {
         thumbnail = UIImage(data: image)
         
     }
-    
 
+    // MARK : - Helper Method
+    
     static func partiesFromResults(results:[[String:AnyObject]])->[Party] {
         var parties = [Party]()
         
@@ -56,11 +62,13 @@ class Party {
         return parties
     }
     
+    // MARK : - Draw the text into an Image
+    
     func textToImage(drawText: NSString, inImage: UIImage, atPoint:CGPoint)->UIImage{
         
         // Setup the font specific variables
         let textColor: UIColor = UIColor.blackColor()
-        let textFont: UIFont = UIFont(name: imageTextFont, size: 17)!
+        let textFont: UIFont = UIFont(name: Constants.Strings.Party.imageTextFont, size: 17)!
         
         //Setup the image context using the passed image.
         UIGraphicsBeginImageContext(inImage.size)

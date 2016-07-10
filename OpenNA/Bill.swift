@@ -8,9 +8,11 @@
 
 import Foundation
 
+// MARK : - Bill 
+
 class Bill {
     
-    // MARK : Properties
+    // MARK : - Property
     
     var name:String?
     var proposeDate:String?
@@ -20,7 +22,7 @@ class Bill {
     var documentUrl:String?
     var assemblyId:Int
     
-    // MARK : Initialization
+    // MARK : - Initialization
     
     init(dictionary: [String:AnyObject]) {
         
@@ -34,7 +36,7 @@ class Bill {
         
     }
     
-    // MARK : Helper Method
+    // MARK : - Helper Method
     
     static func billsFromResults(results:[[String:AnyObject]])->[Bill] {
         var bills = [Bill]()

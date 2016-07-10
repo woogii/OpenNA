@@ -9,24 +9,26 @@
 import Foundation
 import UIKit
 
-// MARK : - LawmakerTableViewCell : Custom TableViewCell
+// MARK : - LawmakerTableViewCell : TaskCancelingTableViewCell
 
 class LawmakerTableViewCell : TaskCancelingTableViewCell {
     
-    // MARK : Properties
+    // MARK : - Property
+    
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var partyLabel: UILabel!
     @IBOutlet weak var backgroundCardView: UIView!
     
+    // MARK : - Initialization
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width/2
         profileImageView.clipsToBounds = true
-        
-    
+
+        // Configure view layer to make it look like Card-style view   
         backgroundCardView.backgroundColor = UIColor.whiteColor()
         contentView.backgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
         backgroundCardView.layer.cornerRadius = 3.0

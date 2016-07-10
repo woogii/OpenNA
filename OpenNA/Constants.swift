@@ -9,21 +9,26 @@
 import Foundation
 
 // MARK : - Constants
+
 struct Constants {
     
     // MARK : - API
+    
     struct Api {
         
         // MARK: - API Key
+        
         static let Key    = "test"
         
         // MARK: - URLs
+        
         static let Scheme = "http"
         static let Host   = "api.popong.com"
         static let Path   = "/v0.1"
     }
     
     // MARK: - TPP Parameter Keys
+    
     struct ParameterKeys {
         
         static let ApiKey  = "api_key"
@@ -32,10 +37,12 @@ struct Constants {
         static let Order   = "order"
         static let Query   = "q"
         static let SponsorSearch = "s"
+        static let Page = "page"
         
     }
     
     // MARK: - TPP Parameter Values
+    
     struct ParameterValues {
         
         static let ProposedDate   = "proposed_date"
@@ -46,6 +53,7 @@ struct Constants {
     }
     
     // MARK: - Methods
+    
     struct Methods {
         
         static let Bill      = "/bill"
@@ -54,19 +62,23 @@ struct Constants {
         static let Statement = "/statement"
         
         // MARK : - Search
+        
         static let Search = "/search"
         
     }
     
     // MARK : - JSON Response Keys
+    
     struct JSONResponseKeys {
         
         // MARK : - General
+        
         static let StatusMessage = "status_message"
         static let StatusCode    = "status_code"
         static let Items         = "items"
         
         // MARK : - Lawmaker
+        
         static let Name          = "name"
         static let NameEn        = "name_en"
         static let Photo         = "photo"
@@ -82,6 +94,7 @@ struct Constants {
         static let District      = "district"
         
         // MARK : - Bill
+        
         static let BillSponsor      = "sponsor"
         static let BillDocUrl       = "document_url"
         static let BillProposedDate = "proposed_date"
@@ -95,6 +108,7 @@ struct Constants {
         static let BillKind         = "kind"
         
         // MARK : - Party
+        
         static let PartyColor = "color"
         static let PartyLogo  = "logo"
         static let PartySize  = "size"
@@ -102,10 +116,12 @@ struct Constants {
         static let PartyName  = "name"
         
         // MARK : - Common
+        
         static let NextPage   = "next_page"
     }
     
     // MARK : - Fetch
+    
     struct Fetch {
         
         static let SortKeyForLawmaker  = "name"
@@ -115,6 +131,7 @@ struct Constants {
     }
     
     // MARK : - Entity
+    
     struct Entity {
         
         static let Lawmaker = "Lawmaker"
@@ -123,6 +140,7 @@ struct Constants {
     }
     
     // MARK : - Cell & Segue Identifier
+    
     struct Identifier {
         
         static let LawmakerCell       = "LawmakerCell"
@@ -130,21 +148,19 @@ struct Constants {
         static let PartyImageCell   = "LogoImageCell"
         static let SearchedResultCell = "SearchResultCell"
         static let SearchResult     = "searchResult"
-        
         static let SearchedLawmakerCell = "SearchedLawmakerCell"
         static let SearchedBillCell = "SearchedBillCell"
         static let SearchedPartyCell = "SearchedPartyCell"
-        
         static let BirthCell      = "birthCell"
         static let PartyCell      = "partyCell"
         static let InOfficeCell   = "inOfficeCell"
         static let DistrictCell   = "districtCell"
         static let HomepageCell   = "homepageCell"
-        
+        static let LawmakerDetailCell = "lawmakerDetailCell"
+        static let SearchedLawmakerDetailCell = "searchedLawmakerDetailCell"
         
         static let segueToWebViewVC = "showWebView"
         static let segueToTabVarVC = "ShowTabBarVC"
-        
         static let LawmakerDetailVC = "LawmakerDetail"
         static let BillDetailVC = "BillDetail"
         static let SearchedLawmakerDetailVC = "SearchedLawmakerDetail"
@@ -153,6 +169,7 @@ struct Constants {
     }
     
     // MARK : - Activity Indicator Text
+    
     struct ActivityIndicatorText {
         
         static let Loading   = "Loading..."
@@ -160,6 +177,7 @@ struct Constants {
     }
     
     // MARK : - Error
+    
     struct Error {
         
         static let DomainJSONParsing = "JSON Data Parsing"
@@ -172,6 +190,7 @@ struct Constants {
     }
     
     // MARK : - Section Name
+    
     struct SectionName {
         
         static let Lawmaker = "lawmaker"
@@ -181,9 +200,11 @@ struct Constants {
     }
     
     // MARK : - Model Key
+    
     struct ModelKeys {
         
         // MARK : - Lawmaker
+        
         static let Name = "name"
         static let NameEn = "name_en"
         static let ImageUrl = "image"
@@ -192,9 +213,13 @@ struct Constants {
         static let Homepage = "homepage"
         static let WhenElected = "when_elected"
         static let District = "district"
+        static let Address = "address"
+        static let Blog = "blog"
+        static let Education = "education"
         static let LawmakerEntity = "Lawmaker"
         
         // MARK : - Bill
+        
         static let BillSponsor = "sponsor"
         static let BillProposedDate = "proposed_date"
         static let BillName = "name"
@@ -204,19 +229,17 @@ struct Constants {
         static let BillAssemblyId = "assemblyId"
         
         // MARK : - Party
+        
         static let PartyColor = "color"
         static let PartyLogo  = "logo"
         static let PartySize  = "size"
         static let PartyId    = "id"
         static let PartyName  = "name"
         
-        // MARK : - Searched Lawmaker
-        static let Education = "education"
-        static let Blog = "blog"
-        
     }
     
     // MARK : - Custom Cell
+    
     struct CustomCell {
         
         static let PartyLabel    = "Party"
@@ -224,13 +247,19 @@ struct Constants {
         static let InOfficeLabel = "In Office"
         static let DistrictLabel = "District"
         static let HomepageLabel = "Homepage"
+        static let BlogLabel     = "Blog"
+        static let AddressLabel  = "Address"
+        static let EducationLabel  = "Education"
         
     }
     
     // MARK : - Default System Key
+    
     struct UserDefaultKeys {
         static let InitialDataExist = "InitialData"
     }
+    
+    // MARK : - Alert
     
     struct Alert {
         
@@ -239,14 +268,56 @@ struct Constants {
             static let Dismiss = "Dismiss"
         }
         
+        struct Message {
+            static let WebPageLoadingFail = "There was a problem loading the web page!"
+        }
+        
     }
     
-    static let BundleFileName = "assembly"
-    static let BundleFileType = "json"
-    static let LogFileName = "XCGLogger_Log.txt"
-    static let LaunchView = "LaunchScreen"
-    static let NumOfProfileCells = 5
-    static let HeaderTitle = "Profile"
-    static let WikiUrl = "https://ko.wikipedia.org/wiki/"
+    // MARK : Strings
+    struct Strings {
+        
+        struct LawmakerDetailVC {
+            
+            static let NumOfProfileCells = 5
+            static let HeaderTitle = "Profile"
+            
+        }
+        
+        struct SearchedLawmakerDetailVC {
+            
+            static let defaultImageName = "noImage"
+            
+        }
+        
+        struct PoliticsVC {
+            static let WikiUrl = "https://ko.wikipedia.org/wiki/"
+        }
+        
+        struct SplashVC {
+            static let BundleFileName = "assembly"
+            static let BundleFileType = "json"
+        }
+        
+        struct SearchVC {
+            static let WikiUrl = "https://ko.wikipedia.org/wiki/"
+            static let defaultImageName = "noImage"
+        }
+        
+        struct Party {
+            static let imageTextFont = "Helvetica Bold"
+            static let partyImageUrl = "http://data.popong.com/parties/images/"
+            static let partyImageExtension = ".png"
+            static let defaultImageName = "noImage"
+        }
+        
+        struct LawmakerListVC {
+            static let DefaultLabelMessage = "No lawmaker information in your list"
+        }
+        
+        struct BillListVC {
+            static let DefaultLabelMessage =  "No bill information in your list"
+        }
+    }
     
 }

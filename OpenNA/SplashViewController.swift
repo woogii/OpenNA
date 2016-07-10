@@ -11,13 +11,13 @@ import MBProgressHUD
 import CoreData
 
 // MARK : - PoliticsViewController : UIViewController
-class SplashViewController: UIViewController, MBProgressHUDDelegate  {
 
-    // MARK : Property
+class SplashViewController: UIViewController {
+
+    // MARK : - Property
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    // MARK : Convenience Properties
     var userDefaults : NSUserDefaults {
         return NSUserDefaults.standardUserDefaults()
     }
@@ -26,7 +26,8 @@ class SplashViewController: UIViewController, MBProgressHUDDelegate  {
         return CoreDataStackManager.sharedInstance().managedObjectContext!
     }
     
-    // MARK : View Life Cycle
+    // MARK : - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -35,6 +36,7 @@ class SplashViewController: UIViewController, MBProgressHUDDelegate  {
         
         preload()
         
+        // Check whether there is any data exist in disk
         if userDefaults.boolForKey(Constants.UserDefaultKeys.InitialDataExist) {
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2.0 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
@@ -44,13 +46,14 @@ class SplashViewController: UIViewController, MBProgressHUDDelegate  {
         }
     }
 
-    // MARK : Load Assembly Data
+    // MARK : - Load lawmaker information from JSON file
+    
     func preload() {
         
         if !userDefaults.boolForKey(Constants.UserDefaultKeys.InitialDataExist) {
             activityIndicator.startAnimating()
             
-            guard let pathForJSONData = NSBundle.mainBundle().pathForResource(Constants.BundleFileName, ofType: Constants.BundleFileType) else{
+            guard let pathForJSONData = NSBundle.mainBundle().pathForResource(Constants.Strings.SplashVC.BundleFileName, ofType: Constants.Strings.SplashVC.BundleFileType) else{
                 #if DEBUG
                     log.debug("There is no data in your bundle")
                 #endif
@@ -116,6 +119,7 @@ class SplashViewController: UIViewController, MBProgressHUDDelegate  {
                     let _ = Lawmaker(dictionary: dictionary, context: self.sharedContext)
                     
                     do {
+                        
                         try sharedContext.save()
                         
                         // Set UserDefault as true, which implies data is already exist
@@ -138,9 +142,5 @@ class SplashViewController: UIViewController, MBProgressHUDDelegate  {
             }
         }
     }
-    
- 
-
-    
     
 }

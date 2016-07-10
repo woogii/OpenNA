@@ -10,10 +10,11 @@ import Foundation
 import UIKit
 import MBProgressHUD
 
-// MARK: - LawmakerDetailViewController : UIViewController
+// MARK : - WebViewController : UIViewController
 
 class WebViewController: UIViewController {
     
+    // MARK : - Property
     @IBOutlet weak var webView: UIWebView!
     var urlString: String?
     var loadingActivity : MBProgressHUD?
@@ -38,9 +39,11 @@ class WebViewController: UIViewController {
     
 }
 
-// MARK: - LawmakerDetailViewController : UIWebViewDelegate
+// MARK : - WebViewController : UIWebViewDelegate
 
 extension WebViewController : UIWebViewDelegate {
+    
+    // MARK : - UIWebViewDelegate Methods
     
     func webViewDidStartLoad(webView: UIWebView) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
@@ -55,8 +58,8 @@ extension WebViewController : UIWebViewDelegate {
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
         loadingActivity?.hide(true)
         
-        let alertView = UIAlertController(title:"", message:"There was a problem loading the web page!", preferredStyle: .Alert)
-        alertView.addAction(UIAlertAction(title:"Dismiss", style:.Default, handler:nil))
+        let alertView = UIAlertController(title:"", message: Constants.Alert.Message.WebPageLoadingFail, preferredStyle: .Alert)
+        alertView.addAction(UIAlertAction(title: Constants.Alert.Title.Dismiss, style:.Default, handler:nil))
         self.presentViewController(alertView, animated: true, completion: nil)
         
     }

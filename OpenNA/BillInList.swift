@@ -13,7 +13,7 @@ import CoreData
 
 class BillInList : NSManagedObject {
     
-    // MARK : Properties
+    // MARK : Property
     
     @NSManaged var name:String?
     @NSManaged var proposeDate:String?

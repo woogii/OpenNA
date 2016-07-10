@@ -18,7 +18,7 @@ extension TPPClient {
         var parameters = [Constants.ParameterKeys.ApiKey:Constants.Api.Key]
         parameters[Constants.ParameterKeys.Sort] = Constants.ParameterValues.ProposedDate
         parameters[Constants.ParameterKeys.PerPage] = Constants.ParameterValues.LimitPage
-        parameters["page"] = "\(page)"
+        parameters[Constants.ParameterKeys.Page] = "\(page)"
         
         taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
             

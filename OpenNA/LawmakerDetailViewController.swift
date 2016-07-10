@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 import CoreData
 
-// MARK: - LawmakerDetailViewController : UIViewController
+// MARK : - LawmakerDetailViewController : UIViewController
 
 class LawmakerDetailViewController: UIViewController {
     
-    // MARK : Properties
+    // MARK : - Property
     
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -28,21 +28,22 @@ class LawmakerDetailViewController: UIViewController {
     var district:String?
     var homepage:String?
     var name : String?
-    var blog : String?
-    var education : String?
     var pinnedImage:UIImage?
 
-    // MARK :  CoreData Convenience
+    // MARK : - CoreData Convenience
+    
     var sharedContext : NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext!
     }
     
-    // MARK : Enumeration Cases
+    // MARK : - Enum (For Cell IndexPath Row)
+    
     enum CustomCell:Int {
         case Birth = 0,Party,InOffice,District,Homepage
     }
     
-    // MARK : View Life Cycle
+    // MARK : - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -62,6 +63,8 @@ class LawmakerDetailViewController: UIViewController {
         fetchedResults!.count == 0 ? (favoriteButton.tintColor = nil) : (favoriteButton.tintColor = UIColor.redColor())
     }
     
+    // MARK : - Prepare For Segue
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == Constants.Identifier.segueToWebViewVC {
@@ -70,8 +73,11 @@ class LawmakerDetailViewController: UIViewController {
         }
     }
     
+    // MARK : - Fetch Lawmakers in Favorite List
+    
     func fetchLawmakerInList()->[LawmakerInList]? {
         
+        // Fetch a single lawmaker with given name and image
         let fetchRequest = NSFetchRequest(entityName : Constants.Entity.LawmakerInList)
         let firstPredicate = NSPredicate(format: Constants.Fetch.PredicateForName, name!)
         let secondPredicate = NSPredicate(format: Constants.Fetch.PredicateForImage, image!)
@@ -99,10 +105,13 @@ class LawmakerDetailViewController: UIViewController {
         return fetchedResults
     }
     
+    // MARK : - Action Method
+    
     @IBAction func favoriteBtnTapped(sender: UIButton) {
         
         let fetchedResults = fetchLawmakerInList()
         
+        // If there is not a lawmaker in Favorite List, add it to the list
         if fetchedResults!.count == 0  {
             
             var dictionary = [String:AnyObject]()
@@ -128,6 +137,8 @@ class LawmakerDetailViewController: UIViewController {
             favoriteButton.tintColor = UIColor.redColor()
 
         } else {
+        
+            // If the lawmaker is already in Favorite List, delete it from the list
             
             guard let result = fetchedResults!.first else {
                 return
@@ -152,8 +163,10 @@ class LawmakerDetailViewController: UIViewController {
 
 extension LawmakerDetailViewController : UITableViewDelegate, UITableViewDataSource {
     
+    // MARK : - UITableViewDataSource Methods
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Constants.NumOfProfileCells
+        return Constants.Strings.LawmakerDetailVC.NumOfProfileCells
     }
     
     
@@ -162,33 +175,33 @@ extension LawmakerDetailViewController : UITableViewDelegate, UITableViewDataSou
         switch(indexPath.row) {
             
         case CustomCell.Birth.rawValue:
-            if let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.BirthCell, forIndexPath: indexPath) as? BirthTableViewCell {
-                cell.title.text = Constants.CustomCell.BirthLabel
-                cell.birthDesc.text = birth
+            if let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.LawmakerDetailCell, forIndexPath: indexPath) as? LawmakerDetailTableViewCell {
+                cell.titleLabel.text = Constants.CustomCell.BirthLabel
+                cell.descriptionLabel.text = birth
                 return cell
             }
         case CustomCell.Party.rawValue:
-            if let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.PartyCell, forIndexPath: indexPath) as? PartyTableViewCell {
-                cell.title.text = Constants.CustomCell.PartyLabel
-                cell.partyDesc.text = party
+            if let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.LawmakerDetailCell, forIndexPath: indexPath) as? LawmakerDetailTableViewCell {
+                cell.titleLabel.text = Constants.CustomCell.PartyLabel
+                cell.descriptionLabel.text = party
                 return cell
             }
         case CustomCell.InOffice.rawValue:
-            if let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.InOfficeCell, forIndexPath: indexPath) as? InOfficeTableViewCell {
-                cell.title.text = Constants.CustomCell.InOfficeLabel
-                cell.inOfficeDesc.text = when_elected
+            if let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.LawmakerDetailCell, forIndexPath: indexPath) as? LawmakerDetailTableViewCell {
+                cell.titleLabel.text = Constants.CustomCell.InOfficeLabel
+                cell.descriptionLabel.text = when_elected
                 return cell
             }
         case CustomCell.District.rawValue:
-            if let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.DistrictCell, forIndexPath: indexPath) as? DistrictTableViewCell {
-                cell.title.text = Constants.CustomCell.DistrictLabel
-                cell.districtDesc.text = district
+            if let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.LawmakerDetailCell, forIndexPath: indexPath) as? LawmakerDetailTableViewCell {
+                cell.titleLabel.text = Constants.CustomCell.DistrictLabel
+                cell.descriptionLabel.text = district
                 return cell
             }
         default:
-            if let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.HomepageCell, forIndexPath: indexPath) as? HomepageTableViewCell {
-                cell.title.text = Constants.CustomCell.HomepageLabel
-                cell.homepageDesc.text = homepage 
+            if let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.LawmakerDetailCell, forIndexPath: indexPath) as? LawmakerDetailTableViewCell {
+                cell.titleLabel.text = Constants.CustomCell.HomepageLabel
+                cell.descriptionLabel.text = homepage
                 return cell
             }
         }
@@ -197,7 +210,7 @@ extension LawmakerDetailViewController : UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return Constants.HeaderTitle
+        return Constants.Strings.LawmakerDetailVC.HeaderTitle
     }
     
 }

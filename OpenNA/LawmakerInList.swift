@@ -14,7 +14,7 @@ import UIKit
 
 class LawmakerInList : NSManagedObject {
     
-    // MARK : Properties
+    // MARK : Property
     
     @NSManaged var name:String?
     @NSManaged var image:String?

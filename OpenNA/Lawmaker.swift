@@ -14,7 +14,7 @@ import UIKit
 
 class Lawmaker : NSManagedObject {
 
-    // MARK : Properties 
+    // MARK : Property
     
     @NSManaged var name:String?
     @NSManaged var image:String?
@@ -23,6 +23,9 @@ class Lawmaker : NSManagedObject {
     @NSManaged var homepage:String?
     @NSManaged var when_elected:String?
     @NSManaged var district:String?
+    @NSManaged var blog:String?
+    @NSManaged var address:String?
+    @NSManaged var education:String?
     
     var pinnedImage: UIImage? {
         
@@ -60,7 +63,9 @@ class Lawmaker : NSManagedObject {
         homepage     = dictionary[Constants.ModelKeys.Homepage] as? String
         when_elected = dictionary[Constants.ModelKeys.WhenElected] as? String
         district     = dictionary[Constants.ModelKeys.District] as? String
-    
+        blog         = dictionary[Constants.ModelKeys.Blog] as? String
+        address      = dictionary[Constants.ModelKeys.Address] as? String
+        education    = dictionary[Constants.ModelKeys.Education] as? String
     }
 
 }

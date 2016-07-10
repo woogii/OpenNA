@@ -9,11 +9,12 @@
 import Foundation
 import UIKit
 
-// MARK : - PartyCollectionViewCell : Custom CollectionViewCell
+// MARK : - PartyCollectionViewCell : UICollectionViewCell
 
 class PartyCollectionViewCell : UICollectionViewCell {
     
-    // MARK : Properties
+    // MARK : Property
+    
     @IBOutlet weak var logoImageView: UIImageView!
     
     var taskToCancelifCellIsReused: NSURLSessionTask? {

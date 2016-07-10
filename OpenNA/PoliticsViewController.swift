@@ -11,9 +11,10 @@ import CoreData
 import MBProgressHUD
 
 // MARK: - PoliticsViewController : UIViewController
+
 class PoliticsViewController: UIViewController  {
     
-    // MARK : - Properties
+    // MARK : - Property
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
@@ -26,10 +27,16 @@ class PoliticsViewController: UIViewController  {
     var loadingData = false
     var lastRowIndex = 20
     static var page = 1
-    
     typealias Entry = (Character, [Lawmaker])
     
-    // MARK :  View LifeCycle
+    // MARK : - CoreData Convenience
+    
+    var sharedContext : NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext!
+    }
+    
+    // MARK : - View Life Cycle
+    
     override func viewDidLayoutSubviews() {
         
         super.viewDidLayoutSubviews()
@@ -50,19 +57,21 @@ class PoliticsViewController: UIViewController  {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
         configureLayout()
         lawmakers = fetchAllLawmakers()
         buildTableViewIndex()
         
     }
     
-    // MARK : Configure Layout
+    // MARK : - Configure Layout
+    
     func configureLayout() {
         
         // Register Nib Objects
         self.tableView.registerNib(UINib(nibName: Constants.Identifier.LawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.LawmakerCell)
         self.tableView.registerNib(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
-    
+        
         // Set CollectionView delegate and datasource
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -71,12 +80,9 @@ class PoliticsViewController: UIViewController  {
         collectionView.hidden = true
     }
     
-    // MARK :  CoreData Convenience
-    var sharedContext : NSManagedObjectContext {
-        return CoreDataStackManager.sharedInstance().managedObjectContext!
-    }
     
-    // MARK :  Data Fetch
+    
+    // MARK : - Data Fetch
     func fetchAllLawmakers()->[Lawmaker]
     {
         let fetchRequest = NSFetchRequest(entityName : Constants.Entity.Lawmaker)
@@ -95,7 +101,8 @@ class PoliticsViewController: UIViewController  {
         }
     }
     
-    // MARK : Action Method
+    // MARK : - Action Method
+    
     @IBAction func segmentedControlChanged(sender: AnyObject) {
         
         switch segmentedControl.selectedSegmentIndex {
@@ -135,6 +142,8 @@ class PoliticsViewController: UIViewController  {
             }
             break
         case 2:
+            
+            // let compensateHeight = -(self.navigationController!.navigationBar.bounds.size.height + UIApplication.sharedApplication().statusBarFrame.size.height)
             collectionView.hidden = false
             tableView.hidden = true
             
@@ -144,7 +153,7 @@ class PoliticsViewController: UIViewController  {
             TPPClient.sharedInstance().getParties() { (parties, error) in
                 
                 if let parties = parties {
-
+                    
                     self.parties = parties
                     
                     dispatch_async(dispatch_get_main_queue())  {
@@ -164,8 +173,8 @@ class PoliticsViewController: UIViewController  {
             break
         }
     }
-
-    // MARK : Helper
+    
+    // MARK : - Helper Methods
     
     func buildTableViewIndex() {
         
@@ -209,25 +218,32 @@ class PoliticsViewController: UIViewController  {
     }
     
     func distinct<T:Equatable>(source: [T]) -> [T] {
+        
         var unique = [T]()
+        
         for item in source {
+            
             if !unique.contains(item) {
                 unique.append(item)
             }
+            
         }
         return unique
     }
     
 }
 
+// MARK : - PoliticsViewController : UITableViewDelegate, UITableViewDataSource
+
 extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
     
     
-    // MARK : UITableView DataSource Methods
+    // MARK : - UITableView DataSource Methods
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         var count = 0
+        
         switch segmentedControl.selectedSegmentIndex {
             
         case 0 :
@@ -273,7 +289,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         else if segmentedControl.selectedSegmentIndex == 1 {
             
             let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.BillCell, forIndexPath: indexPath) as! BillTableViewCell
-            log.debug("\(indexPath.row)")
+
             cell.nameLabel.text = bills[indexPath.row].name
             cell.sponsorLabel.text = bills[indexPath.row].sponsor
             cell.statusLabel.text = bills[indexPath.row].status
@@ -284,7 +300,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
     
-    // MARK : Congifure UITableviewCell
+    // MARK : - Congifure UITableviewCell
     
     func configureCell(cell:LawmakerTableViewCell , atIndexPath indexPath:NSIndexPath)
     {
@@ -353,7 +369,8 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    // MARK : UITableView Delegate Method
+    // MARK : - UITableView Delegate Methods
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 140
     }
@@ -373,7 +390,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
             controller.homepage = indexInfo[indexPath.section].1[indexPath.row].homepage
             controller.image = indexInfo[indexPath.section].1[indexPath.row].image
             controller.pinnedImage = indexInfo[indexPath.section].1[indexPath.row].pinnedImage
-
+            
             controller.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(controller, animated: true)
             
@@ -389,7 +406,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
             controller.documentUrl = bills[indexPath.row].documentUrl
             controller.summary = bills[indexPath.row].summary
             controller.assemblyID = bills[indexPath.row].assemblyId
-        
+            
             controller.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(controller, animated: true)
             
@@ -404,28 +421,34 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-    
+        
         switch segmentedControl.selectedSegmentIndex {
             
         case 1:
+            #if DEBUG
             log.debug("loadingData : \(loadingData)")
             log.debug("lastRowIndex: \(lastRowIndex)")
+            #endif
+            
             if !loadingData && indexPath.row == lastRowIndex - 1{
-                
+                #if DEBUG
                 log.debug("indexPath = \(indexPath.row)")
+                #endif
                 loadingData = true
                 let spinActivity = MBProgressHUD.showHUDAddedTo(view, animated: true)
                 spinActivity.labelText = Constants.ActivityIndicatorText.Loading
                 PoliticsViewController.page += 1
                 
                 TPPClient.sharedInstance().getBills(PoliticsViewController.page) { (bills, error) in
-                
-                    if let addedbills = bills {
                     
+                    if let addedbills = bills {
+                
+                        #if DEBUG
                         log.debug("appended bills count : \(addedbills.count)")
+                        #endif
                         
                         if addedbills.count == 0 {
-                        
+                            
                             dispatch_async(dispatch_get_main_queue())  {
                                 spinActivity.hide(true)
                             }
@@ -460,7 +483,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
 
 extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     
-    // MARK : UICollectionViewDataSource Methods
+    // MARK : - UICollectionViewDataSource Methods
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
@@ -476,11 +499,13 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
         return cell
     }
     
+    // MARK : - UICollectionViewDelegate Methods
+    
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-                
+        
         let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.WebViewVC) as! WebViewController
         
-        controller.urlString = Constants.WikiUrl + parties[indexPath.row].name
+        controller.urlString = Constants.Strings.SearchVC.WikiUrl + parties[indexPath.row].name
         controller.hidesBottomBarWhenPushed = true
         
         navigationController?.pushViewController(controller, animated: true)

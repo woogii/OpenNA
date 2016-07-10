@@ -8,10 +8,16 @@
 
 import UIKit
 
+// MARK : - SearchedLawmakerTableViewCell : UITableViewCell
+
 class SearchedLawmakerTableViewCell: UITableViewCell {
 
+    // MARK : - Property 
+    
     @IBOutlet weak var lawmakerImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
+    
+    // MARK : - Initialization 
     
     override func awakeFromNib() {
         super.awakeFromNib()

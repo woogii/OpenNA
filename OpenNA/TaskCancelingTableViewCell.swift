@@ -9,11 +9,14 @@
 import Foundation
 import UIKit
 
+// MARK : - TaskCancelingTableViewCell : UITableViewCell 
+
 class TaskCancelingTableViewCell : UITableViewCell {
+
+    // MARK : - Property Observer
     
     var taskToCancelifCellIsReused : NSURLSessionTask? {
         
-        // Property Observer
         didSet {
             
             if let oldtask = oldValue {

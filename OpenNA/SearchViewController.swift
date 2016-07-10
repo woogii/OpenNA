@@ -13,7 +13,10 @@ import MBProgressHUD
 import Alamofire
 
 // MARK : - SearchViewController : UIViewController
+
 class SearchViewController: UIViewController {
+    
+    // MARK : - Property 
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
@@ -21,6 +24,8 @@ class SearchViewController: UIViewController {
     let search = Search()
     var searchResults = [[String:AnyObject]]()
     var sectionTitle = [String]()
+    
+    // MARK : - View Life Cycle 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,13 +54,30 @@ class SearchViewController: UIViewController {
         navigationController?.navigationBarHidden = false
     }
     
+    // MARK : - Hide Keyboard
+    
     func hideKeyboard() {
         view.endEditing(true)
     }
     
+    // MARK : - Prepare For Segue 
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == Constants.Identifier.SearchedLawmakerDetailVC {
+            
+            
+            
+        }
+    }
+    
 }
 
+// MARK : - SearchViewController : UISearchBarDelegate
+
 extension SearchViewController : UISearchBarDelegate {
+    
+    // MARK : - UISearchBarDelegate Method
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         
@@ -101,13 +123,18 @@ extension SearchViewController : UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
     
+    // MARK : - Adjust Bar position
     func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
         return .TopAttached
     }
 
 }
 
+// MARK : - SearchViewController : UITableViewDataSource, UITableViewDelegate
+
 extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
+    
+    // MARK : UITableViewDataSource Methods
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         log.debug("section : \(section)")
@@ -158,7 +185,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                     cell.nameLabel?.text = lawmaker[indexPath.row].name
                     
                     guard let urlString = lawmaker[indexPath.row].image else {
-                        cell.lawmakerImageView!.image = UIImage(named:"noImage")
+                        cell.lawmakerImageView!.image = UIImage(named:Constants.Strings.SearchVC.defaultImageName)
                         return cell
                     }
                     
@@ -207,7 +234,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                     
                     if party[indexPath.row].logo == ""  {
                 
-                        cell.partyImageView!.image = UIImage(named:"noImage")
+                        cell.partyImageView!.image = UIImage(named:Constants.Strings.SearchVC.defaultImageName)
                         return cell
                     }
                     
@@ -232,7 +259,8 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
         return UITableViewCell()
     }
     
-    // MARK : UITableView Delegate Method
+    // MARK : UITableView Delegate Methods
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 90
 
@@ -248,20 +276,19 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                 return
             }
 
-            let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.LawmakerDetailVC) as! LawmakerDetailViewController
+            let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.SearchedLawmakerDetailVC) as! SearchedLawmakerDetailViewController
         
             log.debug("\(lawmakers[indexPath.row].name)")
             log.debug("\(lawmakers[indexPath.row].birth)")
             log.debug("\(lawmakers[indexPath.row].party)")
+            
             controller.name  = lawmakers[indexPath.row].name
             controller.birth = lawmakers[indexPath.row].birth
-        
-            controller.party = lawmakers[indexPath.row].party
-            controller.when_elected = lawmakers[indexPath.row].when_elected
-            controller.district = lawmakers[indexPath.row].district
+            controller.address = lawmakers[indexPath.row].address
+            controller.blog   = lawmakers[indexPath.row].blog
+            controller.education   = lawmakers[indexPath.row].education
             controller.homepage = lawmakers[indexPath.row].homepage
             controller.image = lawmakers[indexPath.row].image
-            controller.pinnedImage = lawmakers[indexPath.row].pinnedImage
             
             controller.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(controller, animated: true)
@@ -292,7 +319,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
             }
             
             let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.WebViewVC) as! WebViewController
-            controller.urlString = Constants.WikiUrl + party[indexPath.row].name
+            controller.urlString = Constants.Strings.SearchVC.WikiUrl + party[indexPath.row].name
             
             controller.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(controller, animated: true)

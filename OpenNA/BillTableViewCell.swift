@@ -13,14 +13,17 @@ import UIKit
 
 class BillTableViewCell:UITableViewCell{
     
+    // MARK : - Property 
+    
     @IBOutlet weak var sponsorLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var billImage: UIImageView!
     @IBOutlet weak var sponsorImage: UIImageView!
     @IBOutlet weak var statusImage: UIImageView!
-    //@IBOutlet weak var backgroundCardView: UIView!
     @IBOutlet weak var backgroundCardView: UIView!
+    
+    // MARK : - Initialization
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -8,13 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		13174E43509921D70E2FDBA0 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3801775D12FBF6181F3CD108 /* Pods.framework */; };
-		D20028261CE7F00600F1369E /* PartyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20028251CE7F00600F1369E /* PartyTableViewCell.swift */; };
 		D20028301CE86C9E00F1369E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200282F1CE86C9E00F1369E /* WebViewController.swift */; };
 		D20028321CE8B3C300F1369E /* BillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20028311CE8B3C300F1369E /* BillDetailViewController.swift */; };
-		D212D3561CF0438B008CEC5C /* HomepageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3511CF0438B008CEC5C /* HomepageTableViewCell.swift */; };
-		D212D3571CF0438B008CEC5C /* DistrictTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3521CF0438B008CEC5C /* DistrictTableViewCell.swift */; };
-		D212D3591CF0438B008CEC5C /* BirthTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3541CF0438B008CEC5C /* BirthTableViewCell.swift */; };
-		D212D35B1CF043D9008CEC5C /* InOfficeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D35A1CF043D9008CEC5C /* InOfficeTableViewCell.swift */; };
 		D212D3BE1CF97563008CEC5C /* LawmakerInList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3BD1CF97563008CEC5C /* LawmakerInList.swift */; };
 		D212D3C01CF97574008CEC5C /* BillInList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3BF1CF97574008CEC5C /* BillInList.swift */; };
 		D212D3C21CF99A8C008CEC5C /* LawmakerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3C11CF99A8C008CEC5C /* LawmakerListViewController.swift */; };
@@ -31,6 +26,8 @@
 		D2678C631C9052D80056278F /* Lawmaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2678C621C9052D80056278F /* Lawmaker.swift */; };
 		D2678C651C9173780056278F /* LawmakerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2678C641C9173780056278F /* LawmakerTableViewCell.swift */; };
 		D2678C671C91797D0056278F /* TaskCancelingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2678C661C91797D0056278F /* TaskCancelingTableViewCell.swift */; };
+		D26806531D323A3A00DA5C53 /* LawmakerDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26806521D323A3A00DA5C53 /* LawmakerDetailTableViewCell.swift */; };
+		D26806581D325E9300DA5C53 /* SearchedLawmakerDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26806571D325E9300DA5C53 /* SearchedLawmakerDetailTableViewCell.swift */; };
 		D27451A81CA6BE770024A904 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27451A71CA6BE770024A904 /* Constants.swift */; };
 		D27451AA1CA6BE8D0024A904 /* TPPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27451A91CA6BE8D0024A904 /* TPPClient.swift */; };
 		D292EE2E1D20067300EF84B0 /* SearchedLawmakerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D292EE2D1D20067300EF84B0 /* SearchedLawmakerDetailViewController.swift */; };
@@ -76,13 +73,8 @@
 		3801775D12FBF6181F3CD108 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		48DA9048AE9501E62CCFAF3E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		86E1E5853AA5541A8A5D07D0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		D20028251CE7F00600F1369E /* PartyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyTableViewCell.swift; sourceTree = "<group>"; };
 		D200282F1CE86C9E00F1369E /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		D20028311CE8B3C300F1369E /* BillDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailViewController.swift; sourceTree = "<group>"; };
-		D212D3511CF0438B008CEC5C /* HomepageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomepageTableViewCell.swift; sourceTree = "<group>"; };
-		D212D3521CF0438B008CEC5C /* DistrictTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistrictTableViewCell.swift; sourceTree = "<group>"; };
-		D212D3541CF0438B008CEC5C /* BirthTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthTableViewCell.swift; sourceTree = "<group>"; };
-		D212D35A1CF043D9008CEC5C /* InOfficeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InOfficeTableViewCell.swift; sourceTree = "<group>"; };
 		D212D3BD1CF97563008CEC5C /* LawmakerInList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerInList.swift; sourceTree = "<group>"; };
 		D212D3BF1CF97574008CEC5C /* BillInList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillInList.swift; sourceTree = "<group>"; };
 		D212D3C11CF99A8C008CEC5C /* LawmakerListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerListViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +92,8 @@
 		D2678C621C9052D80056278F /* Lawmaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lawmaker.swift; sourceTree = "<group>"; };
 		D2678C641C9173780056278F /* LawmakerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerTableViewCell.swift; sourceTree = "<group>"; };
 		D2678C661C91797D0056278F /* TaskCancelingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCancelingTableViewCell.swift; sourceTree = "<group>"; };
+		D26806521D323A3A00DA5C53 /* LawmakerDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerDetailTableViewCell.swift; sourceTree = "<group>"; };
+		D26806571D325E9300DA5C53 /* SearchedLawmakerDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchedLawmakerDetailTableViewCell.swift; sourceTree = "<group>"; };
 		D27451A71CA6BE770024A904 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D27451A91CA6BE8D0024A904 /* TPPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPClient.swift; sourceTree = "<group>"; };
 		D292EE2D1D20067300EF84B0 /* SearchedLawmakerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchedLawmakerDetailViewController.swift; sourceTree = "<group>"; };
@@ -172,16 +166,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D212D35C1CF04549008CEC5C /* Lawmaker Info TableViewCells */ = {
+		D26806541D323A8D00DA5C53 /* Xib */ = {
 			isa = PBXGroup;
 			children = (
-				D212D3511CF0438B008CEC5C /* HomepageTableViewCell.swift */,
-				D212D3521CF0438B008CEC5C /* DistrictTableViewCell.swift */,
-				D212D3541CF0438B008CEC5C /* BirthTableViewCell.swift */,
-				D212D35A1CF043D9008CEC5C /* InOfficeTableViewCell.swift */,
-				D20028251CE7F00600F1369E /* PartyTableViewCell.swift */,
+				D2D3F9551CABD1A500D97B23 /* BillCell.xib */,
+				D29A751D1C92E03F002F06F2 /* LawmakerCell.xib */,
+				D2934CFD1CF3442B00EA734C /* SearchedBillCell.xib */,
+				D2D3F9571CABFA3F00D97B23 /* SearchedLawmakerCell.xib */,
+				D2934D031CF3448C00EA734C /* SearchedPartyCell.xib */,
 			);
-			name = "Lawmaker Info TableViewCells";
+			name = Xib;
+			sourceTree = "<group>";
+		};
+		D26806551D323ACA00DA5C53 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				D235C32F1CB1068700704A90 /* ImageCache.swift */,
+			);
+			name = Cache;
+			sourceTree = "<group>";
+		};
+		D26806561D323AEC00DA5C53 /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+				D27451A71CA6BE770024A904 /* Constants.swift */,
+			);
+			name = Constant;
 			sourceTree = "<group>";
 		};
 		D2964B731C7344D700D5FF5C = {
@@ -209,14 +219,12 @@
 		D2964B7E1C7344D700D5FF5C /* OpenNA */ = {
 			isa = PBXGroup;
 			children = (
-				D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */,
-				D235C32F1CB1068700704A90 /* ImageCache.swift */,
-				D27451A71CA6BE770024A904 /* Constants.swift */,
+				D26806561D323AEC00DA5C53 /* Constant */,
+				D26806551D323ACA00DA5C53 /* Cache */,
 				D2D3F9541CABD02D00D97B23 /* Network */,
 				D2D3F9491CAA54D600D97B23 /* Controller */,
 				D2D3F9481CAA54CC00D97B23 /* View */,
 				D2D3F9471CAA54A200D97B23 /* Model */,
-				D2964BEC1C775A6400D5FF5C /* Assets */,
 				D2964BEB1C77124E00D5FF5C /* Supporting Files */,
 			);
 			path = OpenNA;
@@ -243,25 +251,15 @@
 		D2964BEB1C77124E00D5FF5C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */,
+				D2964B861C7344D700D5FF5C /* Assets.xcassets */,
+				D2964B831C7344D700D5FF5C /* Main.storyboard */,
+				D25951401D153EB5007AD7D1 /* Launch Screen.storyboard */,
+				D26806541D323A8D00DA5C53 /* Xib */,
 				D23147B81D0D1CBD00273DD3 /* assembly.json */,
 				D2964B8B1C7344D700D5FF5C /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		D2964BEC1C775A6400D5FF5C /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				D2964B861C7344D700D5FF5C /* Assets.xcassets */,
-				D2964B831C7344D700D5FF5C /* Main.storyboard */,
-				D25951401D153EB5007AD7D1 /* Launch Screen.storyboard */,
-				D29A751D1C92E03F002F06F2 /* LawmakerCell.xib */,
-				D2D3F9551CABD1A500D97B23 /* BillCell.xib */,
-				D2D3F9571CABFA3F00D97B23 /* SearchedLawmakerCell.xib */,
-				D2934CFD1CF3442B00EA734C /* SearchedBillCell.xib */,
-				D2934D031CF3448C00EA734C /* SearchedPartyCell.xib */,
-			);
-			name = Assets;
 			sourceTree = "<group>";
 		};
 		D2D3F9471CAA54A200D97B23 /* Model */ = {
@@ -281,9 +279,10 @@
 		D2D3F9481CAA54CC00D97B23 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D212D35C1CF04549008CEC5C /* Lawmaker Info TableViewCells */,
+				D26806521D323A3A00DA5C53 /* LawmakerDetailTableViewCell.swift */,
 				D2678C641C9173780056278F /* LawmakerTableViewCell.swift */,
 				D2934D051CF346E700EA734C /* SearchedLawmakerTableViewCell.swift */,
+				D26806571D325E9300DA5C53 /* SearchedLawmakerDetailTableViewCell.swift */,
 				D2934D071CF346FA00EA734C /* SearchedBillTableViewCell.swift */,
 				D2934D091CF3470800EA734C /* SearchedPartyTableViewCell.swift */,
 				D23772961CAD22E60004A2E2 /* PartyCollectionViewCell.swift */,
@@ -518,22 +517,20 @@
 				D2678C651C9173780056278F /* LawmakerTableViewCell.swift in Sources */,
 				D2964B801C7344D700D5FF5C /* AppDelegate.swift in Sources */,
 				D2D3F9531CABCE4F00D97B23 /* BillTableViewCell.swift in Sources */,
-				D212D35B1CF043D9008CEC5C /* InOfficeTableViewCell.swift in Sources */,
 				D2678C5E1C904DE90056278F /* CoreDataStackManager.swift in Sources */,
+				D26806581D325E9300DA5C53 /* SearchedLawmakerDetailTableViewCell.swift in Sources */,
 				D27451AA1CA6BE8D0024A904 /* TPPClient.swift in Sources */,
 				D29468131CC2538600232D41 /* Search.swift in Sources */,
 				D2934D061CF346E700EA734C /* SearchedLawmakerTableViewCell.swift in Sources */,
 				D20028301CE86C9E00F1369E /* WebViewController.swift in Sources */,
 				D2D3F94B1CAA808200D97B23 /* Bill.swift in Sources */,
-				D212D3561CF0438B008CEC5C /* HomepageTableViewCell.swift in Sources */,
 				D2934D0A1CF3470800EA734C /* SearchedPartyTableViewCell.swift in Sources */,
 				D2678C671C91797D0056278F /* TaskCancelingTableViewCell.swift in Sources */,
 				D212D3C21CF99A8C008CEC5C /* LawmakerListViewController.swift in Sources */,
-				D212D3591CF0438B008CEC5C /* BirthTableViewCell.swift in Sources */,
 				D259513D1D1538AA007AD7D1 /* SplashViewController.swift in Sources */,
 				D292EE2E1D20067300EF84B0 /* SearchedLawmakerDetailViewController.swift in Sources */,
 				D212D3C41CF99AA6008CEC5C /* BillListViewController.swift in Sources */,
-				D20028261CE7F00600F1369E /* PartyTableViewCell.swift in Sources */,
+				D26806531D323A3A00DA5C53 /* LawmakerDetailTableViewCell.swift in Sources */,
 				D2934D081CF346FA00EA734C /* SearchedBillTableViewCell.swift in Sources */,
 				D212D3BE1CF97563008CEC5C /* LawmakerInList.swift in Sources */,
 				D2D3F95A1CAC2D6700D97B23 /* Party.swift in Sources */,
@@ -542,7 +539,6 @@
 				D2678C611C904E740056278F /* Model.xcdatamodeld in Sources */,
 				D22A7F531CDB511500CFF74A /* TPPClientConvenience.swift in Sources */,
 				D23772971CAD22E60004A2E2 /* PartyCollectionViewCell.swift in Sources */,
-				D212D3571CF0438B008CEC5C /* DistrictTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

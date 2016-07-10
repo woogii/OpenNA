@@ -14,17 +14,20 @@ import AlamofireImage
 
 class TPPClient: NSObject {
     
+    // MARK : - Property (for Image Caching)
     let photoCache = AutoPurgingImageCache (
         memoryCapacity: 100 * 1024 * 1024,
         preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
     )
     
-    // MARK : - Initializers
+    // MARK : - Initialization
+    
     override init() {
         super.init()
     }
     
     // MARK : - HTTP GET Request
+    
     func taskForGETMethod(parameters:[String:AnyObject], withPathExtension method:String ,completionHandlerForGet:(results:AnyObject?, error:NSError?)->Void)->NSURLSessionTask{
         
         
@@ -134,10 +137,12 @@ class TPPClient: NSObject {
         return components.URL!
     }
     
+    // MARK : - Cache Image
     func cacheImage(image: Image, urlString:String) {
         photoCache.addImage(image, withIdentifier: urlString)
     }
     
+    // MARK : - Get cached Image
     func cachedImage(urlString:String)->Image? {
         return photoCache.imageWithIdentifier(urlString)
     }

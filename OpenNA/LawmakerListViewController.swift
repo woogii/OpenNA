@@ -10,15 +10,20 @@ import Foundation
 import UIKit
 import CoreData
 
+// MARK : - LawmakerListViewController : UIViewController
+
 class LawmakerListViewController : UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
+    // MARK : - Property 
     
+    @IBOutlet weak var tableView: UITableView!
     var lawmakersInList = [LawmakerInList]()
     
     var sharedContext : NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext!
     }
+    
+    // MARK : - View Life Cycle 
     
     override func viewWillAppear(animated: Bool) {
         
@@ -30,7 +35,19 @@ class LawmakerListViewController : UIViewController {
         tableView.reloadData()
     }
     
-    func  fetchLawmakersInList()->[LawmakerInList] {
+    override func viewDidLoad() {
+        // Register Nib Objects
+        tableView.registerNib(UINib(nibName: Constants.Identifier.LawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.LawmakerCell)
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        lawmakersInList = fetchLawmakersInList()
+        
+    }
+    
+    // MARK : - Fetch Lawmakers In Favorite List
+    
+    func fetchLawmakersInList()->[LawmakerInList] {
         
         let fetchRequest = NSFetchRequest(entityName : Constants.Entity.LawmakerInList)
         
@@ -46,15 +63,7 @@ class LawmakerListViewController : UIViewController {
         
     }
     
-    override func viewDidLoad() {
-        // Register Nib Objects
-        tableView.registerNib(UINib(nibName: Constants.Identifier.LawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.LawmakerCell)
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        lawmakersInList = fetchLawmakersInList()
-        
-    }
+    // MARK : - Prepare For Segue 
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let path = tableView.indexPathForSelectedRow!
@@ -77,8 +86,36 @@ class LawmakerListViewController : UIViewController {
     
 }
 
+// MARK : - LawmakerListViewController : UITableViewDelegate, UITableViewDataSource 
+
 extension LawmakerListViewController : UITableViewDelegate, UITableViewDataSource {
     
+    
+
+    // MARK : - UITableViewDataSource Methods
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        
+        var numberOfSection = 0
+        
+        if lawmakersInList.count > 0 {
+            
+            self.tableView.backgroundView = nil
+            numberOfSection = 1
+            
+            
+        } else {
+            
+            let noDataLabel: UILabel = UILabel(frame: CGRectMake(0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height))
+            noDataLabel.text = Constants.Strings.LawmakerListVC.DefaultLabelMessage
+            noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
+            noDataLabel.textAlignment = NSTextAlignment.Center
+            self.tableView.backgroundView = noDataLabel
+            
+        }
+        
+        return numberOfSection
+    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -131,7 +168,8 @@ extension LawmakerListViewController : UITableViewDelegate, UITableViewDataSourc
         return lawmakersInList.count
     }
     
-    // MARK : UITableView Delegate Method
+    // MARK : UITableView Delegate Methods
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 140
     }

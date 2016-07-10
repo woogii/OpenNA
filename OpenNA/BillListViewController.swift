@@ -10,13 +10,19 @@ import Foundation
 import UIKit
 import CoreData
 
+// MARK : - BillListViewController : UIViewController 
+
 class BillListViewController : UIViewController {
+    
+    // MARK : - Property 
     
     @IBOutlet weak var tableView: UITableView!
     var billsInList = [BillInList]()
     var sharedContext : NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext!
     }
+    
+    // MARK : - View Life Cycle 
     
     override func viewWillAppear(animated: Bool) {
         
@@ -37,6 +43,8 @@ class BillListViewController : UIViewController {
         billsInList = fetchBillsInList()
     }
     
+    // MARK  : - Fetch Bills in Favorite List 
+    
     func  fetchBillsInList()->[BillInList] {
         
         let fetchRequest = NSFetchRequest(entityName : Constants.Entity.BillInList)
@@ -52,9 +60,11 @@ class BillListViewController : UIViewController {
         }
     }
     
+    // MARK : - Prepare For Segue 
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let path = tableView.indexPathForSelectedRow!
         
+        let path = tableView.indexPathForSelectedRow!
         let detailVC = segue.destinationViewController as! BillDetailViewController
         
         detailVC.name = billsInList[path.row].name
@@ -64,14 +74,41 @@ class BillListViewController : UIViewController {
         detailVC.summary = billsInList[path.row].summary
         detailVC.documentUrl = billsInList[path.row].documentUrl
         detailVC.assemblyID = billsInList[path.row].assemblyId as? Int
-        
         detailVC.hidesBottomBarWhenPushed = true
         
     }
 
 }
 
+// MARK : - BillListViewController : UITableViewDelegate, UITableViewDataSource
+
 extension BillListViewController : UITableViewDelegate, UITableViewDataSource {
+    
+    // MARK : - UITableViewDataSource Method
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        
+        var numberOfSection = 0
+        
+        if billsInList.count > 0 {
+            
+            tableView.backgroundView = nil
+            numberOfSection = 1
+            
+            
+        } else {
+            
+            let noDataLabel: UILabel = UILabel(frame: CGRectMake(0, 0, tableView.bounds.size.width, tableView.bounds.size.height))
+            noDataLabel.text = Constants.Strings.BillListVC.DefaultLabelMessage
+            noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
+            noDataLabel.textAlignment = NSTextAlignment.Center
+            tableView.backgroundView = noDataLabel
+            
+        }
+        
+        return numberOfSection
+    }
+
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -88,7 +125,8 @@ extension BillListViewController : UITableViewDelegate, UITableViewDataSource {
         return billsInList.count
     }
     
-    // MARK : UITableView Delegate Method
+    // MARK : - UITableView Delegate Method
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 140
     }
