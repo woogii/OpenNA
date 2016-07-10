@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
     <entity name="BillInList" representedClassName=".BillInList" syncable="YES">
         <attribute name="assemblyId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="documentUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -11,7 +11,9 @@
     </entity>
     <entity name="Lawmaker" representedClassName=".Lawmaker" syncable="YES">
         <attribute name="birth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="blog" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="district" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="education" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="homepage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -29,7 +31,7 @@
     </entity>
     <elements>
         <element name="BillInList" positionX="-54" positionY="45" width="128" height="150"/>
-        <element name="Lawmaker" positionX="-63" positionY="-18" width="128" height="150"/>
+        <element name="Lawmaker" positionX="-63" positionY="-18" width="128" height="180"/>
         <element name="LawmakerInList" positionX="-63" positionY="36" width="128" height="150"/>
     </elements>
 </model>

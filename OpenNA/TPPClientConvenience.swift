@@ -10,7 +10,7 @@ import Foundation
 
 extension TPPClient {
     
-    // MARK : Convenience Methods
+    // MARK : - Convenience Methods
     /// Get bill information
     func getBills(page:Int, completionHandler: (results:[Bill]?, error:NSError?)->Void)  {
         
@@ -53,11 +53,13 @@ extension TPPClient {
                 completionHandler(results:nil, error:error)
             }
             else {
-                print("return from taskForGetMethod")
+                
                 if let results = requestResult![Constants.JSONResponseKeys.Items] as? [[String:AnyObject]] {
                 
                     let parties = Party.partiesFromResults(results)
-                    print(parties)
+                    #if DEBUG
+                        log.debug("\(parties)")
+                    #endif
                     completionHandler(results: parties, error: nil)
                 } else {
                     completionHandler(results: nil, error: NSError(domain: Constants.Error.DomainJSONParsing, code : Constants.Error.Code,

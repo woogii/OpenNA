@@ -1,12 +1,14 @@
 //
 //  ImageCache.swift
-//  VirtualTourist
+//  OpenNA
 //
 //  Created by Hyun on 2015. 12. 6..
 //  Copyright © 2015년 wook2. All rights reserved.
 //
 
 import UIKit
+
+// MARK : - ImageCache 
 
 class ImageCache {
     

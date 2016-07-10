@@ -38,7 +38,9 @@ class LawmakerListViewController : UIViewController {
             return try sharedContext.executeFetchRequest(fetchRequest) as! [LawmakerInList]
             
         } catch let error as NSError {
-            print("\(error.description)")
+            #if DEBUG
+                log.debug("\(error.description)")
+            #endif
             return [LawmakerInList]()
         }
         
@@ -51,7 +53,7 @@ class LawmakerListViewController : UIViewController {
         tableView.dataSource = self
         
         lawmakersInList = fetchLawmakersInList()
-        print("count : \(lawmakersInList.count)")
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -89,7 +91,6 @@ extension LawmakerListViewController : UITableViewDelegate, UITableViewDataSourc
     {
         
         cell.nameLabel.text = lawmakersInList[indexPath.row].name
-        print(lawmakersInList[indexPath.row].name)
         cell.partyLabel.text = lawmakersInList[indexPath.row].party
         let urlString:String? = lawmakersInList[indexPath.row].image
         let url = NSURL(string: urlString!)!

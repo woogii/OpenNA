@@ -8,21 +8,22 @@
 
 import Foundation
 
+// MARK : - Constants
 struct Constants {
     
-    // MARK: API
+    // MARK : - API
     struct Api {
         
-        // MARK: API Key
+        // MARK: - API Key
         static let Key    = "test"
         
-        // MARK: URLs
+        // MARK: - URLs
         static let Scheme = "http"
         static let Host   = "api.popong.com"
         static let Path   = "/v0.1"
     }
     
-    // MARK: TPP Parameter Keys
+    // MARK: - TPP Parameter Keys
     struct ParameterKeys {
         
         static let ApiKey  = "api_key"
@@ -34,7 +35,7 @@ struct Constants {
         
     }
     
-    // MARK: TPP Parameter Values
+    // MARK: - TPP Parameter Values
     struct ParameterValues {
         
         static let ProposedDate   = "proposed_date"
@@ -44,7 +45,7 @@ struct Constants {
         
     }
     
-    // MARK: Methods
+    // MARK: - Methods
     struct Methods {
         
         static let Bill      = "/bill"
@@ -52,20 +53,20 @@ struct Constants {
         static let Party     = "/party"
         static let Statement = "/statement"
         
-        // MARK: Search
+        // MARK : - Search
         static let Search = "/search"
         
     }
     
-    // MARK: JSON Response Keys
+    // MARK : - JSON Response Keys
     struct JSONResponseKeys {
         
-        // MARK: General
+        // MARK : - General
         static let StatusMessage = "status_message"
         static let StatusCode    = "status_code"
         static let Items         = "items"
         
-        // MARK : Lawmaker
+        // MARK : - Lawmaker
         static let Name          = "name"
         static let NameEn        = "name_en"
         static let Photo         = "photo"
@@ -80,7 +81,7 @@ struct Constants {
         static let WhenElected   = "when_elected"
         static let District      = "district"
         
-        // MARK: Bill
+        // MARK : - Bill
         static let BillSponsor      = "sponsor"
         static let BillDocUrl       = "document_url"
         static let BillProposedDate = "proposed_date"
@@ -93,32 +94,35 @@ struct Constants {
         static let BillSummary      = "summary"
         static let BillKind         = "kind"
         
-        // MARK: Party
+        // MARK : - Party
         static let PartyColor = "color"
         static let PartyLogo  = "logo"
         static let PartySize  = "size"
         static let PartyId    = "id"
         static let PartyName  = "name"
         
-        // MARK : Common
+        // MARK : - Common
         static let NextPage   = "next_page"
     }
     
-    // MARK : Fetch
+    // MARK : - Fetch
     struct Fetch {
+        
         static let SortKeyForLawmaker  = "name"
         static let PredicateForImage   = "image=%@"
         static let PredicateForName    = "name=%@"
+        
     }
     
-    // MARK : Entity 
+    // MARK : - Entity
     struct Entity {
+        
         static let Lawmaker = "Lawmaker"
         static let LawmakerInList = "LawmakerInList"
         static let BillInList = "BillInList"
     }
     
-    // MARK : Cell & Segue Identifier
+    // MARK : - Cell & Segue Identifier
     struct Identifier {
         
         static let LawmakerCell       = "LawmakerCell"
@@ -143,18 +147,19 @@ struct Constants {
         
         static let LawmakerDetailVC = "LawmakerDetail"
         static let BillDetailVC = "BillDetail"
+        static let SearchedLawmakerDetailVC = "SearchedLawmakerDetail"
         static let WebViewVC = "webViewVC"
         
     }
     
-    // MARK : Activity Indicator Text
+    // MARK : - Activity Indicator Text
     struct ActivityIndicatorText {
         
         static let Loading   = "Loading..."
         static let Searching = "Searching..."
     }
     
-    // MARK : Error
+    // MARK : - Error
     struct Error {
         
         static let DomainJSONParsing = "JSON Data Parsing"
@@ -166,7 +171,7 @@ struct Constants {
         static let DescKeyForNoSearchResult      = "Could not parse Bill type JSON "
     }
     
-    // MARK : Section Name
+    // MARK : - Section Name
     struct SectionName {
         
         static let Lawmaker = "lawmaker"
@@ -175,11 +180,12 @@ struct Constants {
         
     }
     
-    // MARK : Model Key
+    // MARK : - Model Key
     struct ModelKeys {
         
-        // MARK : Lawmaker
+        // MARK : - Lawmaker
         static let Name = "name"
+        static let NameEn = "name_en"
         static let ImageUrl = "image"
         static let Party    = "party"
         static let Birth    = "birth"
@@ -188,7 +194,7 @@ struct Constants {
         static let District = "district"
         static let LawmakerEntity = "Lawmaker"
         
-        // MARK : Bill
+        // MARK : - Bill
         static let BillSponsor = "sponsor"
         static let BillProposedDate = "proposed_date"
         static let BillName = "name"
@@ -197,15 +203,20 @@ struct Constants {
         static let BillDocumentUrl = "documentUrl"
         static let BillAssemblyId = "assemblyId"
         
-        // MARK: Party
+        // MARK : - Party
         static let PartyColor = "color"
         static let PartyLogo  = "logo"
         static let PartySize  = "size"
         static let PartyId    = "id"
         static let PartyName  = "name"
         
+        // MARK : - Searched Lawmaker
+        static let Education = "education"
+        static let Blog = "blog"
+        
     }
     
+    // MARK : - Custom Cell
     struct CustomCell {
         
         static let PartyLabel    = "Party"
@@ -216,8 +227,18 @@ struct Constants {
         
     }
     
+    // MARK : - Default System Key
     struct UserDefaultKeys {
         static let InitialDataExist = "InitialData"
+    }
+    
+    struct Alert {
+        
+        struct Title {
+            static let OK = "OK"
+            static let Dismiss = "Dismiss"
+        }
+        
     }
     
     static let BundleFileName = "assembly"
@@ -227,7 +248,5 @@ struct Constants {
     static let NumOfProfileCells = 5
     static let HeaderTitle = "Profile"
     static let WikiUrl = "https://ko.wikipedia.org/wiki/"
-    
-    
     
 }

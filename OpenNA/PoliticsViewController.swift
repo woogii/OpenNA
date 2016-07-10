@@ -13,7 +13,7 @@ import MBProgressHUD
 // MARK: - PoliticsViewController : UIViewController
 class PoliticsViewController: UIViewController  {
     
-    // MARK : Properties
+    // MARK : - Properties
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
@@ -88,7 +88,9 @@ class PoliticsViewController: UIViewController  {
             return try sharedContext.executeFetchRequest(fetchRequest) as! [Lawmaker]
             
         } catch let error as NSError {
-            print("\(error.description)")
+            #if DEBUG
+                log.debug("\(error.description)")
+            #endif
             return [Lawmaker]()
         }
     }
@@ -126,7 +128,9 @@ class PoliticsViewController: UIViewController  {
                     }
                     
                 } else {
-                    print(error)
+                    #if DEBUG
+                        log.debug("\(error)")
+                    #endif
                 }
             }
             break
@@ -149,7 +153,9 @@ class PoliticsViewController: UIViewController  {
                     }
                 }
                 else {
-                    print(error)
+                    #if DEBUG
+                        log.debug("\(error)")
+                    #endif
                 }
             }
             
@@ -304,7 +310,9 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         do {
             fetchedResults =  try sharedContext.executeFetchRequest(fetchRequest) as! [Lawmaker]
         } catch let error as NSError {
-            print("\(error.description)")
+            #if DEBUG
+                log.debug("\(error.description)")
+            #endif
         }
         // Get a single fetched object
         searchedLawmaker = fetchedResults.first
@@ -434,7 +442,9 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
                         }
                     }
                     else {
-                        print(error)
+                        #if DEBUG
+                            log.debug("\(error)")
+                        #endif
                     }
                 }
             }

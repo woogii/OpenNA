@@ -84,7 +84,6 @@ class BillDetailViewController: UITableViewController {
     // MARK : Fetch Bills in MyList
     
     func fetchBillInList()->[BillInList]?{
-        print("bill name : \(name!)")
         
         let fetchRequest = NSFetchRequest(entityName : Constants.Entity.BillInList)
         fetchRequest.predicate = NSPredicate(format: Constants.Fetch.PredicateForName, name!)
@@ -97,10 +96,10 @@ class BillDetailViewController: UITableViewController {
         do {
             fetchedResults = try sharedContext.executeFetchRequest(fetchRequest) as? [BillInList]
         } catch let error as NSError {
-            print("\(error.description)")
+            #if DEBUG
+                log.debug("\(error.description)")
+            #endif
         }
-        
-        print("fetch result : \(fetchedResults)")
         
         return fetchedResults
     }
@@ -128,7 +127,9 @@ class BillDetailViewController: UITableViewController {
             do {
                 try sharedContext.save()
             } catch {
-                print(error)
+                #if DEBUG
+                    log.debug("\(error)")
+                #endif
             }
             
             favoriteButton.tintColor = UIColor.redColor()
@@ -144,7 +145,9 @@ class BillDetailViewController: UITableViewController {
             do {
                 try sharedContext.save()
             } catch {
-                print(error)
+                #if DEBUG
+                    log.debug("\(error)")
+                #endif
             }
             
             favoriteButton.tintColor = nil
