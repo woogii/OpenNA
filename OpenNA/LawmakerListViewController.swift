@@ -75,7 +75,7 @@ class LawmakerListViewController : UIViewController {
         detailVC.birth = lawmakersInList[path.row].birth
         detailVC.party = lawmakersInList[path.row].party
         detailVC.when_elected = lawmakersInList[path.row].when_elected
-        detailVC.district = lawmakersInList[path.row].when_elected
+        detailVC.district = lawmakersInList[path.row].district
         detailVC.homepage = lawmakersInList[path.row].homepage
         detailVC.image = lawmakersInList[path.row].image
         detailVC.pinnedImage = lawmakersInList[path.row].pinnedImage
@@ -153,6 +153,9 @@ extension LawmakerListViewController : UITableViewDelegate, UITableViewDataSourc
                         self.lawmakersInList[indexPath.row].pinnedImage = image
                         cell.profileImageView!.image = image
                     }
+                } else {
+                    CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
+                                                  okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
                 }
                 
             }

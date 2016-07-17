@@ -43,8 +43,6 @@ class BillDetailViewController: UITableViewController {
         
         tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        //summaryTextView.textContainer.maximumNumberOfLines = 0
-        //summaryTextView.textContainer.lineBreakMode = .ByWordWrapping
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -57,7 +55,12 @@ class BillDetailViewController: UITableViewController {
         statusLabel.text = status
         sponsorLabel.text = sponsor
         documentURLLabel.text = documentUrl
-        summaryTextView.text = summary
+        
+        if summary?.characters.count > 0 {
+            summaryTextView.text = summary
+        } else {
+            summaryTextView.text = Constants.Strings.BillDetailVC.TextViewDefaultMsg 
+        }
         
         guard let assemblyID = assemblyID  else {
             assembylIDLabel.text = ""
@@ -67,7 +70,7 @@ class BillDetailViewController: UITableViewController {
         if previousViewController() != nil {
             
             if previousViewController() is SearchViewController {
-                print("from SearchVC")
+            
                 favoriteButton.image = nil
             }
         
@@ -179,8 +182,11 @@ class BillDetailViewController: UITableViewController {
     
 }
 
+// MARK : - UIViewController Extension
+
 extension UIViewController {
     
+    // MARK : - Get a reference of the previousViewController
     func previousViewController() -> UIViewController? {
         if let stack = self.navigationController?.viewControllers {
             for i in (1..<stack.count).reverse() {

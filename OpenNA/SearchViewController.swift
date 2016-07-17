@@ -30,7 +30,6 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //  navigationController?.navigationBarHidden = true
         // Register Nib Objects
         tableView.registerNib(UINib(nibName: Constants.Identifier.SearchedLawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedLawmakerCell)
         tableView.registerNib(UINib(nibName: Constants.Identifier.SearchedBillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedBillCell)
@@ -59,18 +58,7 @@ class SearchViewController: UIViewController {
     func hideKeyboard() {
         view.endEditing(true)
     }
-    
-    // MARK : - Prepare For Segue 
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if segue.identifier == Constants.Identifier.SearchedLawmakerDetailVC {
-            
-            
-            
-        }
-    }
-    
 }
 
 // MARK : - SearchViewController : UISearchBarDelegate
@@ -87,12 +75,14 @@ extension SearchViewController : UISearchBarDelegate {
         searchResults = []
         sectionTitle = []
         
-        search.searchAll(searchBar.text!) { (lawmakers,bills,parties, errorString) in
+        search.searchAll(searchBar.text!) { (lawmakers,bills,parties, error) in
             
-            log.debug("number of lawmaker : \(lawmakers.count)")
-            log.debug("number of bill     : \(bills.count)")
-            log.debug("number of party    : \(parties.count)")
-            log.debug("\(lawmakers)")
+            if let error = error {
+                CommonHelper.showAlertWithMsg(self, msg: error.localizedDescription, showCancelButton: false,
+                                              okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
+                return
+            }
+            
             if lawmakers.count > 0 {
                     
                 self.searchResults.append([Constants.SectionName.Lawmaker:lawmakers])
@@ -137,10 +127,8 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     // MARK : UITableViewDataSource Methods
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        log.debug("section : \(section)")
         
         guard let section = searchResults[section][sectionTitle[section]] else {
-            log.debug("number of rows : 0")
             return 0
         }
 
@@ -148,13 +136,10 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        log.debug("number of section : \(searchResults.count)")
         return searchResults.count
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        log.debug("section for title  : \(section)")
-        
         return sectionTitle[section]
     }
     
@@ -162,16 +147,11 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
         
         var lawmakerImageRequest : Request?
         var partyImageRequest : Request?
-        print("search result : \(searchResults.count)")
         
         if searchResults.count > 0 {
-            
-            let key = [String](searchResults[indexPath.section].keys)
-            print("key : \(key)")
-           
+        
             let section = sectionTitle[indexPath.section]
 
-            //if key[0] == "lawmaker" {
             if section == Constants.SectionName.Lawmaker {
         
                 let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchedLawmakerCell, forIndexPath: indexPath) as! SearchedLawmakerTableViewCell
@@ -197,16 +177,21 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                     
                     lawmakerImageRequest = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
                         
-                        dispatch_async(dispatch_get_main_queue()) {
+                        if let image = image {
                             
-                            cell.lawmakerImageView?.image = image
+                            dispatch_async(dispatch_get_main_queue()) {
+                                cell.lawmakerImageView?.image = image
+                            }
+                        } else {
+                        
+                            CommonHelper.showAlertWithMsg(self, msg: error!.localizedDescription, showCancelButton: false,
+                                                          okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
                         }
                     }
                     
                     return cell
                 }
 
-            // } else if key[0] == "bill" {
             } else if section == Constants.SectionName.Bill {
                 
                 let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchedBillCell, forIndexPath: indexPath) as! SearchedBillTableViewCell
@@ -238,7 +223,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                         return cell
                     }
                     
-                    // print(urlString)
+                    
                     if let image = TPPClient.sharedInstance().cachedImage(urlString) {
                         cell.partyImageView!.image = image
                         return cell
@@ -246,10 +231,15 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                     
                     partyImageRequest = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
                         
-                        dispatch_async(dispatch_get_main_queue()) {
-                            
-                            cell.partyImageView?.image = image
+                        if let image = image {
+                            dispatch_async(dispatch_get_main_queue()) {
+                                cell.partyImageView?.image = image
+                            }
+                        } else {
+                            CommonHelper.showAlertWithMsg(self, msg: error!.localizedDescription, showCancelButton: false,
+                                                              okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
                         }
+                        
                     }
                 }
                 return cell
@@ -278,9 +268,11 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
 
             let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.SearchedLawmakerDetailVC) as! SearchedLawmakerDetailViewController
         
-            log.debug("\(lawmakers[indexPath.row].name)")
-            log.debug("\(lawmakers[indexPath.row].birth)")
-            log.debug("\(lawmakers[indexPath.row].party)")
+            #if DEBUG
+                log.debug("\(lawmakers[indexPath.row].name)")
+                log.debug("\(lawmakers[indexPath.row].birth)")
+                log.debug("\(lawmakers[indexPath.row].party)")
+            #endif
             
             controller.name  = lawmakers[indexPath.row].name
             controller.birth = lawmakers[indexPath.row].birth

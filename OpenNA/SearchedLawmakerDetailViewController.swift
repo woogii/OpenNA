@@ -64,6 +64,9 @@ class SearchedLawmakerDetailViewController: UIViewController {
                         
                         self.profileImage!.image = image
                     }
+                } else {
+                    CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
+                                                  okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
                 }
             }
         } else {

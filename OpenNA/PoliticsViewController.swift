@@ -80,9 +80,8 @@ class PoliticsViewController: UIViewController  {
         collectionView.hidden = true
     }
     
-    
-    
     // MARK : - Data Fetch
+    
     func fetchAllLawmakers()->[Lawmaker]
     {
         let fetchRequest = NSFetchRequest(entityName : Constants.Entity.Lawmaker)
@@ -135,9 +134,8 @@ class PoliticsViewController: UIViewController  {
                     }
                     
                 } else {
-                    #if DEBUG
-                        log.debug("\(error)")
-                    #endif
+                    CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
+                                                      okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
                 }
             }
             break
@@ -162,9 +160,8 @@ class PoliticsViewController: UIViewController  {
                     }
                 }
                 else {
-                    #if DEBUG
-                        log.debug("\(error)")
-                    #endif
+                    CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
+                        okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
                 }
             }
             
@@ -250,7 +247,6 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
             count = indexInfo[section].1.count
             break
         case 1 :
-            log.debug("\(bills.count)")
             count = bills.count
             break
         case 2 :
@@ -312,7 +308,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         
         /*
          Fetch a lawmaker by using a given imageUrl string to check whether an image is cached
-         If an image is not cahced, httprequest function is invoked to download an image
+         If an image is not cahced, http request function is invoked to download an image
          */
         let fetchRequest = NSFetchRequest(entityName : Constants.Entity.Lawmaker )
         let predicate = NSPredicate(format: Constants.Fetch.PredicateForImage, urlString!)
@@ -465,9 +461,9 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
                         }
                     }
                     else {
-                        #if DEBUG
-                            log.debug("\(error)")
-                        #endif
+                        
+                        CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
+                                                      okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
                     }
                 }
             }

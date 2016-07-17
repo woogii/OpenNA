@@ -18,6 +18,7 @@
 		D23147B91D0D1CBD00273DD3 /* assembly.json in Resources */ = {isa = PBXBuildFile; fileRef = D23147B81D0D1CBD00273DD3 /* assembly.json */; };
 		D235C3301CB1068700704A90 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D235C32F1CB1068700704A90 /* ImageCache.swift */; };
 		D235C3321CB4090300704A90 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D235C3311CB4090300704A90 /* SearchViewController.swift */; };
+		D236968B1D3B3CAB00F9FB75 /* CommonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236968A1D3B3CAB00F9FB75 /* CommonHelper.swift */; };
 		D23772971CAD22E60004A2E2 /* PartyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23772961CAD22E60004A2E2 /* PartyCollectionViewCell.swift */; };
 		D259513D1D1538AA007AD7D1 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D259513C1D1538AA007AD7D1 /* SplashViewController.swift */; };
 		D25951411D153EB5007AD7D1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D25951401D153EB5007AD7D1 /* Launch Screen.storyboard */; };
@@ -83,6 +84,7 @@
 		D23147B81D0D1CBD00273DD3 /* assembly.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = assembly.json; sourceTree = "<group>"; };
 		D235C32F1CB1068700704A90 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		D235C3311CB4090300704A90 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		D236968A1D3B3CAB00F9FB75 /* CommonHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonHelper.swift; sourceTree = "<group>"; };
 		D23772961CAD22E60004A2E2 /* PartyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyCollectionViewCell.swift; sourceTree = "<group>"; };
 		D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerDetailViewController.swift; sourceTree = "<group>"; };
 		D259513C1D1538AA007AD7D1 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -166,7 +168,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D26806541D323A8D00DA5C53 /* Xib */ = {
+		D23696891D3B3C6600F9FB75 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				D25951401D153EB5007AD7D1 /* Launch Screen.storyboard */,
+				D2964B831C7344D700D5FF5C /* Main.storyboard */,
+			);
+			name = Storyboard;
+			sourceTree = "<group>";
+		};
+		D26806541D323A8D00DA5C53 /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
 				D2D3F9551CABD1A500D97B23 /* BillCell.xib */,
@@ -175,7 +186,7 @@
 				D2D3F9571CABFA3F00D97B23 /* SearchedLawmakerCell.xib */,
 				D2934D031CF3448C00EA734C /* SearchedPartyCell.xib */,
 			);
-			name = Xib;
+			name = Xibs;
 			sourceTree = "<group>";
 		};
 		D26806551D323ACA00DA5C53 /* Cache */ = {
@@ -251,11 +262,9 @@
 		D2964BEB1C77124E00D5FF5C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */,
+				D23696891D3B3C6600F9FB75 /* Storyboard */,
 				D2964B861C7344D700D5FF5C /* Assets.xcassets */,
-				D2964B831C7344D700D5FF5C /* Main.storyboard */,
-				D25951401D153EB5007AD7D1 /* Launch Screen.storyboard */,
-				D26806541D323A8D00DA5C53 /* Xib */,
+				D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */,
 				D23147B81D0D1CBD00273DD3 /* assembly.json */,
 				D2964B8B1C7344D700D5FF5C /* Info.plist */,
 			);
@@ -279,9 +288,11 @@
 		D2D3F9481CAA54CC00D97B23 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D26806541D323A8D00DA5C53 /* Xibs */,
 				D26806521D323A3A00DA5C53 /* LawmakerDetailTableViewCell.swift */,
 				D2678C641C9173780056278F /* LawmakerTableViewCell.swift */,
 				D2934D051CF346E700EA734C /* SearchedLawmakerTableViewCell.swift */,
+				D236968A1D3B3CAB00F9FB75 /* CommonHelper.swift */,
 				D26806571D325E9300DA5C53 /* SearchedLawmakerDetailTableViewCell.swift */,
 				D2934D071CF346FA00EA734C /* SearchedBillTableViewCell.swift */,
 				D2934D091CF3470800EA734C /* SearchedPartyTableViewCell.swift */,
@@ -530,6 +541,7 @@
 				D259513D1D1538AA007AD7D1 /* SplashViewController.swift in Sources */,
 				D292EE2E1D20067300EF84B0 /* SearchedLawmakerDetailViewController.swift in Sources */,
 				D212D3C41CF99AA6008CEC5C /* BillListViewController.swift in Sources */,
+				D236968B1D3B3CAB00F9FB75 /* CommonHelper.swift in Sources */,
 				D26806531D323A3A00DA5C53 /* LawmakerDetailTableViewCell.swift in Sources */,
 				D2934D081CF346FA00EA734C /* SearchedBillTableViewCell.swift in Sources */,
 				D212D3BE1CF97563008CEC5C /* LawmakerInList.swift in Sources */,

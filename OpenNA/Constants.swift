@@ -266,6 +266,7 @@ struct Constants {
         struct Title {
             static let OK = "OK"
             static let Dismiss = "Dismiss"
+            static let Cancel = "Cancel"
         }
         
         struct Message {
@@ -317,6 +318,10 @@ struct Constants {
         
         struct BillListVC {
             static let DefaultLabelMessage =  "No bill information in your list"
+        }
+        
+        struct BillDetailVC {
+            static let TextViewDefaultMsg = "There is no summary provided"
         }
     }
     

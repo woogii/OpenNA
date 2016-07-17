@@ -128,7 +128,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bFa-dU-hJS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1150" y="926"/>
+            <point key="canvasLocation" x="742" y="898"/>
         </scene>
         <!--Bill List View Controller-->
         <scene sceneID="ajR-Jf-NFB">
@@ -175,7 +175,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HUp-Bx-ATd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="618" y="184"/>
+            <point key="canvasLocation" x="347" y="184"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="g2R-Kx-i3E">
@@ -247,7 +247,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IYU-H8-Tgc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-185" y="876"/>
+            <point key="canvasLocation" x="-185" y="898"/>
         </scene>
         <!--Splash View Controller-->
         <scene sceneID="yWu-zc-1QK">
@@ -395,12 +395,12 @@
                     <navigationItem key="navigationItem" id="ViL-fB-cwm">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="FJb-eT-8RG">
-                            <rect key="frame" x="11" y="8" width="299" height="29"/>
+                            <rect key="frame" x="11" y="7" width="299" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
-                                <segment title="People"/>
+                                <segment title="Lawmaker"/>
                                 <segment title="Bill"/>
-                                <segment title="Parties"/>
+                                <segment title="Party"/>
                             </segments>
                             <connections>
                                 <action selector="segmentedControlChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Mqa-3F-L5B"/>
@@ -523,7 +523,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bx0-a2-hbX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="736" y="-1102"/>
+            <point key="canvasLocation" x="347" y="-1130"/>
         </scene>
         <!--Searched Lawmaker Detail View Controller-->
         <scene sceneID="98e-Ww-qEZ">
@@ -627,7 +627,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WVg-Fz-Rfo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="377" y="1010"/>
+            <point key="canvasLocation" x="347" y="898"/>
         </scene>
         <!--Bill Detail-->
         <scene sceneID="jIy-mD-HjM">
@@ -855,7 +855,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hYT-Bo-1UQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="485" y="-454"/>
+            <point key="canvasLocation" x="347" y="-464"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="KRk-iJ-q5n">
@@ -891,7 +891,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jZb-ZK-X5s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1350" y="-558"/>
+            <point key="canvasLocation" x="982" y="-224"/>
         </scene>
         <!--Politics-->
         <scene sceneID="bmX-Bj-d51">
@@ -929,7 +929,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mTv-8q-xHv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-619" y="176"/>
+            <point key="canvasLocation" x="-613" y="216"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SPU-3t-0RV">
@@ -948,16 +948,16 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KB9-Xh-Kjw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-625" y="858"/>
+            <point key="canvasLocation" x="-613" y="890"/>
         </scene>
     </scenes>
     <resources>
         <image name="Heart Icon" width="32" height="32"/>
-        <image name="politics" width="32" height="32"/>
+        <image name="politics" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LMf-ef-WAk"/>
         <segue reference="lrF-M3-Aj4"/>
+        <segue reference="LMf-ef-WAk"/>
         <segue reference="pvd-li-cak"/>
     </inferredMetricsTieBreakers>
 </document>
