@@ -9,7 +9,9 @@ This is an application that provides information about lawmakers, bills and part
 
 * The last tab on the menu, 'Party', displays a list of parties which have existed in South Korea from when the National Assembly was established back in 1948. When a party logo image is selected, the screen moves to the Wikipedia page for the selected party.
 
-![Main](ScreenShot/Main_Lawmaker.PNG)![Main](ScreenShot/Main_Bill.PNG)![Main](ScreenShot/Main_Party.PNG)  
+![Main](ScreenShot/Main_Lawmaker.png)
+![Main](ScreenShot/Main_Bill.png)
+![Main](ScreenShot/Main_Party.png)  
 
 * When users select a lawmaker, they can see detailed information of the lawmaker which includes 'Birth', 'Party', 'In Office', 'District' and 'Homepage'. In addition, there is a button on the right side and if users push this button, the lawmaker information is saved and can be checked later in 'Favorites' menu on the bottom Tabbar menu. 
 
@@ -17,9 +19,9 @@ This is an application that provides information about lawmakers, bills and part
 
 * As I briefly stated above, party information is available when users can tap the logo image of the party.
 
-![Detail](ScreenShot/Lawmaker_Detail.PNG)
+![Detail](ScreenShot/Lawmaker_Detail.png)
 ![Detail](ScreenShot/Bill_Detail.PNG)
-![Detail](ScreenShot/Party_Detail.PNG)
+![Detail](ScreenShot/Party_Detail.png)
 
 The images below show lists of lawmakers and bills that I saved based on my own interest. It is in this way, that users can save any information about lawmakers and bills that they are interested in and want to save.
 
