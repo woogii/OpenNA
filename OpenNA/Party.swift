@@ -32,21 +32,6 @@ class Party {
         id    = (dictionary[Constants.JSONResponseKeys.PartyId] as! Int)
         size  = dictionary[Constants.JSONResponseKeys.PartySize] as? Int
     
-        let urlString =  Constants.Strings.Party.partyImageUrl + String(id) + Constants.Strings.Party.partyImageExtension
-        let url =  NSURL(string:urlString)!
-        let imageData = NSData(contentsOfURL: url)
-        
-        
-        guard let image = imageData else {
-            
-            let defaultImage = UIImage(named:Constants.Strings.Party.defaultImageName)
-            thumbnail = textToImage(name, inImage: defaultImage!, atPoint: CGPointMake(10,60))
-            
-            return
-        }
-        
-        thumbnail = UIImage(data: image)
-        
     }
 
     // MARK : - Helper Method
@@ -55,48 +40,16 @@ class Party {
         var parties = [Party]()
         
         for result in results {
+            #if DEBUG
             log.debug("\(result)")
+            #endif
             parties.append(Party(dictionary:result))
         }
+        #if DEBUG
         log.debug("\(parties)")
+        #endif 
         return parties
     }
     
-    // MARK : - Draw the text into an Image
-    
-    func textToImage(drawText: NSString, inImage: UIImage, atPoint:CGPoint)->UIImage{
-        
-        // Setup the font specific variables
-        let textColor: UIColor = UIColor.blackColor()
-        let textFont: UIFont = UIFont(name: Constants.Strings.Party.imageTextFont, size: 17)!
-        
-        //Setup the image context using the passed image.
-        UIGraphicsBeginImageContext(inImage.size)
-        
-        //Setups up the font attributes that will be later used to dictate how the text should be drawn
-        let textFontAttributes = [
-            NSFontAttributeName: textFont,
-            NSForegroundColorAttributeName: textColor,
-            ]
-        
-        //Put the image into a rectangle as large as the original image.
-        inImage.drawInRect(CGRectMake(0, 0, inImage.size.width, inImage.size.height))
-        
-        // Creating a point within the space that is as bit as the image.
-        let rect: CGRect = CGRectMake(atPoint.x, atPoint.y, inImage.size.width, inImage.size.height)
-        
-        //Now Draw the text into an image.
-        drawText.drawInRect(rect, withAttributes: textFontAttributes)
-        
-        // Create a new image out of the images we have created
-        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
-        
-        // End the context now that we have the image we need
-        UIGraphicsEndImageContext()
-        
-        //And pass it back up to the caller.
-        return newImage
-        
-    }
-    
+      
 }

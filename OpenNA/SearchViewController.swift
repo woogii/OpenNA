@@ -24,12 +24,13 @@ class SearchViewController: UIViewController {
     let search = Search()
     var searchResults = [[String:AnyObject]]()
     var sectionTitle = [String]()
+    var isSearch: Bool?
     
     // MARK : - View Life Cycle 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         // Register Nib Objects
         tableView.registerNib(UINib(nibName: Constants.Identifier.SearchedLawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedLawmakerCell)
         tableView.registerNib(UINib(nibName: Constants.Identifier.SearchedBillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedBillCell)
@@ -37,7 +38,16 @@ class SearchViewController: UIViewController {
 
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         tableView.addGestureRecognizer(gestureRecognizer)
-        gestureRecognizer.cancelsTouchesInView = false 
+        gestureRecognizer.cancelsTouchesInView = false
+        
+        isSearch = false
+        let noDataLabel: UILabel = UILabel(frame: CGRectMake(0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height))
+        noDataLabel.text = Constants.Strings.SearchVC.DefaultLabelMessage
+        noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
+        noDataLabel.textAlignment = NSTextAlignment.Center
+        self.tableView.backgroundView = noDataLabel
+        self.tableView.separatorStyle = .None
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -69,17 +79,21 @@ extension SearchViewController : UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         
+        isSearch = true
+        
         let spinActivity = MBProgressHUD.showHUDAddedTo(view, animated: true)
         spinActivity.labelText = Constants.ActivityIndicatorText.Searching
         
         searchResults = []
         sectionTitle = []
         
+               
         search.searchAll(searchBar.text!) { (lawmakers,bills,parties, error) in
             
             if let error = error {
                 CommonHelper.showAlertWithMsg(self, msg: error.localizedDescription, showCancelButton: false,
                                               okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
+                spinActivity.hide(true)
                 return
             }
             
@@ -136,7 +150,26 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return searchResults.count
+        
+        var numberOfSection = 0
+        
+        if searchResults.count > 0 {
+            
+            self.tableView.backgroundView = nil
+            numberOfSection = searchResults.count
+            
+        } else {
+            
+            let noDataLabel: UILabel = UILabel(frame: CGRectMake(0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height))
+            (isSearch == true) ? (noDataLabel.text = Constants.Strings.SearchVC.NoSearchResultMessage) : (noDataLabel.text = Constants.Strings.SearchVC.DefaultLabelMessage)
+            noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
+            noDataLabel.textAlignment = NSTextAlignment.Center
+            self.tableView.backgroundView = noDataLabel
+            self.tableView.separatorStyle = .None
+            
+        }
+        
+        return numberOfSection
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -160,7 +193,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                 lawmakerImageRequest?.cancel()
                 
                 if let lawmaker = searchResults[indexPath.section][Constants.SectionName.Lawmaker] as? [Lawmaker] {
-                    print(lawmaker[indexPath.row].name)
+                    
                     
                     cell.nameLabel?.text = lawmaker[indexPath.row].name
                     
@@ -173,7 +206,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
                         cell.lawmakerImageView!.image = image
                         return cell
                     }
-                    print(urlString)
+                    
                     
                     lawmakerImageRequest = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
                         

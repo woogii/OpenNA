@@ -14,24 +14,33 @@ import AlamofireImage
 
 class TPPClient: NSObject {
     
-    // MARK : - Property (for Image Caching)
+    
+    // MARK : - Property
+    
     let photoCache = AutoPurgingImageCache (
         memoryCapacity: 100 * 1024 * 1024,
         preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
     )
     
+    var alamofireManager : Alamofire.Manager?
+    
     // MARK : - Initialization
     
     override init() {
         super.init()
+        
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        configuration.timeoutIntervalForResource = 8 // seconds
+        
+        alamofireManager = Alamofire.Manager(configuration: configuration)
+    
     }
     
     // MARK : - HTTP GET Request
     
     func taskForGETMethod(parameters:[String:AnyObject], withPathExtension method:String ,completionHandlerForGet:(results:AnyObject?, error:NSError?)->Void)->NSURLSessionTask{
-        
-        
-        let request = Alamofire.request(.GET, constructURL(parameters, withPathExtension:method), parameters: parameters)
+  
+        let request = alamofireManager!.request(.GET, constructURL(parameters, withPathExtension:method), parameters: parameters)
             .responseJSON { response in
                 
                 switch response.result {
@@ -46,7 +55,7 @@ class TPPClient: NSObject {
                     }
                 case .Failure(let error):
                     #if DEBUG
-                        log.debug("response success")
+                        log.debug("response error")
                     #endif
                     completionHandlerForGet(results: nil, error: error)
                     
@@ -59,7 +68,7 @@ class TPPClient: NSObject {
     func taskForGetImage(url:NSURL, completionHandlerForImage : (imageData :NSData?, error:NSError?) ->Void )->NSURLSessionTask
     {
         
-        let request = Alamofire.request(.GET, url)
+        let request = alamofireManager!.request(.GET, url)
             .responseData { response in
                 
                 
@@ -89,7 +98,7 @@ class TPPClient: NSObject {
     func taskForGetDirectImage(urlString:String, completionHandlerForImage : (image :UIImage?, error:NSError?) -> Void)->Request
     {
         
-        return Alamofire.request(.GET, urlString)
+        return alamofireManager!.request(.GET, urlString)
             .responseImage { response in
                 
                 

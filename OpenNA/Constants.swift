@@ -186,7 +186,7 @@ struct Constants {
         static let DescKeyForLawmakerJSONParsing = "Could not parse Lawmaker type JSON"
         static let DescKeyForBillJSONParsing     = "Could not parse Bill type JSON "
         static let DescKeyForPartyJSONParsing    = "Could not parse Bill type JSON "
-        static let DescKeyForNoSearchResult      = "Could not parse Bill type JSON "
+        static let DescKeyForNoSearchResult      = "There is no search results"
     }
     
     // MARK : - Section Name
@@ -303,6 +303,8 @@ struct Constants {
         struct SearchVC {
             static let WikiUrl = "https://ko.wikipedia.org/wiki/"
             static let defaultImageName = "noImage"
+            static let DefaultLabelMessage = "Type keyword you want to search"
+            static let NoSearchResultMessage = "There is no search result"
         }
         
         struct Party {

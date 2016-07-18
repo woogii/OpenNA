@@ -39,6 +39,11 @@ class Search : NSObject {
         partySearchTask?.cancel()
         billSearchTask?.cancel()
         
+        // Variables below will save errors that occur while each search operation performs
+        var searchLawmakerError:NSError? = nil
+        var searchBillError:NSError? = nil
+        var searchPartyError:NSError? = nil
+
         // Dispatch group is used as this function should return the final search results after each individual search operation is done
         let group = dispatch_group_create()
         
@@ -58,6 +63,7 @@ class Search : NSObject {
                 #endif
             } else {
                 #if DEBUG
+                    searchLawmakerError = error
                     log.debug(error?.localizedDescription)
                 #endif
             }
@@ -79,6 +85,7 @@ class Search : NSObject {
                 
             } else {
                 #if DEBUG
+                    searchBillError = error
                     log.debug(error?.localizedDescription)
                 #endif
             }
@@ -97,6 +104,7 @@ class Search : NSObject {
                     log.debug("party count: \(parties.count)")
                 #endif
             } else {
+                searchPartyError = error
                 log.debug(error?.localizedDescription)
             }
             
@@ -108,6 +116,25 @@ class Search : NSObject {
             #if DEBUG
                 log.debug("dispatch group notify")
             #endif
+            var overallError: NSError? = nil
+            
+            // if there is any error during search operation
+            if (searchLawmakerError != nil || searchBillError != nil || searchPartyError != nil ) {
+                
+                if searchLawmakerError != nil {
+                    overallError = searchLawmakerError
+                } else if searchBillError != nil {
+                    overallError = searchBillError
+                }else{
+                    overallError = searchPartyError
+                }
+            }
+            
+            guard overallError != nil else {
+                // return error
+                completionHandler(lawmakers:self.lawmakers, bills:self.bills, parties:self.parties, error: overallError)
+                return
+            }
             
             if ( self.lawmakers.count > 0 ||  self.bills.count > 0 || self.parties.count > 0 ) {
                 completionHandler(lawmakers:self.lawmakers, bills:self.bills, parties:self.parties, error:nil)

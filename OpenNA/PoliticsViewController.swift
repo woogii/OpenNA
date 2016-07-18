@@ -9,6 +9,8 @@ import UIKit
 import Foundation
 import CoreData
 import MBProgressHUD
+import AlamofireImage
+import Alamofire
 
 // MARK: - PoliticsViewController : UIViewController
 
@@ -136,12 +138,13 @@ class PoliticsViewController: UIViewController  {
                 } else {
                     CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
                                                       okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
+                    spinActivity.hide(true)
+
                 }
             }
             break
         case 2:
             
-            // let compensateHeight = -(self.navigationController!.navigationBar.bounds.size.height + UIApplication.sharedApplication().statusBarFrame.size.height)
             collectionView.hidden = false
             tableView.hidden = true
             
@@ -154,6 +157,7 @@ class PoliticsViewController: UIViewController  {
                     
                     self.parties = parties
                     
+                    
                     dispatch_async(dispatch_get_main_queue())  {
                         self.collectionView.reloadData()
                         spinActivity.hide(true)
@@ -162,6 +166,7 @@ class PoliticsViewController: UIViewController  {
                 else {
                     CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
                         okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
+                        spinActivity.hide(true)
                 }
             }
             
@@ -228,6 +233,44 @@ class PoliticsViewController: UIViewController  {
         return unique
     }
     
+    // MARK : - Draw the text into an Image
+    
+    func textToImage(drawText: NSString, inImage: UIImage, atPoint:CGPoint)->UIImage{
+        
+        // Setup the font specific variables
+        let textColor: UIColor = UIColor.blackColor()
+        let textFont: UIFont = UIFont(name: Constants.Strings.Party.imageTextFont, size: 17)!
+        
+        //Setup the image context using the passed image.
+        UIGraphicsBeginImageContext(inImage.size)
+        
+        //Setups up the font attributes that will be later used to dictate how the text should be drawn
+        let textFontAttributes = [
+            NSFontAttributeName: textFont,
+            NSForegroundColorAttributeName: textColor,
+            ]
+        
+        //Put the image into a rectangle as large as the original image.
+        inImage.drawInRect(CGRectMake(0, 0, inImage.size.width, inImage.size.height))
+        
+        // Creating a point within the space that is as bit as the image.
+        let rect: CGRect = CGRectMake(atPoint.x, atPoint.y, inImage.size.width, inImage.size.height)
+        
+        //Now Draw the text into an image.
+        drawText.drawInRect(rect, withAttributes: textFontAttributes)
+        
+        // Create a new image out of the images we have created
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        // End the context now that we have the image we need
+        UIGraphicsEndImageContext()
+        
+        //And pass it back up to the caller.
+        return newImage
+        
+    }
+
+
 }
 
 // MARK : - PoliticsViewController : UITableViewDelegate, UITableViewDataSource
@@ -487,11 +530,61 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        var logoImageRequest : Request?
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Constants.Identifier.PartyImageCell, forIndexPath: indexPath) as! PartyCollectionViewCell
+        cell.logoImageView!.image = nil
+        logoImageRequest?.cancel()
         
-        cell.logoImageView.image = parties[indexPath.row].thumbnail
+        let urlString =  Constants.Strings.Party.partyImageUrl + String(parties[indexPath.row].id) + Constants.Strings.Party.partyImageExtension
+        // let url =  NSURL(string:urlString)!
+        // let imageData = NSData(contentsOfURL: url)
         
+        
+        if let image = TPPClient.sharedInstance().cachedImage(urlString) {
+            cell.logoImageView!.image = image
+            return cell
+        }
+        
+        logoImageRequest = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
+            
+          
+            if let image = image {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.parties[indexPath.row].thumbnail = image
+                    cell.logoImageView?.image = image
+                }
+            } else {
+                
+                 dispatch_async(dispatch_get_main_queue()) {
+                    let defaultImage = UIImage(named:Constants.Strings.Party.defaultImageName)
+                    self.parties[indexPath.row].thumbnail = self.textToImage(self.parties[indexPath.row].name, inImage: defaultImage!, atPoint: CGPointMake(10,60))
+                    cell.logoImageView.image = self.parties[indexPath.row].thumbnail
+                }
+
+            }
+            
+        }
+
+//        TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
+//            
+//            if let image = image {
+//                
+//                dispatch_async(dispatch_get_main_queue()) {
+//                    self.parties[indexPath.row].thumbnail = image
+//                    cell.logoImageView.image = image
+//
+//                }
+//            } else {
+//                
+//                dispatch_async(dispatch_get_main_queue()) {
+//                    
+//                // CommonHelper.showAlertWithMsg(self, msg: error!.localizedDescription, showCancelButton: false, okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
+//                }
+//               
+//            }
+//        }
+
         return cell
     }
     

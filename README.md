@@ -9,13 +9,16 @@ This is an application that provides information about lawmakers, bills and part
 
 * The last tab on the menu, 'Party', displays a list of parties which have existed in South Korea from when the National Assembly was established back in 1948. When a party logo image is selected, the screen moves to the Wikipedia page for the selected party.
 
+* At the bottom of the screen there are three menu tabs: 'Politics', 'Favourites' and 'Search'. The 'Politics' tab is selected as the default setting, and as described above, it includes three different submenus: 'Lawmaker', 'Bill' and 'Party'. These show lists of information corresponding to each category. The 'Favourites' tab shows 'Lawmaker' and 'Bill' lists that users have marked as their favourites. The 'Search' tab allows users to search for information.
+
 ![Main](ScreenShot/Main_Lawmaker.png)
 ![Main](ScreenShot/Main_Bill.png)
 ![Main](ScreenShot/Main_Party.png)  
 
-* When users select a lawmaker, they can see detailed information of the lawmaker which includes 'Birth', 'Party', 'In Office', 'District' and 'Homepage'. In addition, there is a button on the right side and if users push this button, the lawmaker information is saved and can be checked later in 'Favorites' menu on the bottom Tabbar menu. 
+* When users select a lawmaker, they can see detailed information of the lawmaker which includes 'Birth', 'Party', 'In Office', 'District' and 'Homepage'. In addition, there is a heart-shaped button on the right side and if users push this button, the color of the button is changed immediately as red color and the lawmaker information is saved. Lawmakers marked as favourite can be checked later in 'Favorites' menu on the bottom Tabbar menu. 
 
-* Detailed information of the selected bill is also provided, as you can see the images below. It includes 'Assembly session', 'Proposed date', 'Status', 'Summary', and so on. If the 'External links' menu is tapped, the original bill document with pdf format is displayed so that users are able to see every detail of the bill. Bill information can also be saved by clicking the button on the top right of the screen.
+* Detailed information of the selected bill is also provided, as you can see the images below. It includes 'Assembly session', 'Proposed date', 'Status', 'Summary', and so on. If the 'External links' menu is tapped, the original bill document with pdf format is displayed so that users are able to see every detail of the bill. Bill information can also be saved by clicking the heart-shaped button on the top right of the screen and can be seen later in 'Favourites' menu on the bottom Tabbar menu. 
+
 
 * As I briefly stated above, party information is available when users can tap the logo image of the party.
 
