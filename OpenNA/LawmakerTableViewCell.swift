@@ -12,30 +12,34 @@ import UIKit
 // MARK : - LawmakerTableViewCell : TaskCancelingTableViewCell
 
 class LawmakerTableViewCell : TaskCancelingTableViewCell {
+  
+  // MARK : - Property
+  
+  @IBOutlet weak var profileImageView: UIImageView!
+  @IBOutlet weak var nameLabel: UILabel!
+  @IBOutlet weak var partyLabel: UILabel!
+  @IBOutlet weak var backgroundCardView: UIView!
+  
+  // MARK : - Initialization
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
     
-    // MARK : - Property
+    // Configure view layer to make it look like Card-style view
+    backgroundCardView.backgroundColor = UIColor.white
+    contentView.backgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
+    backgroundCardView.layer.cornerRadius = 3.0
+    backgroundCardView.layer.masksToBounds = false
+    backgroundCardView.layer.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
+    backgroundCardView.layer.shadowOffset = CGSize(width: 0, height: 0)
+    backgroundCardView.layer.shadowOpacity = 0.8
     
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var partyLabel: UILabel!
-    @IBOutlet weak var backgroundCardView: UIView!
+  }
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
     
-    // MARK : - Initialization
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        profileImageView.layer.cornerRadius = profileImageView.frame.size.width/2
-        profileImageView.clipsToBounds = true
-
-        // Configure view layer to make it look like Card-style view   
-        backgroundCardView.backgroundColor = UIColor.whiteColor()
-        contentView.backgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
-        backgroundCardView.layer.cornerRadius = 3.0
-        backgroundCardView.layer.masksToBounds = false
-        backgroundCardView.layer.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.2).CGColor
-        backgroundCardView.layer.shadowOffset = CGSizeMake(0, 0)
-        backgroundCardView.layer.shadowOpacity = 0.8
-        
-    }
+    profileImageView.layer.cornerRadius = profileImageView.frame.size.width/2
+    profileImageView.clipsToBounds = true
+  }
 }

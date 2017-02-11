@@ -9,151 +9,151 @@
 import Foundation
 
 extension TPPClient {
+  
+  // MARK : - Convenience Methods
+  /// Get bill information
+  func getBills(_ page:Int, completionHandler: @escaping (_ results:[Bill]?, _ error:NSError?)->Void)  {
     
-    // MARK : - Convenience Methods
-    /// Get bill information
-    func getBills(page:Int, completionHandler: (results:[Bill]?, error:NSError?)->Void)  {
+    let method = Constants.Methods.Bill
+    var parameters = [Constants.ParameterKeys.ApiKey:Constants.Api.Key]
+    parameters[Constants.ParameterKeys.Sort] = Constants.ParameterValues.ProposedDate
+    parameters[Constants.ParameterKeys.PerPage] = Constants.ParameterValues.LimitPage
+    parameters[Constants.ParameterKeys.Page] = "\(page)"
+    
+    taskForGETMethod(parameters as [String : AnyObject], withPathExtension: method) { (requestResult, error) in
+      
+      if let error = error  {
+        completionHandler(nil, error)
+      }
+      else {
         
-        let method = Constants.Methods.Bill
-        var parameters = [Constants.ParameterKeys.ApiKey:Constants.Api.Key]
-        parameters[Constants.ParameterKeys.Sort] = Constants.ParameterValues.ProposedDate
-        parameters[Constants.ParameterKeys.PerPage] = Constants.ParameterValues.LimitPage
-        parameters[Constants.ParameterKeys.Page] = "\(page)"
-        
-        taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
-            
-            if let error = error  {
-                completionHandler(results:nil, error:error)
-            }
-            else {
-                
-                if let results = requestResult![Constants.JSONResponseKeys.Items] as? [[String:AnyObject]] {
-                    let bills = Bill.billsFromResults(results)
-                    completionHandler(results: bills, error: nil)
-                } else {
-                    completionHandler(results: nil, error: NSError(domain: Constants.Error.DomainJSONParsing, code : Constants.Error.Code,
-                        userInfo:[NSLocalizedDescriptionKey:Constants.Error.DescKeyForBillJSONParsing]))
-                }
-            }
-            
+        if let results = requestResult![Constants.JSONResponseKeys.Items] as? [[String:AnyObject]] {
+          let bills = Bill.billsFromResults(results)
+          completionHandler(bills, nil)
+        } else {
+          completionHandler(nil, NSError(domain: Constants.Error.DomainJSONParsing, code : Constants.Error.Code,
+                                                         userInfo:[NSLocalizedDescriptionKey:Constants.Error.DescKeyForBillJSONParsing]))
         }
+      }
+      
+    }
+  }
+  
+  /// Get party information
+  func getParties( _ completionHandler: @escaping (_ results:[Party]?, _ error:NSError?)->Void)  {
+    
+    let method = Constants.Methods.Party
+    var parameters = [Constants.ParameterKeys.ApiKey:Constants.Api.Key]
+    parameters[Constants.ParameterKeys.Sort] = Constants.ParameterValues.Logo
+    parameters[Constants.ParameterKeys.PerPage] = Constants.ParameterValues.PartyLimitPage
+    
+    taskForGETMethod(parameters as [String : AnyObject], withPathExtension: method) { (requestResult, error) in
+      
+      if let error = error  {
+        completionHandler(nil, error)
+      }
+      else {
+        
+        if let results = requestResult![Constants.JSONResponseKeys.Items] as? [[String:AnyObject]] {
+          
+          let parties = Party.partiesFromResults(results)
+          #if DEBUG
+            print("\(parties)")
+          #endif
+          completionHandler(parties, nil)
+        } else {
+          completionHandler(nil, NSError(domain: Constants.Error.DomainJSONParsing, code : Constants.Error.Code,
+                                                         userInfo:[NSLocalizedDescriptionKey:Constants.Error.DescKeyForPartyJSONParsing]))
+        }
+      }
+      
+    }
+  }
+  
+  /// Get lawmaker information
+  func searchLawmaker( _ searchKeyword: String, completionHandler: @escaping (_ results:[[String:AnyObject]]?, _ error:NSError?)->Void)->URLSessionTask {
+    
+    let method = Constants.Methods.Person + Constants.Methods.Search
+    var parameters = [Constants.ParameterKeys.Query:searchKeyword]
+    parameters[Constants.ParameterKeys.ApiKey] = Constants.Api.Key
+    
+    
+    let task = taskForGETMethod( parameters as [String : AnyObject], withPathExtension: method) { (requestResult, error) in
+      
+      if let error = error {
+        completionHandler(nil, error)
+      }
+      else {
+        
+        if let results = requestResult![Constants.JSONResponseKeys.Items] as? [[String:AnyObject]] {
+          completionHandler(results, nil)
+        } else {
+          completionHandler(nil, NSError(domain: Constants.Error.DomainJSONParsing, code: 0,
+                                                         userInfo: [NSLocalizedDescriptionKey:Constants.Error.DescKeyForLawmakerJSONParsing]))
+        }
+      }
     }
     
-    /// Get party information
-    func getParties( completionHandler: (results:[Party]?, error:NSError?)->Void)  {
+    return task
+  }
+  
+  /// Search bill information with given search keyword
+  func searchBills( _ searchKeyword: String, completionHandler:@escaping (_ results:[Bill]?, _ error:NSError?)->Void)->URLSessionTask {
+    
+    let method = Constants.Methods.Bill + Constants.Methods.Search
+    var parameters = [Constants.ParameterKeys.Query : searchKeyword]
+    
+    parameters[Constants.ParameterKeys.ApiKey] = Constants.Api.Key
+    
+    let task = taskForGETMethod(parameters as [String : AnyObject], withPathExtension: method) { (requestResult, error) in
+      
+      if let error = error  {
+        completionHandler(nil, error)
+      }
+      else {
         
-        let method = Constants.Methods.Party
-        var parameters = [Constants.ParameterKeys.ApiKey:Constants.Api.Key]
-        parameters[Constants.ParameterKeys.Sort] = Constants.ParameterValues.Logo
-        parameters[Constants.ParameterKeys.PerPage] = Constants.ParameterValues.PartyLimitPage
-        
-        taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
-            
-            if let error = error  {
-                completionHandler(results:nil, error:error)
-            }
-            else {
-                
-                if let results = requestResult![Constants.JSONResponseKeys.Items] as? [[String:AnyObject]] {
-                
-                    let parties = Party.partiesFromResults(results)
-                    #if DEBUG
-                        log.debug("\(parties)")
-                    #endif
-                    completionHandler(results: parties, error: nil)
-                } else {
-                    completionHandler(results: nil, error: NSError(domain: Constants.Error.DomainJSONParsing, code : Constants.Error.Code,
-                        userInfo:[NSLocalizedDescriptionKey:Constants.Error.DescKeyForPartyJSONParsing]))
-                }
-            }
-            
+        if let results = requestResult![Constants.JSONResponseKeys.Items] as? [[String:AnyObject]] {
+          let bills = Bill.billsFromResults(results)
+          completionHandler(bills, nil)
+        } else {
+          completionHandler(nil, NSError(domain: Constants.Error.DomainJSONParsing, code : 0,
+                                                         userInfo:[NSLocalizedDescriptionKey:Constants.Error.DescKeyForBillJSONParsing]))
         }
+      }
+      
     }
     
-    /// Get lawmaker information
-    func searchLawmaker( searchKeyword: String, completionHandler: (results:[[String:AnyObject]]?, error:NSError?)->Void)->NSURLSessionTask {
+    return task
+  }
+  
+  /// Search party information with given search keyword
+  func searchParties( _ searchKeyword: String, completionHandler:@escaping (_ results:[Party]?, _ error:NSError?)->Void)->URLSessionTask {
+    
+    let method = Constants.Methods.Party + Constants.Methods.Search
+    var parameters = [Constants.ParameterKeys.Query : searchKeyword]
+    
+    parameters[Constants.ParameterKeys.ApiKey] = Constants.Api.Key
+    
+    let request = taskForGETMethod(parameters as [String : AnyObject], withPathExtension: method) { (requestResult, error) in
+      
+      if let error = error  {
+        completionHandler(nil, error)
+      }
+      else {
         
-        let method = Constants.Methods.Person + Constants.Methods.Search
-        var parameters = [Constants.ParameterKeys.Query:searchKeyword]
-        parameters[Constants.ParameterKeys.ApiKey] = Constants.Api.Key
-        
-        
-        let task = taskForGETMethod( parameters, withPathExtension: method) { (requestResult, error) in
-            
-            if let error = error {
-                completionHandler(results:nil, error:error)
-            }
-            else {
-                
-                if let results = requestResult![Constants.JSONResponseKeys.Items] as? [[String:AnyObject]] {
-                    completionHandler(results: results, error: nil)
-                } else {
-                    completionHandler(results:  nil, error:NSError(domain: Constants.Error.DomainJSONParsing, code: 0,
-                        userInfo: [NSLocalizedDescriptionKey:Constants.Error.DescKeyForLawmakerJSONParsing]))
-                }
-            }
+        if let results = requestResult![Constants.JSONResponseKeys.Items] as? [[String:AnyObject]] {
+          let parties = Party.partiesFromResults(results)
+          
+          completionHandler(parties, nil)
+        } else {
+          completionHandler(nil, NSError(domain: Constants.Error.DomainJSONParsing, code : 0,
+                                                         userInfo:[NSLocalizedDescriptionKey:Constants.Error.DescKeyForPartyJSONParsing]))
         }
-        
-        return task
+      }
+      
     }
     
-    /// Search bill information with given search keyword
-    func searchBills( searchKeyword: String, completionHandler:(results:[Bill]?, error:NSError?)->Void)->NSURLSessionTask {
-        
-        let method = Constants.Methods.Bill + Constants.Methods.Search
-        var parameters = [Constants.ParameterKeys.Query : searchKeyword]
-        
-        parameters[Constants.ParameterKeys.ApiKey] = Constants.Api.Key
-        
-        let task = taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
-            
-            if let error = error  {
-                completionHandler(results:nil, error:error)
-            }
-            else {
-                
-                if let results = requestResult![Constants.JSONResponseKeys.Items] as? [[String:AnyObject]] {
-                    let bills = Bill.billsFromResults(results)
-                    completionHandler(results: bills, error: nil)
-                } else {
-                    completionHandler(results: nil, error: NSError(domain: Constants.Error.DomainJSONParsing, code : 0,
-                        userInfo:[NSLocalizedDescriptionKey:Constants.Error.DescKeyForBillJSONParsing]))
-                }
-            }
-            
-        }
-        
-        return task
-    }
-    
-    /// Search party information with given search keyword
-    func searchParties( searchKeyword: String, completionHandler:(results:[Party]?, error:NSError?)->Void)->NSURLSessionTask {
-        
-        let method = Constants.Methods.Party + Constants.Methods.Search
-        var parameters = [Constants.ParameterKeys.Query : searchKeyword]
-        
-        parameters[Constants.ParameterKeys.ApiKey] = Constants.Api.Key
-        
-        let request = taskForGETMethod(parameters, withPathExtension: method) { (requestResult, error) in
-            
-            if let error = error  {
-                completionHandler(results:nil, error:error)
-            }
-            else {
-                
-                if let results = requestResult![Constants.JSONResponseKeys.Items] as? [[String:AnyObject]] {
-                    let parties = Party.partiesFromResults(results)
-                    
-                    completionHandler(results: parties, error: nil)
-                } else {
-                    completionHandler(results: nil, error: NSError(domain: Constants.Error.DomainJSONParsing, code : 0,
-                        userInfo:[NSLocalizedDescriptionKey:Constants.Error.DescKeyForPartyJSONParsing]))
-                }
-            }
-            
-        }
-        
-        return request
-    }
-    
+    return request
+  }
+  
 }

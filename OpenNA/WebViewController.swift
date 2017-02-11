@@ -13,55 +13,55 @@ import MBProgressHUD
 // MARK : - WebViewController : UIViewController
 
 class WebViewController: UIViewController {
+  
+  // MARK : - Property
+  @IBOutlet weak var webView: UIWebView!
+  var urlString: String?
+  var loadingActivity : MBProgressHUD?
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
-    // MARK : - Property
-    @IBOutlet weak var webView: UIWebView!
-    var urlString: String?
-    var loadingActivity : MBProgressHUD?
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    super.viewWillAppear(animated)
+    
+    guard let urlString = urlString else {
+      return
     }
     
-    override func viewWillAppear(animated: Bool) {
-        
-        super.viewWillAppear(animated)
-        
-        guard let urlString = urlString else {
-            return
-        }
-
-        let url = NSURL(dataRepresentation:urlString.dataUsingEncoding(NSUTF8StringEncoding)!, relativeToURL:nil)
-
-        webView.loadRequest(NSURLRequest(URL: url))
-    }
+    let url = URL(dataRepresentation:urlString.data(using: String.Encoding.utf8)!, relativeTo:nil)
     
+    webView.loadRequest(URLRequest(url: url!))
+  }
+  
 }
 
 // MARK : - WebViewController : UIWebViewDelegate
 
 extension WebViewController : UIWebViewDelegate {
+  
+  // MARK : - UIWebViewDelegate Methods
+  
+  func webViewDidStartLoad(_ webView: UIWebView) {
+    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    loadingActivity = MBProgressHUD.showAdded(to: view, animated: true)
+    loadingActivity!.label.text = Constants.ActivityIndicatorText.Loading
+  }
+  
+  func webViewDidFinishLoad(_ webView: UIWebView) {
+    loadingActivity?.hide(animated:true)
+  }
+  
+  func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+    loadingActivity?.hide(animated:true)
     
-    // MARK : - UIWebViewDelegate Methods
+    let alertView = UIAlertController(title:"", message: Constants.Alert.Message.WebPageLoadingFail, preferredStyle: .alert)
+    alertView.addAction(UIAlertAction(title: Constants.Alert.Title.Dismiss, style:.default, handler:nil))
+    self.present(alertView, animated: true, completion: nil)
     
-    func webViewDidStartLoad(webView: UIWebView) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        loadingActivity = MBProgressHUD.showHUDAddedTo(view, animated: true)
-        loadingActivity!.labelText = Constants.ActivityIndicatorText.Loading
-    }
-    
-    func webViewDidFinishLoad(webView: UIWebView) {
-        loadingActivity?.hide(true)
-    }
-    
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        loadingActivity?.hide(true)
-        
-        let alertView = UIAlertController(title:"", message: Constants.Alert.Message.WebPageLoadingFail, preferredStyle: .Alert)
-        alertView.addAction(UIAlertAction(title: Constants.Alert.Title.Dismiss, style:.Default, handler:nil))
-        self.presentViewController(alertView, animated: true, completion: nil)
-        
-    }
-    
+  }
+  
 }

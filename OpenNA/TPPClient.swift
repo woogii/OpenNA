@@ -10,163 +10,143 @@ import Foundation
 import Alamofire
 import AlamofireImage
 
-// MARK : - TPPClient : NSObject 
+// MARK : - TPPClient : NSObject
 
 class TPPClient: NSObject {
-    
-    
-    // MARK : - Property
-    
-    let photoCache = AutoPurgingImageCache (
-        memoryCapacity: 100 * 1024 * 1024,
-        preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
-    )
-    
-    var alamofireManager : Alamofire.Manager?
-    
-    // MARK : - Initialization
-    
-    override init() {
-        super.init()
-        
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        configuration.timeoutIntervalForResource = 8 // seconds
-        
-        alamofireManager = Alamofire.Manager(configuration: configuration)
-    
-    }
-    
-    // MARK : - HTTP GET Request
-    
-    func taskForGETMethod(parameters:[String:AnyObject], withPathExtension method:String ,completionHandlerForGet:(results:AnyObject?, error:NSError?)->Void)->NSURLSessionTask{
   
-        let request = alamofireManager!.request(.GET, constructURL(parameters, withPathExtension:method), parameters: parameters)
-            .responseJSON { response in
-                
-                switch response.result {
-                    
-                case .Success:
-                    
-                    if let results = response.result.value {
-                        #if DEBUG
-                            log.debug("response success")
-                        #endif
-                        completionHandlerForGet(results: results , error:nil)
-                    }
-                case .Failure(let error):
-                    #if DEBUG
-                        log.debug("response error")
-                    #endif
-                    completionHandlerForGet(results: nil, error: error)
-                    
-                }
-        }
-        
-        return request.task
-    }
+  
+  // MARK : - Property
+  
+  let photoCache = AutoPurgingImageCache (
+    memoryCapacity: 100 * 1024 * 1024,
+    preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
+  )
+  
+  //var alamofireManager : Alamofire.Manager?
+  
+  // MARK : - Initialization
+  
+  override init() {
+    super.init()
     
-    func taskForGetImage(url:NSURL, completionHandlerForImage : (imageData :NSData?, error:NSError?) ->Void )->NSURLSessionTask
-    {
-        
-        let request = alamofireManager!.request(.GET, url)
-            .responseData { response in
-                
-                
-                switch response.result {
-                    
-                case .Success:
-                    
-                    if let result = response.data {
-                        #if DEBUG
-                            log.debug("response success")
-                        #endif
-                        completionHandlerForImage(imageData: result, error: nil)
-                    }
-                    
-                case .Failure(let error):
-                    #if DEBUG
-                        log.debug("response success")
-                    #endif
-                    completionHandlerForImage(imageData: nil, error: error)
-                    
-                }
-        }
-        
-        return request.task
-    }
+    let configuration = URLSessionConfiguration.default
+    configuration.timeoutIntervalForResource = 8 // seconds
     
-    func taskForGetDirectImage(urlString:String, completionHandlerForImage : (image :UIImage?, error:NSError?) -> Void)->Request
-    {
-        
-        return alamofireManager!.request(.GET, urlString)
-            .responseImage { response in
-                
-                
-                switch response.result {
-                    
-                case .Success:
-                    
-                    if let image = response.result.value {
-                        #if DEBUG
-                            log.debug("response success")
-                        #endif
-                        self.cacheImage(image, urlString: urlString)
-                        completionHandlerForImage(image: image, error: nil)
-                    }
-                    
-                case .Failure(let error):
-                    #if DEBUG
-                        log.debug("response success")
-                    #endif
-                    completionHandlerForImage(image: nil, error: error)
-                    
-                }
-        }
+    //alamofireManager = Alamofire.Manager(configuration: configuration)
     
-    }
-
-    // MARK : - Helper
-    // Create a URL from parameters
-    private func constructURL(parameters: [String:AnyObject], withPathExtension: String? = nil) -> NSURL {
+  }
+  
+  // MARK : - HTTP GET Request
+  
+  func taskForGETMethod(_ parameters:[String:AnyObject], withPathExtension method:String ,completionHandlerForGet:@escaping (_ results:AnyObject?, _ error:NSError?)->Void)->URLSessionTask{
+    
+    let request = Alamofire.request(constructURL(parameters, withPathExtension:method), parameters: parameters)
+      .responseJSON { response in
         
-        let components = NSURLComponents()
-        components.scheme = Constants.Api.Scheme
-        components.host = Constants.Api.Host
-        components.path = Constants.Api.Path + (withPathExtension ?? "")
-        components.queryItems = [NSURLQueryItem]()
-        
-        for (key, value) in parameters {
+        switch response.result {
+          
+        case .success:
+          
+          if let results = response.result.value {
             
-            let queryItem = NSURLQueryItem(name: key, value: "\(value)")
-            components.queryItems!.append(queryItem)
+            completionHandlerForGet(results as AnyObject? , nil)
+          }
+        case .failure(let error):
+        
+          completionHandlerForGet(nil, error as NSError?)
+          
         }
-        #if DEBUG
-            log.debug("URL : \(String(components.URL))")
-        #endif
-        return components.URL!
     }
     
-    // MARK : - Cache Image
-    func cacheImage(image: Image, urlString:String) {
-        photoCache.addImage(image, withIdentifier: urlString)
-    }
+    return request.task!
+  }
+  
+  func taskForGetImage(_ url:URL, completionHandlerForImage : @escaping (_ imageData :Data?, _ error:NSError?) ->Void )->URLSessionTask
+  {
     
-    // MARK : - Get cached Image
-    func cachedImage(urlString:String)->Image? {
-        return photoCache.imageWithIdentifier(urlString)
-    }
-    
-    // MARK : - Shared Instance (TPPClient Type)
-    class func sharedInstance()->TPPClient {
-        struct Singleton {
-            static var sharedInstance = TPPClient()
+    let request = Alamofire.request(url).responseData { response in
+        
+        
+        switch response.result {
+          
+        case .success:
+          
+          if let result = response.data {
+
+            completionHandlerForImage(result, nil)
+          }
+          
+        case .failure(let error):
+          completionHandlerForImage(nil, error as NSError?)          
         }
-        return Singleton.sharedInstance
     }
     
-    // MARK : - Shared Instance (ImageCache Type)
-    struct Caches {
-        static let imageCache = ImageCache()
+    return request.task!
+  }
+  
+  func taskForGetDirectImage(_ urlString:String, completionHandlerForImage : @escaping (_ image :UIImage?, _ error:NSError?) -> Void)->Request
+  {
+    
+    return Alamofire.request(urlString)
+      .responseImage { response in
+        
+        
+        switch response.result {
+          
+        case .success:
+          
+          if response.result.value != nil {
+            #if DEBUG
+              print("response success")
+            #endif
+            //self.cacheImage(image, urlString: urlString)
+            completionHandlerForImage(response.result.value, nil)
+          }
+          
+        case .failure(let error):
+          #if DEBUG
+            //log.debug("response success")
+          #endif
+          completionHandlerForImage(nil, error as NSError?)
+          
+        }
     }
     
+  }
+  
+  // MARK : - Helper
+  // Create a URL from parameters
+  fileprivate func constructURL(_ parameters: [String:AnyObject], withPathExtension: String? = nil) -> URL {
+    
+    var components = URLComponents()
+    components.scheme = Constants.Api.Scheme
+    components.host = Constants.Api.Host
+    components.path = Constants.Api.Path + (withPathExtension ?? "")
+    components.queryItems = [URLQueryItem]()
+    
+    for (key, value) in parameters {
+      
+      let queryItem = URLQueryItem(name: key, value: "\(value)")
+      components.queryItems!.append(queryItem)
+    }
+    #if DEBUG
+      print("URL : \(String(describing: components.url))")
+    #endif
+    return components.url!
+  }
+  
+  
+  // MARK : - Shared Instance (TPPClient Type)
+  class func sharedInstance()->TPPClient {
+    struct Singleton {
+      static var sharedInstance = TPPClient()
+    }
+    return Singleton.sharedInstance
+  }
+  
+  // MARK : - Shared Instance (ImageCache Type)
+  struct Caches {
+    static let imageCache = ImageCache()
+  }
+  
 }

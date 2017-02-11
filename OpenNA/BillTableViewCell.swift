@@ -12,30 +12,30 @@ import UIKit
 // MARK : - BillTableViewCell : Custom TableViewCell
 
 class BillTableViewCell:UITableViewCell{
+  
+  // MARK : - Property
+  
+  @IBOutlet weak var sponsorLabel: UILabel!
+  @IBOutlet weak var nameLabel: UILabel!
+  @IBOutlet weak var statusLabel: UILabel!
+  @IBOutlet weak var billImage: UIImageView!
+  @IBOutlet weak var sponsorImage: UIImageView!
+  @IBOutlet weak var statusImage: UIImageView!
+  @IBOutlet weak var backgroundCardView: UIView!
+  
+  // MARK : - Initialization
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
     
-    // MARK : - Property 
+    backgroundCardView.backgroundColor = UIColor.white
+    contentView.backgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
+    backgroundCardView.layer.cornerRadius = 3.0
+    backgroundCardView.layer.masksToBounds = false
+    backgroundCardView.layer.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
+    backgroundCardView.layer.shadowOffset = CGSize(width: 0, height: 0)
+    backgroundCardView.layer.shadowOpacity = 0.8
     
-    @IBOutlet weak var sponsorLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var billImage: UIImageView!
-    @IBOutlet weak var sponsorImage: UIImageView!
-    @IBOutlet weak var statusImage: UIImageView!
-    @IBOutlet weak var backgroundCardView: UIView!
-    
-    // MARK : - Initialization
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        backgroundCardView.backgroundColor = UIColor.whiteColor()
-        contentView.backgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
-        backgroundCardView.layer.cornerRadius = 3.0
-        backgroundCardView.layer.masksToBounds = false
-        backgroundCardView.layer.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.2).CGColor
-        backgroundCardView.layer.shadowOffset = CGSizeMake(0, 0)
-        backgroundCardView.layer.shadowOpacity = 0.8
-        
-    }
-
+  }
+  
 }

@@ -15,616 +15,626 @@ import Alamofire
 // MARK: - PoliticsViewController : UIViewController
 
 class PoliticsViewController: UIViewController  {
+  
+  // MARK : - Property
+  
+  @IBOutlet weak var segmentedControl: UISegmentedControl!
+  @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var collectionView: UICollectionView!
+  
+  var lawmakers = [Lawmaker]()
+  var bills     = [Bill]()
+  var parties   = [Party]()
+  var indexInfo = [Entry]()
+  var loadingData = false
+  var lastRowIndex = 20
+  static var page = 1
+  typealias Entry = (Character, [Lawmaker])
+  
+  // MARK : - CoreData Convenience
+  
+  var sharedContext : NSManagedObjectContext {
+    return CoreDataStackManager.sharedInstance().managedObjectContext!
+  }
+  
+  // MARK : - View Life Cycle
+  
+  override func viewDidLayoutSubviews() {
     
-    // MARK : - Property
+    super.viewDidLayoutSubviews()
     
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var collectionView: UICollectionView!
+    // Lay out the collection view so that cells take up 1/3 of the width,
+    // with no space in between
+    let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+    layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    layout.minimumLineSpacing = 0
+    layout.minimumInteritemSpacing = 0
     
-    var lawmakers = [Lawmaker]()
-    var bills     = [Bill]()
-    var parties   = [Party]()
-    var indexInfo = [Entry]()
-    var loadingData = false
-    var lastRowIndex = 20
-    static var page = 1
-    typealias Entry = (Character, [Lawmaker])
+    //let width = floor(self.collectionView.frame.size.width/3)
+    // layout.itemSize = CGSize(width: width, height: width)
+    collectionView.collectionViewLayout = layout
     
-    // MARK : - CoreData Convenience
     
-    var sharedContext : NSManagedObjectContext {
-        return CoreDataStackManager.sharedInstance().managedObjectContext!
+    
+  }
+  
+  override func viewDidLoad() {
+    
+    super.viewDidLoad()
+    
+    configureLayout()
+    lawmakers = fetchAllLawmakers()
+    buildTableViewIndex()
+  
+  }
+  
+  // MARK : - Configure Layout
+  
+  func configureLayout() {
+    
+    // Register Nib Objects
+    self.tableView.register(UINib(nibName: Constants.Identifier.LawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.LawmakerCell)
+    self.tableView.register(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
+    
+    // Set CollectionView delegate and datasource
+    collectionView.dataSource = self
+    collectionView.delegate = self
+    
+    // Hide CollectionView when the view display
+    collectionView.isHidden = true
+  }
+  
+  // MARK : - Data Fetch
+  
+  func fetchAllLawmakers()->[Lawmaker]
+  {
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName : Constants.Entity.Lawmaker)
+    let sectionSortDescriptor = NSSortDescriptor(key:Constants.Fetch.SortKeyForLawmaker, ascending: true)
+    let sortDescriptors = [sectionSortDescriptor]
+    fetchRequest.sortDescriptors = sortDescriptors
+    
+    do {
+      return try sharedContext.fetch(fetchRequest) as! [Lawmaker]
+      
+    } catch let error as NSError {
+      #if DEBUG
+        print("\(error.description)")
+      #endif
+      return [Lawmaker]()
     }
+  }
+  
+  // MARK : - Action Method
+  
+  @IBAction func segmentedControlChanged(_ sender: AnyObject) {
     
-    // MARK : - View Life Cycle
-    
-    override func viewDidLayoutSubviews() {
+    switch segmentedControl.selectedSegmentIndex {
+      
+    case 0:
+      tableView.setContentOffset(CGPoint.zero, animated: true)
+      tableView.isHidden = false
+      tableView.reloadData()
+      break
+    case 1:
+      tableView.reloadData()
+      tableView.setContentOffset(CGPoint.zero, animated: true)
+      tableView.isHidden = false
+      
+      lastRowIndex = 20
+      PoliticsViewController.page = 1
+      
+      let spinActivity = MBProgressHUD.showAdded(to: view, animated: true)
+      spinActivity.label.text = Constants.ActivityIndicatorText.Loading
+      
+      TPPClient.sharedInstance().getBills(PoliticsViewController.page) { (bills, error) in
         
-        super.viewDidLayoutSubviews()
-        
-        // Lay out the collection view so that cells take up 1/3 of the width,
-        // with no space in between
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        
-        let width = floor(self.collectionView.frame.size.width/3)
-        layout.itemSize = CGSize(width: width, height: width)
-        collectionView.collectionViewLayout = layout
-        
-    }
-    
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        
-        configureLayout()
-        lawmakers = fetchAllLawmakers()
-        buildTableViewIndex()
-        
-    }
-    
-    // MARK : - Configure Layout
-    
-    func configureLayout() {
-        
-        // Register Nib Objects
-        self.tableView.registerNib(UINib(nibName: Constants.Identifier.LawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.LawmakerCell)
-        self.tableView.registerNib(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
-        
-        // Set CollectionView delegate and datasource
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        
-        // Hide CollectionView when the view display
-        collectionView.hidden = true
-    }
-    
-    // MARK : - Data Fetch
-    
-    func fetchAllLawmakers()->[Lawmaker]
-    {
-        let fetchRequest = NSFetchRequest(entityName : Constants.Entity.Lawmaker)
-        let sectionSortDescriptor = NSSortDescriptor(key:Constants.Fetch.SortKeyForLawmaker, ascending: true)
-        let sortDescriptors = [sectionSortDescriptor]
-        fetchRequest.sortDescriptors = sortDescriptors
-        
-        do {
-            return try sharedContext.executeFetchRequest(fetchRequest) as! [Lawmaker]
-            
-        } catch let error as NSError {
-            #if DEBUG
-                log.debug("\(error.description)")
-            #endif
-            return [Lawmaker]()
+        if let bills = bills {
+          
+          self.bills = bills
+          
+          DispatchQueue.main.async  {
+            self.tableView.reloadData()
+            spinActivity.hide(animated:true)
+          }
+          
+        } else {
+          CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
+                                        okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
+          spinActivity.hide(animated:true)
+          
         }
-    }
-    
-    // MARK : - Action Method
-    
-    @IBAction func segmentedControlChanged(sender: AnyObject) {
+      }
+      break
+    case 2:
+      
+      collectionView.isHidden = false
+      tableView.isHidden = true
+      
+      let spinActivity = MBProgressHUD.showAdded(to: view, animated: true)
+      spinActivity.label.text = Constants.ActivityIndicatorText.Loading
+      
+      TPPClient.sharedInstance().getParties() { (parties, error) in
         
-        switch segmentedControl.selectedSegmentIndex {
-            
-        case 0:
-            tableView.setContentOffset(CGPointZero, animated: true)
-            tableView.hidden = false
-            tableView.reloadData()
-            break
-        case 1:
-            tableView.reloadData()
-            tableView.setContentOffset(CGPointZero, animated: true)
-            tableView.hidden = false
-            
-            lastRowIndex = 20
-            PoliticsViewController.page = 1
-            
-            let spinActivity = MBProgressHUD.showHUDAddedTo(view, animated: true)
-            spinActivity.labelText = Constants.ActivityIndicatorText.Loading
-            
-            TPPClient.sharedInstance().getBills(PoliticsViewController.page) { (bills, error) in
-                
-                if let bills = bills {
-                    
-                    self.bills = bills
-                    
-                    dispatch_async(dispatch_get_main_queue())  {
-                        self.tableView.reloadData()
-                        spinActivity.hide(true)
-                    }
-                    
-                } else {
-                    CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
-                                                      okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
-                    spinActivity.hide(true)
-
-                }
-            }
-            break
-        case 2:
-            
-            collectionView.hidden = false
-            tableView.hidden = true
-            
-            let spinActivity = MBProgressHUD.showHUDAddedTo(view, animated: true)
-            spinActivity.labelText = Constants.ActivityIndicatorText.Loading
-            
-            TPPClient.sharedInstance().getParties() { (parties, error) in
-                
-                if let parties = parties {
-                    
-                    self.parties = parties
-                    
-                    
-                    dispatch_async(dispatch_get_main_queue())  {
-                        self.collectionView.reloadData()
-                        spinActivity.hide(true)
-                    }
-                }
-                else {
-                    CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
-                        okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
-                        spinActivity.hide(true)
-                }
-            }
-            
-            break
-        default:
-            break
+        if let parties = parties {
+          
+          self.parties = parties
+        
+          DispatchQueue.main.async  {
+            self.collectionView.reloadData()
+            spinActivity.hide(animated:true)
+          }
         }
-    }
-    
-    // MARK : - Helper Methods
-    
-    func buildTableViewIndex() {
-        
-        indexInfo = buildIndex(lawmakers)
-    }
-    
-    func buildIndex(lawmakers: [Lawmaker]) -> [Entry] {
-        
-        #if DEBUG
-            // Get the first korean character
-            // let letters = lawmakers.map {  (lawmaker) -> Character in
-            //    lawmaker.name.hangul[0]
-            // }
-        #endif
-        
-        // Create the array that contains the first letter of lawmaker's name
-        let letters = lawmakers.map {  (lawmaker) -> Character in
-            Character(lawmaker.name!.substringToIndex(lawmaker.name!.startIndex.advancedBy(1)).uppercaseString)
+        else {
+          CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
+                                        okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
+          spinActivity.hide(animated:true)
         }
-        
-        // Delete if there is a duplicate
-        let distictLetters = distinct(letters)
-        
-        // Create the Entry type Array. Entry type represents (Character, [Lawmaker]) tuple
-        return distictLetters.map {   (letter) -> Entry in
-            
-            return (letter, lawmakers.filter  {  (lawmaker) -> Bool in
-                
-                Character(lawmaker.name!.substringToIndex(lawmaker.name!.startIndex.advancedBy(1)).uppercaseString) == letter
-                })
-        }
-        
-        #if DEBUG
-            //return distictLetters.map {   (letter) -> Entry in
-            
-            //   return (letter, lawmakers.filter  {  (lawmaker) -> Bool in
-            //                lawmaker.name.hangul[0] == letter
-            //    })
-            //}
-        #endif
+      }
+      
+      break
+    default:
+      break
+    }
+  }
+  
+  // MARK : - Helper Methods
+  
+  func buildTableViewIndex() {
+    
+    indexInfo = buildIndex(lawmakers)
+  }
+  
+  func buildIndex(_ lawmakers: [Lawmaker]) -> [Entry] {
+    
+    #if DEBUG
+      // Get the first korean character
+      // let letters = lawmakers.map {  (lawmaker) -> Character in
+      //    lawmaker.name.hangul[0]
+      // }
+    #endif
+    
+    // Create the array that contains the first letter of lawmaker's name
+    let letters = lawmakers.map {  (lawmaker) -> Character in
+      Character(lawmaker.name!.substring(to:lawmaker.name!.characters.index(lawmaker.name!.startIndex, offsetBy: 1)).uppercased())
     }
     
-    func distinct<T:Equatable>(source: [T]) -> [T] {
+    // Delete if there is a duplicate
+    let distictLetters = distinct(letters)
+    
+    // Create the Entry type Array. Entry type represents (Character, [Lawmaker]) tuple
+    return distictLetters.map {   (letter) -> Entry in
+      
+      return (letter, lawmakers.filter  {  (lawmaker) -> Bool in
         
-        var unique = [T]()
-        
-        for item in source {
-            
-            if !unique.contains(item) {
-                unique.append(item)
-            }
-            
-        }
-        return unique
+        Character(lawmaker.name!.substring(to:lawmaker.name!.characters.index(lawmaker.name!.startIndex, offsetBy: 1)).uppercased()) == letter
+      })
     }
     
-    // MARK : - Draw the text into an Image
+    #if DEBUG
+      //return distictLetters.map {   (letter) -> Entry in
+      
+      //   return (letter, lawmakers.filter  {  (lawmaker) -> Bool in
+      //                lawmaker.name.hangul[0] == letter
+      //    })
+      //}
+    #endif
+  }
+  
+  func distinct<T:Equatable>(_ source: [T]) -> [T] {
     
-    func textToImage(drawText: NSString, inImage: UIImage, atPoint:CGPoint)->UIImage{
-        
-        // Setup the font specific variables
-        let textColor: UIColor = UIColor.blackColor()
-        let textFont: UIFont = UIFont(name: Constants.Strings.Party.imageTextFont, size: 17)!
-        
-        //Setup the image context using the passed image.
-        UIGraphicsBeginImageContext(inImage.size)
-        
-        //Setups up the font attributes that will be later used to dictate how the text should be drawn
-        let textFontAttributes = [
-            NSFontAttributeName: textFont,
-            NSForegroundColorAttributeName: textColor,
-            ]
-        
-        //Put the image into a rectangle as large as the original image.
-        inImage.drawInRect(CGRectMake(0, 0, inImage.size.width, inImage.size.height))
-        
-        // Creating a point within the space that is as bit as the image.
-        let rect: CGRect = CGRectMake(atPoint.x, atPoint.y, inImage.size.width, inImage.size.height)
-        
-        //Now Draw the text into an image.
-        drawText.drawInRect(rect, withAttributes: textFontAttributes)
-        
-        // Create a new image out of the images we have created
-        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
-        
-        // End the context now that we have the image we need
-        UIGraphicsEndImageContext()
-        
-        //And pass it back up to the caller.
-        return newImage
-        
+    var unique = [T]()
+    
+    for item in source {
+      
+      if !unique.contains(item) {
+        unique.append(item)
+      }
+      
     }
-
-
+    return unique
+  }
+  
+  // MARK : - Draw the text into an Image
+  
+  func textToImage(_ drawText: NSString, inImage: UIImage, atPoint:CGPoint)->UIImage{
+    
+    // Setup the font specific variables
+    let textColor: UIColor = UIColor.black
+    let textFont: UIFont = UIFont(name: Constants.Strings.Party.imageTextFont, size: 17)!
+    
+    //Setup the image context using the passed image.
+    UIGraphicsBeginImageContext(inImage.size)
+    
+    //Setups up the font attributes that will be later used to dictate how the text should be drawn
+    let textFontAttributes = [
+      NSFontAttributeName: textFont,
+      NSForegroundColorAttributeName: textColor,
+      ]
+    
+    //Put the image into a rectangle as large as the original image.
+    inImage.draw(in: CGRect(x: 0, y: 0, width: inImage.size.width, height: inImage.size.height))
+    
+    // Creating a point within the space that is as bit as the image.
+    let rect: CGRect = CGRect(x: atPoint.x, y: atPoint.y, width: inImage.size.width, height: inImage.size.height)
+    
+    //Now Draw the text into an image.
+    drawText.draw(in: rect, withAttributes: textFontAttributes)
+    
+    // Create a new image out of the images we have created
+    let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+    
+    // End the context now that we have the image we need
+    UIGraphicsEndImageContext()
+    
+    //And pass it back up to the caller.
+    return newImage
+    
+  }
+  
+  
 }
 
 // MARK : - PoliticsViewController : UITableViewDelegate, UITableViewDataSource
 
 extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
+  
+  
+  // MARK : - UITableView DataSource Methods
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
+    var count = 0
     
-    // MARK : - UITableView DataSource Methods
+    switch segmentedControl.selectedSegmentIndex {
+      
+    case 0 :
+      count = indexInfo[section].1.count
+      break
+    case 1 :
+      count = bills.count
+      break
+    case 2 :
+      break
+    default:
+      break
+    }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return count
+  }
+  
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return segmentedControl.selectedSegmentIndex == 0 ? indexInfo.count : 1
+  }
+  
+  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    return segmentedControl.selectedSegmentIndex == 0 ? String(indexInfo[section].0): nil
+  }
+  
+  func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+    return segmentedControl.selectedSegmentIndex == 0 ? indexInfo.map({String($0.0)}):[String]()
+  }
+  
+  func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+    return index
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    if segmentedControl.selectedSegmentIndex == 0 {
+      
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.LawmakerCell, for: indexPath) as! LawmakerTableViewCell
+      configureCell(cell, atIndexPath: indexPath)
+      return cell
+    }
+    else if segmentedControl.selectedSegmentIndex == 1 {
+      
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.BillCell, for: indexPath) as! BillTableViewCell
+      
+      cell.nameLabel.text = bills[indexPath.row].name
+      cell.sponsorLabel.text = bills[indexPath.row].sponsor
+      cell.statusLabel.text = bills[indexPath.row].status
+      
+      return cell
+    }
+    
+    return UITableViewCell()
+  }
+  
+  // MARK : - Congifure UITableviewCell
+  
+  func configureCell(_ cell:LawmakerTableViewCell , atIndexPath indexPath:IndexPath)
+  {
+    
+    cell.nameLabel.text = indexInfo[indexPath.section].1[indexPath.row].name
+    cell.partyLabel.text = indexInfo[indexPath.section].1[indexPath.row].party
+    let urlString:String? = indexInfo[indexPath.section].1[indexPath.row].image
+    let url = URL(string: urlString!)!
+    
+    /*
+     Fetch a lawmaker by using a given imageUrl string to check whether an image is cached
+     If an image is not cahced, http request function is invoked to download an image
+     */
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName : Constants.Entity.Lawmaker )
+    let predicate = NSPredicate(format: Constants.Fetch.PredicateForImage, urlString!)
+    fetchRequest.predicate = predicate
+    // In order to fetch a single object
+    fetchRequest.fetchLimit = 1
+    
+    var fetchedResults:[Lawmaker]!
+    let searchedLawmaker:Lawmaker!
+    
+    do {
+      fetchedResults =  try sharedContext.fetch(fetchRequest) as! [Lawmaker]
+    } catch let error as NSError {
+      #if DEBUG
+        print("\(error.description)")
+      #endif
+    }
+    // Get a single fetched object
+    searchedLawmaker = fetchedResults.first
+    
+    var pinnedImage:UIImage?
+    cell.imageView!.image = nil
+    
+    if  searchedLawmaker.pinnedImage != nil {
+      #if DEBUG
+        print("images exist")
+      #endif
+      pinnedImage = searchedLawmaker.pinnedImage
+    }
+    else {
+      
+      let task = TPPClient.sharedInstance().taskForGetImage(url) { data, error  in
         
-        var count = 0
-        
-        switch segmentedControl.selectedSegmentIndex {
-            
-        case 0 :
-            count = indexInfo[section].1.count
-            break
-        case 1 :
-            count = bills.count
-            break
-        case 2 :
-            break
-        default:
-            break
+        if let data = data {
+          
+          let image = UIImage(data : data)
+          
+          DispatchQueue.main.async {
+            searchedLawmaker.pinnedImage = image
+            cell.profileImageView!.image = image
+          }
         }
         
-        return count
+      }
+      
+      //  The cells in the tableviews get reused when you scroll
+      //  So when a completion handler completes, it will set the image on a cell,
+      //  even if the cell is about to be reused, or is already being reused.
+      //  The table view cells need to cancel their download task when they are reused.
+      cell.taskToCancelifCellIsReused = task
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return segmentedControl.selectedSegmentIndex == 0 ? indexInfo.count : 1
+    cell.profileImageView!.image = pinnedImage
+    
+  }
+  
+  // MARK : - UITableView Delegate Methods
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 140
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    switch segmentedControl.selectedSegmentIndex {
+      
+    case 0 :
+      let controller = storyboard?.instantiateViewController(withIdentifier: Constants.Identifier.LawmakerDetailVC) as! LawmakerDetailViewController
+      
+      controller.name  = indexInfo[indexPath.section].1[indexPath.row].name
+      controller.birth = indexInfo[indexPath.section].1[indexPath.row].birth
+      controller.party = indexInfo[indexPath.section].1[indexPath.row].party
+      controller.when_elected = indexInfo[indexPath.section].1[indexPath.row].when_elected
+      controller.district = indexInfo[indexPath.section].1[indexPath.row].district
+      controller.homepage = indexInfo[indexPath.section].1[indexPath.row].homepage
+      controller.image = indexInfo[indexPath.section].1[indexPath.row].image
+      controller.pinnedImage = indexInfo[indexPath.section].1[indexPath.row].pinnedImage
+      
+      controller.hidesBottomBarWhenPushed = true
+      navigationController?.pushViewController(controller, animated: true)
+      
+      break
+    case 1 :
+      let controller = storyboard?.instantiateViewController(withIdentifier: Constants.Identifier.BillDetailVC) as! BillDetailViewController
+      
+      // controller.bill = bills[indexPath.row]
+      controller.name = bills[indexPath.row].name
+      controller.proposedDate = bills[indexPath.row].proposeDate
+      controller.status = bills[indexPath.row].status
+      controller.sponsor = bills[indexPath.row].sponsor
+      controller.documentUrl = bills[indexPath.row].documentUrl
+      controller.summary = bills[indexPath.row].summary
+      controller.assemblyID = bills[indexPath.row].assemblyId
+      
+      controller.hidesBottomBarWhenPushed = true
+      navigationController?.pushViewController(controller, animated: true)
+      
+      break
+    case 2 :
+      break
+    default:
+      break
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return segmentedControl.selectedSegmentIndex == 0 ? String(indexInfo[section].0): nil
-    }
+    tableView.deselectRow(at: indexPath, animated: true)
+  }
+  
+  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     
-    func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
-        return segmentedControl.selectedSegmentIndex == 0 ? indexInfo.map({String($0.0)}):[String]()
-    }
-    
-    func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
-        return index
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    switch segmentedControl.selectedSegmentIndex {
+      
+    case 1:
+      #if DEBUG
+        print("loadingData : \(self.loadingData)")
+        print("lastRowIndex: \(self.lastRowIndex)")
+      #endif
+      
+      if !loadingData && indexPath.row == lastRowIndex - 1{
+        #if DEBUG
+          print("indexPath = \(indexPath.row)")
+        #endif
+        loadingData = true
+        let spinActivity = MBProgressHUD.showAdded(to: view, animated: true)
+        spinActivity.label.text = Constants.ActivityIndicatorText.Loading
+        PoliticsViewController.page += 1
         
-        if segmentedControl.selectedSegmentIndex == 0 {
+        TPPClient.sharedInstance().getBills(PoliticsViewController.page) { (bills, error) in
+          
+          if let addedbills = bills {
             
-            let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.LawmakerCell, forIndexPath: indexPath) as! LawmakerTableViewCell
-            configureCell(cell, atIndexPath: indexPath)
-            return cell
-        }
-        else if segmentedControl.selectedSegmentIndex == 1 {
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.BillCell, forIndexPath: indexPath) as! BillTableViewCell
-
-            cell.nameLabel.text = bills[indexPath.row].name
-            cell.sponsorLabel.text = bills[indexPath.row].sponsor
-            cell.statusLabel.text = bills[indexPath.row].status
-            
-            return cell
-        }
-        
-        return UITableViewCell()
-    }
-    
-    // MARK : - Congifure UITableviewCell
-    
-    func configureCell(cell:LawmakerTableViewCell , atIndexPath indexPath:NSIndexPath)
-    {
-        
-        cell.nameLabel.text = indexInfo[indexPath.section].1[indexPath.row].name
-        cell.partyLabel.text = indexInfo[indexPath.section].1[indexPath.row].party
-        let urlString:String? = indexInfo[indexPath.section].1[indexPath.row].image
-        let url = NSURL(string: urlString!)!
-        
-        /*
-         Fetch a lawmaker by using a given imageUrl string to check whether an image is cached
-         If an image is not cahced, http request function is invoked to download an image
-         */
-        let fetchRequest = NSFetchRequest(entityName : Constants.Entity.Lawmaker )
-        let predicate = NSPredicate(format: Constants.Fetch.PredicateForImage, urlString!)
-        fetchRequest.predicate = predicate
-        // In order to fetch a single object
-        fetchRequest.fetchLimit = 1
-        
-        var fetchedResults:[Lawmaker]!
-        let searchedLawmaker:Lawmaker!
-        
-        do {
-            fetchedResults =  try sharedContext.executeFetchRequest(fetchRequest) as! [Lawmaker]
-        } catch let error as NSError {
             #if DEBUG
-                log.debug("\(error.description)")
+              print("appended bills count : \(addedbills.count)")
             #endif
-        }
-        // Get a single fetched object
-        searchedLawmaker = fetchedResults.first
-        
-        var pinnedImage:UIImage?
-        cell.imageView!.image = nil
-        
-        if  searchedLawmaker.pinnedImage != nil {
-            #if DEBUG
-                log.debug("images exist")
-            #endif
-            pinnedImage = searchedLawmaker.pinnedImage
-        }
-        else {
             
-            let task = TPPClient.sharedInstance().taskForGetImage(url) { data, error  in
-                
-                if let data = data {
-                    
-                    let image = UIImage(data : data)
-                    
-                    dispatch_async(dispatch_get_main_queue()) {
-                        searchedLawmaker.pinnedImage = image
-                        cell.profileImageView!.image = image
-                    }
-                }
-                
+            if addedbills.count == 0 {
+              
+              DispatchQueue.main.async  {
+                spinActivity.hide(animated:true)
+              }
+              return
             }
             
-            //  The cells in the tableviews get reused when you scroll
-            //  So when a completion handler completes, it will set the image on a cell,
-            //  even if the cell is about to be reused, or is already being reused.
-            //  The table view cells need to cancel their download task when they are reused.
-            cell.taskToCancelifCellIsReused = task
-        }
-        
-        cell.profileImageView!.image = pinnedImage
-        
-    }
-    
-    // MARK : - UITableView Delegate Methods
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 140
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        switch segmentedControl.selectedSegmentIndex {
+            self.bills.append(contentsOf: addedbills)
+            self.lastRowIndex += 20
+            self.loadingData = false
             
-        case 0 :
-            let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.LawmakerDetailVC) as! LawmakerDetailViewController
-            
-            controller.name  = indexInfo[indexPath.section].1[indexPath.row].name
-            controller.birth = indexInfo[indexPath.section].1[indexPath.row].birth
-            controller.party = indexInfo[indexPath.section].1[indexPath.row].party
-            controller.when_elected = indexInfo[indexPath.section].1[indexPath.row].when_elected
-            controller.district = indexInfo[indexPath.section].1[indexPath.row].district
-            controller.homepage = indexInfo[indexPath.section].1[indexPath.row].homepage
-            controller.image = indexInfo[indexPath.section].1[indexPath.row].image
-            controller.pinnedImage = indexInfo[indexPath.section].1[indexPath.row].pinnedImage
-            
-            controller.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(controller, animated: true)
-            
-            break
-        case 1 :
-            let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.BillDetailVC) as! BillDetailViewController
-            
-            // controller.bill = bills[indexPath.row]
-            controller.name = bills[indexPath.row].name
-            controller.proposedDate = bills[indexPath.row].proposeDate
-            controller.status = bills[indexPath.row].status
-            controller.sponsor = bills[indexPath.row].sponsor
-            controller.documentUrl = bills[indexPath.row].documentUrl
-            controller.summary = bills[indexPath.row].summary
-            controller.assemblyID = bills[indexPath.row].assemblyId
-            
-            controller.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(controller, animated: true)
-            
-            break
-        case 2 :
-            break
-        default:
-            break
-        }
-        
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-    
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-        switch segmentedControl.selectedSegmentIndex {
-            
-        case 1:
-            #if DEBUG
-            log.debug("loadingData : \(loadingData)")
-            log.debug("lastRowIndex: \(lastRowIndex)")
-            #endif
-            
-            if !loadingData && indexPath.row == lastRowIndex - 1{
-                #if DEBUG
-                log.debug("indexPath = \(indexPath.row)")
-                #endif
-                loadingData = true
-                let spinActivity = MBProgressHUD.showHUDAddedTo(view, animated: true)
-                spinActivity.labelText = Constants.ActivityIndicatorText.Loading
-                PoliticsViewController.page += 1
-                
-                TPPClient.sharedInstance().getBills(PoliticsViewController.page) { (bills, error) in
-                    
-                    if let addedbills = bills {
-                
-                        #if DEBUG
-                        log.debug("appended bills count : \(addedbills.count)")
-                        #endif
-                        
-                        if addedbills.count == 0 {
-                            
-                            dispatch_async(dispatch_get_main_queue())  {
-                                spinActivity.hide(true)
-                            }
-                            return
-                        }
-                        
-                        self.bills.appendContentsOf(addedbills)
-                        self.lastRowIndex += 20
-                        self.loadingData = false
-                        
-                        dispatch_async(dispatch_get_main_queue())  {
-                            self.tableView.reloadData()
-                            spinActivity.hide(true)
-                        }
-                    }
-                    else {
-                        
-                        CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
-                                                      okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
-                    }
-                }
+            DispatchQueue.main.async  {
+              self.tableView.reloadData()
+              spinActivity.hide(animated:true)
             }
-            break
-        default:
-            break
+          }
+          else {
+            
+            CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
+                                          okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
+          }
         }
+      }
+      break
+    default:
+      break
     }
-    
+  }
+  
 }
 
 // MARK: - PoliticsViewController: UICollectionDelegate, UICollectionViewDataSource
 
 extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewDelegate {
+  
+  // MARK : - UICollectionViewDataSource Methods
+  
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
-    // MARK : - UICollectionViewDataSource Methods
+    return parties.count
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    var logoImageRequest : Request?
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return parties.count
-    }
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifier.PartyImageCell, for: indexPath) as! PartyCollectionViewCell
+    cell.logoImageView!.image = nil
+    logoImageRequest?.cancel()
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var logoImageRequest : Request?
+    let urlString =  Constants.Strings.Party.partyImageUrl + String(parties[indexPath.row].id) + Constants.Strings.Party.partyImageExtension
+    //let url =  NSURL(string:urlString)!
+    // let imageData = NSData(contentsOfURL: url)
+    
+    
+//    if let image = TPPClient.sharedInstance().cachedImage(urlString) {
+//      cell.logoImageView!.image = image
+//      return cell
+//    }
+    
+    logoImageRequest = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
+      
+      
+      if let image = image {
+        DispatchQueue.main.async {
+          self.parties[indexPath.row].thumbnail = image
+          cell.logoImageView?.image = image
+        }
+      } else {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Constants.Identifier.PartyImageCell, forIndexPath: indexPath) as! PartyCollectionViewCell
-        cell.logoImageView!.image = nil
-        logoImageRequest?.cancel()
-        
-        let urlString =  Constants.Strings.Party.partyImageUrl + String(parties[indexPath.row].id) + Constants.Strings.Party.partyImageExtension
-        // let url =  NSURL(string:urlString)!
-        // let imageData = NSData(contentsOfURL: url)
-        
-        
-        if let image = TPPClient.sharedInstance().cachedImage(urlString) {
-            cell.logoImageView!.image = image
-            return cell
+        DispatchQueue.main.async {
+          let defaultImage = UIImage(named:Constants.Strings.Party.defaultImageName)
+          self.parties[indexPath.row].thumbnail = self.textToImage(self.parties[indexPath.row].name as NSString, inImage: defaultImage!, atPoint: CGPoint(x: 10,y: 60))
+          cell.logoImageView.image = self.parties[indexPath.row].thumbnail
         }
         
-        logoImageRequest = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
-            
-          
-            if let image = image {
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.parties[indexPath.row].thumbnail = image
-                    cell.logoImageView?.image = image
-                }
-            } else {
-                
-                 dispatch_async(dispatch_get_main_queue()) {
-                    let defaultImage = UIImage(named:Constants.Strings.Party.defaultImageName)
-                    self.parties[indexPath.row].thumbnail = self.textToImage(self.parties[indexPath.row].name, inImage: defaultImage!, atPoint: CGPointMake(10,60))
-                    cell.logoImageView.image = self.parties[indexPath.row].thumbnail
-                }
-
-            }
-            
-        }
-
-//        TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
-//            
-//            if let image = image {
-//                
-//                dispatch_async(dispatch_get_main_queue()) {
-//                    self.parties[indexPath.row].thumbnail = image
-//                    cell.logoImageView.image = image
-//
-//                }
-//            } else {
-//                
-//                dispatch_async(dispatch_get_main_queue()) {
-//                    
-//                // CommonHelper.showAlertWithMsg(self, msg: error!.localizedDescription, showCancelButton: false, okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
-//                }
-//               
-//            }
-//        }
-
-        return cell
+      }
+      
     }
     
-    // MARK : - UICollectionViewDelegate Methods
+    //        TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
+    //
+    //            if let image = image {
+    //
+    //                dispatch_async(dispatch_get_main_queue()) {
+    //                    self.parties[indexPath.row].thumbnail = image
+    //                    cell.logoImageView.image = image
+    //
+    //                }
+    //            } else {
+    //
+    //                dispatch_async(dispatch_get_main_queue()) {
+    //
+    //                // CommonHelper.showAlertWithMsg(self, msg: error!.localizedDescription, showCancelButton: false, okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
+    //                }
+    //
+    //            }
+    //        }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        
-        let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.WebViewVC) as! WebViewController
-        
-        controller.urlString = Constants.Strings.SearchVC.WikiUrl + parties[indexPath.row].name
-        controller.hidesBottomBarWhenPushed = true
-        
-        navigationController?.pushViewController(controller, animated: true)
-        
-    }
+    return cell
+  }
+  
+  // MARK : - UICollectionViewDelegate Methods
+  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
+    let controller = storyboard?.instantiateViewController(withIdentifier: Constants.Identifier.WebViewVC) as! WebViewController
+    
+    controller.urlString = Constants.Strings.SearchVC.WikiUrl + parties[indexPath.row].name
+    controller.hidesBottomBarWhenPushed = true
+    
+    navigationController?.pushViewController(controller, animated: true)
+    
+  }
+}
+
+extension PoliticsViewController : UICollectionViewDelegateFlowLayout {
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    
+    let width = floor(self.collectionView.frame.size.width/3)
+    // layout.itemSize = CGSize(width: width, height: width)
+    return CGSize(width: width, height: width - 15)
+  }
 }
 
 // Copyright © 2016년 minsone : http://minsone.github.io/mac/ios/linear-hangul-in-objective-c-swift
 
 extension String {
-    subscript (i: Int) -> Character {
-        return self[self.startIndex.advancedBy(i)]
-    }
-    
-    var hangul: String {
-        get {
-            let hangle = [
-                ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"],
-                ["ㅏ","ㅐ","ㅑ","ㅒ","ㅓ","ㅔ","ㅕ","ㅖ","ㅗ","ㅘ","ㅙ","ㅚ","ㅛ","ㅜ","ㅝ","ㅞ","ㅟ","ㅠ","ㅡ","ㅢ","ㅣ"],
-                ["","ㄱ","ㄲ","ㄳ","ㄴ","ㄵ","ㄶ","ㄷ","ㄹ","ㄺ","ㄻ","ㄼ","ㄽ","ㄾ","ㄿ","ㅀ","ㅁ","ㅂ","ㅄ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"]
-            ]
-            
-            return characters.reduce("") { result, char in
-                if case let code = Int(String(char).unicodeScalars.reduce(0){$0.0 + $0.1.value}) - 44032
-                    where code > -1 && code < 11172 {
-                    let cho = code / 21 / 28, jung = code % (21 * 28) / 28, jong = code % 28;
-                    return result + hangle[0][cho] + hangle[1][jung] + hangle[2][jong]
-                }
-                return result + String(char)
-            }
+  subscript (i: Int) -> Character {
+    return self[self.characters.index(self.startIndex, offsetBy: i)]
+  }
+  
+  var hangul: String {
+    get {
+      let hangle = [
+        ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"],
+        ["ㅏ","ㅐ","ㅑ","ㅒ","ㅓ","ㅔ","ㅕ","ㅖ","ㅗ","ㅘ","ㅙ","ㅚ","ㅛ","ㅜ","ㅝ","ㅞ","ㅟ","ㅠ","ㅡ","ㅢ","ㅣ"],
+        ["","ㄱ","ㄲ","ㄳ","ㄴ","ㄵ","ㄶ","ㄷ","ㄹ","ㄺ","ㄻ","ㄼ","ㄽ","ㄾ","ㄿ","ㅀ","ㅁ","ㅂ","ㅄ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"]
+      ]
+      
+      return characters.reduce("") { result, char in
+        if case let code = Int(String(char).unicodeScalars.reduce(0){$0.0 + $0.1.value}) - 44032, code > -1 && code < 11172 {
+          let cho = code / 21 / 28, jung = code % (21 * 28) / 28, jong = code % 28;
+          return result + hangle[0][cho] + hangle[1][jung] + hangle[2][jong]
         }
+        return result + String(char)
+      }
     }
+  }
 }

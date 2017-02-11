@@ -2,8 +2,8 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 use_frameworks!
 
-pod 'Alamofire', '~> 3.3'
-pod 'MBProgressHUD', '~> 0.9.2'
-pod 'XCGLogger', '~> 3.3'
-pod 'AlamofireImage', '~> 2.0'
-
+target 'OpenNA' do
+  pod 'Alamofire', '~> 4.3'
+  pod 'MBProgressHUD', '~> 1.0.0'
+  pod 'AlamofireImage', '~> 3.1'
+end

@@ -15,341 +15,341 @@ import Alamofire
 // MARK : - SearchViewController : UIViewController
 
 class SearchViewController: UIViewController {
+  
+  // MARK : - Property
+  
+  @IBOutlet weak var searchBar: UISearchBar!
+  @IBOutlet weak var tableView: UITableView!
+  
+  let search = Search()
+  var searchResults = [[String:AnyObject]]()
+  var sectionTitle = [String]()
+  var isSearch: Bool?
+  
+  // MARK : - View Life Cycle
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
-    // MARK : - Property 
+    // Register Nib Objects
+    tableView.register(UINib(nibName: Constants.Identifier.SearchedLawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedLawmakerCell)
+    tableView.register(UINib(nibName: Constants.Identifier.SearchedBillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedBillCell)
+    tableView.register(UINib(nibName: Constants.Identifier.SearchedPartyCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedPartyCell)
     
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var tableView: UITableView!
+    let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+    tableView.addGestureRecognizer(gestureRecognizer)
+    gestureRecognizer.cancelsTouchesInView = false
     
-    let search = Search()
-    var searchResults = [[String:AnyObject]]()
-    var sectionTitle = [String]()
-    var isSearch: Bool?
+    isSearch = false
+    let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
+    noDataLabel.text = Constants.Strings.SearchVC.DefaultLabelMessage
+    noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
+    noDataLabel.textAlignment = NSTextAlignment.center
+    self.tableView.backgroundView = noDataLabel
+    self.tableView.separatorStyle = .none
     
-    // MARK : - View Life Cycle 
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    
-        // Register Nib Objects
-        tableView.registerNib(UINib(nibName: Constants.Identifier.SearchedLawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedLawmakerCell)
-        tableView.registerNib(UINib(nibName: Constants.Identifier.SearchedBillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedBillCell)
-        tableView.registerNib(UINib(nibName: Constants.Identifier.SearchedPartyCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedPartyCell)
-
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-        tableView.addGestureRecognizer(gestureRecognizer)
-        gestureRecognizer.cancelsTouchesInView = false
-        
-        isSearch = false
-        let noDataLabel: UILabel = UILabel(frame: CGRectMake(0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height))
-        noDataLabel.text = Constants.Strings.SearchVC.DefaultLabelMessage
-        noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
-        noDataLabel.textAlignment = NSTextAlignment.Center
-        self.tableView.backgroundView = noDataLabel
-        self.tableView.separatorStyle = .None
-
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        searchBar.becomeFirstResponder()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        navigationController?.navigationBarHidden = true
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        navigationController?.navigationBarHidden = false
-    }
-    
-    // MARK : - Hide Keyboard
-    
-    func hideKeyboard() {
-        view.endEditing(true)
-    }
-        
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    searchBar.becomeFirstResponder()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    navigationController?.isNavigationBarHidden = true
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    navigationController?.isNavigationBarHidden = false
+  }
+  
+  // MARK : - Hide Keyboard
+  
+  func hideKeyboard() {
+    view.endEditing(true)
+  }
+  
 }
 
 // MARK : - SearchViewController : UISearchBarDelegate
 
 extension SearchViewController : UISearchBarDelegate {
+  
+  // MARK : - UISearchBarDelegate Method
+  
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     
-    // MARK : - UISearchBarDelegate Method
+    isSearch = true
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    let spinActivity = MBProgressHUD.showAdded(to: view, animated: true)
+    spinActivity.label.text = Constants.ActivityIndicatorText.Searching
+    
+    searchResults = []
+    sectionTitle = []
+    
+    
+    search.searchAll(searchBar.text!) { (lawmakers,bills,parties, error) in
+      
+      if let error = error {
+        CommonHelper.showAlertWithMsg(self, msg: error.localizedDescription, showCancelButton: false,
+                                      okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
+        spinActivity.hide(animated:true)
+        return
+      }
+      
+      if lawmakers.count > 0 {
         
-        isSearch = true
+        self.searchResults.append([Constants.SectionName.Lawmaker:lawmakers as AnyObject])
+        self.sectionTitle.append(Constants.SectionName.Lawmaker)
         
-        let spinActivity = MBProgressHUD.showHUDAddedTo(view, animated: true)
-        spinActivity.labelText = Constants.ActivityIndicatorText.Searching
+      }
+      
+      if bills.count > 0 {
         
-        searchResults = []
-        sectionTitle = []
+        self.searchResults.append([Constants.SectionName.Bill: bills as AnyObject])
+        self.sectionTitle.append(Constants.SectionName.Bill)
+      }
+      
+      if parties.count > 0 {
         
-               
-        search.searchAll(searchBar.text!) { (lawmakers,bills,parties, error) in
-            
-            if let error = error {
-                CommonHelper.showAlertWithMsg(self, msg: error.localizedDescription, showCancelButton: false,
-                                              okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
-                spinActivity.hide(true)
-                return
-            }
-            
-            if lawmakers.count > 0 {
-                    
-                self.searchResults.append([Constants.SectionName.Lawmaker:lawmakers])
-                self.sectionTitle.append(Constants.SectionName.Lawmaker)
-            
-            }
-                
-            if bills.count > 0 {
-                    
-                self.searchResults.append([Constants.SectionName.Bill: bills])
-                self.sectionTitle.append(Constants.SectionName.Bill)
-            }
-                
-            if parties.count > 0 {
-                
-                self.searchResults.append([Constants.SectionName.Party : parties])
-                self.sectionTitle.append(Constants.SectionName.Party)
-            
-            }
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                spinActivity.hide(true)
-                self.tableView.reloadData()
-            }
-        }
+        self.searchResults.append([Constants.SectionName.Party : parties as AnyObject])
+        self.sectionTitle.append(Constants.SectionName.Party)
         
-        tableView.reloadData()
-        searchBar.resignFirstResponder()
+      }
+      
+      DispatchQueue.main.async {
+        spinActivity.hide(animated:true)
+        self.tableView.reloadData()
+      }
     }
     
-    // MARK : - Adjust Bar position
-    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
-        return .TopAttached
-    }
-
+    tableView.reloadData()
+    searchBar.resignFirstResponder()
+  }
+  
+  // MARK : - Adjust Bar position
+  func position(for bar: UIBarPositioning) -> UIBarPosition {
+    return .topAttached
+  }
+  
 }
 
 // MARK : - SearchViewController : UITableViewDataSource, UITableViewDelegate
 
 extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
+  
+  // MARK : UITableViewDataSource Methods
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
-    // MARK : UITableViewDataSource Methods
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        guard let section = searchResults[section][sectionTitle[section]] else {
-            return 0
-        }
-
-        return section.count
+    guard let section = searchResults[section][sectionTitle[section]] else {
+      return 0
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        
-        var numberOfSection = 0
-        
-        if searchResults.count > 0 {
-            
-            self.tableView.backgroundView = nil
-            numberOfSection = searchResults.count
-            
-        } else {
-            
-            let noDataLabel: UILabel = UILabel(frame: CGRectMake(0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height))
-            (isSearch == true) ? (noDataLabel.text = Constants.Strings.SearchVC.NoSearchResultMessage) : (noDataLabel.text = Constants.Strings.SearchVC.DefaultLabelMessage)
-            noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
-            noDataLabel.textAlignment = NSTextAlignment.Center
-            self.tableView.backgroundView = noDataLabel
-            self.tableView.separatorStyle = .None
-            
-        }
-        
-        return numberOfSection
+    return section.count
+  }
+  
+  func numberOfSections(in tableView: UITableView) -> Int {
+    
+    var numberOfSection = 0
+    
+    if searchResults.count > 0 {
+      
+      self.tableView.backgroundView = nil
+      numberOfSection = searchResults.count
+      
+    } else {
+      
+      let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
+      (isSearch == true) ? (noDataLabel.text = Constants.Strings.SearchVC.NoSearchResultMessage) : (noDataLabel.text = Constants.Strings.SearchVC.DefaultLabelMessage)
+      noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
+      noDataLabel.textAlignment = NSTextAlignment.center
+      self.tableView.backgroundView = noDataLabel
+      self.tableView.separatorStyle = .none
+      
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionTitle[section]
-    }
+    return numberOfSection
+  }
+  
+  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    return sectionTitle[section]
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    var lawmakerImageRequest : Request?
+    var partyImageRequest : Request?
+    
+    if searchResults.count > 0 {
+      
+      let section = sectionTitle[indexPath.section]
+      
+      if section == Constants.SectionName.Lawmaker {
         
-        var lawmakerImageRequest : Request?
-        var partyImageRequest : Request?
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedLawmakerCell, for: indexPath) as! SearchedLawmakerTableViewCell
         
-        if searchResults.count > 0 {
+        cell.lawmakerImageView!.image = nil
+        lawmakerImageRequest?.cancel()
         
-            let section = sectionTitle[indexPath.section]
-
-            if section == Constants.SectionName.Lawmaker {
-        
-                let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchedLawmakerCell, forIndexPath: indexPath) as! SearchedLawmakerTableViewCell
-                
-                cell.lawmakerImageView!.image = nil
-                lawmakerImageRequest?.cancel()
-                
-                if let lawmaker = searchResults[indexPath.section][Constants.SectionName.Lawmaker] as? [Lawmaker] {
-                    
-                    
-                    cell.nameLabel?.text = lawmaker[indexPath.row].name
-                    
-                    guard let urlString = lawmaker[indexPath.row].image else {
-                        cell.lawmakerImageView!.image = UIImage(named:Constants.Strings.SearchVC.defaultImageName)
-                        return cell
-                    }
-                    
-                    if let image = TPPClient.sharedInstance().cachedImage(urlString) {
-                        cell.lawmakerImageView!.image = image
-                        return cell
-                    }
-                    
-                    
-                    lawmakerImageRequest = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
-                        
-                        if let image = image {
-                            
-                            dispatch_async(dispatch_get_main_queue()) {
-                                cell.lawmakerImageView?.image = image
-                            }
-                        } else {
-                        
-                            CommonHelper.showAlertWithMsg(self, msg: error!.localizedDescription, showCancelButton: false,
-                                                          okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
-                        }
-                    }
-                    
-                    return cell
-                }
-
-            } else if section == Constants.SectionName.Bill {
-                
-                let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchedBillCell, forIndexPath: indexPath) as! SearchedBillTableViewCell
-                
-                if let bill = searchResults[indexPath.section][Constants.SectionName.Bill] as? [Bill] {
-                    cell.nameLabel?.text = bill[indexPath.row].name
-                    cell.sponsorLabel?.text = bill[indexPath.row].sponsor
-                }
-                
-                return cell
-                
+        if let lawmaker = searchResults[indexPath.section][Constants.SectionName.Lawmaker] as? [Lawmaker] {
+          
+          
+          cell.nameLabel?.text = lawmaker[indexPath.row].name
+          
+          guard let urlString = lawmaker[indexPath.row].image else {
+            cell.lawmakerImageView!.image = UIImage(named:Constants.Strings.SearchVC.defaultImageName)
+            return cell
+          }
+          
+//          if let image = TPPClient.sharedInstance().cachedImage(urlString) {
+//            cell.lawmakerImageView!.image = image
+//            return cell
+//          }
+          
+          
+          lawmakerImageRequest = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
+            
+            if let image = image {
+              
+              DispatchQueue.main.async {
+                cell.lawmakerImageView?.image = image
+              }
             } else {
-                
-                let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.SearchedPartyCell, forIndexPath: indexPath) as! SearchedPartyTableViewCell
-                cell.partyImageView!.image = nil
-                partyImageRequest?.cancel()
-                
-                if let party = searchResults[indexPath.section][Constants.SectionName.Party] as? [Party] {
-                    
-                    cell.partyLabel?.text = party[indexPath.row].name
-                    
-                    guard let urlString = party[indexPath.row].logo else {
-                        return cell
-                    }
-                    
-                    if party[indexPath.row].logo == ""  {
-                
-                        cell.partyImageView!.image = UIImage(named:Constants.Strings.SearchVC.defaultImageName)
-                        return cell
-                    }
-                    
-                    
-                    if let image = TPPClient.sharedInstance().cachedImage(urlString) {
-                        cell.partyImageView!.image = image
-                        return cell
-                    }
-                    
-                    partyImageRequest = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
-                        
-                        if let image = image {
-                            dispatch_async(dispatch_get_main_queue()) {
-                                cell.partyImageView?.image = image
-                            }
-                        } else {
-                            CommonHelper.showAlertWithMsg(self, msg: error!.localizedDescription, showCancelButton: false,
-                                                              okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
-                        }
-                        
-                    }
-                }
-                return cell
+              
+              CommonHelper.showAlertWithMsg(self, msg: error!.localizedDescription, showCancelButton: false,
+                                            okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
             }
+          }
+          
+          return cell
         }
         
-        return UITableViewCell()
-    }
-    
-    // MARK : UITableView Delegate Methods
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 90
-
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+      } else if section == Constants.SectionName.Bill {
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedBillCell, for: indexPath) as! SearchedBillTableViewCell
         
-        if sectionTitle[indexPath.section] == Constants.SectionName.Lawmaker {
-            
-            guard let lawmakers = searchResults[indexPath.section][Constants.SectionName.Lawmaker] as? [Lawmaker] else {
-                return
-            }
-
-            let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.SearchedLawmakerDetailVC) as! SearchedLawmakerDetailViewController
-        
-            #if DEBUG
-                log.debug("\(lawmakers[indexPath.row].name)")
-                log.debug("\(lawmakers[indexPath.row].birth)")
-                log.debug("\(lawmakers[indexPath.row].party)")
-            #endif
-            
-            controller.name  = lawmakers[indexPath.row].name
-            controller.birth = lawmakers[indexPath.row].birth
-            controller.address = lawmakers[indexPath.row].address
-            controller.blog   = lawmakers[indexPath.row].blog
-            controller.education   = lawmakers[indexPath.row].education
-            controller.homepage = lawmakers[indexPath.row].homepage
-            controller.image = lawmakers[indexPath.row].image
-            
-            controller.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(controller, animated: true)
-
-        } else if sectionTitle[indexPath.section] == Constants.SectionName.Bill {
-        
-            guard let bills = searchResults[indexPath.section][Constants.SectionName.Bill] as? [Bill] else {
-                return
-            }
-            
-            let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.BillDetailVC) as! BillDetailViewController
-            
-            controller.name = bills[indexPath.row].name
-            controller.proposedDate = bills[indexPath.row].proposeDate
-            controller.status = bills[indexPath.row].status
-            controller.sponsor = bills[indexPath.row].sponsor
-            controller.documentUrl = bills[indexPath.row].documentUrl
-            controller.summary = bills[indexPath.row].summary
-            controller.assemblyID = bills[indexPath.row].assemblyId
-            
-            controller.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(controller, animated: true)
-
-        } else {
-        
-            guard let party = searchResults[indexPath.section][Constants.SectionName.Party] as? [Party] else {
-                return
-            }
-            
-            let controller = storyboard?.instantiateViewControllerWithIdentifier(Constants.Identifier.WebViewVC) as! WebViewController
-            controller.urlString = Constants.Strings.SearchVC.WikiUrl + party[indexPath.row].name
-            
-            controller.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(controller, animated: true)
+        if let bill = searchResults[indexPath.section][Constants.SectionName.Bill] as? [Bill] {
+          cell.nameLabel?.text = bill[indexPath.row].name
+          cell.sponsorLabel?.text = bill[indexPath.row].sponsor
         }
-
+        
+        return cell
+        
+      } else {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedPartyCell, for: indexPath) as! SearchedPartyTableViewCell
+        cell.partyImageView!.image = nil
+        partyImageRequest?.cancel()
+        
+        if let party = searchResults[indexPath.section][Constants.SectionName.Party] as? [Party] {
+          
+          cell.partyLabel?.text = party[indexPath.row].name
+          
+          guard let urlString = party[indexPath.row].logo else {
+            return cell
+          }
+          
+          if party[indexPath.row].logo == ""  {
+            
+            cell.partyImageView!.image = UIImage(named:Constants.Strings.SearchVC.defaultImageName)
+            return cell
+          }
+          
+          
+//          if let image = TPPClient.sharedInstance().cachedImage(urlString) {
+//            cell.partyImageView!.image = image
+//            return cell
+//          }
+          
+          partyImageRequest = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
+            
+            if let image = image {
+              DispatchQueue.main.async {
+                cell.partyImageView?.image = image
+              }
+            } else {
+              CommonHelper.showAlertWithMsg(self, msg: error!.localizedDescription, showCancelButton: false,
+                                            okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
+            }
+            
+          }
+        }
+        return cell
+      }
     }
     
+    return UITableViewCell()
+  }
+  
+  // MARK : UITableView Delegate Methods
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 90
+    
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    tableView.deselectRow(at: indexPath, animated: true)
+    
+    if sectionTitle[indexPath.section] == Constants.SectionName.Lawmaker {
+      
+      guard let lawmakers = searchResults[indexPath.section][Constants.SectionName.Lawmaker] as? [Lawmaker] else {
+        return
+      }
+      
+      let controller = storyboard?.instantiateViewController(withIdentifier: Constants.Identifier.SearchedLawmakerDetailVC) as! SearchedLawmakerDetailViewController
+      
+      #if DEBUG
+        print("\(lawmakers[indexPath.row].name)")
+        print("\(lawmakers[indexPath.row].birth)")
+        print("\(lawmakers[indexPath.row].party)")
+      #endif
+      
+      controller.name  = lawmakers[indexPath.row].name
+      controller.birth = lawmakers[indexPath.row].birth
+      controller.address = lawmakers[indexPath.row].address
+      controller.blog   = lawmakers[indexPath.row].blog
+      controller.education   = lawmakers[indexPath.row].education
+      controller.homepage = lawmakers[indexPath.row].homepage
+      controller.image = lawmakers[indexPath.row].image
+      
+      controller.hidesBottomBarWhenPushed = true
+      navigationController?.pushViewController(controller, animated: true)
+      
+    } else if sectionTitle[indexPath.section] == Constants.SectionName.Bill {
+      
+      guard let bills = searchResults[indexPath.section][Constants.SectionName.Bill] as? [Bill] else {
+        return
+      }
+      
+      let controller = storyboard?.instantiateViewController(withIdentifier: Constants.Identifier.BillDetailVC) as! BillDetailViewController
+      
+      controller.name = bills[indexPath.row].name
+      controller.proposedDate = bills[indexPath.row].proposeDate
+      controller.status = bills[indexPath.row].status
+      controller.sponsor = bills[indexPath.row].sponsor
+      controller.documentUrl = bills[indexPath.row].documentUrl
+      controller.summary = bills[indexPath.row].summary
+      controller.assemblyID = bills[indexPath.row].assemblyId
+      
+      controller.hidesBottomBarWhenPushed = true
+      navigationController?.pushViewController(controller, animated: true)
+      
+    } else {
+      
+      guard let party = searchResults[indexPath.section][Constants.SectionName.Party] as? [Party] else {
+        return
+      }
+      
+      let controller = storyboard?.instantiateViewController(withIdentifier: Constants.Identifier.WebViewVC) as! WebViewController
+      controller.urlString = Constants.Strings.SearchVC.WikiUrl + party[indexPath.row].name
+      
+      controller.hidesBottomBarWhenPushed = true
+      navigationController?.pushViewController(controller, animated: true)
+    }
+    
+  }
+  
 }

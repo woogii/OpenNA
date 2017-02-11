@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		13174E43509921D70E2FDBA0 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3801775D12FBF6181F3CD108 /* Pods.framework */; };
 		D20028301CE86C9E00F1369E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200282F1CE86C9E00F1369E /* WebViewController.swift */; };
 		D20028321CE8B3C300F1369E /* BillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20028311CE8B3C300F1369E /* BillDetailViewController.swift */; };
 		D212D3BE1CF97563008CEC5C /* LawmakerInList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3BD1CF97563008CEC5C /* LawmakerInList.swift */; };
@@ -51,6 +50,7 @@
 		D2D3F9561CABD1A500D97B23 /* BillCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2D3F9551CABD1A500D97B23 /* BillCell.xib */; };
 		D2D3F9581CABFA3F00D97B23 /* SearchedLawmakerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2D3F9571CABFA3F00D97B23 /* SearchedLawmakerCell.xib */; };
 		D2D3F95A1CAC2D6700D97B23 /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D3F9591CAC2D6700D97B23 /* Party.swift */; };
+		FD96E5BA0A6AC631837B7A8D /* Pods_OpenNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E53F0110EF24D4E8B29C805 /* Pods_OpenNA.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,9 +71,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22A899453A63A3AB72A6D9FB /* Pods-OpenNA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenNA.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenNA/Pods-OpenNA.release.xcconfig"; sourceTree = "<group>"; };
 		3801775D12FBF6181F3CD108 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		48DA9048AE9501E62CCFAF3E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		86E1E5853AA5541A8A5D07D0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		6E53F0110EF24D4E8B29C805 /* Pods_OpenNA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenNA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8501E14855B4581ED95B1665 /* Pods-OpenNA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenNA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenNA/Pods-OpenNA.debug.xcconfig"; sourceTree = "<group>"; };
 		D200282F1CE86C9E00F1369E /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		D20028311CE8B3C300F1369E /* BillDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailViewController.swift; sourceTree = "<group>"; };
 		D212D3BD1CF97563008CEC5C /* LawmakerInList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerInList.swift; sourceTree = "<group>"; };
@@ -130,7 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13174E43509921D70E2FDBA0 /* Pods.framework in Frameworks */,
+				FD96E5BA0A6AC631837B7A8D /* Pods_OpenNA.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,11 +152,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AF846AA7C0A1475A691E9D0E /* Pods */ = {
+		CBCE29CFD52F1013242F9EDE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				48DA9048AE9501E62CCFAF3E /* Pods.debug.xcconfig */,
-				86E1E5853AA5541A8A5D07D0 /* Pods.release.xcconfig */,
+				8501E14855B4581ED95B1665 /* Pods-OpenNA.debug.xcconfig */,
+				22A899453A63A3AB72A6D9FB /* Pods-OpenNA.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -164,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				3801775D12FBF6181F3CD108 /* Pods.framework */,
+				6E53F0110EF24D4E8B29C805 /* Pods_OpenNA.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -212,8 +214,8 @@
 				D2964B931C7344D700D5FF5C /* OpenNATests */,
 				D2964B9E1C7344D700D5FF5C /* OpenNAUITests */,
 				D2964B7D1C7344D700D5FF5C /* Products */,
-				AF846AA7C0A1475A691E9D0E /* Pods */,
 				CC3CA0A33224EEC629736A00 /* Frameworks */,
+				CBCE29CFD52F1013242F9EDE /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -336,12 +338,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D2964BA41C7344D700D5FF5C /* Build configuration list for PBXNativeTarget "OpenNA" */;
 			buildPhases = (
-				D794D1E229150BB58B9D1906 /* Check Pods Manifest.lock */,
+				CD949E5946271260953AF1FF /* [CP] Check Pods Manifest.lock */,
 				D2964B781C7344D700D5FF5C /* Sources */,
 				D2964B791C7344D700D5FF5C /* Frameworks */,
 				D2964B7A1C7344D700D5FF5C /* Resources */,
-				F89EEA758597A23B1BCF9AB5 /* Embed Pods Frameworks */,
-				2C17AC8793917D9CE075B024 /* Copy Pods Resources */,
+				8CB2E59530293D6A8557F6A1 /* [CP] Embed Pods Frameworks */,
+				E680D54DE3A772846807D644 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -401,13 +403,16 @@
 					D2964B7B1C7344D700D5FF5C = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = MFYH4C9VNG;
+						LastSwiftMigration = 0820;
 					};
 					D2964B8F1C7344D700D5FF5C = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0820;
 						TestTargetID = D2964B7B1C7344D700D5FF5C;
 					};
 					D2964B9A1C7344D700D5FF5C = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0820;
 						TestTargetID = D2964B7B1C7344D700D5FF5C;
 					};
 				};
@@ -467,49 +472,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2C17AC8793917D9CE075B024 /* Copy Pods Resources */ = {
+		8CB2E59530293D6A8557F6A1 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OpenNA/Pods-OpenNA-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D794D1E229150BB58B9D1906 /* Check Pods Manifest.lock */ = {
+		CD949E5946271260953AF1FF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		F89EEA758597A23B1BCF9AB5 /* Embed Pods Frameworks */ = {
+		E680D54DE3A772846807D644 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OpenNA/Pods-OpenNA-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -680,7 +685,7 @@
 		};
 		D2964BA51C7344D700D5FF5C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 48DA9048AE9501E62CCFAF3E /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 8501E14855B4581ED95B1665 /* Pods-OpenNA.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -692,12 +697,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wook2.OpenNA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		D2964BA61C7344D700D5FF5C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 86E1E5853AA5541A8A5D07D0 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 22A899453A63A3AB72A6D9FB /* Pods-OpenNA.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -708,6 +714,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wook2.OpenNA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -719,6 +726,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wook2.OpenNATests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpenNA.app/OpenNA";
 			};
 			name = Debug;
@@ -731,6 +739,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wook2.OpenNATests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpenNA.app/OpenNA";
 			};
 			name = Release;
@@ -742,6 +751,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wook2.OpenNAUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = OpenNA;
 				USES_XCTRUNNER = YES;
 			};
@@ -754,6 +764,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wook2.OpenNAUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = OpenNA;
 				USES_XCTRUNNER = YES;
 			};

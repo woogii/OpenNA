@@ -11,10 +11,10 @@ import UIKit
 // MARK : - SearchedBillTableViewCell : UITableViewCell
 
 class SearchedBillTableViewCell: UITableViewCell {
-
-    // MARK : - Property 
-    
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var sponsorLabel: UILabel!
-    
+  
+  // MARK : - Property
+  
+  @IBOutlet weak var nameLabel: UILabel!
+  @IBOutlet weak var sponsorLabel: UILabel!
+  
 }

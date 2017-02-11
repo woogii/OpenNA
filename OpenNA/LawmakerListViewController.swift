@@ -13,174 +13,174 @@ import CoreData
 // MARK : - LawmakerListViewController : UIViewController
 
 class LawmakerListViewController : UIViewController {
+  
+  // MARK : - Property
+  
+  @IBOutlet weak var tableView: UITableView!
+  var lawmakersInList = [LawmakerInList]()
+  
+  var sharedContext : NSManagedObjectContext {
+    return CoreDataStackManager.sharedInstance().managedObjectContext!
+  }
+  
+  // MARK : - View Life Cycle
+  
+  override func viewWillAppear(_ animated: Bool) {
     
-    // MARK : - Property 
-    
-    @IBOutlet weak var tableView: UITableView!
-    var lawmakersInList = [LawmakerInList]()
-    
-    var sharedContext : NSManagedObjectContext {
-        return CoreDataStackManager.sharedInstance().managedObjectContext!
+    if let row = tableView.indexPathForSelectedRow {
+      tableView.deselectRow(at: row, animated: false)
     }
     
-    // MARK : - View Life Cycle 
+    lawmakersInList = fetchLawmakersInList()
+    tableView.reloadData()
+  }
+  
+  override func viewDidLoad() {
+    // Register Nib Objects
+    tableView.register(UINib(nibName: Constants.Identifier.LawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.LawmakerCell)
+    tableView.delegate = self
+    tableView.dataSource = self
     
-    override func viewWillAppear(animated: Bool) {
-        
-        if let row = tableView.indexPathForSelectedRow {
-            tableView.deselectRowAtIndexPath(row, animated: false)
-        }
-        
-        lawmakersInList = fetchLawmakersInList()
-        tableView.reloadData()
+    lawmakersInList = fetchLawmakersInList()
+    
+  }
+  
+  // MARK : - Fetch Lawmakers In Favorite List
+  
+  func fetchLawmakersInList()->[LawmakerInList] {
+    
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName : Constants.Entity.LawmakerInList)
+    
+    do {
+      return try sharedContext.fetch(fetchRequest) as! [LawmakerInList]
+      
+    } catch let error as NSError {
+      #if DEBUG
+        print("\(error.description)")
+      #endif
+      return [LawmakerInList]()
     }
     
-    override func viewDidLoad() {
-        // Register Nib Objects
-        tableView.registerNib(UINib(nibName: Constants.Identifier.LawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.LawmakerCell)
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        lawmakersInList = fetchLawmakersInList()
-        
-    }
+  }
+  
+  // MARK : - Prepare For Segue
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    let path = tableView.indexPathForSelectedRow!
     
-    // MARK : - Fetch Lawmakers In Favorite List
+    let detailVC = segue.destination as! LawmakerDetailViewController
     
-    func fetchLawmakersInList()->[LawmakerInList] {
-        
-        let fetchRequest = NSFetchRequest(entityName : Constants.Entity.LawmakerInList)
-        
-        do {
-            return try sharedContext.executeFetchRequest(fetchRequest) as! [LawmakerInList]
-            
-        } catch let error as NSError {
-            #if DEBUG
-                log.debug("\(error.description)")
-            #endif
-            return [LawmakerInList]()
-        }
-        
-    }
+    detailVC.pinnedImage = lawmakersInList[path.row].pinnedImage
+    detailVC.name = lawmakersInList[path.row].name
+    detailVC.birth = lawmakersInList[path.row].birth
+    detailVC.party = lawmakersInList[path.row].party
+    detailVC.when_elected = lawmakersInList[path.row].when_elected
+    detailVC.district = lawmakersInList[path.row].district
+    detailVC.homepage = lawmakersInList[path.row].homepage
+    detailVC.image = lawmakersInList[path.row].image
+    detailVC.pinnedImage = lawmakersInList[path.row].pinnedImage
     
-    // MARK : - Prepare For Segue 
+    detailVC.hidesBottomBarWhenPushed = true
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let path = tableView.indexPathForSelectedRow!
-        
-        let detailVC = segue.destinationViewController as! LawmakerDetailViewController
-    
-        detailVC.pinnedImage = lawmakersInList[path.row].pinnedImage
-        detailVC.name = lawmakersInList[path.row].name
-        detailVC.birth = lawmakersInList[path.row].birth
-        detailVC.party = lawmakersInList[path.row].party
-        detailVC.when_elected = lawmakersInList[path.row].when_elected
-        detailVC.district = lawmakersInList[path.row].district
-        detailVC.homepage = lawmakersInList[path.row].homepage
-        detailVC.image = lawmakersInList[path.row].image
-        detailVC.pinnedImage = lawmakersInList[path.row].pinnedImage
-
-        detailVC.hidesBottomBarWhenPushed = true
-        
-    }
-    
+  }
+  
 }
 
-// MARK : - LawmakerListViewController : UITableViewDelegate, UITableViewDataSource 
+// MARK : - LawmakerListViewController : UITableViewDelegate, UITableViewDataSource
 
 extension LawmakerListViewController : UITableViewDelegate, UITableViewDataSource {
+  
+  
+  
+  // MARK : - UITableViewDataSource Methods
+  
+  func numberOfSections(in tableView: UITableView) -> Int {
     
+    var numberOfSection = 0
     
-
-    // MARK : - UITableViewDataSource Methods
-
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    if lawmakersInList.count > 0 {
+      
+      self.tableView.backgroundView = nil
+      numberOfSection = 1
+      
+      
+    } else {
+      
+      let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
+      noDataLabel.text = Constants.Strings.LawmakerListVC.DefaultLabelMessage
+      noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
+      noDataLabel.textAlignment = NSTextAlignment.center
+      self.tableView.backgroundView = noDataLabel
+      
+    }
+    
+    return numberOfSection
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.LawmakerCell, for: indexPath) as! LawmakerTableViewCell
+    configureCell(cell, atIndexPath: indexPath)
+    return cell
+  }
+  
+  func configureCell(_ cell:LawmakerTableViewCell , atIndexPath indexPath:IndexPath)
+  {
+    
+    cell.nameLabel.text = lawmakersInList[indexPath.row].name
+    cell.partyLabel.text = lawmakersInList[indexPath.row].party
+    let urlString:String? = lawmakersInList[indexPath.row].image
+    let url = URL(string: urlString!)!
+    
+    var pinnedImage:UIImage?
+    cell.imageView!.image = nil
+    
+    if  lawmakersInList[indexPath.row].pinnedImage != nil {
+      #if DEBUG
+        print("images exist")
+      #endif
+      pinnedImage = lawmakersInList[indexPath.row].pinnedImage
+    }
+    else {
+      
+      let task = TPPClient.sharedInstance().taskForGetImage(url) { data, error  in
         
-        var numberOfSection = 0
-        
-        if lawmakersInList.count > 0 {
-            
-            self.tableView.backgroundView = nil
-            numberOfSection = 1
-            
-            
+        if let data = data {
+          
+          let image = UIImage(data : data)
+          
+          DispatchQueue.main.async {
+            self.lawmakersInList[indexPath.row].pinnedImage = image
+            cell.profileImageView!.image = image
+          }
         } else {
-            
-            let noDataLabel: UILabel = UILabel(frame: CGRectMake(0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height))
-            noDataLabel.text = Constants.Strings.LawmakerListVC.DefaultLabelMessage
-            noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
-            noDataLabel.textAlignment = NSTextAlignment.Center
-            self.tableView.backgroundView = noDataLabel
-            
+          CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
+                                        okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
         }
         
-        return numberOfSection
+      }
+      
+      cell.taskToCancelifCellIsReused = task
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.LawmakerCell, forIndexPath: indexPath) as! LawmakerTableViewCell
-        configureCell(cell, atIndexPath: indexPath)
-        return cell
-    }
+    cell.profileImageView!.image = pinnedImage
     
-    func configureCell(cell:LawmakerTableViewCell , atIndexPath indexPath:NSIndexPath)
-    {
-        
-        cell.nameLabel.text = lawmakersInList[indexPath.row].name
-        cell.partyLabel.text = lawmakersInList[indexPath.row].party
-        let urlString:String? = lawmakersInList[indexPath.row].image
-        let url = NSURL(string: urlString!)!
-        
-        var pinnedImage:UIImage?
-        cell.imageView!.image = nil
-        
-        if  lawmakersInList[indexPath.row].pinnedImage != nil {
-            #if DEBUG
-                log.debug("images exist")
-            #endif
-            pinnedImage = lawmakersInList[indexPath.row].pinnedImage
-        }
-        else {
-            
-            let task = TPPClient.sharedInstance().taskForGetImage(url) { data, error  in
-                
-                if let data = data {
-                    
-                    let image = UIImage(data : data)
-                    
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.lawmakersInList[indexPath.row].pinnedImage = image
-                        cell.profileImageView!.image = image
-                    }
-                } else {
-                    CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
-                                                  okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
-                }
-                
-            }
-            
-            cell.taskToCancelifCellIsReused = task
-        }
-        
-        cell.profileImageView!.image = pinnedImage
-        
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return lawmakersInList.count
-    }
-    
-    // MARK : UITableView Delegate Methods
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 140
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier(Constants.Identifier.LawmakerDetailVC, sender: self)
-    }
-    
-
-    
+  }
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return lawmakersInList.count
+  }
+  
+  // MARK : UITableView Delegate Methods
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 140
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    performSegue(withIdentifier: Constants.Identifier.LawmakerDetailVC, sender: self)
+  }
+  
+  
+  
 }

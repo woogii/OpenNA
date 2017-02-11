@@ -9,41 +9,41 @@
 import Foundation
 import CoreData
 
-// MARK : - BillsInList : NSManangedObject 
+// MARK : - BillsInList : NSManangedObject
 
 class BillInList : NSManagedObject {
+  
+  // MARK : Property
+  
+  @NSManaged var name:String?
+  @NSManaged var proposeDate:String?
+  @NSManaged var sponsor:String?
+  @NSManaged var status:String?
+  @NSManaged var summary:String?
+  @NSManaged var documentUrl:String?
+  @NSManaged var assemblyId:NSNumber?
+  
+  
+  // MARK : Initialization
+  
+  override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+    super.init(entity:entity, insertInto: context)
+  }
+  
+  init(dictionary :[String:AnyObject], context: NSManagedObjectContext?)
+  {
+    let entity = NSEntityDescription.entity(forEntityName: Constants.Entity.BillInList, in: context!)
     
-    // MARK : Property
+    super.init(entity : entity!, insertInto: context)
     
-    @NSManaged var name:String?
-    @NSManaged var proposeDate:String?
-    @NSManaged var sponsor:String?
-    @NSManaged var status:String?
-    @NSManaged var summary:String?
-    @NSManaged var documentUrl:String?
-    @NSManaged var assemblyId:NSNumber?
+    name         = dictionary[Constants.ModelKeys.BillName] as? String
+    proposeDate  = dictionary[Constants.ModelKeys.BillProposedDate] as? String
+    sponsor      = dictionary[Constants.ModelKeys.BillSponsor] as? String
+    status       = dictionary[Constants.ModelKeys.BillStatus] as? String
+    summary      = dictionary[Constants.ModelKeys.BillSummary] as? String
+    documentUrl  = dictionary[Constants.ModelKeys.BillDocumentUrl] as? String
+    assemblyId   = dictionary[Constants.ModelKeys.BillAssemblyId] as? Int as NSNumber?
     
-    
-    // MARK : Initialization
-    
-    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
-        super.init(entity:entity, insertIntoManagedObjectContext: context)
-    }
-    
-    init(dictionary :[String:AnyObject], context: NSManagedObjectContext?)
-    {
-        let entity = NSEntityDescription.entityForName(Constants.Entity.BillInList, inManagedObjectContext: context!)
-        
-        super.init(entity : entity!, insertIntoManagedObjectContext: context)
-        
-        name         = dictionary[Constants.ModelKeys.BillName] as? String
-        proposeDate  = dictionary[Constants.ModelKeys.BillProposedDate] as? String
-        sponsor      = dictionary[Constants.ModelKeys.BillSponsor] as? String
-        status       = dictionary[Constants.ModelKeys.BillStatus] as? String
-        summary      = dictionary[Constants.ModelKeys.BillSummary] as? String
-        documentUrl  = dictionary[Constants.ModelKeys.BillDocumentUrl] as? String
-        assemblyId   = dictionary[Constants.ModelKeys.BillAssemblyId] as? Int
-        
-    }
-    
+  }
+  
 }

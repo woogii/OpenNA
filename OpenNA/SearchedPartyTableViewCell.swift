@@ -8,13 +8,13 @@
 
 import UIKit
 
-// MARK : - SearchedPartyTableViewCell: UITableViewCell 
+// MARK : - SearchedPartyTableViewCell: UITableViewCell
 
 class SearchedPartyTableViewCell: UITableViewCell {
-
-    // MARK : - Property 
-    
-    @IBOutlet weak var partyImageView: UIImageView!
-    @IBOutlet weak var partyLabel: UILabel!
-
+  
+  // MARK : - Property
+  
+  @IBOutlet weak var partyImageView: UIImageView!
+  @IBOutlet weak var partyLabel: UILabel!
+  
 }

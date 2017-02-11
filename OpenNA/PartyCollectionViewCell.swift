@@ -12,18 +12,18 @@ import UIKit
 // MARK : - PartyCollectionViewCell : UICollectionViewCell
 
 class PartyCollectionViewCell : UICollectionViewCell {
+  
+  // MARK : Property
+  
+  @IBOutlet weak var logoImageView: UIImageView!
+  
+  var taskToCancelifCellIsReused: URLSessionTask? {
     
-    // MARK : Property
-    
-    @IBOutlet weak var logoImageView: UIImageView!
-    
-    var taskToCancelifCellIsReused: NSURLSessionTask? {
-        
-        didSet {
-            if let taskToCancel = oldValue {
-                taskToCancel.cancel()
-            }
-        }
+    didSet {
+      if let taskToCancel = oldValue {
+        taskToCancel.cancel()
+      }
     }
-    
+  }
+  
 }

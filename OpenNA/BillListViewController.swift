@@ -10,129 +10,129 @@ import Foundation
 import UIKit
 import CoreData
 
-// MARK : - BillListViewController : UIViewController 
+// MARK : - BillListViewController : UIViewController
 
 class BillListViewController : UIViewController {
+  
+  // MARK : - Property
+  
+  @IBOutlet weak var tableView: UITableView!
+  var billsInList = [BillInList]()
+  var sharedContext : NSManagedObjectContext {
+    return CoreDataStackManager.sharedInstance().managedObjectContext!
+  }
+  
+  // MARK : - View Life Cycle
+  
+  override func viewWillAppear(_ animated: Bool) {
     
-    // MARK : - Property 
-    
-    @IBOutlet weak var tableView: UITableView!
-    var billsInList = [BillInList]()
-    var sharedContext : NSManagedObjectContext {
-        return CoreDataStackManager.sharedInstance().managedObjectContext!
+    if let row = tableView.indexPathForSelectedRow {
+      tableView.deselectRow(at: row, animated: false)
     }
     
-    // MARK : - View Life Cycle 
+    billsInList = fetchBillsInList()
+    tableView.reloadData()
+  }
+  
+  override func viewDidLoad() {
     
-    override func viewWillAppear(animated: Bool) {
-        
-        if let row = tableView.indexPathForSelectedRow {
-            tableView.deselectRowAtIndexPath(row, animated: false)
-        }
-
-        billsInList = fetchBillsInList()
-        tableView.reloadData()
+    tableView.register(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
+    tableView.delegate = self
+    tableView.dataSource = self
+    
+    billsInList = fetchBillsInList()
+  }
+  
+  // MARK  : - Fetch Bills in Favorite List
+  
+  func  fetchBillsInList()->[BillInList] {
+    
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName : Constants.Entity.BillInList)
+    
+    do {
+      return try sharedContext.fetch(fetchRequest) as! [BillInList]
+      
+    } catch let error as NSError {
+      #if DEBUG
+        print("\(error.description)")
+      #endif
+      return [BillInList]()
     }
+  }
+  
+  // MARK : - Prepare For Segue
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
-    override func viewDidLoad() {
-        
-        tableView.registerNib(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        billsInList = fetchBillsInList()
-    }
+    let path = tableView.indexPathForSelectedRow!
+    let detailVC = segue.destination as! BillDetailViewController
     
-    // MARK  : - Fetch Bills in Favorite List 
+    detailVC.name = billsInList[path.row].name
+    detailVC.proposedDate = billsInList[path.row].proposeDate
+    detailVC.sponsor = billsInList[path.row].sponsor
+    detailVC.status = billsInList[path.row].status
+    detailVC.summary = billsInList[path.row].summary
+    detailVC.documentUrl = billsInList[path.row].documentUrl
+    detailVC.assemblyID = billsInList[path.row].assemblyId as? Int
+    detailVC.hidesBottomBarWhenPushed = true
     
-    func  fetchBillsInList()->[BillInList] {
-        
-        let fetchRequest = NSFetchRequest(entityName : Constants.Entity.BillInList)
-        
-        do {
-            return try sharedContext.executeFetchRequest(fetchRequest) as! [BillInList]
-            
-        } catch let error as NSError {
-            #if DEBUG
-                log.debug("\(error.description)")
-            #endif 
-            return [BillInList]()
-        }
-    }
-    
-    // MARK : - Prepare For Segue 
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        let path = tableView.indexPathForSelectedRow!
-        let detailVC = segue.destinationViewController as! BillDetailViewController
-        
-        detailVC.name = billsInList[path.row].name
-        detailVC.proposedDate = billsInList[path.row].proposeDate
-        detailVC.sponsor = billsInList[path.row].sponsor
-        detailVC.status = billsInList[path.row].status
-        detailVC.summary = billsInList[path.row].summary
-        detailVC.documentUrl = billsInList[path.row].documentUrl
-        detailVC.assemblyID = billsInList[path.row].assemblyId as? Int
-        detailVC.hidesBottomBarWhenPushed = true
-        
-    }
-
+  }
+  
 }
 
 // MARK : - BillListViewController : UITableViewDelegate, UITableViewDataSource
 
 extension BillListViewController : UITableViewDelegate, UITableViewDataSource {
+  
+  // MARK : - UITableViewDataSource Method
+  
+  func numberOfSections(in tableView: UITableView) -> Int {
     
-    // MARK : - UITableViewDataSource Method
+    var numberOfSection = 0
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        
-        var numberOfSection = 0
-        
-        if billsInList.count > 0 {
-            
-            tableView.backgroundView = nil
-            numberOfSection = 1
-            
-            
-        } else {
-            
-            let noDataLabel: UILabel = UILabel(frame: CGRectMake(0, 0, tableView.bounds.size.width, tableView.bounds.size.height))
-            noDataLabel.text = Constants.Strings.BillListVC.DefaultLabelMessage
-            noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
-            noDataLabel.textAlignment = NSTextAlignment.Center
-            tableView.backgroundView = noDataLabel
-            
-        }
-        
-        return numberOfSection
-    }
-
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.Identifier.BillCell, forIndexPath: indexPath) as! BillTableViewCell
-        
-        cell.nameLabel.text    = billsInList[indexPath.row].name
-        cell.sponsorLabel.text = billsInList[indexPath.row].sponsor
-        cell.statusLabel.text  = billsInList[indexPath.row].status
-        
-        return cell
+    if billsInList.count > 0 {
+      
+      tableView.backgroundView = nil
+      numberOfSection = 1
+      
+      
+    } else {
+      
+      let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+      noDataLabel.text = Constants.Strings.BillListVC.DefaultLabelMessage
+      noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
+      noDataLabel.textAlignment = NSTextAlignment.center
+      tableView.backgroundView = noDataLabel
+      
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return billsInList.count
-    }
+    return numberOfSection
+  }
+  
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-    // MARK : - UITableView Delegate Method
+    let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.BillCell, for: indexPath) as! BillTableViewCell
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 140
-    }
+    cell.nameLabel.text    = billsInList[indexPath.row].name
+    cell.sponsorLabel.text = billsInList[indexPath.row].sponsor
+    cell.statusLabel.text  = billsInList[indexPath.row].status
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier(Constants.Identifier.BillDetailVC, sender: self)
-    }
-
+    return cell
+  }
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return billsInList.count
+  }
+  
+  // MARK : - UITableView Delegate Method
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 140
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    performSegue(withIdentifier: Constants.Identifier.BillDetailVC, sender: self)
+  }
+  
 }

@@ -1,20 +1,19 @@
 PODS:
-  - Alamofire (3.3.1)
-  - AlamofireImage (2.4.0):
-    - Alamofire (~> 3.3)
-  - MBProgressHUD (0.9.2)
-  - XCGLogger (3.3)
+  - Alamofire (4.3.0)
+  - AlamofireImage (3.2.0):
+    - Alamofire (~> 4.1)
+  - MBProgressHUD (1.0.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.3)
-  - AlamofireImage (~> 2.0)
-  - MBProgressHUD (~> 0.9.2)
-  - XCGLogger (~> 3.3)
+  - Alamofire (~> 4.3)
+  - AlamofireImage (~> 3.1)
+  - MBProgressHUD (~> 1.0.0)
 
 SPEC CHECKSUMS:
-  Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
-  AlamofireImage: 87408b652e0f5ae5fe364035f15aea8b9b24c77e
-  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
-  XCGLogger: d6e196e78940ff6daab17d6917107876f973fa31
+  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
+  AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: a535439113821e0723411af1fade33c542ac3d96
+
+COCOAPODS: 1.1.1

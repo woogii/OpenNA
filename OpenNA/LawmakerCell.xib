@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -16,37 +20,36 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E4y-DX-CKm">
                         <rect key="frame" x="8" y="8" width="313" height="119"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Party" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J0I-Zm-8Km">
-                        <rect key="frame" x="139" y="91" width="37" height="17"/>
+                        <rect key="frame" x="125" y="91" width="37" height="17"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rN3-HA-Ol7">
-                        <rect key="frame" x="139" y="53" width="167" height="18"/>
+                        <rect key="frame" x="125" y="53" width="42" height="18"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="eY2-Ux-dKr" userLabel="profileImageView">
-                        <rect key="frame" x="15" y="15" width="109" height="107"/>
+                        <rect key="frame" x="15" y="22.5" width="90" height="90"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="107" id="EFE-Pe-fPo"/>
-                            <constraint firstAttribute="width" constant="109" id="vqx-Qx-nTN"/>
+                            <constraint firstAttribute="height" constant="90" id="EFE-Pe-fPo"/>
+                            <constraint firstAttribute="width" constant="90" id="vqx-Qx-nTN"/>
                         </constraints>
                     </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="eY2-Ux-dKr" firstAttribute="centerY" secondItem="E4y-DX-CKm" secondAttribute="centerY" id="0d9-wN-Va0"/>
                     <constraint firstAttribute="trailing" secondItem="E4y-DX-CKm" secondAttribute="trailing" constant="8" id="4CE-er-u9A"/>
                     <constraint firstItem="J0I-Zm-8Km" firstAttribute="leading" secondItem="rN3-HA-Ol7" secondAttribute="leading" id="GuZ-qa-EpY"/>
                     <constraint firstItem="eY2-Ux-dKr" firstAttribute="leading" secondItem="xj4-cl-tcX" secondAttribute="leading" constant="15" id="KKD-Eu-FFc"/>
                     <constraint firstItem="J0I-Zm-8Km" firstAttribute="top" secondItem="rN3-HA-Ol7" secondAttribute="bottom" constant="20" id="Rfn-pQ-HLN"/>
                     <constraint firstAttribute="bottom" secondItem="E4y-DX-CKm" secondAttribute="bottom" constant="8" id="UX3-VK-Fd0"/>
-                    <constraint firstAttribute="trailing" secondItem="rN3-HA-Ol7" secondAttribute="trailing" constant="23" id="eYT-JR-bg9"/>
-                    <constraint firstItem="rN3-HA-Ol7" firstAttribute="leading" secondItem="eY2-Ux-dKr" secondAttribute="trailing" constant="15" id="pKH-Gt-vb1"/>
-                    <constraint firstItem="eY2-Ux-dKr" firstAttribute="top" secondItem="xj4-cl-tcX" secondAttribute="top" constant="15" id="poC-yX-HKC"/>
+                    <constraint firstItem="rN3-HA-Ol7" firstAttribute="leading" secondItem="eY2-Ux-dKr" secondAttribute="trailing" constant="20" id="pKH-Gt-vb1"/>
                     <constraint firstItem="E4y-DX-CKm" firstAttribute="leading" secondItem="xj4-cl-tcX" secondAttribute="leading" constant="8" id="rQD-Xe-lGZ"/>
                     <constraint firstItem="E4y-DX-CKm" firstAttribute="top" secondItem="xj4-cl-tcX" secondAttribute="top" constant="8" id="rW7-ar-Xt7"/>
                     <constraint firstItem="rN3-HA-Ol7" firstAttribute="top" secondItem="xj4-cl-tcX" secondAttribute="top" constant="53" id="uBa-Dh-t69"/>

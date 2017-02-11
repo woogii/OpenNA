@@ -11,18 +11,18 @@ import UIKit
 // MARK : - SearchedLawmakerTableViewCell : UITableViewCell
 
 class SearchedLawmakerTableViewCell: UITableViewCell {
-
-    // MARK : - Property 
+  
+  // MARK : - Property
+  
+  @IBOutlet weak var lawmakerImageView: UIImageView!
+  @IBOutlet weak var nameLabel: UILabel!
+  
+  // MARK : - Initialization
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
     
-    @IBOutlet weak var lawmakerImageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    
-    // MARK : - Initialization 
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        lawmakerImageView.layer.cornerRadius = lawmakerImageView.frame.size.width/2
-        lawmakerImageView.clipsToBounds = true
-    }
+    lawmakerImageView.layer.cornerRadius = lawmakerImageView.frame.size.width/2
+    lawmakerImageView.clipsToBounds = true
+  }
 }
