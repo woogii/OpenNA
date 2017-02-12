@@ -59,7 +59,7 @@ class LawmakerDetailViewController: UIViewController {
     nameLabel.text = name!
     
     let fetchedResults = fetchLawmakerInList()
-    fetchedResults!.count == 0 ? (favoriteButton.tintColor = nil) : (favoriteButton.tintColor = UIColor.red)
+    fetchedResults!.count == 0 ? (favoriteButton.setImage(UIImage(named:Constants.Images.FavoriteIconEmpty), for: .normal)) : (favoriteButton.setImage(UIImage(named:Constants.Images.FavoriteIconFilled), for: .normal))
   }
   
   override func viewDidLayoutSubviews() {
@@ -140,8 +140,7 @@ class LawmakerDetailViewController: UIViewController {
         #endif
       }
       
-      favoriteButton.tintColor = UIColor.red
-      
+      favoriteButton.setImage(UIImage(named:Constants.Images.FavoriteIconFilled), for: .normal)
     } else {
       
       // If the lawmaker is already in Favorite List, delete it from the list
@@ -160,7 +159,7 @@ class LawmakerDetailViewController: UIViewController {
         #endif
       }
       
-      favoriteButton.tintColor = nil
+      favoriteButton.setImage(UIImage(named:Constants.Images.FavoriteIconEmpty),  for: .normal)
     }
   }
 }

@@ -33,8 +33,8 @@ The images below show lists of lawmakers and bills that I saved based on my own 
 
 Finally, this application provides a 'Search' function, so that users are able to search lawmaker, bill and party information. In the top of the screen, users can type any search keyword they want and see the results of the search operation right away on the list below.
 
-![Search](ScreenShot/Search_Result_Ahn.PNG)
-![Search](ScreenShot/Search_Result_Park.PNG)
+![Search](ScreenShot/Search_Result_Noh.PNG)
+![Search](ScreenShot/Search_Result_Moon.PNG)
 
 
 # Open Source Licence
@@ -44,7 +44,6 @@ This project uses open source library. Thanks for the developers who are dedicat
 *  [TeamPopong API](http://data.popong.com/)
 *  [Alamofire](https://github.com/Alamofire/Alamofire)
 *  [AlamofireImage](https://github.com/Alamofire/AlamofireImage)
-*  [XCGLogger](https://github.com/DaveWoodCom/XCGLogger)
 *  [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
 
 # Image Licence 
@@ -73,4 +72,4 @@ $ pod install
 4) Compile and run the app in your simulator 
 
 # Compatibility 
-The code of this project works in Swift2.2, Xcode 7.3 and iOS9 
+The code of this project works in Swift3.0, Xcode 8.2.1 and iOS9 

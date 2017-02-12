@@ -21,7 +21,6 @@ class SplashViewController: UIViewController {
   var userDefaults : UserDefaults {
     return UserDefaults.standard
   }
-  
   var sharedContext:NSManagedObjectContext {
     return CoreDataStackManager.sharedInstance().managedObjectContext!
   }
@@ -34,6 +33,7 @@ class SplashViewController: UIViewController {
   
   override func viewDidAppear(_ animated: Bool) {
     
+    super.viewDidAppear(animated)
     preload()
     
     // Check whether there is any data exist in disk

@@ -233,44 +233,6 @@ class PoliticsViewController: UIViewController  {
     return unique
   }
   
-  // MARK : - Draw the text into an Image
-  
-  func textToImage(_ drawText: NSString, inImage: UIImage, atPoint:CGPoint)->UIImage{
-    
-    // Setup the font specific variables
-    let textColor: UIColor = UIColor.black
-    let textFont: UIFont = UIFont(name: Constants.Strings.Party.imageTextFont, size: 17)!
-    
-    //Setup the image context using the passed image.
-    UIGraphicsBeginImageContext(inImage.size)
-    
-    //Setups up the font attributes that will be later used to dictate how the text should be drawn
-    let textFontAttributes = [
-      NSFontAttributeName: textFont,
-      NSForegroundColorAttributeName: textColor,
-      ]
-    
-    //Put the image into a rectangle as large as the original image.
-    inImage.draw(in: CGRect(x: 0, y: 0, width: inImage.size.width, height: inImage.size.height))
-    
-    // Creating a point within the space that is as bit as the image.
-    let rect: CGRect = CGRect(x: atPoint.x, y: atPoint.y, width: inImage.size.width, height: inImage.size.height)
-    
-    //Now Draw the text into an image.
-    drawText.draw(in: rect, withAttributes: textFontAttributes)
-    
-    // Create a new image out of the images we have created
-    let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-    
-    // End the context now that we have the image we need
-    UIGraphicsEndImageContext()
-    
-    //And pass it back up to the caller.
-    return newImage
-    
-  }
-  
-  
 }
 
 // MARK : - PoliticsViewController : UITableViewDelegate, UITableViewDataSource
@@ -535,14 +497,6 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
     logoImageRequest?.cancel()
     
     let urlString =  Constants.Strings.Party.partyImageUrl + String(parties[indexPath.row].id) + Constants.Strings.Party.partyImageExtension
-    //let url =  NSURL(string:urlString)!
-    // let imageData = NSData(contentsOfURL: url)
-    
-    
-//    if let image = TPPClient.sharedInstance().cachedImage(urlString) {
-//      cell.logoImageView!.image = image
-//      return cell
-//    }
     
     logoImageRequest = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
       
@@ -555,35 +509,58 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
       } else {
         
         DispatchQueue.main.async {
-          let defaultImage = UIImage(named:Constants.Strings.Party.defaultImageName)
-          self.parties[indexPath.row].thumbnail = self.textToImage(self.parties[indexPath.row].name as NSString, inImage: defaultImage!, atPoint: CGPoint(x: 10,y: 60))
+          let defaultImage = UIImage(named:Constants.Strings.PoliticsVC.PartyPlaceholder)
+          self.parties[indexPath.row].thumbnail = self.textToImage(self.parties[indexPath.row].name as NSString, inImage: defaultImage!, atPoint: CGPoint(x: 20,y: 50), cellSize: cell.frame.size)
           cell.logoImageView.image = self.parties[indexPath.row].thumbnail
         }
         
       }
       
     }
-    
-    //        TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
-    //
-    //            if let image = image {
-    //
-    //                dispatch_async(dispatch_get_main_queue()) {
-    //                    self.parties[indexPath.row].thumbnail = image
-    //                    cell.logoImageView.image = image
-    //
-    //                }
-    //            } else {
-    //
-    //                dispatch_async(dispatch_get_main_queue()) {
-    //
-    //                // CommonHelper.showAlertWithMsg(self, msg: error!.localizedDescription, showCancelButton: false, okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
-    //                }
-    //
-    //            }
-    //        }
+
     
     return cell
+  }
+
+  // MARK : - Draw the text into an Image
+  
+  func textToImage(_ drawText: NSString, inImage: UIImage, atPoint:CGPoint, cellSize:CGSize)->UIImage{
+    
+    // Setup the font specific variables
+    let textColor: UIColor = UIColor.black
+    let textFont: UIFont = UIFont(name: Constants.Strings.Party.imageTextFont, size: 17)!
+    
+    //Setup the image context using the passed image.
+    //UIGraphicsBeginImageContext(inImage.size)
+    UIGraphicsBeginImageContext(cellSize)
+    
+    //Setups up the font attributes that will be later used to dictate how the text should be drawn
+    let textFontAttributes = [
+      NSFontAttributeName: textFont,
+      NSForegroundColorAttributeName: textColor,
+      ]
+    
+    //Put the image into a rectangle as large as the original image.
+    inImage.draw(in: CGRect(x: 0, y: 0, width: inImage.size.width, height: inImage.size.height))
+    print("image size : \(inImage.size)")
+    print("cell size : \(cellSize)")
+    // Creating a point within the space that is as bit as the image.
+    //let rect: CGRect = CGRect(x: atPoint.x, y: atPoint.y, width: inImage.size.width-10, height: inImage.size.height)
+    
+    let rect: CGRect = CGRect(x: atPoint.x, y: atPoint.y, width: cellSize.width-30, height: cellSize.height)
+    
+    //Now Draw the text into an image.
+    drawText.draw(in: rect, withAttributes: textFontAttributes)
+    
+    // Create a new image out of the images we have created
+    let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+    
+    // End the context now that we have the image we need
+    UIGraphicsEndImageContext()
+    
+    //And pass it back up to the caller.
+    return newImage
+    
   }
   
   // MARK : - UICollectionViewDelegate Methods

@@ -46,7 +46,7 @@ class BillDetailViewController: UITableViewController {
   @IBOutlet weak var sponsorLabel: UILabel!
   @IBOutlet weak var documentURLLabel: UILabel!
   @IBOutlet weak var summaryTextView: UITextView!
-  @IBOutlet weak var favoriteButton: UIBarButtonItem!
+  //@IBOutlet weak var favoriteButton: UIBarButtonItem!
   
   var proposedDate: String?
   var status : String?
@@ -55,6 +55,7 @@ class BillDetailViewController: UITableViewController {
   var summary : String?
   var assemblyID : Int?
   var name : String?
+  var favoriteButton: UIBarButtonItem!
   
   var sharedContext : NSManagedObjectContext {
     return CoreDataStackManager.sharedInstance().managedObjectContext!
@@ -70,6 +71,8 @@ class BillDetailViewController: UITableViewController {
   }
   
   override func viewWillAppear(_ animated: Bool) {
+    
+    super.viewWillAppear(animated)
     
     if let row = tableView.indexPathForSelectedRow {
       tableView.deselectRow(at: row, animated: false)
@@ -90,7 +93,7 @@ class BillDetailViewController: UITableViewController {
       assembylIDLabel.text = ""
       return
     }
-    
+  
     if previousViewController() != nil {
       
       if previousViewController() is SearchViewController {
@@ -104,7 +107,13 @@ class BillDetailViewController: UITableViewController {
     
     let fetchedResults = fetchBillInList()
     
-    fetchedResults!.count == 0 ? (favoriteButton.tintColor = nil) : (favoriteButton.tintColor = UIColor.red)
+    if fetchedResults!.count == 0 {
+      let image = UIImage(named:Constants.Images.FavoriteIconEmpty)?.withRenderingMode(.alwaysOriginal)
+      navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(favoriteButtonTapped))
+    } else {
+      let image = UIImage(named:Constants.Images.FavoriteIconFilled)?.withRenderingMode(.alwaysOriginal)
+      navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(favoriteButtonTapped))
+    }
   }
   
   // MARK : - UITableViewDelegate Method
@@ -169,7 +178,8 @@ class BillDetailViewController: UITableViewController {
         #endif
       }
       
-      favoriteButton.tintColor = UIColor.red
+      let image = UIImage(named:Constants.Images.FavoriteIconFilled)?.withRenderingMode(.alwaysOriginal)
+      navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(favoriteButtonTapped))
       
     } else {
       
@@ -187,7 +197,8 @@ class BillDetailViewController: UITableViewController {
         #endif
       }
       
-      favoriteButton.tintColor = nil
+      let image = UIImage(named:Constants.Images.FavoriteIconEmpty)?.withRenderingMode(.alwaysOriginal)
+      navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(favoriteButtonTapped))
     }
     
   }

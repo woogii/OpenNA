@@ -33,23 +33,11 @@ class SearchViewController: UIViewController {
     
     // Register Nib Objects
     registerNibFiles()
+    setAutoSizeHeightOptions()
+    addGestureRecongnizer()
+    setTableViewBackground()
     
-    tableView.estimatedRowHeight = 100
-    tableView.rowHeight = UITableViewAutomaticDimension
-    
-    let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-    tableView.addGestureRecognizer(gestureRecognizer)
-    gestureRecognizer.cancelsTouchesInView = false
-    
-    isSearch = false
-    let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
-    noDataLabel.text = Constants.Strings.SearchVC.DefaultLabelMessage
-    noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
-    noDataLabel.textAlignment = NSTextAlignment.center
-    self.tableView.backgroundView = noDataLabel
-    self.tableView.separatorStyle = .none
-    
-      }
+  }
   
   func registerNibFiles() {
     
@@ -57,6 +45,31 @@ class SearchViewController: UIViewController {
     tableView.register(UINib(nibName: Constants.Identifier.SearchedBillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedBillCell)
     tableView.register(UINib(nibName: Constants.Identifier.SearchedPartyCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedPartyCell)
     
+  }
+  
+  func setTableViewBackground() {
+    
+    isSearch = false
+    let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
+    noDataLabel.text = Constants.Strings.SearchVC.DefaultLabelMessage
+    noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
+    noDataLabel.textAlignment = NSTextAlignment.center
+    
+    
+    self.tableView.backgroundView = noDataLabel
+    self.tableView.separatorStyle = .none
+    
+  }
+  
+  func setAutoSizeHeightOptions() {
+    tableView.estimatedRowHeight = 100
+    tableView.rowHeight = UITableViewAutomaticDimension
+  }
+  
+  func addGestureRecongnizer() {
+    let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+    tableView.addGestureRecognizer(gestureRecognizer)
+    gestureRecognizer.cancelsTouchesInView = false
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -264,7 +277,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
           
           if party[indexPath.row].logo == ""  {
             
-            cell.partyImageView!.image = UIImage(named:Constants.Strings.SearchVC.defaultImageName)
+            cell.partyImageView!.image = UIImage(named:Constants.Strings.SearchVC.PartyPlaceholder)
             return cell
           }
           

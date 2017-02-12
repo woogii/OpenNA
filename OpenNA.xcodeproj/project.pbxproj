@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B88FB50B1E4F9C57002591E3 /* SearchedLawmakerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2D3F9571CABFA3F00D97B23 /* SearchedLawmakerCell.xib */; };
+		B88FB50D1E5037E0002591E3 /* assembly.json in Resources */ = {isa = PBXBuildFile; fileRef = B88FB50C1E5037E0002591E3 /* assembly.json */; };
 		D20028301CE86C9E00F1369E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200282F1CE86C9E00F1369E /* WebViewController.swift */; };
 		D20028321CE8B3C300F1369E /* BillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20028311CE8B3C300F1369E /* BillDetailViewController.swift */; };
 		D212D3BE1CF97563008CEC5C /* LawmakerInList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3BD1CF97563008CEC5C /* LawmakerInList.swift */; };
@@ -15,7 +16,6 @@
 		D212D3C21CF99A8C008CEC5C /* LawmakerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3C11CF99A8C008CEC5C /* LawmakerListViewController.swift */; };
 		D212D3C41CF99AA6008CEC5C /* BillListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3C31CF99AA6008CEC5C /* BillListViewController.swift */; };
 		D22A7F531CDB511500CFF74A /* TPPClientConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A7F521CDB511500CFF74A /* TPPClientConvenience.swift */; };
-		D23147B91D0D1CBD00273DD3 /* assembly.json in Resources */ = {isa = PBXBuildFile; fileRef = D23147B81D0D1CBD00273DD3 /* assembly.json */; };
 		D235C3301CB1068700704A90 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D235C32F1CB1068700704A90 /* ImageCache.swift */; };
 		D235C3321CB4090300704A90 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D235C3311CB4090300704A90 /* SearchViewController.swift */; };
 		D236968B1D3B3CAB00F9FB75 /* CommonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236968A1D3B3CAB00F9FB75 /* CommonHelper.swift */; };
@@ -75,6 +75,7 @@
 		3801775D12FBF6181F3CD108 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E53F0110EF24D4E8B29C805 /* Pods_OpenNA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenNA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8501E14855B4581ED95B1665 /* Pods-OpenNA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenNA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenNA/Pods-OpenNA.debug.xcconfig"; sourceTree = "<group>"; };
+		B88FB50C1E5037E0002591E3 /* assembly.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = assembly.json; sourceTree = "<group>"; };
 		D200282F1CE86C9E00F1369E /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		D20028311CE8B3C300F1369E /* BillDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailViewController.swift; sourceTree = "<group>"; };
 		D212D3BD1CF97563008CEC5C /* LawmakerInList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerInList.swift; sourceTree = "<group>"; };
@@ -82,7 +83,6 @@
 		D212D3C11CF99A8C008CEC5C /* LawmakerListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerListViewController.swift; sourceTree = "<group>"; };
 		D212D3C31CF99AA6008CEC5C /* BillListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillListViewController.swift; sourceTree = "<group>"; };
 		D22A7F521CDB511500CFF74A /* TPPClientConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPClientConvenience.swift; sourceTree = "<group>"; };
-		D23147B81D0D1CBD00273DD3 /* assembly.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = assembly.json; sourceTree = "<group>"; };
 		D235C32F1CB1068700704A90 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		D235C3311CB4090300704A90 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		D236968A1D3B3CAB00F9FB75 /* CommonHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonHelper.swift; sourceTree = "<group>"; };
@@ -266,8 +266,8 @@
 			children = (
 				D23696891D3B3C6600F9FB75 /* Storyboard */,
 				D2964B861C7344D700D5FF5C /* Assets.xcassets */,
+				B88FB50C1E5037E0002591E3 /* assembly.json */,
 				D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */,
-				D23147B81D0D1CBD00273DD3 /* assembly.json */,
 				D2964B8B1C7344D700D5FF5C /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -443,9 +443,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B88FB50B1E4F9C57002591E3 /* SearchedLawmakerCell.xib in Resources */,
-				D23147B91D0D1CBD00273DD3 /* assembly.json in Resources */,
 				D2934D041CF3448C00EA734C /* SearchedPartyCell.xib in Resources */,
 				D2934CFE1CF3442B00EA734C /* SearchedBillCell.xib in Resources */,
+				B88FB50D1E5037E0002591E3 /* assembly.json in Resources */,
 				D2D3F9561CABD1A500D97B23 /* BillCell.xib in Resources */,
 				D2964B871C7344D700D5FF5C /* Assets.xcassets in Resources */,
 				D2964B851C7344D700D5FF5C /* Main.storyboard in Resources */,

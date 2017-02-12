@@ -292,6 +292,7 @@ struct Constants {
     
     struct PoliticsVC {
       static let WikiUrl = "https://ko.wikipedia.org/wiki/"
+      static let PartyPlaceholder = "img_party_placeholder"
     }
     
     struct SplashVC {
@@ -301,7 +302,8 @@ struct Constants {
     
     struct SearchVC {
       static let WikiUrl = "https://ko.wikipedia.org/wiki/"
-      static let defaultImageName = "noImage"
+      static let defaultImageName = "img_profile_placeholder"
+      static let PartyPlaceholder = "img_party_placeholder"
       static let DefaultLabelMessage = "Type keyword you want to search"
       static let NoSearchResultMessage = "There is no search result"
     }
@@ -324,6 +326,11 @@ struct Constants {
     struct BillDetailVC {
       static let TextViewDefaultMsg = "There is no summary provided"
     }
+  }
+  
+  struct Images {
+    static let FavoriteIconEmpty = "ic_favorite_empty"
+    static let FavoriteIconFilled = "ic_favorite_filled"
   }
   
 }

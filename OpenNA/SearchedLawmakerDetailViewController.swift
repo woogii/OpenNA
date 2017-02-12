@@ -70,7 +70,7 @@ class SearchedLawmakerDetailViewController: UIViewController {
         }
       }
     } else {
-      profileImage.image = UIImage(named: Constants.Strings.SearchedLawmakerDetailVC.defaultImageName)
+      profileImage.image = UIImage(named: Constants.Strings.SearchVC.defaultImageName)
     }
     
     // profileImage.image = pinnedImage

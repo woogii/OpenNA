@@ -474,8 +474,9 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rpc-6d-2z8">
-                                <rect key="frame" x="325" y="212" width="30" height="32"/>
+                                <rect key="frame" x="325" y="210" width="30" height="30"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="1oX-Uf-cHa"/>
                                     <constraint firstAttribute="width" constant="30" id="TuB-KX-c5T"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="Heart Icon"/>
@@ -489,7 +490,7 @@
                             <constraint firstAttribute="trailing" secondItem="RPR-zG-lhy" secondAttribute="trailing" id="4c8-EC-GEv"/>
                             <constraint firstItem="RPR-zG-lhy" firstAttribute="leading" secondItem="Lll-Dr-9Up" secondAttribute="leading" id="Fhb-gO-5Mb"/>
                             <constraint firstItem="RPR-zG-lhy" firstAttribute="top" secondItem="6GW-gg-gkK" secondAttribute="bottom" constant="15" id="IVa-cn-bZ1"/>
-                            <constraint firstItem="RPR-zG-lhy" firstAttribute="top" secondItem="rpc-6d-2z8" secondAttribute="bottom" constant="11" id="RN3-Vx-V6n"/>
+                            <constraint firstItem="RPR-zG-lhy" firstAttribute="top" secondItem="rpc-6d-2z8" secondAttribute="bottom" constant="15" id="RN3-Vx-V6n"/>
                             <constraint firstAttribute="trailing" secondItem="rpc-6d-2z8" secondAttribute="trailing" constant="20" id="UvU-WH-bnW"/>
                             <constraint firstItem="6GW-gg-gkK" firstAttribute="centerX" secondItem="Lll-Dr-9Up" secondAttribute="centerX" id="cvJ-28-A9n"/>
                             <constraint firstItem="kHE-uq-1NE" firstAttribute="centerX" secondItem="Lll-Dr-9Up" secondAttribute="centerX" id="eV5-KT-b4W"/>
@@ -817,18 +818,11 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <navigationItem key="navigationItem" title="Bill Detail" id="nSj-Qs-zRu">
-                        <barButtonItem key="rightBarButtonItem" image="Heart Icon" id="aWr-eC-wSl">
-                            <connections>
-                                <action selector="favoriteButtonTapped:" destination="ZRi-9x-VhW" id="FgL-aX-0bJ"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Bill Detail" id="nSj-Qs-zRu"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="assembylIDLabel" destination="JMa-Qf-VZd" id="JQO-kd-wY7"/>
                         <outlet property="documentURLLabel" destination="qMH-pd-jnE" id="M5H-Tn-paY"/>
-                        <outlet property="favoriteButton" destination="aWr-eC-wSl" id="nJ2-NV-Hgc"/>
                         <outlet property="proposedDateLabel" destination="0TK-Ci-JAE" id="QaU-Bs-Pon"/>
                         <outlet property="sponsorLabel" destination="rqj-Ra-Vdx" id="lXT-NH-J4l"/>
                         <outlet property="statusLabel" destination="tpy-Fg-382" id="61J-Nh-yww"/>
@@ -937,8 +931,8 @@
         <image name="politics" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LMf-ef-WAk"/>
+        <segue reference="hAT-aM-Zpd"/>
+        <segue reference="pvd-li-cak"/>
         <segue reference="lrF-M3-Aj4"/>
-        <segue reference="g6M-w6-cmr"/>
     </inferredMetricsTieBreakers>
 </document>

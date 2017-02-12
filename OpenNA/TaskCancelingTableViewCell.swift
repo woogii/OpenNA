@@ -18,7 +18,6 @@ class TaskCancelingTableViewCell : UITableViewCell {
   var taskToCancelifCellIsReused : URLSessionTask? {
     
     didSet {
-      
       if let oldtask = oldValue {
         oldtask.cancel()
       }
