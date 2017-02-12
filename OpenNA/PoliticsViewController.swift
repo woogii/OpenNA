@@ -39,24 +39,6 @@ class PoliticsViewController: UIViewController  {
   
   // MARK : - View Life Cycle
   
-  override func viewDidLayoutSubviews() {
-    
-    super.viewDidLayoutSubviews()
-    
-    // Lay out the collection view so that cells take up 1/3 of the width,
-    // with no space in between
-    let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-    layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    layout.minimumLineSpacing = 0
-    layout.minimumInteritemSpacing = 0
-    
-    //let width = floor(self.collectionView.frame.size.width/3)
-    // layout.itemSize = CGSize(width: width, height: width)
-    collectionView.collectionViewLayout = layout
-    
-    
-    
-  }
   
   override func viewDidLoad() {
     
@@ -65,9 +47,9 @@ class PoliticsViewController: UIViewController  {
     configureLayout()
     lawmakers = fetchAllLawmakers()
     buildTableViewIndex()
-  
+    
   }
-  
+
   // MARK : - Configure Layout
   
   func configureLayout() {
@@ -104,6 +86,22 @@ class PoliticsViewController: UIViewController  {
     }
   }
   
+  override func viewDidLayoutSubviews() {
+    
+    super.viewDidLayoutSubviews()
+    configureCollectionViewFlowlayout()
+  }
+  
+  func configureCollectionViewFlowlayout() {
+    
+    let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+    layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    layout.minimumLineSpacing = 0
+    layout.minimumInteritemSpacing = 0
+    
+    collectionView.collectionViewLayout = layout
+  }
+
   // MARK : - Action Method
   
   @IBAction func segmentedControlChanged(_ sender: AnyObject) {
@@ -116,6 +114,7 @@ class PoliticsViewController: UIViewController  {
       tableView.reloadData()
       break
     case 1:
+      
       tableView.reloadData()
       tableView.setContentOffset(CGPoint.zero, animated: true)
       tableView.isHidden = false
@@ -398,10 +397,8 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
         
       }
       
-      //  The cells in the tableviews get reused when you scroll
-      //  So when a completion handler completes, it will set the image on a cell,
-      //  even if the cell is about to be reused, or is already being reused.
-      //  The table view cells need to cancel their download task when they are reused.
+      /*  The cells in the tableviews get reused when you scroll. So when a completion handler completes, it will set the image on a cell, even if the cell is about to be reused, or is already being reused.
+          The table view cells need to cancel their download task when they are reused. */
       cell.taskToCancelifCellIsReused = task
     }
     
@@ -608,7 +605,6 @@ extension PoliticsViewController : UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     
     let width = floor(self.collectionView.frame.size.width/3)
-    // layout.itemSize = CGSize(width: width, height: width)
     return CGSize(width: width, height: width - 15)
   }
 }

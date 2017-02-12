@@ -54,13 +54,19 @@ class LawmakerDetailViewController: UIViewController {
       tableView.deselectRow(at: row, animated: false)
     }
     
-    profileImage.layer.cornerRadius = profileImage.frame.size.width/2
     profileImage.clipsToBounds = true
     profileImage.image = pinnedImage
     nameLabel.text = name!
     
     let fetchedResults = fetchLawmakerInList()
     fetchedResults!.count == 0 ? (favoriteButton.tintColor = nil) : (favoriteButton.tintColor = UIColor.red)
+  }
+  
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    
+    profileImage.layer.cornerRadius = profileImage.frame.size.width/2
+    
   }
   
   // MARK : - Prepare For Segue

@@ -32,9 +32,10 @@ class SearchViewController: UIViewController {
     super.viewDidLoad()
     
     // Register Nib Objects
-    tableView.register(UINib(nibName: Constants.Identifier.SearchedLawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedLawmakerCell)
-    tableView.register(UINib(nibName: Constants.Identifier.SearchedBillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedBillCell)
-    tableView.register(UINib(nibName: Constants.Identifier.SearchedPartyCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedPartyCell)
+    registerNibFiles()
+    
+    tableView.estimatedRowHeight = 100
+    tableView.rowHeight = UITableViewAutomaticDimension
     
     let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
     tableView.addGestureRecognizer(gestureRecognizer)
@@ -48,6 +49,14 @@ class SearchViewController: UIViewController {
     self.tableView.backgroundView = noDataLabel
     self.tableView.separatorStyle = .none
     
+      }
+  
+  func registerNibFiles() {
+    
+    tableView.register(UINib(nibName: Constants.Identifier.SearchedLawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedLawmakerCell)
+    tableView.register(UINib(nibName: Constants.Identifier.SearchedBillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedBillCell)
+    tableView.register(UINib(nibName: Constants.Identifier.SearchedPartyCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedPartyCell)
+    
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -56,10 +65,12 @@ class SearchViewController: UIViewController {
   }
   
   override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
     navigationController?.isNavigationBarHidden = true
   }
   
   override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
     navigationController?.isNavigationBarHidden = false
   }
   
@@ -182,7 +193,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
     var partyImageRequest : Request?
     
     if searchResults.count > 0 {
-      
+      tableView.separatorStyle = .singleLine
       let section = sectionTitle[indexPath.section]
       
       if section == Constants.SectionName.Lawmaker {
@@ -228,7 +239,8 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
       } else if section == Constants.SectionName.Bill {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedBillCell, for: indexPath) as! SearchedBillTableViewCell
-        
+        //cell.nameLabel.preferredMaxLayoutWidth = tableView.bounds.width
+
         if let bill = searchResults[indexPath.section][Constants.SectionName.Bill] as? [Bill] {
           cell.nameLabel?.text = bill[indexPath.row].name
           cell.sponsorLabel?.text = bill[indexPath.row].sponsor
@@ -285,7 +297,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
   // MARK : UITableView Delegate Methods
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 90
+    return UITableViewAutomaticDimension
     
   }
   

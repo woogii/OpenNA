@@ -20,7 +20,7 @@ extension TPPClient {
     parameters[Constants.ParameterKeys.PerPage] = Constants.ParameterValues.LimitPage
     parameters[Constants.ParameterKeys.Page] = "\(page)"
     
-    taskForGETMethod(parameters as [String : AnyObject], withPathExtension: method) { (requestResult, error) in
+    _ = taskForGETMethod(parameters as [String : AnyObject], withPathExtension: method) { (requestResult, error) in
       
       if let error = error  {
         completionHandler(nil, error)
@@ -47,7 +47,7 @@ extension TPPClient {
     parameters[Constants.ParameterKeys.Sort] = Constants.ParameterValues.Logo
     parameters[Constants.ParameterKeys.PerPage] = Constants.ParameterValues.PartyLimitPage
     
-    taskForGETMethod(parameters as [String : AnyObject], withPathExtension: method) { (requestResult, error) in
+    _ = taskForGETMethod(parameters as [String : AnyObject], withPathExtension: method) { (requestResult, error) in
       
       if let error = error  {
         completionHandler(nil, error)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B88FB50B1E4F9C57002591E3 /* SearchedLawmakerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2D3F9571CABFA3F00D97B23 /* SearchedLawmakerCell.xib */; };
 		D20028301CE86C9E00F1369E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200282F1CE86C9E00F1369E /* WebViewController.swift */; };
 		D20028321CE8B3C300F1369E /* BillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20028311CE8B3C300F1369E /* BillDetailViewController.swift */; };
 		D212D3BE1CF97563008CEC5C /* LawmakerInList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3BD1CF97563008CEC5C /* LawmakerInList.swift */; };
@@ -48,7 +49,6 @@
 		D2D3F94B1CAA808200D97B23 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D3F94A1CAA808200D97B23 /* Bill.swift */; };
 		D2D3F9531CABCE4F00D97B23 /* BillTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D3F9521CABCE4F00D97B23 /* BillTableViewCell.swift */; };
 		D2D3F9561CABD1A500D97B23 /* BillCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2D3F9551CABD1A500D97B23 /* BillCell.xib */; };
-		D2D3F9581CABFA3F00D97B23 /* SearchedLawmakerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2D3F9571CABFA3F00D97B23 /* SearchedLawmakerCell.xib */; };
 		D2D3F95A1CAC2D6700D97B23 /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D3F9591CAC2D6700D97B23 /* Party.swift */; };
 		FD96E5BA0A6AC631837B7A8D /* Pods_OpenNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E53F0110EF24D4E8B29C805 /* Pods_OpenNA.framework */; };
 /* End PBXBuildFile section */
@@ -397,7 +397,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = wook2;
 				TargetAttributes = {
 					D2964B7B1C7344D700D5FF5C = {
@@ -442,9 +442,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2D3F9581CABFA3F00D97B23 /* SearchedLawmakerCell.xib in Resources */,
+				B88FB50B1E4F9C57002591E3 /* SearchedLawmakerCell.xib in Resources */,
 				D23147B91D0D1CBD00273DD3 /* assembly.json in Resources */,
-				D2D3F9581CABFA3F00D97B23 /* SearchedLawmakerCell.xib in Resources */,
 				D2934D041CF3448C00EA734C /* SearchedPartyCell.xib in Resources */,
 				D2934CFE1CF3442B00EA734C /* SearchedBillCell.xib in Resources */,
 				D2D3F9561CABD1A500D97B23 /* BillCell.xib in Resources */,
@@ -615,8 +614,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -659,8 +660,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -679,6 +682,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -687,11 +691,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8501E14855B4581ED95B1665 /* Pods-OpenNA.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = MFYH4C9VNG;
 				INFOPLIST_FILE = OpenNA/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wook2.OpenNA;
@@ -705,11 +711,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22A899453A63A3AB72A6D9FB /* Pods-OpenNA.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = MFYH4C9VNG;
 				INFOPLIST_FILE = OpenNA/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wook2.OpenNA;
 				PRODUCT_NAME = "$(TARGET_NAME)";

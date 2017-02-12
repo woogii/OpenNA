@@ -19,13 +19,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="NZG-Ni-53g">
-                        <rect key="frame" x="14" y="8" width="71" height="69"/>
+                        <rect key="frame" x="14" y="8" width="70" height="70"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="71" id="L3m-cm-ylq"/>
+                            <constraint firstAttribute="height" constant="70" id="Jm8-NC-XdC"/>
+                            <constraint firstAttribute="width" constant="70" id="L3m-cm-ylq"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yc1-vq-pmJ">
-                        <rect key="frame" x="103" y="32" width="42" height="21"/>
+                        <rect key="frame" x="102" y="32" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -34,9 +35,8 @@
                 <constraints>
                     <constraint firstItem="NZG-Ni-53g" firstAttribute="leading" secondItem="bUt-v5-PQf" secondAttribute="leading" constant="14" id="EUL-dL-8wZ"/>
                     <constraint firstItem="yc1-vq-pmJ" firstAttribute="leading" secondItem="NZG-Ni-53g" secondAttribute="trailing" constant="18" id="Jcj-lT-fJR"/>
-                    <constraint firstItem="yc1-vq-pmJ" firstAttribute="top" secondItem="bUt-v5-PQf" secondAttribute="top" constant="32" id="cqZ-NK-UrR"/>
+                    <constraint firstItem="yc1-vq-pmJ" firstAttribute="centerY" secondItem="NZG-Ni-53g" secondAttribute="centerY" id="KMb-zr-AD1"/>
                     <constraint firstAttribute="bottom" secondItem="NZG-Ni-53g" secondAttribute="bottom" constant="9" id="hk1-v4-hzk"/>
-                    <constraint firstAttribute="bottom" secondItem="yc1-vq-pmJ" secondAttribute="bottom" constant="33" id="pci-x7-CRA"/>
                     <constraint firstItem="NZG-Ni-53g" firstAttribute="top" secondItem="bUt-v5-PQf" secondAttribute="top" constant="8" id="qbY-Uc-T6K"/>
                 </constraints>
             </tableViewCellContentView>

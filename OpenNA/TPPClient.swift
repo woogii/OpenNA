@@ -52,7 +52,7 @@ class TPPClient: NSObject {
             completionHandlerForGet(results as AnyObject? , nil)
           }
         case .failure(let error):
-        
+          
           completionHandlerForGet(nil, error as NSError?)
           
         }
@@ -65,20 +65,20 @@ class TPPClient: NSObject {
   {
     
     let request = Alamofire.request(url).responseData { response in
+      
+      
+      switch response.result {
         
+      case .success:
         
-        switch response.result {
+        if let result = response.data {
           
-        case .success:
-          
-          if let result = response.data {
-
-            completionHandlerForImage(result, nil)
-          }
-          
-        case .failure(let error):
-          completionHandlerForImage(nil, error as NSError?)          
+          completionHandlerForImage(result, nil)
         }
+        
+      case .failure(let error):
+        completionHandlerForImage(nil, error as NSError?)
+      }
     }
     
     return request.task!
