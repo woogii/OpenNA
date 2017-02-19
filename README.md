@@ -23,13 +23,13 @@ This is an application that provides information about lawmakers, bills and part
 * As I briefly stated above, party information is available when users can tap the logo image of the party.
 
 ![Detail](ScreenShot/Lawmaker_Detail.png)
-![Detail](ScreenShot/Bill_Detail.PNG)
+![Detail](ScreenShot/Bill_Detail.png)
 ![Detail](ScreenShot/Party_Detail.png)
 
 The images below show lists of lawmakers and bills that I saved based on my own interest. It is in this way, that users can save any information about lawmakers and bills that they are interested in and want to save.
 
-![MyList](ScreenShot/Lawmaker_InList.PNG)
-![MyList](ScreenShot/Bill_InList.PNG)
+![MyList](ScreenShot/Lawmaker_InList.png)
+![MyList](ScreenShot/Bill_InList.png)
 
 Finally, this application provides a 'Search' function, so that users are able to search lawmaker, bill and party information. In the top of the screen, users can type any search keyword they want and see the results of the search operation right away on the list below.
 

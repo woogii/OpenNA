@@ -226,6 +226,7 @@ class BillDetailViewController: UITableViewController {
       let controller = segue.destination as! WebViewController
       controller.urlString = documentUrl
       controller.hidesBottomBarWhenPushed = true
+      controller.isFromBillDetailVC = true 
     }
   }
   

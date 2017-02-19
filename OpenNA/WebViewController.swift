@@ -17,11 +17,20 @@ class WebViewController: UIViewController {
   // MARK : - Property
   @IBOutlet weak var webView: UIWebView!
   var urlString: String?
+  var isFromBillDetailVC:Bool?
   var loadingActivity : MBProgressHUD?
+  let pdfUrlTitle = "Bill PDF Document"
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    setNavigationTitle()
+  }
+  
+  func setNavigationTitle() {
     
+    if let _ = isFromBillDetailVC {
+      navigationItem.title = pdfUrlTitle
+    }
   }
   
   override func viewWillAppear(_ animated: Bool) {
