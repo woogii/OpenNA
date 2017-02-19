@@ -88,6 +88,9 @@ class SearchedLawmakerDetailViewController: UIViewController {
     }
   }
   
+  @IBAction func pushBackButton(_ sender: UIBarButtonItem) {
+    _ = navigationController?.popViewController(animated: true)
+  }
 }
 
 // MARK: - SearchedLawmakerDetailViewController : UITableViewDelegate, UITableViewDataSource

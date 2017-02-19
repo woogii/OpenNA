@@ -24,21 +24,32 @@ class SearchViewController: UIViewController {
   let search = Search()
   var searchResults = [[String:AnyObject]]()
   var sectionTitle = [String]()
-  var isSearch: Bool?
+  var isSearch: Bool = false
   
   // MARK : - View Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    // Register Nib Objects
     registerNibFiles()
     setAutoSizeHeightOptions()
     addGestureRecongnizer()
     setTableViewBackground()
-    
+    setKeyboardToolBar()
   }
   
+  func setKeyboardToolBar() {
+    
+    let keyboardToolbar = UIToolbar()
+    keyboardToolbar.tintColor = UIColor.black
+    keyboardToolbar.sizeToFit()
+    let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,target: nil, action: nil)
+    let doneBarButton = UIBarButtonItem(title: Constants.Title.Button.Dismiss, style: .plain, target: view, action: #selector(UIView.endEditing(_:)))
+    keyboardToolbar.items = [flexBarButton, doneBarButton]
+    searchBar.inputAccessoryView = keyboardToolbar
+    
+  }
+
   func registerNibFiles() {
     
     tableView.register(UINib(nibName: Constants.Identifier.SearchedLawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.SearchedLawmakerCell)
@@ -49,12 +60,10 @@ class SearchViewController: UIViewController {
   
   func setTableViewBackground() {
     
-    isSearch = false
     let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
     noDataLabel.text = Constants.Strings.SearchVC.DefaultLabelMessage
     noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
     noDataLabel.textAlignment = NSTextAlignment.center
-    
     
     self.tableView.backgroundView = noDataLabel
     self.tableView.separatorStyle = .none
@@ -230,7 +239,6 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
 //            cell.lawmakerImageView!.image = image
 //            return cell
 //          }
-          
           
           lawmakerImageRequest = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
             

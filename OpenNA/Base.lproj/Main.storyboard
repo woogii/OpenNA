@@ -25,7 +25,7 @@
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gm0-Ih-ZOT" id="s1A-Uu-obq">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lawmakers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMI-lQ-3mK">
@@ -50,7 +50,7 @@
                                         <rect key="frame" x="0.0" y="79" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UN3-8a-kzc" id="Son-uJ-BGL">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bills" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kWO-Ov-8NF">
@@ -85,7 +85,7 @@
             </objects>
             <point key="canvasLocation" x="-185" y="184"/>
         </scene>
-        <!--Lawmaker List View Controller-->
+        <!--Lawmakers-->
         <scene sceneID="c9q-iS-HcS">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="1f2-Bu-3Mg" customClass="LawmakerListViewController" customModule="OpenNA" customModuleProvider="target" sceneMemberID="viewController">
@@ -123,6 +123,14 @@
                             <constraint firstAttribute="trailing" secondItem="XtK-lS-fUD" secondAttribute="trailing" id="zJc-Zm-n8l"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Lawmakers" id="KYG-u2-09I">
+                        <barButtonItem key="leftBarButtonItem" image="ic_backBtn_black" id="Tdd-bU-D0R">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="pushBackButton:" destination="1f2-Bu-3Mg" id="AuB-4H-VNL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="XtK-lS-fUD" id="Eae-an-MIL"/>
                     </connections>
@@ -131,7 +139,7 @@
             </objects>
             <point key="canvasLocation" x="766" y="1060"/>
         </scene>
-        <!--Bill List View Controller-->
+        <!--Bills-->
         <scene sceneID="ajR-Jf-NFB">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="Lmp-Mn-7kk" customClass="BillListViewController" customModule="OpenNA" customModuleProvider="target" sceneMemberID="viewController">
@@ -169,6 +177,14 @@
                             <constraint firstItem="9xC-rQ-JhJ" firstAttribute="top" secondItem="osj-ZX-ttX" secondAttribute="bottom" id="xyO-OH-zdA"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Bills" id="qPk-yK-V5S">
+                        <barButtonItem key="leftBarButtonItem" image="ic_backBtn_black" id="LgK-JM-4l6">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="pushBackButton:" destination="Lmp-Mn-7kk" id="JHY-yP-LSP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="osj-ZX-ttX" id="rXM-WB-UzI"/>
                     </connections>
@@ -204,7 +220,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dNI-Wb-2b8" id="38J-sk-590">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -302,6 +318,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
                         <segue destination="276-cw-3Kz" kind="relationship" relationship="viewControllers" id="Q4K-2d-bKy"/>
@@ -361,6 +379,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="reM-se-d1I">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="sectionIndexColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="3jU-mv-bbK"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="5OP-YX-YyA"/>
@@ -389,6 +408,7 @@
                                 <segment title="Bill"/>
                                 <segment title="Party"/>
                             </segments>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="segmentedControlChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Mqa-3F-L5B"/>
                             </connections>
@@ -406,7 +426,7 @@
             </objects>
             <point key="canvasLocation" x="-340" y="-717.39130434782612"/>
         </scene>
-        <!--Lawmaker Detail View Controller-->
+        <!--Profile-->
         <scene sceneID="AwZ-GW-myj">
             <objects>
                 <viewController storyboardIdentifier="LawmakerDetail" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vB9-65-Ig8" customClass="LawmakerDetailViewController" customModule="OpenNA" customModuleProvider="target" sceneMemberID="viewController">
@@ -443,7 +463,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xay-az-hT6">
-                                                    <rect key="frame" x="123.5" y="14" width="243.5" height="16"/>
+                                                    <rect key="frame" x="124" y="14" width="243" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -474,10 +494,10 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rpc-6d-2z8">
-                                <rect key="frame" x="325" y="210" width="30" height="30"/>
+                                <rect key="frame" x="331" y="216" width="24" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="1oX-Uf-cHa"/>
-                                    <constraint firstAttribute="width" constant="30" id="TuB-KX-c5T"/>
+                                    <constraint firstAttribute="height" constant="24" id="1oX-Uf-cHa"/>
+                                    <constraint firstAttribute="width" constant="24" id="TuB-KX-c5T"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="Heart Icon"/>
                                 <connections>
@@ -499,6 +519,14 @@
                             <constraint firstItem="bF7-zX-31J" firstAttribute="top" secondItem="RPR-zG-lhy" secondAttribute="bottom" id="tm0-Fd-X3I"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Profile" id="YuV-yM-VM9">
+                        <barButtonItem key="leftBarButtonItem" image="ic_backBtn_black" id="khp-5X-SX1">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="pushBackButton:" destination="vB9-65-Ig8" id="Jmi-bU-RQv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="favoriteButton" destination="rpc-6d-2z8" id="WZM-40-ttc"/>
                         <outlet property="nameLabel" destination="6GW-gg-gkK" id="RRU-MQ-8aU"/>
@@ -510,7 +538,7 @@
             </objects>
             <point key="canvasLocation" x="1222" y="-1412"/>
         </scene>
-        <!--Searched Lawmaker Detail View Controller-->
+        <!--Profile-->
         <scene sceneID="98e-Ww-qEZ">
             <objects>
                 <viewController storyboardIdentifier="SearchedLawmakerDetail" automaticallyAdjustsScrollViewInsets="NO" id="Kec-Yo-uJw" customClass="SearchedLawmakerDetailViewController" customModule="OpenNA" customModuleProvider="target" sceneMemberID="viewController">
@@ -603,6 +631,14 @@
                             <constraint firstItem="Un8-EO-Dkf" firstAttribute="centerX" secondItem="fFc-kw-hYW" secondAttribute="centerX" id="xax-y3-CzK"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Profile" id="2br-EH-sG9">
+                        <barButtonItem key="leftBarButtonItem" image="ic_backBtn_black" id="tWs-7R-XRr">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="pushBackButton:" destination="Kec-Yo-uJw" id="8km-gG-YQ6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="nameLabel" destination="5ed-dB-ZCI" id="042-Nm-sJs"/>
                         <outlet property="profileImage" destination="Un8-EO-Dkf" id="eJ7-34-WhM"/>
@@ -628,7 +664,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BRd-Rs-W0y" id="VCL-dA-iOZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMa-Qf-VZd">
@@ -659,7 +695,7 @@
                                         <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uih-Iw-IDV" id="ULm-yZ-3IQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Proposed Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ujg-ov-XFY">
@@ -690,7 +726,7 @@
                                         <rect key="frame" x="0.0" y="116" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FmT-HQ-nbA" id="L5b-E9-n9A">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s3Y-Hq-vkO">
@@ -721,7 +757,7 @@
                                         <rect key="frame" x="0.0" y="160" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="B6b-nV-oqx" id="AHi-Oo-fqT">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Sponsor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lex-fc-jYv">
@@ -752,7 +788,7 @@
                                         <rect key="frame" x="0.0" y="204" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P2D-k4-zsE" id="voH-Fw-Fi5">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="External Links" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8A-m1-Gbv">
@@ -790,11 +826,11 @@
                                         <rect key="frame" x="0.0" y="276" width="375" height="228"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AHS-Me-en1" id="qdB-dM-Xth">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="227"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="228"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nCK-Ag-NaE">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="228"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nCK-Ag-NaE">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="227.5"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -804,8 +840,8 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="nCK-Ag-NaE" secondAttribute="trailing" id="KPz-k7-2sW"/>
                                                 <constraint firstItem="nCK-Ag-NaE" firstAttribute="top" secondItem="qdB-dM-Xth" secondAttribute="top" id="NBI-i4-IXO"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="nCK-Ag-NaE" secondAttribute="bottom" constant="-9" id="YNe-Xy-UJS"/>
                                                 <constraint firstItem="nCK-Ag-NaE" firstAttribute="leading" secondItem="qdB-dM-Xth" secondAttribute="leading" id="dgt-C8-gj9"/>
+                                                <constraint firstAttribute="bottom" secondItem="nCK-Ag-NaE" secondAttribute="bottom" id="iYV-N5-5wI"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -818,7 +854,14 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <navigationItem key="navigationItem" title="Bill Detail" id="nSj-Qs-zRu"/>
+                    <navigationItem key="navigationItem" title="Bill Detail" id="nSj-Qs-zRu">
+                        <barButtonItem key="leftBarButtonItem" image="ic_backBtn_black" id="4rJ-BU-irg">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="pushBackButton:" destination="ZRi-9x-VhW" id="FSK-mN-c9w"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="assembylIDLabel" destination="JMa-Qf-VZd" id="JQO-kd-wY7"/>
@@ -831,9 +874,9 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hYT-Bo-1UQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="487" y="-488"/>
+            <point key="canvasLocation" x="485.60000000000002" y="-488.00599700149928"/>
         </scene>
-        <!--Web View Controller-->
+        <!--Party Detail-->
         <scene sceneID="KRk-iJ-q5n">
             <objects>
                 <viewController storyboardIdentifier="webViewVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dhe-YD-e6d" customClass="WebViewController" customModule="OpenNA" customModuleProvider="target" sceneMemberID="viewController">
@@ -859,6 +902,14 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Party Detail" id="16J-FB-oCn">
+                        <barButtonItem key="leftBarButtonItem" image="ic_backBtn_black" id="SxI-Vb-Wz0">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="pushBackButton:" destination="Dhe-YD-e6d" id="0FY-r7-zah"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="webView" destination="ft1-CT-9lF" id="ZSq-eZ-9yt"/>
@@ -928,11 +979,12 @@
     </scenes>
     <resources>
         <image name="Heart Icon" width="32" height="32"/>
+        <image name="ic_backBtn_black" width="16" height="16"/>
         <image name="politics" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="xuN-TL-bC7"/>
         <segue reference="hAT-aM-Zpd"/>
         <segue reference="pvd-li-cak"/>
-        <segue reference="lrF-M3-Aj4"/>
     </inferredMetricsTieBreakers>
 </document>

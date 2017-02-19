@@ -66,13 +66,11 @@ class TPPClient: NSObject {
     
     let request = Alamofire.request(url).responseData { response in
       
-      
       switch response.result {
         
       case .success:
         
         if let result = response.data {
-          
           completionHandlerForImage(result, nil)
         }
         

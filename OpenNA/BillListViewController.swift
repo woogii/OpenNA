@@ -78,6 +78,10 @@ class BillListViewController : UIViewController {
     
   }
   
+  @IBAction func pushBackButton(_ sender: UIBarButtonItem) {
+    _ = navigationController?.popViewController(animated: true)
+  }
+  
 }
 
 // MARK : - BillListViewController : UITableViewDelegate, UITableViewDataSource

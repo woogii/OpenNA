@@ -333,4 +333,11 @@ struct Constants {
     static let FavoriteIconFilled = "ic_favorite_filled"
   }
   
+  struct Title {
+    struct Button {
+      static let OK = "Done"
+      static let Dismiss = "Dismiss"
+    }
+  }
+  
 }

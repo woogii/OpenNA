@@ -162,6 +162,11 @@ class LawmakerDetailViewController: UIViewController {
       favoriteButton.setImage(UIImage(named:Constants.Images.FavoriteIconEmpty),  for: .normal)
     }
   }
+  
+  @IBAction func pushBackButton(_ sender: UIBarButtonItem) {
+    _ = navigationController?.popViewController(animated: true)
+  }
+  
 }
 
 // MARK: - LawmakerDetailViewController : UITableViewDelegate, UITableViewDataSource

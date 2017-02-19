@@ -66,6 +66,7 @@ class LawmakerListViewController : UIViewController {
   // MARK : - Prepare For Segue
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
     let path = tableView.indexPathForSelectedRow!
     
     let detailVC = segue.destination as! LawmakerDetailViewController
@@ -84,13 +85,15 @@ class LawmakerListViewController : UIViewController {
     
   }
   
+  @IBAction func pushBackButton(_ sender: UIBarButtonItem) {
+    _ = navigationController?.popViewController(animated: true)
+  }
+  
 }
 
 // MARK : - LawmakerListViewController : UITableViewDelegate, UITableViewDataSource
 
 extension LawmakerListViewController : UITableViewDelegate, UITableViewDataSource {
-  
-  
   
   // MARK : - UITableViewDataSource Methods
   

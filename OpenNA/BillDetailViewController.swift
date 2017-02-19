@@ -9,29 +9,6 @@
 import Foundation
 import UIKit
 import CoreData
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
 
 
 // MARK: - BillDetailViewController : UITableViewController
@@ -46,7 +23,6 @@ class BillDetailViewController: UITableViewController {
   @IBOutlet weak var sponsorLabel: UILabel!
   @IBOutlet weak var documentURLLabel: UILabel!
   @IBOutlet weak var summaryTextView: UITextView!
-  //@IBOutlet weak var favoriteButton: UIBarButtonItem!
   
   var proposedDate: String?
   var status : String?
@@ -55,8 +31,7 @@ class BillDetailViewController: UITableViewController {
   var summary : String?
   var assemblyID : Int?
   var name : String?
-  var favoriteButton: UIBarButtonItem!
-  
+  var favoriteButton: UIBarButtonItem?
   var sharedContext : NSManagedObjectContext {
     return CoreDataStackManager.sharedInstance().managedObjectContext!
   }
@@ -64,8 +39,12 @@ class BillDetailViewController: UITableViewController {
   // MARK : - View Life Cycle
   
   override func viewDidLoad() {
-    super.viewDidLoad()
     
+    super.viewDidLoad()
+    configureTableViewDynamicHeight()
+  }
+  
+  func configureTableViewDynamicHeight() {
     tableView.estimatedRowHeight = 44.0
     tableView.rowHeight = UITableViewAutomaticDimension
   }
@@ -74,46 +53,80 @@ class BillDetailViewController: UITableViewController {
     
     super.viewWillAppear(animated)
     
-    if let row = tableView.indexPathForSelectedRow {
-      tableView.deselectRow(at: row, animated: false)
-    }
-    
+    setProposedDate()
+    setBillStatus()
+    setSponsor()
+    setBillURL()
+    setSummary()
+    setAssemblyID()
+    configureFavoriteButton()
+  }
+  
+  func setProposedDate() {
     proposedDateLabel.text = proposedDate
+  }
+  
+  func setBillStatus() {
     statusLabel.text = status
+  }
+  
+  func setSponsor() {
     sponsorLabel.text = sponsor
+  }
+  
+  func setBillURL() {
     documentURLLabel.text = documentUrl
+  }
+
+  func configureFavoriteButton() {
+  
+    if previousViewController() != nil {
+      
+      if previousViewController() is SearchViewController { // SearchViewController 에서 진입한 경우 favoriteButton 을 보여주지 않음
+        return
+      } else {
+        
+        let fetchedResults = fetchBillInList()
+        if fetchedResults?.count == 0 {
+          createRightBarButtonItem(withImageName: Constants.Images.FavoriteIconEmpty)
+        } else {
+          createRightBarButtonItem(withImageName: Constants.Images.FavoriteIconFilled)
+        }
+      }
+    }
+  }
+  
+  func createRightBarButtonItem(withImageName:String) {
     
-    if summary?.characters.count > 0 {
-      summaryTextView.text = summary
+    let image = UIImage(named:withImageName)?.withRenderingMode(.alwaysOriginal)
+    navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(favoriteButtonTapped))
+    navigationItem.rightBarButtonItem?.imageInsets = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 5.0)
+
+  }
+  
+  func setSummary() {
+    
+    if let count = summary?.characters.count {
+      
+      if count > 0 {
+        summaryTextView.text = summary
+      } else {
+        summaryTextView.text = Constants.Strings.BillDetailVC.TextViewDefaultMsg
+      }
     } else {
       summaryTextView.text = Constants.Strings.BillDetailVC.TextViewDefaultMsg
     }
+  }
+  
+  func setAssemblyID() {
     
     guard let assemblyID = assemblyID  else {
       assembylIDLabel.text = ""
       return
     }
-  
-    if previousViewController() != nil {
-      
-      if previousViewController() is SearchViewController {
-        
-        favoriteButton.image = nil
-      }
-      
-    }
     
     assembylIDLabel.text = "\(assemblyID)"
-    
-    let fetchedResults = fetchBillInList()
-    
-    if fetchedResults!.count == 0 {
-      let image = UIImage(named:Constants.Images.FavoriteIconEmpty)?.withRenderingMode(.alwaysOriginal)
-      navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(favoriteButtonTapped))
-    } else {
-      let image = UIImage(named:Constants.Images.FavoriteIconFilled)?.withRenderingMode(.alwaysOriginal)
-      navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(favoriteButtonTapped))
-    }
+
   }
   
   // MARK : - UITableViewDelegate Method
@@ -125,6 +138,10 @@ class BillDetailViewController: UITableViewController {
     } else {
       return CGFloat(44)
     }
+  }
+  
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
   }
   
   // MARK : - Fetch Bills in MyList
@@ -178,8 +195,7 @@ class BillDetailViewController: UITableViewController {
         #endif
       }
       
-      let image = UIImage(named:Constants.Images.FavoriteIconFilled)?.withRenderingMode(.alwaysOriginal)
-      navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(favoriteButtonTapped))
+      createRightBarButtonItem(withImageName: Constants.Images.FavoriteIconFilled)
       
     } else {
       
@@ -197,8 +213,7 @@ class BillDetailViewController: UITableViewController {
         #endif
       }
       
-      let image = UIImage(named:Constants.Images.FavoriteIconEmpty)?.withRenderingMode(.alwaysOriginal)
-      navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(favoriteButtonTapped))
+      createRightBarButtonItem(withImageName: Constants.Images.FavoriteIconEmpty)
     }
     
   }
@@ -214,6 +229,9 @@ class BillDetailViewController: UITableViewController {
     }
   }
   
+  @IBAction func pushBackButton(_ sender: UIBarButtonItem) {
+    _ = navigationController?.popViewController(animated: true)
+  }
   
 }
 

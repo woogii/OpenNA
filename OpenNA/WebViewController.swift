@@ -37,6 +37,10 @@ class WebViewController: UIViewController {
     webView.loadRequest(URLRequest(url: url!))
   }
   
+  @IBAction func pushBackButton(_ sender: UIBarButtonItem) {
+    _ = navigationController?.popViewController(animated: true)
+  }
+  
 }
 
 // MARK : - WebViewController : UIWebViewDelegate
