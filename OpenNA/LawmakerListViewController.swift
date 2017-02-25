@@ -18,31 +18,41 @@ class LawmakerListViewController : UIViewController {
   
   @IBOutlet weak var tableView: UITableView!
   var lawmakersInList = [LawmakerInList]()
-  
   var sharedContext : NSManagedObjectContext {
     return CoreDataStackManager.sharedInstance().managedObjectContext!
   }
+  let tableViewRowHeight:CGFloat = 140
   
   // MARK : - View Life Cycle
   
-  override func viewWillAppear(_ animated: Bool) {
+  override func viewDidLoad() {
     
-    if let row = tableView.indexPathForSelectedRow {
-      tableView.deselectRow(at: row, animated: false)
-    }
+    super.viewDidLoad()
+    // Register Nib Objects
+    registerNibFileForTableView()
+    setDelegateAndDatasourceForTableView()
+    getLawmakerList()
     
-    lawmakersInList = fetchLawmakersInList()
-    tableView.reloadData()
   }
   
-  override func viewDidLoad() {
-    // Register Nib Objects
+  func registerNibFileForTableView() {
     tableView.register(UINib(nibName: Constants.Identifier.LawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.LawmakerCell)
+  }
+  
+  func setDelegateAndDatasourceForTableView() {
     tableView.delegate = self
     tableView.dataSource = self
-    
+  }
+  
+  func getLawmakerList() {
     lawmakersInList = fetchLawmakersInList()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
     
+    super.viewWillAppear(animated)
+    lawmakersInList = fetchLawmakersInList()
+    tableView.reloadData()
   }
   
   // MARK : - Fetch Lawmakers In Favorite List
@@ -67,22 +77,22 @@ class LawmakerListViewController : UIViewController {
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
-    let path = tableView.indexPathForSelectedRow!
-    
-    let detailVC = segue.destination as! LawmakerDetailViewController
-    
-    detailVC.pinnedImage = lawmakersInList[path.row].pinnedImage
-    detailVC.name = lawmakersInList[path.row].name
-    detailVC.birth = lawmakersInList[path.row].birth
-    detailVC.party = lawmakersInList[path.row].party
-    detailVC.when_elected = lawmakersInList[path.row].when_elected
-    detailVC.district = lawmakersInList[path.row].district
-    detailVC.homepage = lawmakersInList[path.row].homepage
-    detailVC.image = lawmakersInList[path.row].image
-    detailVC.pinnedImage = lawmakersInList[path.row].pinnedImage
-    
-    detailVC.hidesBottomBarWhenPushed = true
-    
+    if let path = tableView.indexPathForSelectedRow {
+      
+      let detailVC = segue.destination as! LawmakerDetailViewController
+      
+      detailVC.pinnedImage = lawmakersInList[path.row].pinnedImage
+      detailVC.name = lawmakersInList[path.row].name
+      detailVC.birth = lawmakersInList[path.row].birth
+      detailVC.party = lawmakersInList[path.row].party
+      detailVC.when_elected = lawmakersInList[path.row].when_elected
+      detailVC.district = lawmakersInList[path.row].district
+      detailVC.homepage = lawmakersInList[path.row].homepage
+      detailVC.image = lawmakersInList[path.row].image
+      detailVC.pinnedImage = lawmakersInList[path.row].pinnedImage
+      detailVC.hidesBottomBarWhenPushed = true
+      
+    }
   }
   
   @IBAction func pushBackButton(_ sender: UIBarButtonItem) {
@@ -177,11 +187,13 @@ extension LawmakerListViewController : UITableViewDelegate, UITableViewDataSourc
   // MARK : UITableView Delegate Methods
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 140
+    return tableViewRowHeight
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
     performSegue(withIdentifier: Constants.Identifier.LawmakerDetailVC, sender: self)
+    tableView.deselectRow(at: indexPath, animated: true)
   }
   
   

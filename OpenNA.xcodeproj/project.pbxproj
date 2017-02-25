@@ -152,6 +152,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B87B32341E61CC72005F8B5A /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				D236968A1D3B3CAB00F9FB75 /* CommonHelper.swift */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
 		CBCE29CFD52F1013242F9EDE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +240,7 @@
 		D2964B7E1C7344D700D5FF5C /* OpenNA */ = {
 			isa = PBXGroup;
 			children = (
+				B87B32341E61CC72005F8B5A /* Helper */,
 				D26806561D323AEC00DA5C53 /* Constant */,
 				D26806551D323ACA00DA5C53 /* Cache */,
 				D2D3F9541CABD02D00D97B23 /* Network */,
@@ -294,7 +303,6 @@
 				D26806521D323A3A00DA5C53 /* LawmakerDetailTableViewCell.swift */,
 				D2678C641C9173780056278F /* LawmakerTableViewCell.swift */,
 				D2934D051CF346E700EA734C /* SearchedLawmakerTableViewCell.swift */,
-				D236968A1D3B3CAB00F9FB75 /* CommonHelper.swift */,
 				D26806571D325E9300DA5C53 /* SearchedLawmakerDetailTableViewCell.swift */,
 				D2934D071CF346FA00EA734C /* SearchedBillTableViewCell.swift */,
 				D2934D091CF3470800EA734C /* SearchedPartyTableViewCell.swift */,

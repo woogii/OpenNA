@@ -23,7 +23,6 @@ class Search : NSObject {
   var lawmakerSearchTask: URLSessionTask?
   var billSearchTask: URLSessionTask?
   var partySearchTask: URLSessionTask?
-  
   lazy var scratchContext: NSManagedObjectContext = {
     var context = NSManagedObjectContext.init(concurrencyType: .mainQueueConcurrencyType)
     context.persistentStoreCoordinator = CoreDataStackManager.sharedInstance().persistentStoreCoordinator

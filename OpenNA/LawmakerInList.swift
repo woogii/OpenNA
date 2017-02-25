@@ -47,19 +47,19 @@ class LawmakerInList : NSManagedObject {
     super.init(entity:entity, insertInto: context)
   }
   
-  init(dictionary :[String:AnyObject], context: NSManagedObjectContext?)
+  init(name:String?,image:String?, party:String?, birth:String?, homepage:String?, when_elected:String?, district:String?, context: NSManagedObjectContext?)
   {
     let entity = NSEntityDescription.entity(forEntityName: Constants.Entity.LawmakerInList , in: context!)
     
     super.init(entity : entity!, insertInto: context)
     
-    name         = dictionary[Constants.ModelKeys.NameEn] as? String
-    image        = dictionary[Constants.ModelKeys.ImageUrl] as? String
-    party        = dictionary[Constants.ModelKeys.Party] as? String
-    birth        = dictionary[Constants.ModelKeys.Birth] as? String
-    homepage     = dictionary[Constants.ModelKeys.Homepage] as? String
-    when_elected = dictionary[Constants.ModelKeys.WhenElected] as? String
-    district     = dictionary[Constants.ModelKeys.District] as? String
+    self.name         = name
+    self.image        = image
+    self.party        = party
+    self.birth        = birth
+    self.homepage     = homepage
+    self.when_elected = when_elected
+    self.district     = district
     
   }
   

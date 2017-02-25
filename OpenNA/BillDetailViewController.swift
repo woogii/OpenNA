@@ -82,17 +82,14 @@ class BillDetailViewController: UITableViewController {
   
     if previousViewController() != nil {
       
-      if previousViewController() is SearchViewController { // SearchViewController 에서 진입한 경우 favoriteButton 을 보여주지 않음
-        return
+      let fetchedResults = fetchBillInList()
+      
+      if fetchedResults?.count == 0 {
+        createRightBarButtonItem(withImageName: Constants.Images.FavoriteIconEmpty)
       } else {
-        
-        let fetchedResults = fetchBillInList()
-        if fetchedResults?.count == 0 {
-          createRightBarButtonItem(withImageName: Constants.Images.FavoriteIconEmpty)
-        } else {
-          createRightBarButtonItem(withImageName: Constants.Images.FavoriteIconFilled)
-        }
+        createRightBarButtonItem(withImageName: Constants.Images.FavoriteIconFilled)
       }
+      
     }
   }
   
@@ -175,17 +172,7 @@ class BillDetailViewController: UITableViewController {
     
     if fetchedResults!.count == 0  {
       
-      var dictionary = [String:AnyObject]()
-      
-      dictionary[Constants.ModelKeys.BillName] = name as AnyObject?
-      dictionary[Constants.ModelKeys.BillProposedDate] = proposedDate as AnyObject?
-      dictionary[Constants.ModelKeys.BillSponsor] = sponsor as AnyObject?
-      dictionary[Constants.ModelKeys.BillStatus] = status as AnyObject?
-      dictionary[Constants.ModelKeys.BillSummary] = summary as AnyObject?
-      dictionary[Constants.ModelKeys.BillDocumentUrl] = documentUrl as AnyObject?
-      dictionary[Constants.ModelKeys.BillAssemblyId] = assemblyID as AnyObject?
-      
-      let _ = BillInList(dictionary: dictionary, context: sharedContext)
+      let _ = BillInList(name: name, proposedDate: proposedDate,sponsor: sponsor, status: status, summary: summary, documentUrl: documentUrl, assemblyID: assemblyID, context: sharedContext)
       
       do {
         try sharedContext.save()

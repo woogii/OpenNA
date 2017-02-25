@@ -50,11 +50,8 @@ class LawmakerDetailViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     
-    if let row = tableView.indexPathForSelectedRow {
-      tableView.deselectRow(at: row, animated: false)
-    }
+    super.viewWillAppear(animated)
     
-    profileImage.clipsToBounds = true
     profileImage.image = pinnedImage
     nameLabel.text = name!
     
@@ -65,8 +62,12 @@ class LawmakerDetailViewController: UIViewController {
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     
+    makeCircleProfileImageView()
+  }
+  
+  func makeCircleProfileImageView() {
     profileImage.layer.cornerRadius = profileImage.frame.size.width/2
-    
+    profileImage.clipsToBounds = true
   }
   
   // MARK : - Prepare For Segue
@@ -120,17 +121,7 @@ class LawmakerDetailViewController: UIViewController {
     // If there is not a lawmaker in Favorite List, add it to the list
     if fetchedResults!.count == 0  {
       
-      var dictionary = [String:AnyObject]()
-      
-      dictionary[Constants.ModelKeys.NameEn] =  name as AnyObject?
-      dictionary[Constants.ModelKeys.ImageUrl] = image as AnyObject?
-      dictionary[Constants.ModelKeys.Party] =  party as AnyObject?
-      dictionary[Constants.ModelKeys.Birth] =  birth as AnyObject?
-      dictionary[Constants.ModelKeys.Homepage] = homepage as AnyObject?
-      dictionary[Constants.ModelKeys.WhenElected] = when_elected as AnyObject?
-      dictionary[Constants.ModelKeys.District] = district as AnyObject?
-      
-      let _ = LawmakerInList(dictionary: dictionary, context: sharedContext)
+      let _ = LawmakerInList(name: name,image: image,party: party, birth: birth, homepage: homepage, when_elected: when_elected, district: district,  context: sharedContext)
       
       do {
         try sharedContext.save()

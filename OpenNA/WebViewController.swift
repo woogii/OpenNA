@@ -22,6 +22,7 @@ class WebViewController: UIViewController {
   let pdfUrlTitle = "Bill PDF Document"
   
   override func viewDidLoad() {
+    
     super.viewDidLoad()
     setNavigationTitle()
   }

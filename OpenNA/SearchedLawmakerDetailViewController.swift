@@ -10,6 +10,13 @@ import Foundation
 import UIKit
 import CoreData
 
+// MARK : - Enum (For Cell IndexPath Row)
+
+enum CustomCell:Int {
+  case birth = 0, address, blog, education, homepage
+}
+
+
 // MARK : - SearchedLawmakerDetailViewController: UIViewController
 
 class SearchedLawmakerDetailViewController: UIViewController {
@@ -19,37 +26,42 @@ class SearchedLawmakerDetailViewController: UIViewController {
   @IBOutlet weak var profileImage: UIImageView!
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var favoriteButton: UIButton!
   
   var image:String?
   var name : String?
   var birth:String?
   var address: String?
+  var party:String?
+  var when_elected:String?
   var blog : String?
   var education : String?
   var homepage:String?
-  
-  
-  // MARK : - Enum (For Cell IndexPath Row)
-  
-  enum CustomCell:Int {
-    case birth = 0, address, blog, education, homepage
+  var district:String?
+  var sharedContext : NSManagedObjectContext {
+    return CoreDataStackManager.sharedInstance().managedObjectContext!
   }
-  
+
   // MARK : - View Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
   }
   
-  override func viewWillAppear(_ animated: Bool) {
-    
-    if let row = tableView.indexPathForSelectedRow {
-      tableView.deselectRow(at: row, animated: false)
-    }
-    
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    makeCircleProfileImageView()
+  }
+  
+  func makeCircleProfileImageView() {
     profileImage.layer.cornerRadius = profileImage.frame.size.width/2
     profileImage.clipsToBounds = true
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
     
+    super.viewWillAppear(animated)
+  
     if let imageString = image {
       
       let url = URL(string: imageString)
@@ -76,6 +88,9 @@ class SearchedLawmakerDetailViewController: UIViewController {
     // profileImage.image = pinnedImage
     nameLabel.text = name!
     
+    let fetchedResults = fetchLawmakerInList()
+    fetchedResults!.count == 0 ? (favoriteButton.setImage(UIImage(named:Constants.Images.FavoriteIconEmpty), for: .normal)) : (favoriteButton.setImage(UIImage(named:Constants.Images.FavoriteIconFilled), for: .normal))
+    
   }
   
   // MARK : - Prepare For Segue
@@ -91,6 +106,80 @@ class SearchedLawmakerDetailViewController: UIViewController {
   @IBAction func pushBackButton(_ sender: UIBarButtonItem) {
     _ = navigationController?.popViewController(animated: true)
   }
+  
+  @IBAction func favoriteButtonTapped(_ sender: UIButton) {
+    
+    let fetchedResults = fetchLawmakerInList()
+    
+    // If there is not a lawmaker in Favorite List, add it to the list
+    if fetchedResults!.count == 0  {
+  
+      let _ = LawmakerInList(name: name, image: image, party: party, birth: birth, homepage: homepage, when_elected: when_elected, district: district, context: sharedContext)
+      
+      do {
+        try sharedContext.save()
+      } catch {
+        #if DEBUG
+          print("\(error)")
+        #endif
+      }
+      
+      favoriteButton.setImage(UIImage(named:Constants.Images.FavoriteIconFilled), for: .normal)
+    } else {
+      
+      // If the lawmaker is already in Favorite List, delete it from the list
+      
+      guard let result = fetchedResults!.first else {
+        return
+      }
+      
+      sharedContext.delete(result)
+      
+      do {
+        try sharedContext.save()
+      } catch {
+        #if DEBUG
+          print("\(error)")
+        #endif
+      }
+      
+      favoriteButton.setImage(UIImage(named:Constants.Images.FavoriteIconEmpty),  for: .normal)
+    }
+
+  }
+  
+  // MARK : - Fetch Lawmakers in Favorite List
+  
+  func fetchLawmakerInList()->[LawmakerInList]? {
+    
+    // Fetch a single lawmaker with given name and image
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName : Constants.Entity.LawmakerInList)
+    let firstPredicate = NSPredicate(format: Constants.Fetch.PredicateForName, name!)
+    let secondPredicate = NSPredicate(format: Constants.Fetch.PredicateForImage, image!)
+    let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates:[firstPredicate,secondPredicate])
+    fetchRequest.predicate = compoundPredicate
+    
+    // In order to fetch a single object
+    fetchRequest.fetchLimit = 1
+    
+    
+    var fetchedResults : [LawmakerInList]?
+    
+    do {
+      fetchedResults = try sharedContext.fetch(fetchRequest) as? [LawmakerInList]
+    } catch let error as NSError {
+      #if DEBUG
+        print("\(error.description)")
+      #endif
+    }
+    
+    #if DEBUG
+      print("fetch result : \(fetchedResults)")
+    #endif
+    
+    return fetchedResults
+  }
+
 }
 
 // MARK: - SearchedLawmakerDetailViewController : UITableViewDelegate, UITableViewDataSource

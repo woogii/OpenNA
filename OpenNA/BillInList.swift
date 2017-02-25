@@ -23,26 +23,25 @@ class BillInList : NSManagedObject {
   @NSManaged var documentUrl:String?
   @NSManaged var assemblyId:NSNumber?
   
-  
   // MARK : Initialization
   
   override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
     super.init(entity:entity, insertInto: context)
   }
   
-  init(dictionary :[String:AnyObject], context: NSManagedObjectContext?)
+  init(name:String?, proposedDate:String?,sponsor:String?, status:String?, summary:String?, documentUrl:String?, assemblyID:Int?, context: NSManagedObjectContext?)
   {
     let entity = NSEntityDescription.entity(forEntityName: Constants.Entity.BillInList, in: context!)
     
     super.init(entity : entity!, insertInto: context)
     
-    name         = dictionary[Constants.ModelKeys.BillName] as? String
-    proposeDate  = dictionary[Constants.ModelKeys.BillProposedDate] as? String
-    sponsor      = dictionary[Constants.ModelKeys.BillSponsor] as? String
-    status       = dictionary[Constants.ModelKeys.BillStatus] as? String
-    summary      = dictionary[Constants.ModelKeys.BillSummary] as? String
-    documentUrl  = dictionary[Constants.ModelKeys.BillDocumentUrl] as? String
-    assemblyId   = dictionary[Constants.ModelKeys.BillAssemblyId] as? Int as NSNumber?
+    self.name         = name
+    self.proposeDate  = proposedDate
+    self.sponsor      = sponsor
+    self.status       = status
+    self.summary      = summary
+    self.documentUrl  = documentUrl
+    self.assemblyId   = assemblyID as NSNumber?
     
   }
   
