@@ -16,14 +16,6 @@ class PartyCollectionViewCell : UICollectionViewCell {
   // MARK : Property
   
   @IBOutlet weak var logoImageView: UIImageView!
-  
-  var taskToCancelifCellIsReused: URLSessionTask? {
+  @IBOutlet weak var partyNameLabel: UILabel!
     
-    didSet {
-      if let taskToCancel = oldValue {
-        taskToCancel.cancel()
-      }
-    }
-  }
-  
 }

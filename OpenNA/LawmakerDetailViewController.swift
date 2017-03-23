@@ -53,7 +53,12 @@ class LawmakerDetailViewController: UIViewController {
     super.viewWillAppear(animated)
     
     profileImage.image = pinnedImage
-    nameLabel.text = name!
+    
+    if let name = self.name {
+      nameLabel.text = name
+    } else {
+      nameLabel.text = ""
+    }
     
     let fetchedResults = fetchLawmakerInList()
     fetchedResults!.count == 0 ? (favoriteButton.setImage(UIImage(named:Constants.Images.FavoriteIconEmpty), for: .normal)) : (favoriteButton.setImage(UIImage(named:Constants.Images.FavoriteIconFilled), for: .normal))

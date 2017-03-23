@@ -21,7 +21,10 @@ class SearchedLawmakerTableViewCell: UITableViewCell {
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    
+    setLawmakerImageViewCornerRadius()
+  }
+  
+  func setLawmakerImageViewCornerRadius() {
     lawmakerImageView.layer.cornerRadius = lawmakerImageView.frame.size.width/2
     lawmakerImageView.clipsToBounds = true
   }

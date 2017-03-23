@@ -30,6 +30,11 @@ class PoliticsViewController: UIViewController  {
   var lastRowIndex = 20
   static var page = 1
   typealias Entry = (Character, [Lawmaker])
+  let cellHeight:CGFloat = 140
+  let numberOfRowsForPartyCollectionView:CGFloat = 3
+  let valueForAdjustPartyCellHeight:CGFloat = 15
+  var isRequesting = false
+  var isLastPage = false
   
   // MARK : - CoreData Convenience
   
@@ -45,30 +50,30 @@ class PoliticsViewController: UIViewController  {
     super.viewDidLoad()
     
     configureLayout()
-    lawmakers = fetchAllLawmakers()
+    fetchAllLawmakers()
     buildTableViewIndex()
     
   }
-
+  
   // MARK : - Configure Layout
   
-  func configureLayout() {
-    
-    // Register Nib Objects
-    self.tableView.register(UINib(nibName: Constants.Identifier.LawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.LawmakerCell)
-    self.tableView.register(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
-    
-    // Set CollectionView delegate and datasource
-    collectionView.dataSource = self
-    collectionView.delegate = self
-    
-    // Hide CollectionView when the view display
-    collectionView.isHidden = true
+  fileprivate func configureLayout() {
+    registerNibFilesForTableView()
+    setPartyCollectionViewHiddenStatus(hiddenStatus:true)
+  }
+  
+  fileprivate func registerNibFilesForTableView() {
+    tableView.register(UINib(nibName: Constants.Identifier.LawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.LawmakerCell)
+    tableView.register(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
+  }
+  
+  fileprivate func setPartyCollectionViewHiddenStatus(hiddenStatus:Bool) {
+    collectionView.isHidden = hiddenStatus
   }
   
   // MARK : - Data Fetch
   
-  func fetchAllLawmakers()->[Lawmaker]
+  fileprivate func fetchAllLawmakers()
   {
     let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName : Constants.Entity.Lawmaker)
     let sectionSortDescriptor = NSSortDescriptor(key:Constants.Fetch.SortKeyForLawmaker, ascending: true)
@@ -76,13 +81,13 @@ class PoliticsViewController: UIViewController  {
     fetchRequest.sortDescriptors = sortDescriptors
     
     do {
-      return try sharedContext.fetch(fetchRequest) as! [Lawmaker]
+      self.lawmakers = try sharedContext.fetch(fetchRequest) as! [Lawmaker]
       
     } catch let error as NSError {
       #if DEBUG
         print("\(error.description)")
       #endif
-      return [Lawmaker]()
+      self.lawmakers = [Lawmaker]()
     }
   }
   
@@ -101,7 +106,7 @@ class PoliticsViewController: UIViewController  {
     
     collectionView.collectionViewLayout = layout
   }
-
+  
   // MARK : - Action Method
   
   @IBAction func segmentedControlChanged(_ sender: AnyObject) {
@@ -157,7 +162,7 @@ class PoliticsViewController: UIViewController  {
         if let parties = parties {
           
           self.parties = parties
-        
+          
           DispatchQueue.main.async  {
             self.collectionView.reloadData()
             spinActivity.hide(animated:true)
@@ -194,7 +199,11 @@ class PoliticsViewController: UIViewController  {
     
     // Create the array that contains the first letter of lawmaker's name
     let letters = lawmakers.map {  (lawmaker) -> Character in
-      Character(lawmaker.name!.substring(to:lawmaker.name!.characters.index(lawmaker.name!.startIndex, offsetBy: 1)).uppercased())
+      if let name = lawmaker.name {
+        return Character(name.firstUppercaseCharacter())
+      } else {
+        return Character("")
+      }
     }
     
     // Delete if there is a duplicate
@@ -204,8 +213,11 @@ class PoliticsViewController: UIViewController  {
     return distictLetters.map {   (letter) -> Entry in
       
       return (letter, lawmakers.filter  {  (lawmaker) -> Bool in
-        
-        Character(lawmaker.name!.substring(to:lawmaker.name!.characters.index(lawmaker.name!.startIndex, offsetBy: 1)).uppercased()) == letter
+        if let name = lawmaker.name {
+          return Character(name.firstUppercaseCharacter()) == letter
+        } else {
+          return false
+        }
       })
     }
     
@@ -356,11 +368,8 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
             cell.profileImageView!.image = image
           }
         }
-        
       }
-      
-      /*  The cells in the tableviews get reused when you scroll. So when a completion handler completes, it will set the image on a cell, even if the cell is about to be reused, or is already being reused.
-          The table view cells need to cancel their download task when they are reused. */
+
       cell.taskToCancelifCellIsReused = task
     }
     
@@ -371,7 +380,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
   // MARK : - UITableView Delegate Methods
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 140
+    return cellHeight
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -389,7 +398,6 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
       controller.homepage = indexInfo[indexPath.section].1[indexPath.row].homepage
       controller.image = indexInfo[indexPath.section].1[indexPath.row].image
       controller.pinnedImage = indexInfo[indexPath.section].1[indexPath.row].pinnedImage
-      
       controller.hidesBottomBarWhenPushed = true
       navigationController?.pushViewController(controller, animated: true)
       
@@ -419,63 +427,6 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
     tableView.deselectRow(at: indexPath, animated: true)
   }
   
-  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    
-    switch segmentedControl.selectedSegmentIndex {
-      
-    case 1:
-      #if DEBUG
-        print("loadingData : \(self.loadingData)")
-        print("lastRowIndex: \(self.lastRowIndex)")
-      #endif
-      
-      if !loadingData && indexPath.row == lastRowIndex - 1{
-        #if DEBUG
-          print("indexPath = \(indexPath.row)")
-        #endif
-        loadingData = true
-        let spinActivity = MBProgressHUD.showAdded(to: view, animated: true)
-        spinActivity.label.text = Constants.ActivityIndicatorText.Loading
-        PoliticsViewController.page += 1
-        
-        TPPClient.sharedInstance().getBills(PoliticsViewController.page) { (bills, error) in
-          
-          if let addedbills = bills {
-            
-            #if DEBUG
-              print("appended bills count : \(addedbills.count)")
-            #endif
-            
-            if addedbills.count == 0 {
-              
-              DispatchQueue.main.async  {
-                spinActivity.hide(animated:true)
-              }
-              return
-            }
-            
-            self.bills.append(contentsOf: addedbills)
-            self.lastRowIndex += 20
-            self.loadingData = false
-            
-            DispatchQueue.main.async  {
-              self.tableView.reloadData()
-              spinActivity.hide(animated:true)
-            }
-          }
-          else {
-            
-            CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
-                                          okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
-          }
-        }
-      }
-      break
-    default:
-      break
-    }
-  }
-  
 }
 
 // MARK: - PoliticsViewController: UICollectionDelegate, UICollectionViewDataSource
@@ -490,77 +441,36 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    var logoImageRequest : Request?
     
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifier.PartyImageCell, for: indexPath) as! PartyCollectionViewCell
-    cell.logoImageView!.image = nil
-    logoImageRequest?.cancel()
+    
+    configureCollectionViewCell(cell: cell, indexPath: indexPath)
+    
+    return cell
+  }
+  
+  func configureCollectionViewCell(cell:PartyCollectionViewCell, indexPath:IndexPath) {
     
     let urlString =  Constants.Strings.Party.partyImageUrl + String(parties[indexPath.row].id) + Constants.Strings.Party.partyImageExtension
     
-    logoImageRequest = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
-      
+    _ = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
       
       if let image = image {
         DispatchQueue.main.async {
           self.parties[indexPath.row].thumbnail = image
           cell.logoImageView?.image = image
+          cell.partyNameLabel.isHidden = true
         }
       } else {
         
         DispatchQueue.main.async {
           let defaultImage = UIImage(named:Constants.Strings.PoliticsVC.PartyPlaceholder)
-          self.parties[indexPath.row].thumbnail = self.textToImage(self.parties[indexPath.row].name as NSString, inImage: defaultImage!, atPoint: CGPoint(x: 20,y: 50), cellSize: cell.frame.size)
-          cell.logoImageView.image = self.parties[indexPath.row].thumbnail
+          cell.logoImageView.image = defaultImage
+          cell.partyNameLabel.text = self.parties[indexPath.row].name
+          cell.partyNameLabel.isHidden = false
         }
-        
       }
-      
     }
-
-    
-    return cell
-  }
-
-  // MARK : - Draw the text into an Image
-  
-  func textToImage(_ drawText: NSString, inImage: UIImage, atPoint:CGPoint, cellSize:CGSize)->UIImage{
-    
-    // Setup the font specific variables
-    let textColor: UIColor = UIColor.black
-    let textFont: UIFont = UIFont(name: Constants.Strings.Party.imageTextFont, size: 17)!
-    
-    //Setup the image context using the passed image.
-    //UIGraphicsBeginImageContext(inImage.size)
-    UIGraphicsBeginImageContext(cellSize)
-    
-    //Setups up the font attributes that will be later used to dictate how the text should be drawn
-    let textFontAttributes = [
-      NSFontAttributeName: textFont,
-      NSForegroundColorAttributeName: textColor,
-      ]
-    
-    //Put the image into a rectangle as large as the original image.
-    inImage.draw(in: CGRect(x: 0, y: 0, width: inImage.size.width, height: inImage.size.height))
-    print("image size : \(inImage.size)")
-    print("cell size : \(cellSize)")
-    // Creating a point within the space that is as bit as the image.
-    //let rect: CGRect = CGRect(x: atPoint.x, y: atPoint.y, width: inImage.size.width-10, height: inImage.size.height)
-    
-    let rect: CGRect = CGRect(x: atPoint.x, y: atPoint.y, width: cellSize.width-30, height: cellSize.height)
-    
-    //Now Draw the text into an image.
-    drawText.draw(in: rect, withAttributes: textFontAttributes)
-    
-    // Create a new image out of the images we have created
-    let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-    
-    // End the context now that we have the image we need
-    UIGraphicsEndImageContext()
-    
-    //And pass it back up to the caller.
-    return newImage
-    
   }
   
   // MARK : - UICollectionViewDelegate Methods
@@ -571,43 +481,87 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
     
     controller.urlString = Constants.Strings.SearchVC.WikiUrl + parties[indexPath.row].name
     controller.hidesBottomBarWhenPushed = true
-    
     navigationController?.pushViewController(controller, animated: true)
     
   }
 }
 
+// MARK : - PoliticsViewController : UICollectionViewDelegateFlowLayout
+
 extension PoliticsViewController : UICollectionViewDelegateFlowLayout {
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     
-    let width = floor(self.collectionView.frame.size.width/3)
-    return CGSize(width: width, height: width - 15)
+    let width = floor(self.collectionView.frame.size.width/numberOfRowsForPartyCollectionView)
+    return CGSize(width: width, height: width - valueForAdjustPartyCellHeight)
   }
 }
 
-// Copyright © 2016년 minsone : http://minsone.github.io/mac/ios/linear-hangul-in-objective-c-swift
 
-extension String {
-  subscript (i: Int) -> Character {
-    return self[self.characters.index(self.startIndex, offsetBy: i)]
-  }
+// MARK : - PoliticsViewController : UIScrollViewDelegate
+
+extension PoliticsViewController : UIScrollViewDelegate {
   
-  var hangul: String {
-    get {
-      let hangle = [
-        ["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"],
-        ["ㅏ","ㅐ","ㅑ","ㅒ","ㅓ","ㅔ","ㅕ","ㅖ","ㅗ","ㅘ","ㅙ","ㅚ","ㅛ","ㅜ","ㅝ","ㅞ","ㅟ","ㅠ","ㅡ","ㅢ","ㅣ"],
-        ["","ㄱ","ㄲ","ㄳ","ㄴ","ㄵ","ㄶ","ㄷ","ㄹ","ㄺ","ㄻ","ㄼ","ㄽ","ㄾ","ㄿ","ㅀ","ㅁ","ㅂ","ㅄ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"]
-      ]
+  // MARK: - UIScrollViewDelegate
+  
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    
+    // check whether scroll is available
+    if scrollView.contentSize.height > scrollView.frame.size.height {
       
-      return characters.reduce("") { result, char in
-        if case let code = Int(String(char).unicodeScalars.reduce(0){$0.0 + $0.1.value}) - 44032, code > -1 && code < 11172 {
-          let cho = code / 21 / 28, jung = code % (21 * 28) / 28, jong = code % 28;
-          return result + hangle[0][cho] + hangle[1][jung] + hangle[2][jong]
+      // if scroll point is at the end of the screen
+      if scrollView.bounds.origin.y + scrollView.frame.size.height >= scrollView.contentSize.height {
+      
+        if !isRequesting && !isLastPage {
+          
+          isRequesting = true
+          loadBills()
         }
-        return result + String(char)
+        
       }
     }
   }
+  
+  func loadBills() {
+    
+    switch segmentedControl.selectedSegmentIndex {
+      
+    case 1:
+      
+      let spinActivity = MBProgressHUD.showAdded(to: view, animated: true)
+      spinActivity.label.text = Constants.ActivityIndicatorText.Loading
+      
+      TPPClient.sharedInstance().getBills(PoliticsViewController.page) { (bills, error) in
+        
+        spinActivity.hide(animated:true)
+        
+        if let addedbills = bills {
+          
+          if addedbills.count == 0 {
+            self.isLastPage = true
+            return
+          }
+          self.bills.append(contentsOf: addedbills)
+          self.isRequesting = false
+          
+          DispatchQueue.main.async  {
+            self.tableView.reloadData()
+            
+          }
+        }
+        else {
+          CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
+                                        okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
+        }
+      }
+    
+    default:
+      break
+      
+    }
+    
+  }
 }
+
+
+

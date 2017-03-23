@@ -22,18 +22,10 @@ class TPPClient: NSObject {
     preferredMemoryUsageAfterPurge: 60 * 1024 * 1024
   )
   
-  //var alamofireManager : Alamofire.Manager?
-  
   // MARK : - Initialization
   
   override init() {
     super.init()
-    
-    let configuration = URLSessionConfiguration.default
-    configuration.timeoutIntervalForResource = 8 // seconds
-    
-    //alamofireManager = Alamofire.Manager(configuration: configuration)
-    
   }
   
   // MARK : - HTTP GET Request
@@ -102,9 +94,7 @@ class TPPClient: NSObject {
           }
           
         case .failure(let error):
-          #if DEBUG
-            //log.debug("response success")
-          #endif
+
           completionHandlerForImage(nil, error as NSError?)
           
         }
@@ -112,7 +102,7 @@ class TPPClient: NSObject {
     
   }
   
-  // MARK : - Helper
+  // MARK : - Construct URL
   // Create a URL from parameters
   fileprivate func constructURL(_ parameters: [String:AnyObject], withPathExtension: String? = nil) -> URL {
     

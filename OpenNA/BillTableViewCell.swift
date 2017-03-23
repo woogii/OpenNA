@@ -28,14 +28,26 @@ class BillTableViewCell:UITableViewCell{
   override func awakeFromNib() {
     super.awakeFromNib()
     
-    backgroundCardView.backgroundColor = UIColor.white
+    setContentViewBackground()
+    configureBackgroundCardView()
+  }
+  
+  func setContentViewBackground() {
     contentView.backgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
+  }
+  
+  func configureBackgroundCardView() {
+    
+    // Configure view layer to make it look like Card-style view
+    
+    backgroundCardView.backgroundColor = UIColor.white
     backgroundCardView.layer.cornerRadius = 3.0
     backgroundCardView.layer.masksToBounds = false
     backgroundCardView.layer.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
     backgroundCardView.layer.shadowOffset = CGSize(width: 0, height: 0)
     backgroundCardView.layer.shadowOpacity = 0.8
-    
+  
   }
+
   
 }

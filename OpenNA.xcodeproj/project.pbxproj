@@ -31,6 +31,7 @@
 		D26806581D325E9300DA5C53 /* SearchedLawmakerDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26806571D325E9300DA5C53 /* SearchedLawmakerDetailTableViewCell.swift */; };
 		D27451A81CA6BE770024A904 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27451A71CA6BE770024A904 /* Constants.swift */; };
 		D27451AA1CA6BE8D0024A904 /* TPPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27451A91CA6BE8D0024A904 /* TPPClient.swift */; };
+		D27597091E83B81000C31836 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27597081E83B81000C31836 /* Extensions.swift */; };
 		D292EE2E1D20067300EF84B0 /* SearchedLawmakerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D292EE2D1D20067300EF84B0 /* SearchedLawmakerDetailViewController.swift */; };
 		D2934CFA1CF2015500EA734C /* LawmakerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */; };
 		D2934CFE1CF3442B00EA734C /* SearchedBillCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2934CFD1CF3442B00EA734C /* SearchedBillCell.xib */; };
@@ -99,6 +100,7 @@
 		D26806571D325E9300DA5C53 /* SearchedLawmakerDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchedLawmakerDetailTableViewCell.swift; sourceTree = "<group>"; };
 		D27451A71CA6BE770024A904 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D27451A91CA6BE8D0024A904 /* TPPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPClient.swift; sourceTree = "<group>"; };
+		D27597081E83B81000C31836 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D292EE2D1D20067300EF84B0 /* SearchedLawmakerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchedLawmakerDetailViewController.swift; sourceTree = "<group>"; };
 		D2934CFD1CF3442B00EA734C /* SearchedBillCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchedBillCell.xib; sourceTree = "<group>"; };
 		D2934D031CF3448C00EA734C /* SearchedPartyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchedPartyCell.xib; sourceTree = "<group>"; };
@@ -156,6 +158,8 @@
 			isa = PBXGroup;
 			children = (
 				D236968A1D3B3CAB00F9FB75 /* CommonHelper.swift */,
+				D27597081E83B81000C31836 /* Extensions.swift */,
+				D235C32F1CB1068700704A90 /* ImageCache.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -199,14 +203,6 @@
 			name = Xibs;
 			sourceTree = "<group>";
 		};
-		D26806551D323ACA00DA5C53 /* Cache */ = {
-			isa = PBXGroup;
-			children = (
-				D235C32F1CB1068700704A90 /* ImageCache.swift */,
-			);
-			name = Cache;
-			sourceTree = "<group>";
-		};
 		D26806561D323AEC00DA5C53 /* Constant */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,7 +238,6 @@
 			children = (
 				B87B32341E61CC72005F8B5A /* Helper */,
 				D26806561D323AEC00DA5C53 /* Constant */,
-				D26806551D323ACA00DA5C53 /* Cache */,
 				D2D3F9541CABD02D00D97B23 /* Network */,
 				D2D3F9491CAA54D600D97B23 /* Controller */,
 				D2D3F9481CAA54CC00D97B23 /* View */,
@@ -562,6 +557,7 @@
 				D20028321CE8B3C300F1369E /* BillDetailViewController.swift in Sources */,
 				D2678C611C904E740056278F /* Model.xcdatamodeld in Sources */,
 				D22A7F531CDB511500CFF74A /* TPPClientConvenience.swift in Sources */,
+				D27597091E83B81000C31836 /* Extensions.swift in Sources */,
 				D23772971CAD22E60004A2E2 /* PartyCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -699,7 +695,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8501E14855B4581ED95B1665 /* Pods-OpenNA.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -719,7 +715,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22A899453A63A3AB72A6D9FB /* Pods-OpenNA.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
