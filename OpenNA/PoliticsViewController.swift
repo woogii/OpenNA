@@ -124,9 +124,6 @@ class PoliticsViewController: UIViewController  {
       tableView.setContentOffset(CGPoint.zero, animated: true)
       tableView.isHidden = false
       
-      lastRowIndex = 20
-      PoliticsViewController.page = 1
-      
       let spinActivity = MBProgressHUD.showAdded(to: view, animated: true)
       spinActivity.label.text = Constants.ActivityIndicatorText.Loading
       
@@ -364,8 +361,14 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
           let image = UIImage(data : data)
           
           DispatchQueue.main.async {
+            
             searchedLawmaker.pinnedImage = image
-            cell.profileImageView!.image = image
+            
+            UIView.transition(with: cell.profileImageView, duration: 0.5, options: .transitionCrossDissolve, animations: {
+              cell.profileImageView!.image = image
+            }, completion: nil)
+            
+            
           }
         }
       }

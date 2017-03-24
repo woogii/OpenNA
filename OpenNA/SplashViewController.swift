@@ -78,45 +78,16 @@ class SplashViewController: UIViewController {
         
         for dict in parsedResult {
           
-          guard let name = dict[Constants.JSONResponseKeys.NameEn] as? String else {
-            return
-          }
-          
-          guard let party = dict[Constants.JSONResponseKeys.Party] as? String else {
-            return
-          }
-          
-          guard let imageUrl = dict[Constants.JSONResponseKeys.Photo] as? String else {
-            return
-          }
-          
-          guard let birth = dict[Constants.JSONResponseKeys.Birth] as? String else {
-            return
-          }
-          
-          guard let district = dict[Constants.JSONResponseKeys.District] as? String else {
-            return
-          }
-          
-          guard let when_elected = dict[Constants.JSONResponseKeys.WhenElected] as? String else {
-            return
-          }
-          
-          guard let homepage = dict[Constants.JSONResponseKeys.Homepage] as? String else {
-            return
-          }
-          
-          var dictionary = [String:AnyObject]()
-          
-          dictionary[Constants.ModelKeys.NameEn] = name as AnyObject?
-          dictionary[Constants.ModelKeys.ImageUrl] = imageUrl as AnyObject?
-          dictionary[Constants.ModelKeys.Party] = party as AnyObject?
-          dictionary[Constants.ModelKeys.Birth] = birth as AnyObject?
-          dictionary[Constants.ModelKeys.Homepage] = homepage as AnyObject?
-          dictionary[Constants.ModelKeys.WhenElected] = when_elected as AnyObject?
-          dictionary[Constants.ModelKeys.District] = district as AnyObject?
-          
-          let _ = Lawmaker(dictionary: dictionary, context: self.sharedContext)
+          let name = dict[Constants.JSONResponseKeys.NameEn] as? String ?? ""
+          let party = dict[Constants.JSONResponseKeys.Party] as? String ?? ""
+          let imageUrl = dict[Constants.JSONResponseKeys.Photo] as? String ?? ""
+          let birth = dict[Constants.JSONResponseKeys.Birth] as? String ?? ""
+          let district = dict[Constants.JSONResponseKeys.District] as? String ?? ""
+          let when_elected = dict[Constants.JSONResponseKeys.WhenElected] as? String ?? ""
+          let homepage = dict[Constants.JSONResponseKeys.Homepage] as? String ?? ""
+         
+      
+          let _ = Lawmaker(name: name, imageUrl: imageUrl, party: party, birth: birth, homepage: homepage, when_elected: when_elected, district: district, context: sharedContext)
           
           do {
             

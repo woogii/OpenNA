@@ -50,12 +50,31 @@ class Lawmaker : NSManagedObject {
     super.init(entity:entity, insertInto: context)
   }
   
-  init(dictionary :[String:AnyObject], context: NSManagedObjectContext?)
+   init(name:String,imageUrl:String,party:String,birth:String,homepage:String,when_elected:String,
+        district:String,blog:String?=nil,address:String?=nil,education:String?=nil, context: NSManagedObjectContext)
   {
-    let entity = NSEntityDescription.entity(forEntityName: Constants.Entity.Lawmaker, in: context!)
+    let entity = NSEntityDescription.entity(forEntityName: Constants.Entity.Lawmaker, in: context)
     
     super.init(entity : entity!, insertInto: context)
     
+    self.name         = name
+    self.image        = imageUrl
+    self.party        = party
+    self.birth        = birth
+    self.homepage     = homepage
+    self.when_elected = when_elected
+    self.district     = district
+    self.blog         = blog
+    self.address      = address
+    self.education    = education
+  }
+  
+  
+  init(dictionary :[String:AnyObject], context: NSManagedObjectContext) {
+    
+    let entity = NSEntityDescription.entity(forEntityName: Constants.Entity.Lawmaker, in: context)
+    super.init(entity : entity!, insertInto: context)
+
     name         = dictionary[Constants.ModelKeys.NameEn] as? String
     image        = dictionary[Constants.ModelKeys.ImageUrl] as? String
     party        = dictionary[Constants.ModelKeys.Party] as? String
@@ -66,6 +85,8 @@ class Lawmaker : NSManagedObject {
     blog         = dictionary[Constants.ModelKeys.Blog] as? String
     address      = dictionary[Constants.ModelKeys.Address] as? String
     education    = dictionary[Constants.ModelKeys.Education] as? String
+    
   }
+
   
 }

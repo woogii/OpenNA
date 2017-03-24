@@ -35,6 +35,7 @@ class BillDetailViewController: UITableViewController {
   var sharedContext : NSManagedObjectContext {
     return CoreDataStackManager.sharedInstance().managedObjectContext!
   }
+  let rowHeight:CGFloat = 44.0
   
   // MARK : - View Life Cycle
   
@@ -45,7 +46,7 @@ class BillDetailViewController: UITableViewController {
   }
   
   func configureTableViewDynamicHeight() {
-    tableView.estimatedRowHeight = 44.0
+    tableView.estimatedRowHeight = rowHeight
     tableView.rowHeight = UITableViewAutomaticDimension
   }
   
@@ -223,19 +224,3 @@ class BillDetailViewController: UITableViewController {
   
 }
 
-// MARK : - UIViewController Extension
-
-extension UIViewController {
-  
-  // MARK : - Get a reference of the previousViewController
-  func previousViewController() -> UIViewController? {
-    if let stack = self.navigationController?.viewControllers {
-      for i in (1..<stack.count).reversed() {
-        if(stack[i] == self) {
-          return stack[i-1]
-        }
-      }
-    }
-    return nil
-  }
-}
