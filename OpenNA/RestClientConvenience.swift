@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension TPPClient {
+extension RestClient {
   
   // MARK : - Convenience Methods
   /// Get bill information

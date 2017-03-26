@@ -12,7 +12,7 @@ import AlamofireImage
 
 // MARK : - TPPClient : NSObject
 
-class TPPClient: NSObject {
+class RestClient: NSObject {
   
   
   // MARK : - Property
@@ -125,9 +125,9 @@ class TPPClient: NSObject {
   
   
   // MARK : - Shared Instance (TPPClient Type)
-  class func sharedInstance()->TPPClient {
+  class func sharedInstance()->RestClient {
     struct Singleton {
-      static var sharedInstance = TPPClient()
+      static var sharedInstance = RestClient()
     }
     return Singleton.sharedInstance
   }

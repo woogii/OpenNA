@@ -25,6 +25,7 @@ class SearchViewController: UIViewController {
   var searchResults = [[String:AnyObject]]()
   var sectionTitle = [String]()
   var isSearch: Bool = false
+  let rowHeight: CGFloat = 100
   
   // MARK : - View Life Cycle
   
@@ -71,7 +72,7 @@ class SearchViewController: UIViewController {
   }
   
   func setAutoSizeHeightOptions() {
-    tableView.estimatedRowHeight = 100
+    tableView.estimatedRowHeight = rowHeight
     tableView.rowHeight = UITableViewAutomaticDimension
   }
   
@@ -235,12 +236,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
             return cell
           }
           
-//          if let image = TPPClient.sharedInstance().cachedImage(urlString) {
-//            cell.lawmakerImageView!.image = image
-//            return cell
-//          }
-          
-          lawmakerImageRequest = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
+          lawmakerImageRequest = RestClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
             
             if let image = image {
               
@@ -260,8 +256,6 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
       } else if section == Constants.SectionName.Bill {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedBillCell, for: indexPath) as! SearchedBillTableViewCell
-        //cell.nameLabel.preferredMaxLayoutWidth = tableView.bounds.width
-
         if let bill = searchResults[indexPath.section][Constants.SectionName.Bill] as? [Bill] {
           cell.nameLabel?.text = bill[indexPath.row].name
           cell.sponsorLabel?.text = bill[indexPath.row].sponsor
@@ -289,13 +283,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
             return cell
           }
           
-          
-//          if let image = TPPClient.sharedInstance().cachedImage(urlString) {
-//            cell.partyImageView!.image = image
-//            return cell
-//          }
-          
-          partyImageRequest = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
+          partyImageRequest = RestClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
             
             if let image = image {
               DispatchQueue.main.async {

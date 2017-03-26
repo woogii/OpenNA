@@ -35,13 +35,7 @@ class LawmakerDetailViewController: UIViewController {
   var sharedContext : NSManagedObjectContext {
     return CoreDataStackManager.sharedInstance().managedObjectContext!
   }
-  
-  // MARK : - Enum (For Cell IndexPath Row)
-  
-  enum CustomCell:Int {
-    case birth = 0,party,inOffice,district,homepage
-  }
-  
+    
   // MARK : - View Life Cycle
   
   override func viewDidLoad() {
@@ -126,7 +120,7 @@ class LawmakerDetailViewController: UIViewController {
     // If there is not a lawmaker in Favorite List, add it to the list
     if fetchedResults!.count == 0  {
       
-      let _ = LawmakerInList(name: name,image: image,party: party, birth: birth, homepage: homepage, when_elected: when_elected, district: district,  context: sharedContext)
+      _ = LawmakerInList(name: name,image: image,party: party, birth: birth, homepage: homepage, when_elected: when_elected, district: district,  context: sharedContext)
       
       do {
         try sharedContext.save()
@@ -178,45 +172,57 @@ extension LawmakerDetailViewController : UITableViewDelegate, UITableViewDataSou
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
+    let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.LawmakerDetailCell, for: indexPath) as! LawmakerDetailTableViewCell
+    
     switch(indexPath.row) {
       
-    case CustomCell.birth.rawValue:
-      if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.LawmakerDetailCell, for: indexPath) as? LawmakerDetailTableViewCell {
-        cell.titleLabel.text = Constants.CustomCell.BirthLabel
-        cell.descriptionLabel.text = birth
-        return cell
-      }
-    case CustomCell.party.rawValue:
-      if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.LawmakerDetailCell, for: indexPath) as? LawmakerDetailTableViewCell {
-        cell.titleLabel.text = Constants.CustomCell.PartyLabel
-        cell.descriptionLabel.text = party
-        return cell
-      }
-    case CustomCell.inOffice.rawValue:
-      if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.LawmakerDetailCell, for: indexPath) as? LawmakerDetailTableViewCell {
-        cell.titleLabel.text = Constants.CustomCell.InOfficeLabel
-        cell.descriptionLabel.text = when_elected
-        return cell
-      }
-    case CustomCell.district.rawValue:
-      if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.LawmakerDetailCell, for: indexPath) as? LawmakerDetailTableViewCell {
-        cell.titleLabel.text = Constants.CustomCell.DistrictLabel
-        cell.descriptionLabel.text = district
-        return cell
-      }
+    case LawmakerDetailInfoType.birth.rawValue:
+      configureLawmakerDetailTableViewCell(cell: cell, title: Constants.CustomCell.BirthLabel, description: birth)
+      break
+    case LawmakerDetailInfoType.party.rawValue:
+      configureLawmakerDetailTableViewCell(cell: cell, title: Constants.CustomCell.PartyLabel, description: party)
+      break
+    case LawmakerDetailInfoType.inOffice.rawValue:
+      configureLawmakerDetailTableViewCell(cell: cell, title: Constants.CustomCell.InOfficeLabel, description: when_elected)
+      break
+    case LawmakerDetailInfoType.district.rawValue:
+      configureLawmakerDetailTableViewCell(cell: cell, title: Constants.CustomCell.DistrictLabel, description: district)
+      break
     default:
-      if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.LawmakerDetailCell, for: indexPath) as? LawmakerDetailTableViewCell {
-        cell.titleLabel.text = Constants.CustomCell.HomepageLabel
-        cell.descriptionLabel.text = homepage
-        return cell
-      }
+      configureLawmakerDetailTableViewCell(cell: cell, title: Constants.CustomCell.HomepageLabel, description: homepage)
+      break
     }
     
-    return UITableViewCell()
+    return cell
+  }
+  
+  func configureLawmakerDetailTableViewCell(cell:LawmakerDetailTableViewCell,title:String, description:String?) {
+    
+    cell.titleLabel.text = title
+    cell.descriptionLabel.text = description
+    
   }
   
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     return Constants.Strings.LawmakerDetailVC.HeaderTitle
   }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    tableView.deselectRow(at: indexPath, animated: true)
+    
+    if indexPath.row == LawmakerDetailInfoType.homepage.rawValue {
+      
+      guard homepage != "" else {
+        return
+      }
+      
+      let webVC = storyboard?.instantiateViewController(withIdentifier: Constants.Identifier.WebViewVC) as! WebViewController
+      webVC.urlString = homepage
+      navigationController?.pushViewController(webVC, animated: true)
+    }
+    
+  }
+  
   
 }

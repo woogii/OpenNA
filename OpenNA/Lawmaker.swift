@@ -32,14 +32,14 @@ class Lawmaker : NSManagedObject {
     get {
       let url = URL(fileURLWithPath: image!)
       let fileName = url.lastPathComponent
-      return TPPClient.Caches.imageCache.imageWithIdentifier(fileName)
+      return RestClient.Caches.imageCache.imageWithIdentifier(fileName)
       
     }
     
     set {
       let url = URL(fileURLWithPath: image!)
       let fileName = url.lastPathComponent
-      TPPClient.Caches.imageCache.storeImage(newValue, withIdentifier: fileName)
+      RestClient.Caches.imageCache.storeImage(newValue, withIdentifier: fileName)
       
     }
   }

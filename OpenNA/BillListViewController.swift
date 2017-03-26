@@ -18,6 +18,7 @@ class BillListViewController : UIViewController {
   
   @IBOutlet weak var tableView: UITableView!
   var billsInList = [BillInList]()
+  let rowHeight:CGFloat = 140
   var sharedContext : NSManagedObjectContext {
     return CoreDataStackManager.sharedInstance().managedObjectContext!
   }
@@ -132,7 +133,7 @@ extension BillListViewController : UITableViewDelegate, UITableViewDataSource {
   // MARK : - UITableView Delegate Method
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 140
+    return rowHeight
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

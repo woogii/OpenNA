@@ -22,19 +22,20 @@ class PoliticsViewController: UIViewController  {
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var collectionView: UICollectionView!
   
+  typealias Entry = (Character, [Lawmaker])
   var lawmakers = [Lawmaker]()
   var bills     = [Bill]()
   var parties   = [Party]()
   var indexInfo = [Entry]()
   var loadingData = false
   var lastRowIndex = 20
+  var isRequesting = false
+  var isLastPage = false
   static var page = 1
-  typealias Entry = (Character, [Lawmaker])
   let cellHeight:CGFloat = 140
   let numberOfRowsForPartyCollectionView:CGFloat = 3
   let valueForAdjustPartyCellHeight:CGFloat = 15
-  var isRequesting = false
-  var isLastPage = false
+  
   
   // MARK : - CoreData Convenience
   
@@ -113,12 +114,13 @@ class PoliticsViewController: UIViewController  {
     
     switch segmentedControl.selectedSegmentIndex {
       
-    case 0:
+    case SegmentedControlType.lawmaker.rawValue:
       tableView.setContentOffset(CGPoint.zero, animated: true)
       tableView.isHidden = false
       tableView.reloadData()
       break
-    case 1:
+      
+    case SegmentedControlType.bill.rawValue:
       
       tableView.reloadData()
       tableView.setContentOffset(CGPoint.zero, animated: true)
@@ -127,7 +129,7 @@ class PoliticsViewController: UIViewController  {
       let spinActivity = MBProgressHUD.showAdded(to: view, animated: true)
       spinActivity.label.text = Constants.ActivityIndicatorText.Loading
       
-      TPPClient.sharedInstance().getBills(PoliticsViewController.page) { (bills, error) in
+      RestClient.sharedInstance().getBills(PoliticsViewController.page) { (bills, error) in
         
         if let bills = bills {
           
@@ -146,7 +148,8 @@ class PoliticsViewController: UIViewController  {
         }
       }
       break
-    case 2:
+      
+    case SegmentedControlType.party.rawValue:
       
       collectionView.isHidden = false
       tableView.isHidden = true
@@ -154,7 +157,7 @@ class PoliticsViewController: UIViewController  {
       let spinActivity = MBProgressHUD.showAdded(to: view, animated: true)
       spinActivity.label.text = Constants.ActivityIndicatorText.Loading
       
-      TPPClient.sharedInstance().getParties() { (parties, error) in
+      RestClient.sharedInstance().getParties() { (parties, error) in
         
         if let parties = parties {
           
@@ -257,13 +260,11 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
     
     switch segmentedControl.selectedSegmentIndex {
       
-    case 0 :
+    case SegmentedControlType.lawmaker.rawValue:
       count = indexInfo[section].1.count
       break
-    case 1 :
+    case SegmentedControlType.bill.rawValue :
       count = bills.count
-      break
-    case 2 :
       break
     default:
       break
@@ -290,13 +291,13 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-    if segmentedControl.selectedSegmentIndex == 0 {
+    if segmentedControl.selectedSegmentIndex == SegmentedControlType.lawmaker.rawValue {
       
       let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.LawmakerCell, for: indexPath) as! LawmakerTableViewCell
       configureCell(cell, atIndexPath: indexPath)
       return cell
     }
-    else if segmentedControl.selectedSegmentIndex == 1 {
+    else if segmentedControl.selectedSegmentIndex == SegmentedControlType.bill.rawValue {
       
       let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.BillCell, for: indexPath) as! BillTableViewCell
       
@@ -354,7 +355,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
     }
     else {
       
-      let task = TPPClient.sharedInstance().taskForGetImage(url) { data, error  in
+      let task = RestClient.sharedInstance().taskForGetImage(url) { data, error  in
         
         if let data = data {
           
@@ -390,7 +391,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
     
     switch segmentedControl.selectedSegmentIndex {
       
-    case 0 :
+    case SegmentedControlType.lawmaker.rawValue :
       let controller = storyboard?.instantiateViewController(withIdentifier: Constants.Identifier.LawmakerDetailVC) as! LawmakerDetailViewController
       
       controller.name  = indexInfo[indexPath.section].1[indexPath.row].name
@@ -405,10 +406,10 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
       navigationController?.pushViewController(controller, animated: true)
       
       break
-    case 1 :
+      
+    case SegmentedControlType.bill.rawValue :
       let controller = storyboard?.instantiateViewController(withIdentifier: Constants.Identifier.BillDetailVC) as! BillDetailViewController
       
-      // controller.bill = bills[indexPath.row]
       controller.name = bills[indexPath.row].name
       controller.proposedDate = bills[indexPath.row].proposeDate
       controller.status = bills[indexPath.row].status
@@ -421,8 +422,7 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
       navigationController?.pushViewController(controller, animated: true)
       
       break
-    case 2 :
-      break
+      
     default:
       break
     }
@@ -456,7 +456,7 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
     
     let urlString =  Constants.Strings.Party.partyImageUrl + String(parties[indexPath.row].id) + Constants.Strings.Party.partyImageExtension
     
-    _ = TPPClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
+    _ = RestClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
       
       if let image = image {
         DispatchQueue.main.async {
@@ -529,12 +529,12 @@ extension PoliticsViewController : UIScrollViewDelegate {
     
     switch segmentedControl.selectedSegmentIndex {
       
-    case 1:
+    case SegmentedControlType.bill.rawValue:
       
       let spinActivity = MBProgressHUD.showAdded(to: view, animated: true)
       spinActivity.label.text = Constants.ActivityIndicatorText.Loading
       
-      TPPClient.sharedInstance().getBills(PoliticsViewController.page) { (bills, error) in
+      RestClient.sharedInstance().getBills(PoliticsViewController.page) { (bills, error) in
         
         spinActivity.hide(animated:true)
         

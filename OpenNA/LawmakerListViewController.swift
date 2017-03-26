@@ -156,7 +156,7 @@ extension LawmakerListViewController : UITableViewDelegate, UITableViewDataSourc
     }
     else {
       
-      let task = TPPClient.sharedInstance().taskForGetImage(url) { data, error  in
+      let task = RestClient.sharedInstance().taskForGetImage(url) { data, error  in
         
         if let data = data {
           

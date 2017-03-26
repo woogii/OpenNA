@@ -66,7 +66,7 @@ class SearchedLawmakerDetailViewController: UIViewController {
       
       let url = URL(string: imageString)
       
-      _ = TPPClient.sharedInstance().taskForGetImage(url!) { data, error  in
+      _ = RestClient.sharedInstance().taskForGetImage(url!) { data, error  in
         
         if let data = data {
           

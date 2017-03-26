@@ -49,7 +49,7 @@ class Search : NSObject {
     group.enter()
     
     // Search keyword with the given search keyword
-    self.lawmakerSearchTask = TPPClient.sharedInstance().searchLawmaker(searchKeyword, completionHandler:  { results, error in
+    self.lawmakerSearchTask = RestClient.sharedInstance().searchLawmaker(searchKeyword, completionHandler:  { results, error in
       
       if let lawmakerDict = results {
         
@@ -72,7 +72,7 @@ class Search : NSObject {
     group.enter()
     
     // Search bill with the given search keyword
-    self.billSearchTask = TPPClient.sharedInstance().searchBills(searchKeyword, completionHandler:  { bills, error in
+    self.billSearchTask = RestClient.sharedInstance().searchBills(searchKeyword, completionHandler:  { bills, error in
       
       if let bills = bills {
         
@@ -94,7 +94,7 @@ class Search : NSObject {
     group.enter()
     
     // Search party with the given search keyword
-    self.partySearchTask = TPPClient.sharedInstance().searchParties(searchKeyword, completionHandler:  { parties, error in
+    self.partySearchTask = RestClient.sharedInstance().searchParties(searchKeyword, completionHandler:  { parties, error in
       
       if let parties = parties {
         self.parties = parties

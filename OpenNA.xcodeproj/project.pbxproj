@@ -9,13 +9,14 @@
 /* Begin PBXBuildFile section */
 		B88FB50B1E4F9C57002591E3 /* SearchedLawmakerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2D3F9571CABFA3F00D97B23 /* SearchedLawmakerCell.xib */; };
 		B88FB50D1E5037E0002591E3 /* assembly.json in Resources */ = {isa = PBXBuildFile; fileRef = B88FB50C1E5037E0002591E3 /* assembly.json */; };
+		B8DCDA5C1E85700D00F66CA0 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DCDA5B1E85700D00F66CA0 /* Enums.swift */; };
 		D20028301CE86C9E00F1369E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200282F1CE86C9E00F1369E /* WebViewController.swift */; };
 		D20028321CE8B3C300F1369E /* BillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20028311CE8B3C300F1369E /* BillDetailViewController.swift */; };
 		D212D3BE1CF97563008CEC5C /* LawmakerInList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3BD1CF97563008CEC5C /* LawmakerInList.swift */; };
 		D212D3C01CF97574008CEC5C /* BillInList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3BF1CF97574008CEC5C /* BillInList.swift */; };
 		D212D3C21CF99A8C008CEC5C /* LawmakerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3C11CF99A8C008CEC5C /* LawmakerListViewController.swift */; };
 		D212D3C41CF99AA6008CEC5C /* BillListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3C31CF99AA6008CEC5C /* BillListViewController.swift */; };
-		D22A7F531CDB511500CFF74A /* TPPClientConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A7F521CDB511500CFF74A /* TPPClientConvenience.swift */; };
+		D22A7F531CDB511500CFF74A /* RestClientConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22A7F521CDB511500CFF74A /* RestClientConvenience.swift */; };
 		D235C3301CB1068700704A90 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D235C32F1CB1068700704A90 /* ImageCache.swift */; };
 		D235C3321CB4090300704A90 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D235C3311CB4090300704A90 /* SearchViewController.swift */; };
 		D236968B1D3B3CAB00F9FB75 /* CommonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236968A1D3B3CAB00F9FB75 /* CommonHelper.swift */; };
@@ -30,7 +31,7 @@
 		D26806531D323A3A00DA5C53 /* LawmakerDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26806521D323A3A00DA5C53 /* LawmakerDetailTableViewCell.swift */; };
 		D26806581D325E9300DA5C53 /* SearchedLawmakerDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26806571D325E9300DA5C53 /* SearchedLawmakerDetailTableViewCell.swift */; };
 		D27451A81CA6BE770024A904 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27451A71CA6BE770024A904 /* Constants.swift */; };
-		D27451AA1CA6BE8D0024A904 /* TPPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27451A91CA6BE8D0024A904 /* TPPClient.swift */; };
+		D27451AA1CA6BE8D0024A904 /* RestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27451A91CA6BE8D0024A904 /* RestClient.swift */; };
 		D27597091E83B81000C31836 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27597081E83B81000C31836 /* Extensions.swift */; };
 		D292EE2E1D20067300EF84B0 /* SearchedLawmakerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D292EE2D1D20067300EF84B0 /* SearchedLawmakerDetailViewController.swift */; };
 		D2934CFA1CF2015500EA734C /* LawmakerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */; };
@@ -77,13 +78,14 @@
 		6E53F0110EF24D4E8B29C805 /* Pods_OpenNA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenNA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8501E14855B4581ED95B1665 /* Pods-OpenNA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenNA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenNA/Pods-OpenNA.debug.xcconfig"; sourceTree = "<group>"; };
 		B88FB50C1E5037E0002591E3 /* assembly.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = assembly.json; sourceTree = "<group>"; };
+		B8DCDA5B1E85700D00F66CA0 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		D200282F1CE86C9E00F1369E /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		D20028311CE8B3C300F1369E /* BillDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailViewController.swift; sourceTree = "<group>"; };
 		D212D3BD1CF97563008CEC5C /* LawmakerInList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerInList.swift; sourceTree = "<group>"; };
 		D212D3BF1CF97574008CEC5C /* BillInList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillInList.swift; sourceTree = "<group>"; };
 		D212D3C11CF99A8C008CEC5C /* LawmakerListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerListViewController.swift; sourceTree = "<group>"; };
 		D212D3C31CF99AA6008CEC5C /* BillListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillListViewController.swift; sourceTree = "<group>"; };
-		D22A7F521CDB511500CFF74A /* TPPClientConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPClientConvenience.swift; sourceTree = "<group>"; };
+		D22A7F521CDB511500CFF74A /* RestClientConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestClientConvenience.swift; sourceTree = "<group>"; };
 		D235C32F1CB1068700704A90 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		D235C3311CB4090300704A90 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		D236968A1D3B3CAB00F9FB75 /* CommonHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonHelper.swift; sourceTree = "<group>"; };
@@ -99,7 +101,7 @@
 		D26806521D323A3A00DA5C53 /* LawmakerDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerDetailTableViewCell.swift; sourceTree = "<group>"; };
 		D26806571D325E9300DA5C53 /* SearchedLawmakerDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchedLawmakerDetailTableViewCell.swift; sourceTree = "<group>"; };
 		D27451A71CA6BE770024A904 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		D27451A91CA6BE8D0024A904 /* TPPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPClient.swift; sourceTree = "<group>"; };
+		D27451A91CA6BE8D0024A904 /* RestClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestClient.swift; sourceTree = "<group>"; };
 		D27597081E83B81000C31836 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D292EE2D1D20067300EF84B0 /* SearchedLawmakerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchedLawmakerDetailViewController.swift; sourceTree = "<group>"; };
 		D2934CFD1CF3442B00EA734C /* SearchedBillCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchedBillCell.xib; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 			children = (
 				D236968A1D3B3CAB00F9FB75 /* CommonHelper.swift */,
 				D27597081E83B81000C31836 /* Extensions.swift */,
+				B8DCDA5B1E85700D00F66CA0 /* Enums.swift */,
 				D235C32F1CB1068700704A90 /* ImageCache.swift */,
 			);
 			name = Helper;
@@ -328,8 +331,8 @@
 		D2D3F9541CABD02D00D97B23 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				D27451A91CA6BE8D0024A904 /* TPPClient.swift */,
-				D22A7F521CDB511500CFF74A /* TPPClientConvenience.swift */,
+				D27451A91CA6BE8D0024A904 /* RestClient.swift */,
+				D22A7F521CDB511500CFF74A /* RestClientConvenience.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -537,7 +540,7 @@
 				D2D3F9531CABCE4F00D97B23 /* BillTableViewCell.swift in Sources */,
 				D2678C5E1C904DE90056278F /* CoreDataStackManager.swift in Sources */,
 				D26806581D325E9300DA5C53 /* SearchedLawmakerDetailTableViewCell.swift in Sources */,
-				D27451AA1CA6BE8D0024A904 /* TPPClient.swift in Sources */,
+				D27451AA1CA6BE8D0024A904 /* RestClient.swift in Sources */,
 				D29468131CC2538600232D41 /* Search.swift in Sources */,
 				D2934D061CF346E700EA734C /* SearchedLawmakerTableViewCell.swift in Sources */,
 				D20028301CE86C9E00F1369E /* WebViewController.swift in Sources */,
@@ -548,6 +551,7 @@
 				D259513D1D1538AA007AD7D1 /* SplashViewController.swift in Sources */,
 				D292EE2E1D20067300EF84B0 /* SearchedLawmakerDetailViewController.swift in Sources */,
 				D212D3C41CF99AA6008CEC5C /* BillListViewController.swift in Sources */,
+				B8DCDA5C1E85700D00F66CA0 /* Enums.swift in Sources */,
 				D236968B1D3B3CAB00F9FB75 /* CommonHelper.swift in Sources */,
 				D26806531D323A3A00DA5C53 /* LawmakerDetailTableViewCell.swift in Sources */,
 				D2934D081CF346FA00EA734C /* SearchedBillTableViewCell.swift in Sources */,
@@ -556,7 +560,7 @@
 				D27451A81CA6BE770024A904 /* Constants.swift in Sources */,
 				D20028321CE8B3C300F1369E /* BillDetailViewController.swift in Sources */,
 				D2678C611C904E740056278F /* Model.xcdatamodeld in Sources */,
-				D22A7F531CDB511500CFF74A /* TPPClientConvenience.swift in Sources */,
+				D22A7F531CDB511500CFF74A /* RestClientConvenience.swift in Sources */,
 				D27597091E83B81000C31836 /* Extensions.swift in Sources */,
 				D23772971CAD22E60004A2E2 /* PartyCollectionViewCell.swift in Sources */,
 			);
