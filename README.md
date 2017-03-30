@@ -24,6 +24,7 @@ This is an application that provides information about lawmakers, bills and part
 
 ![Detail](ScreenShot/Lawmaker_Detail.png)
 ![Detail](ScreenShot/Bill_Detail.png)
+![Detail](ScreenShot/Bill_PDF.png)
 ![Detail](ScreenShot/Party_Detail.png)
 
 The images below show lists of lawmakers and bills that I saved based on my own interest. It is in this way, that users can save any information about lawmakers and bills that they are interested in and want to save.
