@@ -71,11 +71,13 @@ class BillListViewController : UIViewController {
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
-    let path = tableView.indexPathForSelectedRow!
-    let detailVC = segue.destination as! BillDetailViewController
+    if let path = tableView.indexPathForSelectedRow {
     
-    detailVC.bill = Bill.extractBill(from:billsInList[path.row])
-    detailVC.hidesBottomBarWhenPushed = true
+      let detailVC = segue.destination as! BillDetailViewController
+    
+      detailVC.bill = Bill.extractBill(from:billsInList[path.row])
+      detailVC.hidesBottomBarWhenPushed = true
+    }
     
   }
   
@@ -136,8 +138,8 @@ extension BillListViewController : UITableViewDelegate, UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: true)
     performSegue(withIdentifier: Constants.Identifier.BillDetailVC, sender: self)
+    tableView.deselectRow(at: indexPath, animated: true)
   }
   
 }
