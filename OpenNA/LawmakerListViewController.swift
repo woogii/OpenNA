@@ -30,30 +30,20 @@ class LawmakerListViewController : UIViewController {
     super.viewDidLoad()
     
     registerNibFileForTableView()
-    setDelegateAndDatasourceForTableView()
-    getLawmakerList()
-    
   }
   
   func registerNibFileForTableView() {
     tableView.register(UINib(nibName: Constants.Identifier.LawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.LawmakerCell)
   }
   
-  func setDelegateAndDatasourceForTableView() {
-    tableView.delegate = self
-    tableView.dataSource = self
-  }
-  
   func getLawmakerList() {
     lawmakersInList = fetchLawmakersInList()
-    print("lawmakerInList count : \(lawmakersInList.count)")
-    print("lawmakerInList first : \(lawmakersInList.first)")
   }
   
   override func viewWillAppear(_ animated: Bool) {
     
     super.viewWillAppear(animated)
-    lawmakersInList = fetchLawmakersInList()
+    getLawmakerList()
     tableView.reloadData()
   }
   
@@ -133,16 +123,19 @@ extension LawmakerListViewController : UITableViewDelegate, UITableViewDataSourc
   
   func configureCell(_ cell:LawmakerTableViewCell , atIndexPath indexPath:IndexPath)
   {
+    print(lawmakersInList[indexPath.row].name ?? "default")
+    print(lawmakersInList[indexPath.row].district ?? "default")
+    print(lawmakersInList[indexPath.row].party ?? "default")
     setNameLabel(cell: cell, indexPath: indexPath)
     setPartyLabel(cell: cell, indexPath: indexPath)
     setDistrictLabel(cell: cell, indexPath: indexPath)
-    //setProfileImage(cell: cell, indexPath: indexPath)
+    setProfileImage(cell: cell, indexPath: indexPath)
         
   }
   
   func setProfileImage(cell:LawmakerTableViewCell, indexPath: IndexPath) {
     
-    print(lawmakersInList[indexPath.row])
+    
     let urlString:String = lawmakersInList[indexPath.row].image ?? ""
     let url = URL(string: urlString)!
     

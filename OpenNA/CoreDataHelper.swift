@@ -47,7 +47,7 @@ class CoreDataHelper: NSObject {
     return fetchedResults
   }
   
-  class func fetchLawmaker(from imageUrl:String)->Lawmaker {
+  class func fetchLawmaker(from imageUrl:String)->Lawmaker? {
     
     let sharedContext = CoreDataStackManager.sharedInstance().managedObjectContext!
     
@@ -74,7 +74,7 @@ class CoreDataHelper: NSObject {
     }
     // Get a single fetched object
 
-    lawmaker = fetchedResults.first ?? Lawmaker()
+    lawmaker = fetchedResults.first
     
     return lawmaker
   }

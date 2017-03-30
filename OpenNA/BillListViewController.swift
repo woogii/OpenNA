@@ -29,28 +29,30 @@ class BillListViewController : UIViewController {
     
     super.viewWillAppear(animated)
     
-    if let row = tableView.indexPathForSelectedRow {
-      tableView.deselectRow(at: row, animated: false)
-    }
-    
-    billsInList = fetchBillsInList()
+    getBillList()
     tableView.reloadData()
   }
   
   override func viewDidLoad() {
     
     super.viewDidLoad()
+    registerNibForTableView()
     
-    tableView.register(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
-    tableView.delegate = self
-    tableView.dataSource = self
-    
-    billsInList = fetchBillsInList()
   }
   
+  func registerNibForTableView() {
+    
+    tableView.register(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
+    
+  }
+  
+  func getBillList() {
+    billsInList = fetchBillsInList()
+  }
+
   // MARK  : - Fetch Bills in Favorite List
   
-  func  fetchBillsInList()->[BillInList] {
+  func fetchBillsInList()->[BillInList] {
     
     let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName : Constants.Entity.BillInList)
     
@@ -134,6 +136,7 @@ extension BillListViewController : UITableViewDelegate, UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
     performSegue(withIdentifier: Constants.Identifier.BillDetailVC, sender: self)
   }
   

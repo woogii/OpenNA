@@ -93,7 +93,6 @@
 		D236968A1D3B3CAB00F9FB75 /* CommonHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonHelper.swift; sourceTree = "<group>"; };
 		D23772961CAD22E60004A2E2 /* PartyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyCollectionViewCell.swift; sourceTree = "<group>"; };
 		D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerDetailViewController.swift; sourceTree = "<group>"; };
-		D253BC701E8CD4BB00237232 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		D253BC711E8CDC5B00237232 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		D253BC731E8CE79200237232 /* PoliticsViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoliticsViewControllerExtension.swift; sourceTree = "<group>"; };
 		D259513C1D1538AA007AD7D1 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -615,7 +614,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				D2964B841C7344D700D5FF5C /* Base */,
-				D253BC701E8CD4BB00237232 /* ko */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

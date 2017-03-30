@@ -106,12 +106,14 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
     let urlString:String = indexInfo[indexPath.section].1[indexPath.row].image ?? ""
     let url = URL(string: urlString)!
     
-    let searchedLawmaker = CoreDataHelper.fetchLawmaker(from:urlString)
+    guard let searchedLawmaker = CoreDataHelper.fetchLawmaker(from:urlString) else {
+      return
+    }
     
     var pinnedImage:UIImage?
     cell.imageView!.image = nil
     
-    if  searchedLawmaker.pinnedImage != nil {
+    if searchedLawmaker.pinnedImage != nil {
       #if DEBUG
         print("images exist")
       #endif

@@ -21,14 +21,14 @@ class LawmakerDetailViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var favoriteButton: UIButton!
   
-  var image:String?
-  var birth:String?
-  var party:String?
-  var when_elected:String?
-  var district:String?
-  var homepage:String?
-  var name : String?
-  var pinnedImage:UIImage?
+//  var image:String?
+//  var birth:String?
+//  var party:String?
+//  var when_elected:String?
+//  var district:String?
+//  var homepage:String?
+//  var name : String?
+//  var pinnedImage:UIImage?
   var lawmaker:Lawmaker!
   
   // MARK : - CoreData Convenience
@@ -88,7 +88,7 @@ class LawmakerDetailViewController: UIViewController {
     
     if segue.identifier == Constants.Identifier.segueToWebViewVC {
       let controller = segue.destination as! WebViewController
-      controller.urlString = homepage
+      controller.urlString = lawmaker.homepage
     }
   }
   
@@ -101,7 +101,7 @@ class LawmakerDetailViewController: UIViewController {
     // If there is not a lawmaker in Favorite List, add it to the list
     if fetchedResults!.count == 0  {
       
-      _ = LawmakerInList(name: name,image: image,party: party, birth: birth, homepage: homepage, when_elected: when_elected, district: district,  context: sharedContext)
+      _ = LawmakerInList(name: lawmaker.name,image: lawmaker.image,party: lawmaker.party, birth: lawmaker.birth, homepage: lawmaker.homepage, when_elected: lawmaker.when_elected, district: lawmaker.district,  context: sharedContext)
       
       do {
         try sharedContext.save()
@@ -192,12 +192,12 @@ extension LawmakerDetailViewController : UITableViewDelegate, UITableViewDataSou
     
     if indexPath.row == LawmakerDetailInfoType.homepage.rawValue {
       
-      guard homepage != "" else {
+      guard lawmaker.homepage != "" else {
         return
       }
       
       let webVC = storyboard?.instantiateViewController(withIdentifier: Constants.Identifier.WebViewVC) as! WebViewController
-      webVC.urlString = homepage
+      webVC.urlString = lawmaker.homepage
       navigationController?.pushViewController(webVC, animated: true)
     }
     
