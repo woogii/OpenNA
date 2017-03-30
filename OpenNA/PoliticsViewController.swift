@@ -19,8 +19,9 @@ class PoliticsViewController: UIViewController  {
   // MARK : - Property
   
   @IBOutlet weak var segmentedControl: UISegmentedControl!
-  @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var collectionView: UICollectionView!
+  @IBOutlet weak var billTableView: UITableView!
+  @IBOutlet weak var lawmakerTableView: UITableView!
   
   typealias Entry = (Character, [Lawmaker])
   var lawmakers = [Lawmaker]()
@@ -53,7 +54,47 @@ class PoliticsViewController: UIViewController  {
     configureLayout()
     fetchAllLawmakers()
     buildTableViewIndex()
+    requestBillInfo()
+    requestPartyInfo()
+  }
+  
+  func requestBillInfo() {
+  
+    RestClient.sharedInstance().getBills(PoliticsViewController.page) { (bills, error) in
+      
+      if let bills = bills {
+        self.bills = bills
+        DispatchQueue.main.async  {
+          self.billTableView.reloadData()
+        }
+      
+      } else {
+        CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
+                                      okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
+      }
+    }
     
+  }
+  
+  func requestPartyInfo() {
+    
+    RestClient.sharedInstance().getParties() { (parties, error) in
+      
+      if let parties = parties {
+        
+        self.parties = parties
+        
+        DispatchQueue.main.async  {
+          self.collectionView.reloadData()
+        }
+      }
+      else {
+        CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
+                                      okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
+        
+      }
+    }
+
   }
   
   // MARK : - Configure Layout
@@ -64,8 +105,8 @@ class PoliticsViewController: UIViewController  {
   }
   
   fileprivate func registerNibFilesForTableView() {
-    tableView.register(UINib(nibName: Constants.Identifier.LawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.LawmakerCell)
-    tableView.register(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
+    lawmakerTableView.register(UINib(nibName: Constants.Identifier.LawmakerCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.LawmakerCell)
+    billTableView.register(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
   }
   
   fileprivate func setPartyCollectionViewHiddenStatus(hiddenStatus:Bool) {
@@ -115,66 +156,22 @@ class PoliticsViewController: UIViewController  {
     switch segmentedControl.selectedSegmentIndex {
       
     case SegmentedControlType.lawmaker.rawValue:
-      tableView.setContentOffset(CGPoint.zero, animated: true)
-      tableView.isHidden = false
-      tableView.reloadData()
+      
+      lawmakerTableView.isHidden = false
+      billTableView.isHidden = true
       break
       
     case SegmentedControlType.bill.rawValue:
       
-      tableView.reloadData()
-      tableView.setContentOffset(CGPoint.zero, animated: true)
-      tableView.isHidden = false
-      
-      let spinActivity = MBProgressHUD.showAdded(to: view, animated: true)
-      spinActivity.label.text = Constants.ActivityIndicatorText.Loading
-      
-      RestClient.sharedInstance().getBills(PoliticsViewController.page) { (bills, error) in
-        
-        if let bills = bills {
-          
-          self.bills = bills
-          
-          DispatchQueue.main.async  {
-            self.tableView.reloadData()
-            spinActivity.hide(animated:true)
-          }
-          
-        } else {
-          CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
-                                        okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
-          spinActivity.hide(animated:true)
-          
-        }
-      }
+      billTableView.isHidden = false
+      lawmakerTableView.isHidden = true
       break
       
     case SegmentedControlType.party.rawValue:
       
       collectionView.isHidden = false
-      tableView.isHidden = true
-      
-      let spinActivity = MBProgressHUD.showAdded(to: view, animated: true)
-      spinActivity.label.text = Constants.ActivityIndicatorText.Loading
-      
-      RestClient.sharedInstance().getParties() { (parties, error) in
-        
-        spinActivity.hide(animated:true)
-        
-        if let parties = parties {
-          
-          self.parties = parties
-          
-          DispatchQueue.main.async  {
-            self.collectionView.reloadData()
-          }
-        }
-        else {
-          CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
-                                        okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
-          
-        }
-      }
+      lawmakerTableView.isHidden = true
+      billTableView.isHidden = true
       
       break
     default:

@@ -398,6 +398,14 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="nSe-Y7-u1B"/>
                                 </connections>
                             </collectionView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="A0O-v4-BZ1">
+                                <rect key="frame" x="0.0" y="64" width="414" height="623"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="myz-BW-MhV"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="xmU-O2-Q9u"/>
+                                </connections>
+                            </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="reM-se-d1I">
                                 <rect key="frame" x="0.0" y="64" width="414" height="623"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -416,14 +424,18 @@
                             <constraint firstItem="VKl-aI-1yh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Sjv-bF-0yd"/>
                             <constraint firstItem="reM-se-d1I" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Wbd-uS-lRi"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="reM-se-d1I" secondAttribute="bottom" id="ZPY-0i-G1k"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="A0O-v4-BZ1" secondAttribute="bottom" id="bsz-fG-9em"/>
+                            <constraint firstItem="A0O-v4-BZ1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="l0T-As-rkT"/>
                             <constraint firstItem="VKl-aI-1yh" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="oAQ-Jb-NvM"/>
+                            <constraint firstItem="A0O-v4-BZ1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="r3e-fi-a8U"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="VKl-aI-1yh" secondAttribute="bottom" id="uxX-dh-bGv"/>
+                            <constraint firstAttribute="trailing" secondItem="A0O-v4-BZ1" secondAttribute="trailing" id="xdG-dy-Imo"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ViL-fB-cwm">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="FJb-eT-8RG">
-                            <rect key="frame" x="57.5" y="7" width="299" height="30"/>
+                            <rect key="frame" x="58" y="7" width="299" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="인물"/>
@@ -437,9 +449,10 @@
                         </segmentedControl>
                     </navigationItem>
                     <connections>
+                        <outlet property="billTableView" destination="A0O-v4-BZ1" id="eKT-3D-J1r"/>
                         <outlet property="collectionView" destination="VKl-aI-1yh" id="Bxx-rn-CCl"/>
+                        <outlet property="lawmakerTableView" destination="reM-se-d1I" id="KEY-As-sPa"/>
                         <outlet property="segmentedControl" destination="FJb-eT-8RG" id="5OU-ZA-ebE"/>
-                        <outlet property="tableView" destination="reM-se-d1I" id="Bcx-qh-ziO"/>
                         <segue destination="vB9-65-Ig8" kind="show" identifier="LawmakerDetail" id="lrF-M3-Aj4"/>
                         <segue destination="RBV-Ia-dtL" kind="show" identifier="showBillDetail" id="esW-Cf-qJH"/>
                     </connections>
@@ -941,7 +954,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="lrF-M3-Aj4"/>
-        <segue reference="OPl-Oh-MQs"/>
+        <segue reference="esW-Cf-qJH"/>
         <segue reference="P59-a5-gu8"/>
     </inferredMetricsTieBreakers>
 </document>

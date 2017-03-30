@@ -95,26 +95,32 @@ extension BillListViewController : UITableViewDelegate, UITableViewDataSource {
   
   func numberOfSections(in tableView: UITableView) -> Int {
     
-    var numberOfSection = 0
+    var numberOfSection:Int!
     
     if billsInList.count > 0 {
-      
-      tableView.backgroundView = nil
       numberOfSection = 1
-    
+      hideDefaultBackgroundView()
     } else {
-      
-      let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
-      noDataLabel.text = Constants.Strings.BillListVC.DefaultLabelMessageKr
-      noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
-      noDataLabel.textAlignment = NSTextAlignment.center
-      tableView.backgroundView = noDataLabel
-      
+      numberOfSection = 0
+      showDefaultBackgroundView()
     }
     
     return numberOfSection
   }
   
+  func hideDefaultBackgroundView() {
+    tableView.backgroundView = nil
+  }
+  
+  func showDefaultBackgroundView() {
+    
+    let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+    noDataLabel.text = Constants.Strings.BillListVC.DefaultLabelMessageKr
+    noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
+    noDataLabel.textAlignment = NSTextAlignment.center
+    tableView.backgroundView = noDataLabel
+    
+  }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     

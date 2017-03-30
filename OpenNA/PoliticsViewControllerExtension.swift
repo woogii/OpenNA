@@ -18,33 +18,26 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
-    var count = 0
-    
-    switch segmentedControl.selectedSegmentIndex {
-      
-    case SegmentedControlType.lawmaker.rawValue:
-      count = indexInfo[section].1.count
-      break
-    case SegmentedControlType.bill.rawValue :
-      count = bills.count
-      break
-    default:
-      break
+    if tableView == lawmakerTableView {
+      let lawmakers = indexInfo[section].1
+      return lawmakers.count
+
+    } else {
+      return bills.count
     }
-    
-    return count
   }
   
+  
   func numberOfSections(in tableView: UITableView) -> Int {
-    return segmentedControl.selectedSegmentIndex == 0 ? indexInfo.count : 1
+    return tableView == lawmakerTableView ? indexInfo.count : 1
   }
   
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return segmentedControl.selectedSegmentIndex == 0 ? String(indexInfo[section].0): nil
+    return tableView == lawmakerTableView ? String(indexInfo[section].0): nil
   }
   
   func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-    return segmentedControl.selectedSegmentIndex == 0 ? indexInfo.map({String($0.0)}):[String]()
+    return tableView == lawmakerTableView ? indexInfo.map({String($0.0)}):[String]()
   }
   
   func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
@@ -53,16 +46,15 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-    if segmentedControl.selectedSegmentIndex == SegmentedControlType.lawmaker.rawValue {
+    if tableView == lawmakerTableView {
       
       let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.LawmakerCell, for: indexPath) as! LawmakerTableViewCell
       configurLawmakerCell(cell, atIndexPath: indexPath)
       return cell
-    }
-    else if segmentedControl.selectedSegmentIndex == SegmentedControlType.bill.rawValue {
-      
-      let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.BillCell, for: indexPath) as! BillTableViewCell
-      
+    } else {
+    
+      let cell = billTableView.dequeueReusableCell(withIdentifier: Constants.Identifier.BillCell, for: indexPath) as! BillTableViewCell
+
       cell.nameLabel.text = bills[indexPath.row].name
       cell.sponsorLabel.text = bills[indexPath.row].sponsor
       cell.statusLabel.text = bills[indexPath.row].status
@@ -70,7 +62,6 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
       return cell
     }
     
-    return UITableViewCell()
   }
   
   // MARK : - Congifure UITableviewCell
@@ -99,7 +90,6 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
       cell.districtLabel.text = district.substring(to: district.index(district.startIndex, offsetBy: 6))
     }
   }
-  
   
   func setProfileImage(cell:LawmakerTableViewCell, indexPath: IndexPath) {
     
@@ -154,24 +144,19 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
-    switch segmentedControl.selectedSegmentIndex {
+    if tableView == lawmakerTableView {
       
-    case SegmentedControlType.lawmaker.rawValue :
       let controller = storyboard?.instantiateViewController(withIdentifier: Constants.Identifier.LawmakerDetailVC) as! LawmakerDetailViewController
       controller.lawmaker = indexInfo[indexPath.section].1[indexPath.row]
       controller.hidesBottomBarWhenPushed = true
       navigationController?.pushViewController(controller, animated: true)
-      break
-      
-    case SegmentedControlType.bill.rawValue :
-      
+    
+    } else if tableView == billTableView {
+    
       let controller = storyboard?.instantiateViewController(withIdentifier: Constants.Identifier.BillDetailVC) as! BillDetailViewController
       controller.bill = bills[indexPath.row]
       controller.hidesBottomBarWhenPushed = true
       navigationController?.pushViewController(controller, animated: true)
-      break
-    default:
-      break
     }
     
     tableView.deselectRow(at: indexPath, animated: true)
@@ -281,6 +266,7 @@ extension PoliticsViewController : UIScrollViewDelegate {
       let spinActivity = MBProgressHUD.showAdded(to: view, animated: true)
       spinActivity.label.text = Constants.ActivityIndicatorText.Loading
       
+      PoliticsViewController.page += 1
       RestClient.sharedInstance().getBills(PoliticsViewController.page) { (bills, error) in
         
         spinActivity.hide(animated:true)
@@ -295,7 +281,7 @@ extension PoliticsViewController : UIScrollViewDelegate {
           self.isRequesting = false
           
           DispatchQueue.main.async  {
-            self.tableView.reloadData()
+            self.billTableView.reloadData()
             
           }
         }
