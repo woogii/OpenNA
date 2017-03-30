@@ -19,6 +19,9 @@ class LawmakerTableViewCell : TaskCancelingTableViewCell {
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var partyLabel: UILabel!
   @IBOutlet weak var backgroundCardView: UIView!
+  @IBOutlet weak var districtLabel: UILabel!
+  @IBOutlet weak var separatorLabel: UILabel!
+  @IBOutlet weak var nameTitleLabel: UILabel!
   
   // MARK : - Initialization
   

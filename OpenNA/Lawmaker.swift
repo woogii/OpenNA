@@ -75,7 +75,7 @@ class Lawmaker : NSManagedObject {
     let entity = NSEntityDescription.entity(forEntityName: Constants.Entity.Lawmaker, in: context)
     super.init(entity : entity!, insertInto: context)
 
-    name         = dictionary[Constants.ModelKeys.NameEn] as? String
+    name         = dictionary[Constants.ModelKeys.Name] as? String
     image        = dictionary[Constants.ModelKeys.ImageUrl] as? String
     party        = dictionary[Constants.ModelKeys.Party] as? String
     birth        = dictionary[Constants.ModelKeys.Birth] as? String
@@ -88,5 +88,5 @@ class Lawmaker : NSManagedObject {
     
   }
 
-  
+ 
 }

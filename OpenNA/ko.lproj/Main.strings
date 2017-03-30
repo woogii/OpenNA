@@ -1,0 +1,108 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "0TK-Ci-JAE"; */
+"0TK-Ci-JAE.text" = "Label";
+
+/* Class = "UILabel"; text = "Copyright © 2016년 wook2. All rights reserved."; ObjectID = "0tg-PR-wkz"; */
+"0tg-PR-wkz.text" = "Copyright © 2016년 wook2. All rights reserved.";
+
+/* Class = "UINavigationItem"; title = "Party Detail"; ObjectID = "16J-FB-oCn"; */
+"16J-FB-oCn.title" = "Party Detail";
+
+/* Class = "UINavigationItem"; title = "Profile"; ObjectID = "2br-EH-sG9"; */
+"2br-EH-sG9.title" = "Profile";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "5ed-dB-ZCI"; */
+"5ed-dB-ZCI.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "6GW-gg-gkK"; */
+"6GW-gg-gkK.text" = "Label";
+
+/* Class = "UILabel"; text = "Lawmakers"; ObjectID = "BMI-lQ-3mK"; */
+"BMI-lQ-3mK.text" = "Lawmakers";
+
+/* Class = "UISegmentedControl"; FJb-eT-8RG.segmentTitles[0] = "인물"; ObjectID = "FJb-eT-8RG"; */
+"FJb-eT-8RG.segmentTitles[0]" = "인물";
+
+/* Class = "UISegmentedControl"; FJb-eT-8RG.segmentTitles[1] = "의안"; ObjectID = "FJb-eT-8RG"; */
+"FJb-eT-8RG.segmentTitles[1]" = "의안";
+
+/* Class = "UISegmentedControl"; FJb-eT-8RG.segmentTitles[2] = "정당"; ObjectID = "FJb-eT-8RG"; */
+"FJb-eT-8RG.segmentTitles[2]" = "정당";
+
+/* Class = "UILabel"; text = "OpenNA"; ObjectID = "Gsa-lK-OAE"; */
+"Gsa-lK-OAE.text" = "OpenNA";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "JMa-Qf-VZd"; */
+"JMa-Qf-VZd.text" = "Label";
+
+/* Class = "UITableViewSection"; headerTitle = "Outline"; ObjectID = "JqB-lh-aNo"; */
+"JqB-lh-aNo.headerTitle" = "Outline";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "KUG-Wn-ALz"; */
+"KUG-Wn-ALz.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Lawmakers"; ObjectID = "KYG-u2-09I"; */
+"KYG-u2-09I.title" = "Lawmakers";
+
+/* Class = "UILabel"; text = "Assembly #"; ObjectID = "Vco-AM-R35"; */
+"Vco-AM-R35.text" = "Assembly #";
+
+/* Class = "UITableViewSection"; headerTitle = "Summary"; ObjectID = "WhV-Cs-HEh"; */
+"WhV-Cs-HEh.headerTitle" = "Summary";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Xay-az-hT6"; */
+"Xay-az-hT6.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Profile"; ObjectID = "YuV-yM-VM9"; */
+"YuV-yM-VM9.title" = "Profile";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "fko-Vl-nXY"; */
+"fko-Vl-nXY.text" = "Label";
+
+/* Class = "UILabel"; text = "Bills"; ObjectID = "kWO-Ov-8NF"; */
+"kWO-Ov-8NF.text" = "Bills";
+
+/* Class = "UILabel"; text = "Sponsor"; ObjectID = "lex-fc-jYv"; */
+"lex-fc-jYv.text" = "Sponsor";
+
+/* Class = "UILabel"; text = "Birth"; ObjectID = "lkP-Pc-dFp"; */
+"lkP-Pc-dFp.text" = "Birth";
+
+/* Class = "UITabBarItem"; title = "Politics"; ObjectID = "mUk-LU-pcj"; */
+"mUk-LU-pcj.title" = "Politics";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "nCK-Ag-NaE"; */
+"nCK-Ag-NaE.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UINavigationItem"; title = "Bill Detail"; ObjectID = "nSj-Qs-zRu"; */
+"nSj-Qs-zRu.title" = "Bill Detail";
+
+/* Class = "UILabel"; text = "Birth"; ObjectID = "pa4-Uy-Q9O"; */
+"pa4-Uy-Q9O.text" = "Birth";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "qMH-pd-jnE"; */
+"qMH-pd-jnE.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Bills"; ObjectID = "qPk-yK-V5S"; */
+"qPk-yK-V5S.title" = "Bills";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "rpc-6d-2z8"; */
+"rpc-6d-2z8.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "rqj-Ra-Vdx"; */
+"rqj-Ra-Vdx.text" = "Label";
+
+/* Class = "UILabel"; text = "Status"; ObjectID = "s3Y-Hq-vkO"; */
+"s3Y-Hq-vkO.text" = "Status";
+
+/* Class = "UINavigationItem"; title = "My List"; ObjectID = "sJr-Kx-wrj"; */
+"sJr-Kx-wrj.title" = "My List";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "tpy-Fg-382"; */
+"tpy-Fg-382.text" = "Label";
+
+/* Class = "UILabel"; text = "External Links"; ObjectID = "u8A-m1-Gbv"; */
+"u8A-m1-Gbv.text" = "External Links";
+
+/* Class = "UILabel"; text = "Proposed Date"; ObjectID = "ujg-ov-XFY"; */
+"ujg-ov-XFY.text" = "Proposed Date";

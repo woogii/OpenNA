@@ -18,6 +18,7 @@ extension String {
   }
   
   subscript (i: Int) -> Character {
+    guard i < characters.count else { return Character("") }
     return self[self.characters.index(self.startIndex, offsetBy: i)]
   }
   

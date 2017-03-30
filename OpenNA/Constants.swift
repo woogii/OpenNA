@@ -79,7 +79,7 @@ struct Constants {
     
     // MARK : - Lawmaker
     
-    static let Name          = "name"
+    static let Name          = "name_kr"
     static let NameEn        = "name_en"
     static let Photo         = "photo"
     static let ImageUrl      = "image"
@@ -250,6 +250,14 @@ struct Constants {
     static let AddressLabel  = "Address"
     static let EducationLabel  = "Education"
     
+    static let PartyLabelKr     = "정당"
+    static let BirthLabelKr     = "출생"
+    static let InOfficeLabelKr  = "의원대수"
+    static let DistrictLabelKr  = "지역구"
+    static let HomepageLabelKr  = "웹사이트"
+    static let BlogLabelKr      = "블로그"
+    static let AddressLabelKr   = "주소"
+    static let EducationLabelKr = "학력"
   }
   
   // MARK : - Default System Key
@@ -304,8 +312,10 @@ struct Constants {
       static let WikiUrl = "https://ko.wikipedia.org/wiki/"
       static let defaultImageName = "img_profile_placeholder"
       static let PartyPlaceholder = "img_party_placeholder"
-      static let DefaultLabelMessage = "Type keyword you want to search"
-      static let NoSearchResultMessage = "There is no search result"
+      static let DefaultLabelMessage = "검색어를 입력하세요.(인물,법안,정당 키워드)"
+      static let NoSearchResultMessage = "검색 결과가 존재하지 않습니다."
+      //static let DefaultLabelMessage = "Type keyword you want to search"
+      //static let NoSearchResultMessage = "There is no search result"
     }
     
     struct Party {
@@ -316,15 +326,22 @@ struct Constants {
     }
     
     struct LawmakerListVC {
-      static let DefaultLabelMessage = "No lawmaker information in your list"
+      static let DefaultLabelMessageKr = "현재 목록이 없습니다."
+      // static let DefaultLabelMessage = "No lawmaker information in your list"
     }
     
     struct BillListVC {
-      static let DefaultLabelMessage =  "No bill information in your list"
+      static let DefaultLabelMessageKr =  "현재 목록이 없습니다."
+      //static let DefaultLabelMessage =  "No bill information in your list"
     }
     
     struct BillDetailVC {
-      static let TextViewDefaultMsg = "There is no summary provided"
+      static let TextViewDefaultMsgKr = "내용 요약이 제공되지 않습니다."
+      //static let TextViewDefaultMsg = "There is no summary provided"
+    }
+    
+    struct WebVC {
+      static let Title = "의안 문서"
     }
   }
   

@@ -29,6 +29,7 @@ class LawmakerDetailViewController: UIViewController {
   var homepage:String?
   var name : String?
   var pinnedImage:UIImage?
+  var lawmaker:Lawmaker!
   
   // MARK : - CoreData Convenience
   
@@ -40,23 +41,35 @@ class LawmakerDetailViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    setProfileImage()
+    setName()
   }
   
-  override func viewWillAppear(_ animated: Bool) {
-    
-    super.viewWillAppear(animated)
-    
-    profileImage.image = pinnedImage
-    
-    if let name = self.name {
+  func setProfileImage() {
+    profileImage.image = lawmaker.pinnedImage
+  }
+  
+  func setName() {
+  
+    if let name = lawmaker.name {
       nameLabel.text = name
     } else {
       nameLabel.text = ""
     }
     
-    let fetchedResults = fetchLawmakerInList()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    setFavoriteIconAfterFetchLawmaker()
+  }
+  
+  func setFavoriteIconAfterFetchLawmaker() {
+    
+    let fetchedResults = CoreDataHelper.fetchLawmakerInList(name: lawmaker.name, image: lawmaker.image)
     fetchedResults!.count == 0 ? (favoriteButton.setImage(UIImage(named:Constants.Images.FavoriteIconEmpty), for: .normal)) : (favoriteButton.setImage(UIImage(named:Constants.Images.FavoriteIconFilled), for: .normal))
   }
+    
   
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
@@ -79,43 +92,11 @@ class LawmakerDetailViewController: UIViewController {
     }
   }
   
-  // MARK : - Fetch Lawmakers in Favorite List
-  
-  func fetchLawmakerInList()->[LawmakerInList]? {
-    
-    // Fetch a single lawmaker with given name and image
-    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName : Constants.Entity.LawmakerInList)
-    let firstPredicate = NSPredicate(format: Constants.Fetch.PredicateForName, name!)
-    let secondPredicate = NSPredicate(format: Constants.Fetch.PredicateForImage, image!)
-    let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates:[firstPredicate,secondPredicate])
-    fetchRequest.predicate = compoundPredicate
-    
-    // In order to fetch a single object
-    fetchRequest.fetchLimit = 1
-    
-    
-    var fetchedResults : [LawmakerInList]?
-    
-    do {
-      fetchedResults = try sharedContext.fetch(fetchRequest) as? [LawmakerInList]
-    } catch let error as NSError {
-      #if DEBUG
-        print("\(error.description)")
-      #endif
-    }
-    
-    #if DEBUG
-      print("fetch result : \(fetchedResults)")
-    #endif
-    
-    return fetchedResults
-  }
-  
   // MARK : - Action Method
   
   @IBAction func favoriteBtnTapped(_ sender: UIButton) {
     
-    let fetchedResults = fetchLawmakerInList()
+    let fetchedResults = CoreDataHelper.fetchLawmakerInList(name: nameLabel.text!, image: lawmaker.image)
     
     // If there is not a lawmaker in Favorite List, add it to the list
     if fetchedResults!.count == 0  {
@@ -177,19 +158,19 @@ extension LawmakerDetailViewController : UITableViewDelegate, UITableViewDataSou
     switch(indexPath.row) {
       
     case LawmakerDetailInfoType.birth.rawValue:
-      configureLawmakerDetailTableViewCell(cell: cell, title: Constants.CustomCell.BirthLabel, description: birth)
+      configureLawmakerDetailTableViewCell(cell: cell, title: Constants.CustomCell.BirthLabelKr, description: lawmaker.birth)
       break
     case LawmakerDetailInfoType.party.rawValue:
-      configureLawmakerDetailTableViewCell(cell: cell, title: Constants.CustomCell.PartyLabel, description: party)
+      configureLawmakerDetailTableViewCell(cell: cell, title: Constants.CustomCell.PartyLabelKr, description: lawmaker.party)
       break
     case LawmakerDetailInfoType.inOffice.rawValue:
-      configureLawmakerDetailTableViewCell(cell: cell, title: Constants.CustomCell.InOfficeLabel, description: when_elected)
+      configureLawmakerDetailTableViewCell(cell: cell, title: Constants.CustomCell.InOfficeLabelKr, description: lawmaker.when_elected)
       break
     case LawmakerDetailInfoType.district.rawValue:
-      configureLawmakerDetailTableViewCell(cell: cell, title: Constants.CustomCell.DistrictLabel, description: district)
+      configureLawmakerDetailTableViewCell(cell: cell, title: Constants.CustomCell.DistrictLabelKr, description: lawmaker.district)
       break
     default:
-      configureLawmakerDetailTableViewCell(cell: cell, title: Constants.CustomCell.HomepageLabel, description: homepage)
+      configureLawmakerDetailTableViewCell(cell: cell, title: Constants.CustomCell.HomepageLabelKr, description: lawmaker.homepage)
       break
     }
     
@@ -197,10 +178,8 @@ extension LawmakerDetailViewController : UITableViewDelegate, UITableViewDataSou
   }
   
   func configureLawmakerDetailTableViewCell(cell:LawmakerDetailTableViewCell,title:String, description:String?) {
-    
     cell.titleLabel.text = title
     cell.descriptionLabel.text = description
-    
   }
   
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

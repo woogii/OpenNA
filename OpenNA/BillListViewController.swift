@@ -68,13 +68,7 @@ class BillListViewController : UIViewController {
     let path = tableView.indexPathForSelectedRow!
     let detailVC = segue.destination as! BillDetailViewController
     
-    detailVC.name = billsInList[path.row].name
-    detailVC.proposedDate = billsInList[path.row].proposeDate
-    detailVC.sponsor = billsInList[path.row].sponsor
-    detailVC.status = billsInList[path.row].status
-    detailVC.summary = billsInList[path.row].summary
-    detailVC.documentUrl = billsInList[path.row].documentUrl
-    detailVC.assemblyID = billsInList[path.row].assemblyId as? Int
+    detailVC.bill = Bill.extractBill(from:billsInList[path.row])
     detailVC.hidesBottomBarWhenPushed = true
     
   }
@@ -99,12 +93,11 @@ extension BillListViewController : UITableViewDelegate, UITableViewDataSource {
       
       tableView.backgroundView = nil
       numberOfSection = 1
-      
-      
+    
     } else {
       
       let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
-      noDataLabel.text = Constants.Strings.BillListVC.DefaultLabelMessage
+      noDataLabel.text = Constants.Strings.BillListVC.DefaultLabelMessageKr
       noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
       noDataLabel.textAlignment = NSTextAlignment.center
       tableView.backgroundView = noDataLabel

@@ -228,7 +228,6 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
         
         if let lawmaker = searchResults[indexPath.section][Constants.SectionName.Lawmaker] as? [Lawmaker] {
           
-          
           cell.nameLabel?.text = lawmaker[indexPath.row].name
           
           guard let urlString = lawmaker[indexPath.row].image else {
@@ -347,14 +346,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
       
       let controller = storyboard?.instantiateViewController(withIdentifier: Constants.Identifier.BillDetailVC) as! BillDetailViewController
       
-      controller.name = bills[indexPath.row].name
-      controller.proposedDate = bills[indexPath.row].proposeDate
-      controller.status = bills[indexPath.row].status
-      controller.sponsor = bills[indexPath.row].sponsor
-      controller.documentUrl = bills[indexPath.row].documentUrl
-      controller.summary = bills[indexPath.row].summary
-      controller.assemblyID = bills[indexPath.row].assemblyId
-      
+      controller.bill = bills[indexPath.row]      
       controller.hidesBottomBarWhenPushed = true
       navigationController?.pushViewController(controller, animated: true)
       

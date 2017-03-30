@@ -52,7 +52,7 @@ class SplashViewController: UIViewController {
     
     if !userDefaults.bool(forKey: Constants.UserDefaultKeys.InitialDataExist) {
       activityIndicator.startAnimating()
-      
+    
       guard let pathForJSONData = Bundle.main.path(forResource: Constants.Strings.SplashVC.BundleFileName, ofType: Constants.Strings.SplashVC.BundleFileType) else{
         #if DEBUG
           print("There is no data in your bundle")
@@ -78,7 +78,7 @@ class SplashViewController: UIViewController {
         
         for dict in parsedResult {
           
-          let name = dict[Constants.JSONResponseKeys.NameEn] as? String ?? ""
+          let name = dict[Constants.JSONResponseKeys.Name] as? String ?? ""
           let party = dict[Constants.JSONResponseKeys.Party] as? String ?? ""
           let imageUrl = dict[Constants.JSONResponseKeys.Photo] as? String ?? ""
           let birth = dict[Constants.JSONResponseKeys.Birth] as? String ?? ""
@@ -97,6 +97,7 @@ class SplashViewController: UIViewController {
             userDefaults.set(true, forKey: Constants.UserDefaultKeys.InitialDataExist)
             activityIndicator.stopAnimating()
           } catch {
+            activityIndicator.stopAnimating()
             #if DEBUG
               print("\(error)")
             #endif
@@ -105,11 +106,12 @@ class SplashViewController: UIViewController {
         
         
       } catch let error as NSError {
-        #if DEBUG
-          let alertView = UIAlertController(title:"", message:error.localizedDescription, preferredStyle: .alert)
-          alertView.addAction(UIAlertAction(title:Constants.Alert.Title.Dismiss, style:.default, handler:nil))
-          self.present(alertView, animated: true, completion: nil)
-        #endif
+        
+        activityIndicator.stopAnimating()
+        let alertView = UIAlertController(title:"", message:error.localizedDescription, preferredStyle: .alert)
+        alertView.addAction(UIAlertAction(title:Constants.Alert.Title.Dismiss, style:.default, handler:nil))
+        self.present(alertView, animated: true, completion: nil)
+      
       }
     }
   }

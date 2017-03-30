@@ -15,11 +15,14 @@ import MBProgressHUD
 class WebViewController: UIViewController {
   
   // MARK : - Property
+  
   @IBOutlet weak var webView: UIWebView!
+  
   var urlString: String?
   var isFromBillDetailVC:Bool?
   var loadingActivity : MBProgressHUD?
-  let pdfUrlTitle = "Bill PDF Document"
+  
+  // MARK : - View Life Cycle
   
   override func viewDidLoad() {
     
@@ -30,7 +33,7 @@ class WebViewController: UIViewController {
   func setNavigationTitle() {
     
     if let _ = isFromBillDetailVC {
-      navigationItem.title = pdfUrlTitle
+      navigationItem.title = Constants.Strings.WebVC.Title
     }
   }
   
@@ -43,9 +46,10 @@ class WebViewController: UIViewController {
     }
     
     let url = URL(dataRepresentation:urlString.data(using: String.Encoding.utf8)!, relativeTo:nil)
-    
     webView.loadRequest(URLRequest(url: url!))
   }
+  
+  // MARK : - Target Action Method 
   
   @IBAction func pushBackButton(_ sender: UIBarButtonItem) {
     _ = navigationController?.popViewController(animated: true)

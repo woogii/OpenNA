@@ -23,14 +23,8 @@ class BillDetailViewController: UITableViewController {
   @IBOutlet weak var sponsorLabel: UILabel!
   @IBOutlet weak var documentURLLabel: UILabel!
   @IBOutlet weak var summaryTextView: UITextView!
-  
-  var proposedDate: String?
-  var status : String?
-  var sponsor : String?
-  var documentUrl : String?
-  var summary : String?
-  var assemblyID : Int?
-  var name : String?
+ 
+  var bill:Bill!
   var favoriteButton: UIBarButtonItem?
   var sharedContext : NSManagedObjectContext {
     return CoreDataStackManager.sharedInstance().managedObjectContext!
@@ -42,6 +36,13 @@ class BillDetailViewController: UITableViewController {
   override func viewDidLoad() {
     
     super.viewDidLoad()
+    
+    setProposedDate()
+    setBillStatus()
+    setSponsor()
+    setBillURL()
+    setSummary()
+    setAssemblyID()
     configureTableViewDynamicHeight()
   }
   
@@ -54,29 +55,23 @@ class BillDetailViewController: UITableViewController {
     
     super.viewWillAppear(animated)
     
-    setProposedDate()
-    setBillStatus()
-    setSponsor()
-    setBillURL()
-    setSummary()
-    setAssemblyID()
     configureFavoriteButton()
   }
   
   func setProposedDate() {
-    proposedDateLabel.text = proposedDate
+    proposedDateLabel.text = bill.proposeDate
   }
   
   func setBillStatus() {
-    statusLabel.text = status
+    statusLabel.text = bill.status
   }
   
   func setSponsor() {
-    sponsorLabel.text = sponsor
+    sponsorLabel.text = bill.sponsor
   }
   
   func setBillURL() {
-    documentURLLabel.text = documentUrl
+    documentURLLabel.text = bill.documentUrl
   }
 
   func configureFavoriteButton() {
@@ -104,21 +99,21 @@ class BillDetailViewController: UITableViewController {
   
   func setSummary() {
     
-    if let count = summary?.characters.count {
+    if let count = bill.summary?.characters.count {
       
       if count > 0 {
-        summaryTextView.text = summary
+        summaryTextView.text = bill.summary
       } else {
-        summaryTextView.text = Constants.Strings.BillDetailVC.TextViewDefaultMsg
+        summaryTextView.text = Constants.Strings.BillDetailVC.TextViewDefaultMsgKr
       }
     } else {
-      summaryTextView.text = Constants.Strings.BillDetailVC.TextViewDefaultMsg
+      summaryTextView.text = Constants.Strings.BillDetailVC.TextViewDefaultMsgKr
     }
   }
   
   func setAssemblyID() {
     
-    guard let assemblyID = assemblyID  else {
+    guard let assemblyID = bill.assemblyId  else {
       assembylIDLabel.text = ""
       return
     }
@@ -147,7 +142,7 @@ class BillDetailViewController: UITableViewController {
   func fetchBillInList()->[BillInList]?{
     
     let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName : Constants.Entity.BillInList)
-    fetchRequest.predicate = NSPredicate(format: Constants.Fetch.PredicateForName, name!)
+    fetchRequest.predicate = NSPredicate(format: Constants.Fetch.PredicateForName, bill.name!)
     
     // In order to fetch a single object
     fetchRequest.fetchLimit = 1
@@ -173,7 +168,7 @@ class BillDetailViewController: UITableViewController {
     
     if fetchedResults!.count == 0  {
       
-      let _ = BillInList(name: name, proposedDate: proposedDate,sponsor: sponsor, status: status, summary: summary, documentUrl: documentUrl, assemblyID: assemblyID, context: sharedContext)
+      let _ = BillInList(name: bill.name, proposedDate: bill.proposeDate,sponsor: bill.sponsor, status: bill.status, summary: bill.summary, documentUrl: bill.documentUrl, assemblyID: bill.assemblyId, context: sharedContext)
       
       do {
         try sharedContext.save()
@@ -187,9 +182,7 @@ class BillDetailViewController: UITableViewController {
       
     } else {
       
-      guard let result = fetchedResults!.first else {
-        return
-      }
+      guard let result = fetchedResults!.first else { return }
       
       sharedContext.delete(result)
       
@@ -212,7 +205,7 @@ class BillDetailViewController: UITableViewController {
     
     if segue.identifier == Constants.Identifier.segueToWebViewVC {
       let controller = segue.destination as! WebViewController
-      controller.urlString = documentUrl
+      controller.urlString = bill.documentUrl
       controller.hidesBottomBarWhenPushed = true
       controller.isFromBillDetailVC = true 
     }

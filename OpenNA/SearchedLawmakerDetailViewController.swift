@@ -199,31 +199,31 @@ extension SearchedLawmakerDetailViewController : UITableViewDelegate, UITableVie
       
     case CustomCell.birth.rawValue:
       if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedLawmakerDetailCell, for: indexPath) as? SearchedLawmakerDetailTableViewCell {
-        cell.titleLabel.text = Constants.CustomCell.BirthLabel
+        cell.titleLabel.text = Constants.CustomCell.BirthLabelKr
         cell.descriptionLabel.text = birth
         return cell
       }
     case CustomCell.address.rawValue:
       if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedLawmakerDetailCell, for: indexPath) as? SearchedLawmakerDetailTableViewCell {
-        cell.titleLabel.text = Constants.CustomCell.AddressLabel
+        cell.titleLabel.text = Constants.CustomCell.AddressLabelKr
         cell.descriptionLabel.text = address
         return cell
       }
     case CustomCell.blog.rawValue:
       if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedLawmakerDetailCell, for: indexPath) as? SearchedLawmakerDetailTableViewCell {
-        cell.titleLabel.text = Constants.CustomCell.BlogLabel
+        cell.titleLabel.text = Constants.CustomCell.BlogLabelKr
         cell.descriptionLabel.text = blog
         return cell
       }
     case CustomCell.education.rawValue:
       if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedLawmakerDetailCell, for: indexPath) as? SearchedLawmakerDetailTableViewCell {
-        cell.titleLabel.text = Constants.CustomCell.EducationLabel
+        cell.titleLabel.text = Constants.CustomCell.EducationLabelKr
         cell.descriptionLabel.text = education
         return cell
       }
     default:
       if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedLawmakerDetailCell, for: indexPath) as? SearchedLawmakerDetailTableViewCell {
-        cell.titleLabel.text = Constants.CustomCell.HomepageLabel
+        cell.titleLabel.text = Constants.CustomCell.HomepageLabelKr
         cell.descriptionLabel.text = homepage
         return cell
       }
