@@ -34,8 +34,9 @@ class PoliticsViewController: UIViewController  {
   static var page = 1
   let cellHeight:CGFloat = 140
   let numberOfRowsForPartyCollectionView:CGFloat = 3
-  let valueForAdjustPartyCellHeight:CGFloat = 15
-  
+  let valueForAdjustPartyCellHeight:CGFloat = 15  
+  let maximumDisctirctCharCount = 8
+
   
   // MARK : - CoreData Convenience
   

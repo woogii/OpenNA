@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-// MARK : - BillTableViewCell : Custom TableViewCell
+// MARK : - BillTableViewCell : UITableViewCell
 
 class BillTableViewCell:UITableViewCell{
   

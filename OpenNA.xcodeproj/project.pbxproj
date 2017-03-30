@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B88FB50B1E4F9C57002591E3 /* SearchedLawmakerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2D3F9571CABFA3F00D97B23 /* SearchedLawmakerCell.xib */; };
-		B88FB50D1E5037E0002591E3 /* assembly.json in Resources */ = {isa = PBXBuildFile; fileRef = B88FB50C1E5037E0002591E3 /* assembly.json */; };
 		B8DCDA5C1E85700D00F66CA0 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DCDA5B1E85700D00F66CA0 /* Enums.swift */; };
 		D20028301CE86C9E00F1369E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200282F1CE86C9E00F1369E /* WebViewController.swift */; };
 		D20028321CE8B3C300F1369E /* BillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20028311CE8B3C300F1369E /* BillDetailViewController.swift */; };
@@ -35,6 +34,8 @@
 		D27451A81CA6BE770024A904 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27451A71CA6BE770024A904 /* Constants.swift */; };
 		D27451AA1CA6BE8D0024A904 /* RestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27451A91CA6BE8D0024A904 /* RestClient.swift */; };
 		D27597091E83B81000C31836 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27597081E83B81000C31836 /* Extensions.swift */; };
+		D291C5311E8D07270089884D /* BillDetailInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D291C5301E8D07270089884D /* BillDetailInfoTableViewCell.swift */; };
+		D291C5331E8D12E30089884D /* assembly.json in Resources */ = {isa = PBXBuildFile; fileRef = D291C5321E8D12E30089884D /* assembly.json */; };
 		D292EE2E1D20067300EF84B0 /* SearchedLawmakerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D292EE2D1D20067300EF84B0 /* SearchedLawmakerDetailViewController.swift */; };
 		D2934CFA1CF2015500EA734C /* LawmakerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23772981CAFB65E0004A2E2 /* LawmakerDetailViewController.swift */; };
 		D2934CFE1CF3442B00EA734C /* SearchedBillCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2934CFD1CF3442B00EA734C /* SearchedBillCell.xib */; };
@@ -79,7 +80,6 @@
 		3801775D12FBF6181F3CD108 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E53F0110EF24D4E8B29C805 /* Pods_OpenNA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenNA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8501E14855B4581ED95B1665 /* Pods-OpenNA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenNA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenNA/Pods-OpenNA.debug.xcconfig"; sourceTree = "<group>"; };
-		B88FB50C1E5037E0002591E3 /* assembly.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = assembly.json; sourceTree = "<group>"; };
 		B8DCDA5B1E85700D00F66CA0 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		D200282F1CE86C9E00F1369E /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		D20028311CE8B3C300F1369E /* BillDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +108,8 @@
 		D27451A71CA6BE770024A904 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D27451A91CA6BE8D0024A904 /* RestClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestClient.swift; sourceTree = "<group>"; };
 		D27597081E83B81000C31836 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D291C5301E8D07270089884D /* BillDetailInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailInfoTableViewCell.swift; sourceTree = "<group>"; };
+		D291C5321E8D12E30089884D /* assembly.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = assembly.json; sourceTree = "<group>"; };
 		D292EE2D1D20067300EF84B0 /* SearchedLawmakerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchedLawmakerDetailViewController.swift; sourceTree = "<group>"; };
 		D2934CFD1CF3442B00EA734C /* SearchedBillCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchedBillCell.xib; sourceTree = "<group>"; };
 		D2934D031CF3448C00EA734C /* SearchedPartyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchedPartyCell.xib; sourceTree = "<group>"; };
@@ -279,8 +281,8 @@
 			children = (
 				D23696891D3B3C6600F9FB75 /* Storyboard */,
 				D2964B861C7344D700D5FF5C /* Assets.xcassets */,
-				B88FB50C1E5037E0002591E3 /* assembly.json */,
 				D2964B7F1C7344D700D5FF5C /* AppDelegate.swift */,
+				D291C5321E8D12E30089884D /* assembly.json */,
 				D2964B8B1C7344D700D5FF5C /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -312,6 +314,7 @@
 				D2934D091CF3470800EA734C /* SearchedPartyTableViewCell.swift */,
 				D23772961CAD22E60004A2E2 /* PartyCollectionViewCell.swift */,
 				D2D3F9521CABCE4F00D97B23 /* BillTableViewCell.swift */,
+				D291C5301E8D07270089884D /* BillDetailInfoTableViewCell.swift */,
 				D2678C661C91797D0056278F /* TaskCancelingTableViewCell.swift */,
 			);
 			name = View;
@@ -458,7 +461,7 @@
 				B88FB50B1E4F9C57002591E3 /* SearchedLawmakerCell.xib in Resources */,
 				D2934D041CF3448C00EA734C /* SearchedPartyCell.xib in Resources */,
 				D2934CFE1CF3442B00EA734C /* SearchedBillCell.xib in Resources */,
-				B88FB50D1E5037E0002591E3 /* assembly.json in Resources */,
+				D291C5331E8D12E30089884D /* assembly.json in Resources */,
 				D2D3F9561CABD1A500D97B23 /* BillCell.xib in Resources */,
 				D2964B871C7344D700D5FF5C /* Assets.xcassets in Resources */,
 				D2964B851C7344D700D5FF5C /* Main.storyboard in Resources */,
@@ -564,6 +567,7 @@
 				D26806531D323A3A00DA5C53 /* LawmakerDetailTableViewCell.swift in Sources */,
 				D2934D081CF346FA00EA734C /* SearchedBillTableViewCell.swift in Sources */,
 				D212D3BE1CF97563008CEC5C /* LawmakerInList.swift in Sources */,
+				D291C5311E8D07270089884D /* BillDetailInfoTableViewCell.swift in Sources */,
 				D2D3F95A1CAC2D6700D97B23 /* Party.swift in Sources */,
 				D27451A81CA6BE770024A904 /* Constants.swift in Sources */,
 				D20028321CE8B3C300F1369E /* BillDetailViewController.swift in Sources */,

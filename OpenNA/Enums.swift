@@ -8,11 +8,23 @@
 
 import Foundation
 
+// MARK : - LawmakerDetailInfoType : Int
+
 enum LawmakerDetailInfoType:Int {
   case birth=0,party,inOffice,district,homepage
 }
 
+// MARK : - BillDetailInfoType : Int
+
+enum BillDetailInfoType : Int {
+  case assemblyId=0,proposeDate,status,sponsor,externalLink
+}
+
+// MARK : - SegmentedControlType : Int
+
 enum SegmentedControlType:Int {
   case lawmaker=0,bill,party
 }
+
+
 

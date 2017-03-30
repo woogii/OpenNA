@@ -46,6 +46,8 @@ class LawmakerListViewController : UIViewController {
   
   func getLawmakerList() {
     lawmakersInList = fetchLawmakersInList()
+    print("lawmakerInList count : \(lawmakersInList.count)")
+    print("lawmakerInList first : \(lawmakersInList.first)")
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -134,12 +136,13 @@ extension LawmakerListViewController : UITableViewDelegate, UITableViewDataSourc
     setNameLabel(cell: cell, indexPath: indexPath)
     setPartyLabel(cell: cell, indexPath: indexPath)
     setDistrictLabel(cell: cell, indexPath: indexPath)
-    setProfileImage(cell: cell, indexPath: indexPath)
+    //setProfileImage(cell: cell, indexPath: indexPath)
         
   }
   
   func setProfileImage(cell:LawmakerTableViewCell, indexPath: IndexPath) {
     
+    print(lawmakersInList[indexPath.row])
     let urlString:String = lawmakersInList[indexPath.row].image ?? ""
     let url = URL(string: urlString)!
     

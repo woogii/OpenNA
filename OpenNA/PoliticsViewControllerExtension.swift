@@ -13,7 +13,7 @@ import MBProgressHUD
 // MARK : - PoliticsViewController : UITableViewDelegate, UITableViewDataSource
 
 extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
-  
+    
   // MARK : - UITableView DataSource Methods
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -92,7 +92,12 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
   }
   
   func setDistrictLabel(cell:LawmakerTableViewCell, indexPath: IndexPath) {
-    cell.districtLabel.text = indexInfo[indexPath.section].1[indexPath.row].district
+    let district = indexInfo[indexPath.section].1[indexPath.row].district ?? ""
+    if district.characters.count <= maximumDisctirctCharCount {
+      cell.districtLabel.text = district
+    } else {
+      cell.districtLabel.text = district.substring(to: district.index(district.startIndex, offsetBy: 6))
+    }
   }
   
   

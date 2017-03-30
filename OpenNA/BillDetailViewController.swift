@@ -13,65 +13,40 @@ import CoreData
 
 // MARK: - BillDetailViewController : UITableViewController
 
-class BillDetailViewController: UITableViewController {
+class BillDetailViewController: UIViewController {
   
   // MARK : - Property
   
-  @IBOutlet weak var assembylIDLabel: UILabel!
-  @IBOutlet weak var proposedDateLabel: UILabel!
-  @IBOutlet weak var statusLabel: UILabel!
-  @IBOutlet weak var sponsorLabel: UILabel!
-  @IBOutlet weak var documentURLLabel: UILabel!
   @IBOutlet weak var summaryTextView: UITextView!
+  @IBOutlet weak var tableView: UITableView!
  
   var bill:Bill!
   var favoriteButton: UIBarButtonItem?
   var sharedContext : NSManagedObjectContext {
     return CoreDataStackManager.sharedInstance().managedObjectContext!
   }
-  let rowHeight:CGFloat = 44.0
+  let numberOfBillDetailInfo = 5
   
   // MARK : - View Life Cycle
   
   override func viewDidLoad() {
     
     super.viewDidLoad()
-    
-    setProposedDate()
-    setBillStatus()
-    setSponsor()
-    setBillURL()
+    tableView.reloadData()
     setSummary()
-    setAssemblyID()
-    configureTableViewDynamicHeight()
-  }
-  
-  func configureTableViewDynamicHeight() {
-    tableView.estimatedRowHeight = rowHeight
-    tableView.rowHeight = UITableViewAutomaticDimension
+
   }
   
   override func viewWillAppear(_ animated: Bool) {
     
     super.viewWillAppear(animated)
-    
     configureFavoriteButton()
+    
   }
   
-  func setProposedDate() {
-    proposedDateLabel.text = bill.proposeDate
-  }
-  
-  func setBillStatus() {
-    statusLabel.text = bill.status
-  }
-  
-  func setSponsor() {
-    sponsorLabel.text = bill.sponsor
-  }
-  
-  func setBillURL() {
-    documentURLLabel.text = bill.documentUrl
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    summaryTextView.setContentOffset(CGPoint.zero, animated: false)
   }
 
   func configureFavoriteButton() {
@@ -109,32 +84,7 @@ class BillDetailViewController: UITableViewController {
     } else {
       summaryTextView.text = Constants.Strings.BillDetailVC.TextViewDefaultMsgKr
     }
-  }
-  
-  func setAssemblyID() {
     
-    guard let assemblyID = bill.assemblyId  else {
-      assembylIDLabel.text = ""
-      return
-    }
-    
-    assembylIDLabel.text = "\(assemblyID)"
-
-  }
-  
-  // MARK : - UITableViewDelegate Method
-  
-  override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    
-    if indexPath.section == 1 {
-      return UITableViewAutomaticDimension
-    } else {
-      return CGFloat(44)
-    }
-  }
-  
-  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: true)
   }
   
   // MARK : - Fetch Bills in MyList
@@ -217,3 +167,56 @@ class BillDetailViewController: UITableViewController {
   
 }
 
+extension BillDetailViewController : UITableViewDataSource, UITableViewDelegate {
+
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return 1
+  }
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return numberOfBillDetailInfo
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.BillDetailInfoTableViewCell, for: indexPath) as! BillDetailInfoTableViewCell
+    
+    switch(indexPath.row) {
+      
+      case BillDetailInfoType.assemblyId.rawValue:
+      configureBillDetailTableViewCell(cell: cell, title: Constants.Strings.BillDetailVC.AssemblyIdTitle, description: String(bill.assemblyId ?? 0))
+      break
+      case BillDetailInfoType.proposeDate.rawValue:
+      configureBillDetailTableViewCell(cell: cell, title: Constants.Strings.BillDetailVC.ProposeDateTitle, description: bill.proposeDate ?? "")
+      break
+      case BillDetailInfoType.status.rawValue:
+      configureBillDetailTableViewCell(cell: cell, title:  Constants.Strings.BillDetailVC.StatusTitle, description: bill.status ?? "")
+      break
+      case BillDetailInfoType.sponsor.rawValue:
+      configureBillDetailTableViewCell(cell: cell, title: Constants.Strings.BillDetailVC.SponsorTitle, description: bill.sponsor ?? "")
+      break
+      default:
+      configureBillDetailTableViewCell(cell: cell, title: Constants.Strings.BillDetailVC.ExtenalLinkTitle, description: bill.documentUrl ?? "")
+      break
+    }
+    
+    return cell
+    
+    
+  }
+  
+  func configureBillDetailTableViewCell(cell: BillDetailInfoTableViewCell, title: String, description: String) {
+    cell.billDetailTitleLabel.text = title
+    cell.billDetailDescLabel.text  = description
+  }
+  
+  // MARK : - UITableViewDelegate Method
+
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
+    
+    if indexPath.row == BillDetailInfoType.externalLink.rawValue {
+      performSegue(withIdentifier: Constants.Identifier.segueToWebViewVC, sender: self)
+    }
+  }
+  
+}

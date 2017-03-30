@@ -27,6 +27,8 @@ class BillListViewController : UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     
+    super.viewWillAppear(animated)
+    
     if let row = tableView.indexPathForSelectedRow {
       tableView.deselectRow(at: row, animated: false)
     }
@@ -36,6 +38,8 @@ class BillListViewController : UIViewController {
   }
   
   override func viewDidLoad() {
+    
+    super.viewDidLoad()
     
     tableView.register(UINib(nibName: Constants.Identifier.BillCell, bundle: nil), forCellReuseIdentifier: Constants.Identifier.BillCell)
     tableView.delegate = self

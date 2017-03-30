@@ -158,6 +158,8 @@ struct Constants {
     static let HomepageCell   = "homepageCell"
     static let LawmakerDetailCell = "lawmakerDetailCell"
     static let SearchedLawmakerDetailCell = "searchedLawmakerDetailCell"
+    static let BillDetailInfoTableViewCell = "billDetailInfoTableViewCell"
+    
     static let segueToWebViewVC = "showWebView"
     static let segueToTabVarVC = "ShowTabBarVC"
     static let LawmakerDetailVC = "LawmakerDetail"
@@ -192,9 +194,9 @@ struct Constants {
   
   struct SectionName {
     
-    static let Lawmaker = "lawmaker"
-    static let Bill     = "bill"
-    static let Party    = "party"
+    static let Lawmaker = "국회의원"//"lawmaker"
+    static let Bill     = "의안"//"bill"
+    static let Party    = "정당"//"party"
     
   }
   
@@ -336,12 +338,17 @@ struct Constants {
     }
     
     struct BillDetailVC {
-      static let TextViewDefaultMsgKr = "내용 요약이 제공되지 않습니다."
+      static let TextViewDefaultMsgKr = "요약 준비중"
+      static let AssemblyIdTitle = "국회 대수"
+      static let ProposeDateTitle = "제안일자"
+      static let StatusTitle = "상태"
+      static let SponsorTitle = "발의자"
+      static let ExtenalLinkTitle = "외부링크"
       //static let TextViewDefaultMsg = "There is no summary provided"
     }
     
     struct WebVC {
-      static let Title = "의안 문서"
+      static let Title = "의안 원문 PDF"
     }
   }
   
