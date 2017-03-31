@@ -54,7 +54,7 @@ class Search : NSObject {
       if let lawmakerDict = results {
         
         self.lawmakers = lawmakerDict.map() {
-          Lawmaker(dictionary: $0, context: self.scratchContext)
+          return Lawmaker(dictionary: $0, context: self.scratchContext)
         }
         
         #if DEBUG

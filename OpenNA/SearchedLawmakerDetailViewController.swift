@@ -46,6 +46,11 @@ class SearchedLawmakerDetailViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    hideFavoriteButton()
+  }
+  
+  func hideFavoriteButton() {
+    favoriteButton.isHidden = true 
   }
   
   override func viewDidLayoutSubviews() {

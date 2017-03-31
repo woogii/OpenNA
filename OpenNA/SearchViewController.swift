@@ -322,6 +322,7 @@ extension SearchViewController : UITableViewDataSource, UITableViewDelegate {
       let controller = storyboard?.instantiateViewController(withIdentifier: Constants.Identifier.SearchedLawmakerDetailVC) as! SearchedLawmakerDetailViewController
       
       #if DEBUG
+        print("\(lawmakers[indexPath.row])")
         print("\(lawmakers[indexPath.row].name)")
         print("\(lawmakers[indexPath.row].birth)")
         print("\(lawmakers[indexPath.row].party)")
