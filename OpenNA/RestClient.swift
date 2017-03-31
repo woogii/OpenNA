@@ -89,7 +89,6 @@ class RestClient: NSObject {
             #if DEBUG
               print("response success")
             #endif
-            //self.cacheImage(image, urlString: urlString)
             completionHandlerForImage(response.result.value, nil)
           }
           

@@ -21,14 +21,6 @@ class LawmakerDetailViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var favoriteButton: UIButton!
   
-//  var image:String?
-//  var birth:String?
-//  var party:String?
-//  var when_elected:String?
-//  var district:String?
-//  var homepage:String?
-//  var name : String?
-//  var pinnedImage:UIImage?
   var lawmaker:Lawmaker!
   
   // MARK : - CoreData Convenience

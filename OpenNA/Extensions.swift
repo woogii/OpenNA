@@ -51,6 +51,7 @@ extension UIViewController {
   
   // MARK : - Get a reference of the previousViewController
   func previousViewController() -> UIViewController? {
+    
     if let stack = self.navigationController?.viewControllers {
       for i in (1..<stack.count).reversed() {
         if(stack[i] == self) {

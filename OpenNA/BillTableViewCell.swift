@@ -23,6 +23,12 @@ class BillTableViewCell:UITableViewCell{
   @IBOutlet weak var statusImage: UIImageView!
   @IBOutlet weak var backgroundCardView: UIView!
   
+  var billInfo : Bill! {
+    didSet {
+      updateCell()
+    }
+  }
+  
   // MARK : - Initialization
   
   override func awakeFromNib() {
@@ -49,5 +55,15 @@ class BillTableViewCell:UITableViewCell{
   
   }
 
+  fileprivate func updateCell() {
+    
+    nameLabel.text    = billInfo.name
+    sponsorLabel.text = billInfo.sponsor
+    statusLabel.text  = billInfo.status
+    
+  }
   
 }
+
+
+

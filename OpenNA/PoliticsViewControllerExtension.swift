@@ -49,90 +49,15 @@ extension PoliticsViewController : UITableViewDelegate, UITableViewDataSource {
     if tableView == lawmakerTableView {
       
       let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.LawmakerCell, for: indexPath) as! LawmakerTableViewCell
-      configurLawmakerCell(cell, atIndexPath: indexPath)
+      cell.lawmakerInfo = indexInfo[indexPath.section].1[indexPath.row]
       return cell
     } else {
     
       let cell = billTableView.dequeueReusableCell(withIdentifier: Constants.Identifier.BillCell, for: indexPath) as! BillTableViewCell
-
-      cell.nameLabel.text = bills[indexPath.row].name
-      cell.sponsorLabel.text = bills[indexPath.row].sponsor
-      cell.statusLabel.text = bills[indexPath.row].status
+      cell.billInfo = bills[indexPath.row]
       
       return cell
     }
-    
-  }
-  
-  // MARK : - Congifure UITableviewCell
-  
-  func configurLawmakerCell(_ cell:LawmakerTableViewCell , atIndexPath indexPath:IndexPath)
-  {
-    setNameLabel(cell: cell, indexPath: indexPath)
-    setPartyLabel(cell: cell, indexPath: indexPath)
-    setDistrictLabel(cell: cell, indexPath: indexPath)
-    setProfileImage(cell: cell, indexPath: indexPath)
-  }
-  
-  func setNameLabel(cell:LawmakerTableViewCell, indexPath: IndexPath) {
-    cell.nameLabel.text = indexInfo[indexPath.section].1[indexPath.row].name
-  }
-  
-  func setPartyLabel(cell:LawmakerTableViewCell, indexPath: IndexPath) {
-    cell.partyLabel.text = indexInfo[indexPath.section].1[indexPath.row].party
-  }
-  
-  func setDistrictLabel(cell:LawmakerTableViewCell, indexPath: IndexPath) {
-    let district = indexInfo[indexPath.section].1[indexPath.row].district ?? ""
-    if district.characters.count <= maximumDisctirctCharCount {
-      cell.districtLabel.text = district
-    } else {
-      cell.districtLabel.text = district.substring(to: district.index(district.startIndex, offsetBy: 6))
-    }
-  }
-  
-  func setProfileImage(cell:LawmakerTableViewCell, indexPath: IndexPath) {
-    
-    let urlString:String = indexInfo[indexPath.section].1[indexPath.row].image ?? ""
-    let url = URL(string: urlString)!
-    
-    guard let searchedLawmaker = CoreDataHelper.fetchLawmaker(from:urlString) else {
-      return
-    }
-    
-    var pinnedImage:UIImage?
-    cell.imageView!.image = nil
-    
-    if searchedLawmaker.pinnedImage != nil {
-      #if DEBUG
-        print("images exist")
-      #endif
-      pinnedImage = searchedLawmaker.pinnedImage
-    }
-    else {
-      
-      let task = RestClient.sharedInstance().taskForGetImage(url) { data, error  in
-        
-        if let data = data {
-          
-          let image = UIImage(data : data)
-          
-          DispatchQueue.main.async {
-            
-            searchedLawmaker.pinnedImage = image
-            
-            UIView.transition(with: cell.profileImageView, duration: 0.5, options: .transitionCrossDissolve, animations: {
-              cell.profileImageView!.image = image
-            }, completion: nil)
-            
-          }
-        }
-      }
-      
-      cell.taskToCancelifCellIsReused = task
-    }
-    
-    cell.profileImageView!.image = pinnedImage
     
   }
   
@@ -178,36 +103,10 @@ extension PoliticsViewController : UICollectionViewDataSource, UICollectionViewD
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identifier.PartyImageCell, for: indexPath) as! PartyCollectionViewCell
-    
-    configureCollectionViewCell(cell: cell, indexPath: indexPath)
-    
+    cell.partyInfo = parties[indexPath.row]
     return cell
   }
-  
-  func configureCollectionViewCell(cell:PartyCollectionViewCell, indexPath:IndexPath) {
     
-    let urlString =  Constants.Strings.Party.partyImageUrl + String(parties[indexPath.row].id) + Constants.Strings.Party.partyImageExtension
-    
-    _ = RestClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
-      
-      if let image = image {
-        DispatchQueue.main.async {
-          self.parties[indexPath.row].thumbnail = image
-          cell.logoImageView?.image = image
-          cell.partyNameLabel.isHidden = true
-        }
-      } else {
-        
-        DispatchQueue.main.async {
-          let defaultImage = UIImage(named:Constants.Strings.PoliticsVC.PartyPlaceholder)
-          cell.logoImageView.image = defaultImage
-          cell.partyNameLabel.text = self.parties[indexPath.row].name
-          cell.partyNameLabel.isHidden = false
-        }
-      }
-    }
-  }
-  
   // MARK : - UICollectionViewDelegate Methods
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

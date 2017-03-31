@@ -316,8 +316,6 @@ struct Constants {
       static let PartyPlaceholder = "img_party_placeholder"
       static let DefaultLabelMessage = "검색어를 입력하세요.(인물,법안,정당 키워드)"
       static let NoSearchResultMessage = "검색 결과가 존재하지 않습니다."
-      //static let DefaultLabelMessage = "Type keyword you want to search"
-      //static let NoSearchResultMessage = "There is no search result"
     }
     
     struct Party {
@@ -329,12 +327,10 @@ struct Constants {
     
     struct LawmakerListVC {
       static let DefaultLabelMessageKr = "현재 목록이 없습니다."
-      // static let DefaultLabelMessage = "No lawmaker information in your list"
     }
     
     struct BillListVC {
       static let DefaultLabelMessageKr =  "현재 목록이 없습니다."
-      //static let DefaultLabelMessage =  "No bill information in your list"
     }
     
     struct BillDetailVC {
@@ -344,7 +340,6 @@ struct Constants {
       static let StatusTitle = "상태"
       static let SponsorTitle = "발의자"
       static let ExtenalLinkTitle = "외부링크"
-      //static let TextViewDefaultMsg = "There is no summary provided"
     }
     
     struct WebVC {

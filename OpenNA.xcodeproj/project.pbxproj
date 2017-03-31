@@ -307,12 +307,12 @@
 				D26806541D323A8D00DA5C53 /* Xibs */,
 				D26806521D323A3A00DA5C53 /* LawmakerDetailTableViewCell.swift */,
 				D2678C641C9173780056278F /* LawmakerTableViewCell.swift */,
+				D2D3F9521CABCE4F00D97B23 /* BillTableViewCell.swift */,
 				D2934D051CF346E700EA734C /* SearchedLawmakerTableViewCell.swift */,
 				D26806571D325E9300DA5C53 /* SearchedLawmakerDetailTableViewCell.swift */,
 				D2934D071CF346FA00EA734C /* SearchedBillTableViewCell.swift */,
 				D2934D091CF3470800EA734C /* SearchedPartyTableViewCell.swift */,
 				D23772961CAD22E60004A2E2 /* PartyCollectionViewCell.swift */,
-				D2D3F9521CABCE4F00D97B23 /* BillTableViewCell.swift */,
 				D291C5301E8D07270089884D /* BillDetailInfoTableViewCell.swift */,
 				D2678C661C91797D0056278F /* TaskCancelingTableViewCell.swift */,
 			);

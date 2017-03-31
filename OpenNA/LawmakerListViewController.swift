@@ -28,7 +28,6 @@ class LawmakerListViewController : UIViewController {
   override func viewDidLoad() {
     
     super.viewDidLoad()
-    
     registerNibFileForTableView()
   }
   
@@ -114,78 +113,14 @@ extension LawmakerListViewController : UITableViewDelegate, UITableViewDataSourc
     return numberOfSection
   }
   
+ 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
     let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.LawmakerCell, for: indexPath) as! LawmakerTableViewCell
-    configureCell(cell, atIndexPath: indexPath)
+    cell.lawmakerInListInfo = lawmakersInList[indexPath.row]
+    
     return cell
   }
-  
-  func configureCell(_ cell:LawmakerTableViewCell , atIndexPath indexPath:IndexPath)
-  {
-    print(lawmakersInList[indexPath.row].name ?? "default")
-    print(lawmakersInList[indexPath.row].district ?? "default")
-    print(lawmakersInList[indexPath.row].party ?? "default")
-    setNameLabel(cell: cell, indexPath: indexPath)
-    setPartyLabel(cell: cell, indexPath: indexPath)
-    setDistrictLabel(cell: cell, indexPath: indexPath)
-    setProfileImage(cell: cell, indexPath: indexPath)
-        
-  }
-  
-  func setProfileImage(cell:LawmakerTableViewCell, indexPath: IndexPath) {
-    
-    
-    let urlString:String = lawmakersInList[indexPath.row].image ?? ""
-    let url = URL(string: urlString)!
-    
-  
-    var pinnedImage:UIImage?
-    cell.imageView!.image = nil
-    
-    if  lawmakersInList[indexPath.row].pinnedImage != nil {
-
-      #if DEBUG
-        print("images exist")
-      #endif
-      pinnedImage = lawmakersInList[indexPath.row].pinnedImage
-    }
-    else {
-      
-      let task = RestClient.sharedInstance().taskForGetImage(url) { data, error  in
-        
-        if let data = data {
-          
-          let image = UIImage(data : data)
-          
-          DispatchQueue.main.async {
-            self.lawmakersInList[indexPath.row].pinnedImage = image
-            cell.profileImageView!.image = image
-          }
-        } else {
-          CommonHelper.showAlertWithMsg(self, msg: (error?.localizedDescription)!, showCancelButton: false,
-                                        okButtonTitle: Constants.Alert.Title.OK, okButtonCallback: nil)
-        }
-      }
-      cell.taskToCancelifCellIsReused = task
-    }
-    cell.profileImageView!.image = pinnedImage
-    
-  }
-
-  
-  func setNameLabel(cell:LawmakerTableViewCell, indexPath: IndexPath) {
-    cell.nameLabel.text = lawmakersInList[indexPath.row].name
-  }
-  
-  func setPartyLabel(cell:LawmakerTableViewCell, indexPath: IndexPath) {
-    cell.partyLabel.text = lawmakersInList[indexPath.row].party
-  }
-  
-  func setDistrictLabel(cell:LawmakerTableViewCell, indexPath: IndexPath) {
-    cell.districtLabel.text = lawmakersInList[indexPath.row].district
-  }
-
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return lawmakersInList.count
