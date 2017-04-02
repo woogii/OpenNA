@@ -27,4 +27,11 @@ enum SegmentedControlType:Int {
 }
 
 
+// MARK : - CustomCell : Int
+
+enum CustomCell:Int {
+  case birth = 0, address, blog, education, homepage
+}
+
+
 

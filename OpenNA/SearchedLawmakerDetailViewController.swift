@@ -10,12 +10,6 @@ import Foundation
 import UIKit
 import CoreData
 
-// MARK : - Enum (For Cell IndexPath Row)
-
-enum CustomCell:Int {
-  case birth = 0, address, blog, education, homepage
-}
-
 
 // MARK : - SearchedLawmakerDetailViewController: UIViewController
 
@@ -27,47 +21,28 @@ class SearchedLawmakerDetailViewController: UIViewController {
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var favoriteButton: UIButton!
-  
-  var image:String?
-  var name : String?
-  var birth:String?
-  var address: String?
-  var party:String?
-  var when_elected:String?
-  var blog : String?
-  var education : String?
-  var homepage:String?
-  var district:String?
-  var sharedContext : NSManagedObjectContext {
-    return CoreDataStackManager.sharedInstance().managedObjectContext!
-  }
-
+  var lawmaker:Lawmaker!
+ 
   // MARK : - View Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
     hideFavoriteButton()
+    requestProfileImage()
+    setNameLabel()
   }
   
   func hideFavoriteButton() {
     favoriteButton.isHidden = true 
   }
   
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    makeCircleProfileImageView()
+  func setNameLabel() {
+    nameLabel.text = lawmaker.name ?? ""
   }
   
-  func makeCircleProfileImageView() {
-    profileImage.layer.cornerRadius = profileImage.frame.size.width/2
-    profileImage.clipsToBounds = true
-  }
-  
-  override func viewWillAppear(_ animated: Bool) {
+  func requestProfileImage() {
     
-    super.viewWillAppear(animated)
-  
-    if let imageString = image {
+    if let imageString = lawmaker.image {
       
       let url = URL(string: imageString)
       
@@ -89,14 +64,21 @@ class SearchedLawmakerDetailViewController: UIViewController {
     } else {
       profileImage.image = UIImage(named: Constants.Strings.SearchVC.defaultImageName)
     }
-    
-    // profileImage.image = pinnedImage
-    nameLabel.text = name!
-    
-    let fetchedResults = fetchLawmakerInList()
-    fetchedResults!.count == 0 ? (favoriteButton.setImage(UIImage(named:Constants.Images.FavoriteIconEmpty), for: .normal)) : (favoriteButton.setImage(UIImage(named:Constants.Images.FavoriteIconFilled), for: .normal))
+
     
   }
+  
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    makeCircleProfileImageView()
+  }
+  
+  func makeCircleProfileImageView() {
+    profileImage.layer.cornerRadius = profileImage.frame.size.width/2
+    profileImage.clipsToBounds = true
+  }
+  
+  
   
   // MARK : - Prepare For Segue
   
@@ -104,7 +86,7 @@ class SearchedLawmakerDetailViewController: UIViewController {
     
     if segue.identifier == Constants.Identifier.segueToWebViewVC {
       let controller = segue.destination as! WebViewController
-      controller.urlString = homepage
+      controller.urlString = lawmaker.homepage
     }
   }
   
@@ -112,79 +94,6 @@ class SearchedLawmakerDetailViewController: UIViewController {
     _ = navigationController?.popViewController(animated: true)
   }
   
-  @IBAction func favoriteButtonTapped(_ sender: UIButton) {
-    
-    let fetchedResults = fetchLawmakerInList()
-    
-    // If there is not a lawmaker in Favorite List, add it to the list
-    if fetchedResults!.count == 0  {
-  
-      let _ = LawmakerInList(name: name, image: image, party: party, birth: birth, homepage: homepage, when_elected: when_elected, district: district, context: sharedContext)
-      
-      do {
-        try sharedContext.save()
-      } catch {
-        #if DEBUG
-          print("\(error)")
-        #endif
-      }
-      
-      favoriteButton.setImage(UIImage(named:Constants.Images.FavoriteIconFilled), for: .normal)
-    } else {
-      
-      // If the lawmaker is already in Favorite List, delete it from the list
-      
-      guard let result = fetchedResults!.first else {
-        return
-      }
-      
-      sharedContext.delete(result)
-      
-      do {
-        try sharedContext.save()
-      } catch {
-        #if DEBUG
-          print("\(error)")
-        #endif
-      }
-      
-      favoriteButton.setImage(UIImage(named:Constants.Images.FavoriteIconEmpty),  for: .normal)
-    }
-
-  }
-  
-  // MARK : - Fetch Lawmakers in Favorite List
-  
-  func fetchLawmakerInList()->[LawmakerInList]? {
-    
-    // Fetch a single lawmaker with given name and image
-    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName : Constants.Entity.LawmakerInList)
-    let firstPredicate = NSPredicate(format: Constants.Fetch.PredicateForName, name!)
-    let secondPredicate = NSPredicate(format: Constants.Fetch.PredicateForImage, image!)
-    let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates:[firstPredicate,secondPredicate])
-    fetchRequest.predicate = compoundPredicate
-    
-    // In order to fetch a single object
-    fetchRequest.fetchLimit = 1
-    
-    
-    var fetchedResults : [LawmakerInList]?
-    
-    do {
-      fetchedResults = try sharedContext.fetch(fetchRequest) as? [LawmakerInList]
-    } catch let error as NSError {
-      #if DEBUG
-        print("\(error.description)")
-      #endif
-    }
-    
-    #if DEBUG
-      print("fetch result : \(fetchedResults)")
-    #endif
-    
-    return fetchedResults
-  }
-
 }
 
 // MARK: - SearchedLawmakerDetailViewController : UITableViewDelegate, UITableViewDataSource
@@ -203,40 +112,42 @@ extension SearchedLawmakerDetailViewController : UITableViewDelegate, UITableVie
     switch(indexPath.row) {
       
     case CustomCell.birth.rawValue:
-      if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedLawmakerDetailCell, for: indexPath) as? SearchedLawmakerDetailTableViewCell {
-        cell.titleLabel.text = Constants.CustomCell.BirthLabelKr
-        cell.descriptionLabel.text = birth
-        return cell
-      }
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedLawmakerDetailCell, for: indexPath) as!SearchedLawmakerDetailTableViewCell
+      configureSearchedLawmakerDetailTableViewCell(cell: cell,title: Constants.CustomCell.BirthLabelKr,description: lawmaker.birth)
+      return cell
+      
     case CustomCell.address.rawValue:
-      if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedLawmakerDetailCell, for: indexPath) as? SearchedLawmakerDetailTableViewCell {
-        cell.titleLabel.text = Constants.CustomCell.AddressLabelKr
-        cell.descriptionLabel.text = address
-        return cell
-      }
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedLawmakerDetailCell, for: indexPath) as! SearchedLawmakerDetailTableViewCell
+      configureSearchedLawmakerDetailTableViewCell(cell: cell, title: Constants.CustomCell.AddressLabelKr,description: lawmaker.address)
+      return cell
+      
     case CustomCell.blog.rawValue:
-      if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedLawmakerDetailCell, for: indexPath) as? SearchedLawmakerDetailTableViewCell {
-        cell.titleLabel.text = Constants.CustomCell.BlogLabelKr
-        cell.descriptionLabel.text = blog
-        return cell
-      }
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedLawmakerDetailCell, for: indexPath) as! SearchedLawmakerDetailTableViewCell
+      configureSearchedLawmakerDetailTableViewCell(cell: cell, title:  Constants.CustomCell.BlogLabelKr, description: lawmaker.blog)
+      return cell
+      
     case CustomCell.education.rawValue:
-      if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedLawmakerDetailCell, for: indexPath) as? SearchedLawmakerDetailTableViewCell {
-        cell.titleLabel.text = Constants.CustomCell.EducationLabelKr
-        cell.descriptionLabel.text = education
-        return cell
-      }
+      
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedLawmakerDetailCell, for: indexPath) as! SearchedLawmakerDetailTableViewCell
+      configureSearchedLawmakerDetailTableViewCell(cell: cell, title:Constants.CustomCell.EducationLabelKr, description: lawmaker.education)
+      return cell
+      
     default:
-      if let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedLawmakerDetailCell, for: indexPath) as? SearchedLawmakerDetailTableViewCell {
-        cell.titleLabel.text = Constants.CustomCell.HomepageLabelKr
-        cell.descriptionLabel.text = homepage
-        return cell
-      }
+  
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.SearchedLawmakerDetailCell, for: indexPath) as! SearchedLawmakerDetailTableViewCell
+      configureSearchedLawmakerDetailTableViewCell(cell: cell, title:Constants.CustomCell.HomepageLabelKr, description: lawmaker.homepage)
+      return cell
+      
     }
     
-    return UITableViewCell()
+    
   }
   
+  func configureSearchedLawmakerDetailTableViewCell(cell:SearchedLawmakerDetailTableViewCell,title:String, description:String?) {
+    cell.titleLabel.text = title
+    cell.descriptionLabel.text = description
+  }
+
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     return Constants.Strings.LawmakerDetailVC.HeaderTitle
   }

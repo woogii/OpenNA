@@ -17,6 +17,12 @@ class SearchedLawmakerTableViewCell: UITableViewCell {
   @IBOutlet weak var lawmakerImageView: UIImageView!
   @IBOutlet weak var nameLabel: UILabel!
   
+  var lawmakerInfo: Lawmaker! {
+    didSet {
+      updateCell()
+    }
+  }
+  
   // MARK : - Initialization
   
   override func awakeFromNib() {
@@ -28,4 +34,27 @@ class SearchedLawmakerTableViewCell: UITableViewCell {
     lawmakerImageView.layer.cornerRadius = lawmakerImageView.frame.size.width/2
     lawmakerImageView.clipsToBounds = true
   }
+  
+  fileprivate func updateCell() {
+    
+    nameLabel?.text = lawmakerInfo.name
+    
+
+    guard let urlString = lawmakerInfo.image else {
+      lawmakerImageView.image = UIImage(named:Constants.Strings.SearchVC.defaultImageName)
+      return
+    }
+    
+    _ = RestClient.sharedInstance().taskForGetDirectImage(urlString) { image, error  in
+    
+      if let image = image {
+        
+        self.lawmakerInfo.pinnedImage = image
+        DispatchQueue.main.async {
+          self.lawmakerImageView?.image = image
+        }
+      }
+    }
+  }
+  
 }

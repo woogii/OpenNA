@@ -78,4 +78,30 @@ class CoreDataHelper: NSObject {
     
     return lawmaker
   }
+  
+  
+  // MARK : - Fetch Bills in MyList
+  
+  class func fetchBillInList(name:String)->[BillInList]?{
+    
+    let sharedContext = CoreDataStackManager.sharedInstance().managedObjectContext!
+    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName : Constants.Entity.BillInList)
+    fetchRequest.predicate = NSPredicate(format: Constants.Fetch.PredicateForName, name)
+    
+    // In order to fetch a single object
+    fetchRequest.fetchLimit = 1
+    
+    var fetchedResults : [BillInList]?
+    
+    do {
+      fetchedResults = try sharedContext.fetch(fetchRequest) as? [BillInList]
+    } catch let error as NSError {
+      #if DEBUG
+        print("\(error.description)")
+      #endif
+    }
+    
+    return fetchedResults
+  }
+
 }

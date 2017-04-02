@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,7 +14,7 @@
             <rect key="frame" x="0.0" y="0.0" width="305" height="87"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VN9-bj-xbM" id="bUt-v5-PQf">
-                <rect key="frame" x="0.0" y="0.0" width="305" height="87"/>
+                <rect key="frame" x="0.0" y="0.0" width="305" height="86"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="NZG-Ni-53g">
@@ -36,7 +35,7 @@
                     <constraint firstItem="NZG-Ni-53g" firstAttribute="leading" secondItem="bUt-v5-PQf" secondAttribute="leading" constant="14" id="EUL-dL-8wZ"/>
                     <constraint firstItem="yc1-vq-pmJ" firstAttribute="leading" secondItem="NZG-Ni-53g" secondAttribute="trailing" constant="20" id="Jcj-lT-fJR"/>
                     <constraint firstItem="yc1-vq-pmJ" firstAttribute="centerY" secondItem="NZG-Ni-53g" secondAttribute="centerY" id="KMb-zr-AD1"/>
-                    <constraint firstAttribute="bottom" secondItem="NZG-Ni-53g" secondAttribute="bottom" constant="9" id="hk1-v4-hzk"/>
+                    <constraint firstAttribute="bottom" secondItem="NZG-Ni-53g" secondAttribute="bottom" constant="8" id="Zer-CD-ptZ"/>
                     <constraint firstItem="NZG-Ni-53g" firstAttribute="top" secondItem="bUt-v5-PQf" secondAttribute="top" constant="8" id="qbY-Uc-T6K"/>
                 </constraints>
             </tableViewCellContentView>

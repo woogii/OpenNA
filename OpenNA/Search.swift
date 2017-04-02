@@ -52,17 +52,12 @@ class Search : NSObject {
     self.lawmakerSearchTask = RestClient.sharedInstance().searchLawmaker(searchKeyword, completionHandler:  { results, error in
       
       if let lawmakerDict = results {
-        
         self.lawmakers = lawmakerDict.map() {
           return Lawmaker(dictionary: $0, context: self.scratchContext)
         }
-        
-        #if DEBUG
-          print("lawmaker count: \(self.lawmakers.count)")
-        #endif
       } else {
-        #if DEBUG
           searchLawmakerError = error
+        #if DEBUG
           print(error?.localizedDescription as Any)
         #endif
       }
@@ -75,16 +70,13 @@ class Search : NSObject {
     self.billSearchTask = RestClient.sharedInstance().searchBills(searchKeyword, completionHandler:  { bills, error in
       
       if let bills = bills {
-        
-        #if DEBUG
-          print("bill count: \(bills.count)")
-        #endif
-        
+    
         self.bills = bills
         
       } else {
+ 
+        searchBillError = error
         #if DEBUG
-          searchBillError = error
           print(error?.localizedDescription as Any)
         #endif
       }
@@ -98,10 +90,7 @@ class Search : NSObject {
       
       if let parties = parties {
         self.parties = parties
-        
-        #if DEBUG
-          print("party count: \(parties.count)")
-        #endif
+  
       } else {
         searchPartyError = error
         print(error?.localizedDescription as Any)
@@ -112,9 +101,7 @@ class Search : NSObject {
     
     // Wait until all search operations finish
     group.notify(queue: DispatchQueue.main) {
-      #if DEBUG
-        print("dispatch group notify")
-      #endif
+      
       var overallError: NSError? = nil
       
       // if there is any error during search operation
@@ -130,7 +117,6 @@ class Search : NSObject {
       }
       
       guard overallError != nil else {
-        // return error
         completionHandler(self.lawmakers, self.bills, self.parties, overallError)
         return
       }
@@ -139,9 +125,7 @@ class Search : NSObject {
         completionHandler(self.lawmakers, self.bills, self.parties, nil)
       }
       else {
-        #if DEBUG
-          print("empty")
-        #endif
+
         completionHandler(self.lawmakers, self.bills, self.parties, NSError(domain: Constants.Error.DomainSearchAll, code: 0, userInfo: [NSLocalizedDescriptionKey:Constants.Error.DescKeyForNoSearchResult]))
       }
       

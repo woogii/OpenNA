@@ -32,8 +32,14 @@ class WebViewController: UIViewController {
   
   func setNavigationTitle() {
     
-    if let _ = isFromBillDetailVC {
-      navigationItem.title = Constants.Strings.WebVC.Title
+    let vc = previousViewController()
+    
+    if vc is LawmakerDetailViewController {
+      navigationItem.title = Constants.Strings.WebVC.Homepage
+    } else if vc is BillDetailViewController {
+      navigationItem.title = Constants.Strings.WebVC.BillDetailDoc
+    } else {
+      navigationItem.title = Constants.Strings.WebVC.PartyInfo
     }
   }
   

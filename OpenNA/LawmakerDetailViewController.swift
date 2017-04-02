@@ -65,7 +65,6 @@ class LawmakerDetailViewController: UIViewController {
   
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    
     makeCircleProfileImageView()
   }
   

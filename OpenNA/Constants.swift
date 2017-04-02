@@ -343,7 +343,9 @@ struct Constants {
     }
     
     struct WebVC {
-      static let Title = "의안 원문 PDF"
+      static let Homepage = "홈페이지"
+      static let BillDetailDoc = "의안 원문 PDF"
+      static let PartyInfo = "정당소개"
     }
   }
   

@@ -17,4 +17,17 @@ class SearchedBillTableViewCell: UITableViewCell {
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var sponsorLabel: UILabel!
   
+  var billInfo: Bill! {
+    didSet {
+      updateCell()
+    }
+  }
+  
+  fileprivate func updateCell() {
+  
+    nameLabel.text = billInfo.name
+    sponsorLabel.text = billInfo.sponsor
+    
+  }
+  
 }

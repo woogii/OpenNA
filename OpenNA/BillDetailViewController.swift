@@ -53,7 +53,7 @@ class BillDetailViewController: UIViewController {
   
     if previousViewController() != nil {
       
-      let fetchedResults = fetchBillInList()
+      let fetchedResults = CoreDataHelper.fetchBillInList(name: bill.name ?? "")
       
       if fetchedResults?.count == 0 {
         createRightBarButtonItem(withImageName: Constants.Images.FavoriteIconEmpty)
@@ -87,34 +87,11 @@ class BillDetailViewController: UIViewController {
     
   }
   
-  // MARK : - Fetch Bills in MyList
-  
-  func fetchBillInList()->[BillInList]?{
-    
-    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName : Constants.Entity.BillInList)
-    fetchRequest.predicate = NSPredicate(format: Constants.Fetch.PredicateForName, bill.name!)
-    
-    // In order to fetch a single object
-    fetchRequest.fetchLimit = 1
-    
-    var fetchedResults : [BillInList]?
-    
-    do {
-      fetchedResults = try sharedContext.fetch(fetchRequest) as? [BillInList]
-    } catch let error as NSError {
-      #if DEBUG
-        print("\(error.description)")
-      #endif
-    }
-    
-    return fetchedResults
-  }
-  
   // MARK : - Action Method
   
   @IBAction func favoriteButtonTapped(_ sender: UIBarButtonItem) {
     
-    let fetchedResults = fetchBillInList()
+    let fetchedResults = CoreDataHelper.fetchBillInList(name: bill.name ?? "")
     
     if fetchedResults!.count == 0  {
       
