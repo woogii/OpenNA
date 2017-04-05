@@ -152,4 +152,32 @@ extension SearchedLawmakerDetailViewController : UITableViewDelegate, UITableVie
     return Constants.Strings.LawmakerDetailVC.HeaderTitle
   }
   
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    tableView.deselectRow(at: indexPath, animated: true)
+    
+    if indexPath.row == CustomCell.blog.rawValue {
+      
+      guard lawmaker.blog != "" else {
+        return
+      }
+      
+      let webVC = storyboard?.instantiateViewController(withIdentifier: Constants.Identifier.WebViewVC) as! WebViewController
+      webVC.urlString = lawmaker.blog
+      navigationController?.pushViewController(webVC, animated: true)
+      
+    } else if indexPath.row == CustomCell.homepage.rawValue {
+      
+      guard lawmaker.homepage != "" else {
+        return
+      }
+      
+      let webVC = storyboard?.instantiateViewController(withIdentifier: Constants.Identifier.WebViewVC) as! WebViewController
+      webVC.urlString = lawmaker.homepage
+      navigationController?.pushViewController(webVC, animated: true)
+    }
+
+    
+  }
+
 }

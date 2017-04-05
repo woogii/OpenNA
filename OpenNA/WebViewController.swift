@@ -34,7 +34,7 @@ class WebViewController: UIViewController {
     
     let vc = previousViewController()
     
-    if vc is LawmakerDetailViewController {
+    if vc is LawmakerDetailViewController || vc is SearchedLawmakerDetailViewController {
       navigationItem.title = Constants.Strings.WebVC.Homepage
     } else if vc is BillDetailViewController {
       navigationItem.title = Constants.Strings.WebVC.BillDetailDoc
