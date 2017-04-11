@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B88FB50B1E4F9C57002591E3 /* SearchedLawmakerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2D3F9571CABFA3F00D97B23 /* SearchedLawmakerCell.xib */; };
-		B8DCDA5C1E85700D00F66CA0 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DCDA5B1E85700D00F66CA0 /* Enums.swift */; };
 		D20028301CE86C9E00F1369E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D200282F1CE86C9E00F1369E /* WebViewController.swift */; };
 		D20028321CE8B3C300F1369E /* BillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20028311CE8B3C300F1369E /* BillDetailViewController.swift */; };
 		D212D3BE1CF97563008CEC5C /* LawmakerInList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D212D3BD1CF97563008CEC5C /* LawmakerInList.swift */; };
@@ -80,7 +79,6 @@
 		3801775D12FBF6181F3CD108 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E53F0110EF24D4E8B29C805 /* Pods_OpenNA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenNA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8501E14855B4581ED95B1665 /* Pods-OpenNA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenNA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenNA/Pods-OpenNA.debug.xcconfig"; sourceTree = "<group>"; };
-		B8DCDA5B1E85700D00F66CA0 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		D200282F1CE86C9E00F1369E /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		D20028311CE8B3C300F1369E /* BillDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillDetailViewController.swift; sourceTree = "<group>"; };
 		D212D3BD1CF97563008CEC5C /* LawmakerInList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LawmakerInList.swift; sourceTree = "<group>"; };
@@ -168,7 +166,6 @@
 				D236968A1D3B3CAB00F9FB75 /* CommonHelper.swift */,
 				D253BC711E8CDC5B00237232 /* CoreDataHelper.swift */,
 				D27597081E83B81000C31836 /* Extensions.swift */,
-				B8DCDA5B1E85700D00F66CA0 /* Enums.swift */,
 				D235C32F1CB1068700704A90 /* ImageCache.swift */,
 			);
 			name = Helper;
@@ -561,7 +558,6 @@
 				D259513D1D1538AA007AD7D1 /* SplashViewController.swift in Sources */,
 				D292EE2E1D20067300EF84B0 /* SearchedLawmakerDetailViewController.swift in Sources */,
 				D212D3C41CF99AA6008CEC5C /* BillListViewController.swift in Sources */,
-				B8DCDA5C1E85700D00F66CA0 /* Enums.swift in Sources */,
 				D236968B1D3B3CAB00F9FB75 /* CommonHelper.swift in Sources */,
 				D26806531D323A3A00DA5C53 /* LawmakerDetailTableViewCell.swift in Sources */,
 				D2934D081CF346FA00EA734C /* SearchedBillTableViewCell.swift in Sources */,

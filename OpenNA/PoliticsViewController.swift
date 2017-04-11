@@ -16,6 +16,7 @@ import Alamofire
 
 class PoliticsViewController: UIViewController  {
   
+
   // MARK : - Property
   
   @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -37,6 +38,11 @@ class PoliticsViewController: UIViewController  {
   let numberOfRowsForPartyCollectionView:CGFloat = 3
   let valueForAdjustPartyCellHeight:CGFloat = 15  
   let maximumDisctirctCharCount = 8
+  
+  // MARK : - SegmentedControlType : Int
+  enum SegmentedControlType:Int {
+    case lawmaker=0,bill,party
+  }
 
   
   // MARK : - CoreData Convenience

@@ -22,7 +22,13 @@ class SearchedLawmakerDetailViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var favoriteButton: UIButton!
   var lawmaker:Lawmaker!
- 
+  
+  // MARK : - CustomCell : Int
+  fileprivate enum CustomCell:Int {
+    case birth = 0, address, blog, education, homepage
+  }
+  
+
   // MARK : - View Life Cycle
   
   override func viewDidLoad() {

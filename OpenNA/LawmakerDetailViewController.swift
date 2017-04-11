@@ -22,6 +22,13 @@ class LawmakerDetailViewController: UIViewController {
   @IBOutlet weak var favoriteButton: UIButton!
   
   var lawmaker:Lawmaker!
+
+  // MARK : - LawmakerDetailInfoType : Int
+  
+  fileprivate enum LawmakerDetailInfoType:Int {
+    case birth=0,party,inOffice,district,homepage
+  }
+
   
   // MARK : - CoreData Convenience
   

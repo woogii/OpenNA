@@ -20,12 +20,20 @@ class BillDetailViewController: UIViewController {
   @IBOutlet weak var summaryTextView: UITextView!
   @IBOutlet weak var tableView: UITableView!
  
-  var bill:Bill!
+  
   var favoriteButton: UIBarButtonItem?
   var sharedContext : NSManagedObjectContext {
     return CoreDataStackManager.sharedInstance().managedObjectContext!
   }
   let numberOfBillDetailInfo = 5
+  var bill:Bill!
+  
+  // MARK : - BillDetailInfoType : Int
+  
+  fileprivate enum BillDetailInfoType : Int {
+    case assemblyId=0,proposeDate,status,sponsor,externalLink
+  }
+
   
   // MARK : - View Life Cycle
   
