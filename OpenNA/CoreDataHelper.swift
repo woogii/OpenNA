@@ -41,7 +41,7 @@ class CoreDataHelper: NSObject {
     }
     
     #if DEBUG
-      print("fetch result : \(fetchedResults)")
+      print("fetch result : \(String(describing: fetchedResults))")
     #endif
     
     return fetchedResults

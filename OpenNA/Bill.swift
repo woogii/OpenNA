@@ -63,6 +63,6 @@ class Bill {
   
   static func extractBill(from billInList:BillInList)->Bill {
     
-    return Bill(name: billInList.name, proposeDate: billInList.proposeDate, sponsor: billInList.sponsor, status: billInList.status, summary: billInList.summary, documentUrl: billInList.documentUrl, assemblyId: billInList.assemblyId as Int?)
+    return Bill(name: billInList.name, proposeDate: billInList.proposeDate, sponsor: billInList.sponsor, status: billInList.status, summary: billInList.summary, documentUrl: billInList.documentUrl, assemblyId: billInList.assemblyId as! Int?)
   }
 }
